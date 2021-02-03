@@ -14,7 +14,7 @@ module.exports = {
         let count = new MessageEmbed()
             .setColor("YELLOW")
             .setDescription(`The Bot is currently in ${client.guilds.cache.size} Servers`)
-            .setFooter(`Use ${client.config.prefix}invite to add/invite to Bot to your server`)
+            .setFooter(`Use ${client.config.prefix}invite to add/invite the Bot to your server`)
         return message.channel.send(count);
     },
 };
