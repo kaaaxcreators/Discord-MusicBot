@@ -10,7 +10,6 @@ module.exports = {
     aliases: ["servercount", "count"],
   },
     run: async function (client, message, args) {
-        let channel = message.member.voice.channel;
         let count = new MessageEmbed()
             .setColor("YELLOW")
             .setDescription(`The Bot is currently in ${client.guilds.cache.size} Servers`)
