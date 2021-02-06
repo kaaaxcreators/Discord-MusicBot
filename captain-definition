@@ -1,4 +1,9 @@
 {
 	"schemaVersion": 2,
+<<<<<<< HEAD
 	"templateId": "./dockerfile"
 }
+=======
+	"templateId": "node/12.20.1"
+}
+>>>>>>> 7abc77c5ab55156cae7fef838f089868fc5d1904
