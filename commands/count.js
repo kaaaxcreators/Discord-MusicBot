@@ -4,10 +4,10 @@ const sendError = require("../util/error");
 
 module.exports = {
   info: {
-    name: "server count",
+    name: "count",
     description: "See how many Servers the Bot is in",
-    usage: "Servercount",
-    aliases: ["servercount", "count"],
+    usage: "count",
+    aliases: ["servercount"],
   },
     run: async function (client, message, args) {
         let count = new MessageEmbed()
