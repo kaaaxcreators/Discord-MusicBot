@@ -15,6 +15,7 @@
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
+	"express": "latest",
     "ffmpeg-static": "^4.2.7",
     "yt-search": "^2.2.4",
     "ytdl-core": "^4.1.1",
