@@ -14,17 +14,17 @@
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
-    "fs": "0.0.1-security",
-    "lyrics-finder": "^21.7.0",
-    "node-opus": "^0.3.3",
+    "yt-search": "^2.2.4",
+    "ytdl-core": "^4.1.1",
     "opusscript": "^0.0.7",
+    "soundcloud-downloader": "^0.2.4",
     "youtube-sr": "^2.0.1",
-    "yt-search": "^2.6.0",
-    "ytdl-core": "^4.4.5",
+    "lyrics-finder": "^21.4.0",
     "ytdl-core-discord": "^1.2.4",
-    "ytpl": "^2.0.5"
+    "fs": "0.0.1-security",
+    "ytpl": "^2.0.0-alpha.3",
+    "node-opus": "^0.3.3"
   }
 }

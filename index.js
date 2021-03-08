@@ -1,5 +1,4 @@
 require("dotenv").config();//Loading .env
-const keepAlive = require('./server');
 const fs = require("fs");
 const { Collection, Client } = require("discord.js");
 
@@ -8,7 +7,8 @@ client.commands = new Collection();//Making client.commands as a Discord.js Coll
 client.queue = new Map()
 
 client.config = {
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
+  SOUNDCLOUD: process.env.SOUNDCLOUD_CLIENT_ID
 }
 
 //Loading Events
@@ -35,5 +35,4 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 //Logging in to discord
-keepAlive();
 client.login(process.env.TOKEN)
