@@ -1,7 +1,7 @@
 const { Util, MessageEmbed } = require("discord.js");
 const ytdl = require("ytdl-core");
 const yts = require("yt-search");
-const ytdlDiscord = require("ytdl-core-discord");
+const ytdlDiscord = require("discord-ytdl-core");
 const YouTube = require("youtube-sr");
 const sendError = require("../util/error");
 const fs = require("fs");
@@ -23,7 +23,7 @@ module.exports = {
         if (!permissions.has("SPEAK")) return sendError("I cannot speak in this voice channel, make sure I have the proper permissions!", message.channel);
 
         var searchString = args.join(" ");
-        if (!searchString) return sendError("You didn't poivide want i want to search", message.channel);
+        if (!searchString) return sendError("You didn't provide want you want to search", message.channel);
 
         var serverQueue = message.client.queue.get(message.guild.id);
         try {
@@ -117,7 +117,7 @@ module.exports = {
                 message.client.queue.delete(message.guild.id);
                 return;
             }
-            let stream = null;
+            let stream;
             let streamType;
 
             try {
@@ -129,7 +129,8 @@ module.exports = {
                         streamType = "unknown";
                     }
                 } else if (song.url.includes("youtube.com")) {
-                    stream = await ytdl(song.url, { quality: "highestaudio", highWaterMark: 1 << 25, type: "opus" });
+                    stream = await ytdlDiscord(song.url, { filter: "audioonly", quality: "highestaudio", highWaterMark: 1 << 25, opusEncoded: true });
+                    streamType = "opus";
                     stream.on("error", function (er) {
                         if (er) {
                             if (queue) {
@@ -151,7 +152,7 @@ module.exports = {
             }
 
             queue.connection.on("disconnect", () => message.client.queue.delete(message.guild.id));
-            const dispatcher = queue.connection.play(stream).on("finish", () => {
+            const dispatcher = queue.connection.play(stream, { type: streamType }).on("finish", () => {
                 const shiffed = queue.songs.shift();
                 if (queue.loop === true) {
                     queue.songs.push(shiffed);
