@@ -63,7 +63,7 @@ module.exports = {
         songInfo = await scdl.getInfo(url);
         if (!songInfo)
           return sendError(
-            'Looks like i was unable to find the song on soundcloud',
+            'Looks like i was unable to find the song on SoundCloud',
             message.channel
           );
         song = {
