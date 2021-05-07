@@ -9,10 +9,11 @@ This will cause less updates because I am alone, feel free to open Pull Requests
 Todo:
 
 - [ ] Earrape
-- [ ] Discord Slash Commands
+- [ ] Discord Slash Commands: [discordjs/discord.js/#5448](https://github.com/discordjs/discord.js/pull/5448)
 - [ ] Spotify Support
 - [ ] ?Permissions
-- [ ] Workflows, Tests, Dependabot
+- [ ] Workflows, Tests
+- [x] Dependabot
 
 Future:
 
