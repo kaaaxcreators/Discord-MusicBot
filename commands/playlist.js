@@ -76,7 +76,7 @@ module.exports = {
         let thing = new MessageEmbed()
           .setAuthor(
             'Playlist has been added to queue',
-            'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
@@ -129,7 +129,7 @@ module.exports = {
         let thing = new MessageEmbed()
           .setAuthor(
             'Song has been added to queue',
-            'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(song.img)
           .setColor('YELLOW')

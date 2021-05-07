@@ -19,7 +19,7 @@ module.exports = {
         .setColor('YELLOW')
         .setAuthor(
           'Music has been Resumed!',
-          'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         );
       return message.channel.send(xd);
     }

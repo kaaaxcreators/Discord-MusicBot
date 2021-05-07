@@ -27,7 +27,7 @@ module.exports = {
     let embed = new MessageEmbed()
       .setAuthor(
         'Commands of ' + client.user.username,
-        'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE')
       .setDescription(allcmds)

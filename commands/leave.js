@@ -26,7 +26,7 @@ module.exports = {
     const Embed = new MessageEmbed()
       .setAuthor(
         'Leave Voice Channel',
-        'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('GREEN')
       .setTitle('Success')

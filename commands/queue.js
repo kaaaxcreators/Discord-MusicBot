@@ -26,7 +26,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setAuthor(
         'Server Songs Queue',
-        'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif'
+        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setThumbnail(message.guild.iconURL())
       .setColor('BLUE')
