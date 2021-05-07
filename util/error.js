@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require('discord.js');
 
 /**
  * Easy to send errors because im lazy to do the same things :p
@@ -6,9 +6,9 @@ const { MessageEmbed } = require("discord.js")
  * @param {TextChannel} channel - A Channel to send error
  */
 module.exports = async (text, channel) => {
-    let embed = new MessageEmbed()
-    .setColor("RED")
+  let embed = new MessageEmbed()
+    .setColor('RED')
     .setDescription(text)
-    .setFooter("Something went wrong :(")
-    await channel.send(embed)
-}
+    .setFooter('Something went wrong :(');
+  await channel.send(embed);
+};
