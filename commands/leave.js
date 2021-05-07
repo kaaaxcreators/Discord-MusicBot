@@ -6,7 +6,7 @@ module.exports = {
     name: 'leave',
     aliases: ['goaway', 'disconnect'],
     description: 'Leave The Voice Channel!',
-    usage: 'Leave'
+    usage: ''
   },
 
   run: async function (client, message) {

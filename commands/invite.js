@@ -4,13 +4,13 @@ module.exports = {
   info: {
     name: 'invite',
     description: 'To add/invite the bot to your server',
-    usage: '[invite]',
+    usage: '',
     aliases: ['inv']
   },
 
   run: async function (client, message) {
     //set the permissions id here (https://discordapi.com/permissions.html)
-    var permissions = 37080128;
+    var permissions = 3271744;
 
     let invite = new MessageEmbed()
       .setTitle(`Invite ${client.user.username}`)

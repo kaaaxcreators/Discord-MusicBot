@@ -4,7 +4,7 @@ module.exports = {
   info: {
     name: 'count',
     description: 'See how many Servers the Bot is in',
-    usage: 'count',
+    usage: '',
     aliases: ['servercount']
   },
   run: async function (client, message) {
