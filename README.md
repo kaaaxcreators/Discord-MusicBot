@@ -6,13 +6,24 @@ I will split from the Original because I don't want Lavalink, Webinterface and o
 
 This will cause less updates because I am alone, feel free to open Pull Requests, Issues and Feature Requests
 
-Todo:
+## First Start
 
-- [ ] Discord Slash Commands
+Rename `.env.example` to `.env`  
+Insert Token and a Prefix of your choice
+Change Presence to your desire. This will be the "Activity" your bot is doing
+
+## Invite
+
+```txt
+https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=3271744&scope=bot
+```
+
+Replace your_client_id with your client id from your Discord Application
+
+## Todo
+
+- [ ] Discord Slash Commands (==discord.js@13)
 - [ ] Spotify Support
 - [ ] ?Permissions
 - [ ] Workflows, Tests, Dependabot
-
-Future:
-
 - [ ] Convert to Typescript
