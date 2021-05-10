@@ -8,7 +8,6 @@ This will cause less updates because I am alone, feel free to open Pull Requests
 
 Todo:
 
-- [ ] Earrape
 - [ ] Discord Slash Commands
 - [ ] Spotify Support
 - [ ] ?Permissions
