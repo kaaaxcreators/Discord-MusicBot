@@ -18,12 +18,25 @@ Change Presence to your desire. This will be the "Activity" your bot is doing
 https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=3271744&scope=bot
 ```
 
-Replace your_client_id with your client id from your Discord Application
+Replace `your_client_id` with your client id from your Discord Application
 
 ## 🐳 Docker
 
 Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discordjs)
-When starting the container provide the environment variables
+When starting the container provide the Environment Variables
+
+## <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
+
+Create New App without Persistent Data
+
+Container HTTP Port: `8080`
+
+In App Configs set Environment Variables
+
+Deployment: Deploy via ImageName: `kaaaxcreators/discordjs`
+
+
+## 🌱 Environment Variables
 
 - `TOKEN`: Discord Token
 - `PREFIX`: Bot Prefix
