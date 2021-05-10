@@ -4,7 +4,8 @@ module.exports = {
   info: {
     name: 'shuffle',
     description: 'Shuffle queue',
-    usage: ''
+    usage: '',
+    aliases: []
   },
 
   run: async function (client, message) {
