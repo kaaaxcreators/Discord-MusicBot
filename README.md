@@ -15,7 +15,7 @@ Change Presence to your desire. This will be the "Activity" your bot is doing
 ## 🔗 Invite
 
 ```txt
-https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=3271744&scope=bot
+https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=3271744&scope=applications.commands%20bot
 ```
 
 Replace `your_client_id` with your client id from your Discord Application
