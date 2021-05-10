@@ -22,8 +22,6 @@ Replace `your_client_id` with your client id from your Discord Application
 
 ## 🌱 Environment Variables
 
-Format: key: value
-
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
 - `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
@@ -34,6 +32,7 @@ Format: key: value
 ### 🐳 Docker
 
 Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discordjs)
+
 When starting the container provide the Environment Variables
 
 ### <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
@@ -58,6 +57,8 @@ Config Vars: Enter your Variables
 
 Click: Deploy app
 
+💤24/7: Keep Heroku app awake with [Kaffeine](https://kaffeine.herokuapp.com/)
+
 ### Replit
 
 [![Run on Repl.it](https://repl.it/badge/github/kaaaxcreators/discordjs)](https://repl.it/github/kaaaxcreators/discordjs)
@@ -70,15 +71,19 @@ Click on "Run ▶️"
 
 Wait until "[API] Logged in as `<your_bot_name>`"
 
+💤24/7: Keep Repl awake with [UptimeRobot](https://uptimerobot.com/), [HetrixTools](https://hetrixtools.com/), [Cronnomy](https://cronnomy.com/) or [cron-job.org](https://cron-job.org/)
+
 ### Glitch
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/kaaaxcreators/discordjs)
 
 Delete `.env`
 
-Rename `.env.example` to `.env
+Rename `.env.example` to `.env`
 
 Enter Environment Variables
+
+💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
 ## 📝 Todo
 
