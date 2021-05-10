@@ -31,9 +31,7 @@ module.exports = {
       )
       .setColor('BLUE')
       .setDescription(allcmds)
-      .setFooter(
-        `To get info of each command you can do ${client.config.prefix}help [command] | By ItzCutePikachu#5949`
-      );
+      .setFooter(`To get info of each command you can do ${client.config.prefix}help [command]`);
 
     if (!args[0]) return message.channel.send(embed);
     else {
