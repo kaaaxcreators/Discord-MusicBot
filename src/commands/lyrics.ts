@@ -1,10 +1,11 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import {queue as Queue} from '../index';
 import lyricsFinder from 'lyrics-finder';
+
+import { queue as Queue } from '../index';
 import sendError from '../util/error';
 import splitlyrics from '../util/pagination';
 
-export default {
+module.exports = {
   info: {
     name: 'lyrics',
     description: 'Get lyrics for the currently playing song',
@@ -19,14 +20,16 @@ export default {
     let lyrics = null;
 
     try {
-      lyrics = await lyricsFinder(queue.songs[0].title, '');
+      lyrics = await lyricsFinder(queue.songs[0].title);
+      console.log('Lyrics: ' + lyrics);
+      console.log('Song: ' + queue.songs[0]);
       if (!lyrics) lyrics = `No lyrics found for ${queue.songs[0].title}.`;
     } catch (error) {
       lyrics = `No lyrics found for ${queue.songs[0].title}.`;
     }
     const splittedLyrics = splitlyrics.chunk(lyrics, 1024);
 
-    let lyricsEmbed = new MessageEmbed()
+    const lyricsEmbed = new MessageEmbed()
       .setAuthor(
         `${queue.songs[0].title} — Lyrics`,
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'

@@ -1,8 +1,8 @@
 import { Message, User } from 'discord.js';
 
 export default class Util {
-  static chunk(arr: string[], size: number): string[] {
-    const temp: string[] = [];
+  static chunk(arr: string[], size: number): string[][] {
+    const temp = [];
     for (let i = 0; i < arr.length; i += size) {
       temp.push(arr.slice(i, i + size));
     }

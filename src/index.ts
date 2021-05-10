@@ -43,11 +43,11 @@ fs.readdir(__dirname + '/events/', (err, files) => {
 });
 
 //Loading Commands
-fs.readdir('./commands/', (err, files) => {
+fs.readdir(__dirname + '/commands/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
-    const props = require(`./commands/${file}`);
+    const props = require(__dirname + `/commands/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
     console.log('Loading Command: ' + commandName);

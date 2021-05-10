@@ -2,7 +2,7 @@ import { Client, Message } from 'discord.js';
 
 import { commands, config } from '../index';
 
-export default async (client: Client, message: Message) => {
+module.exports = async (client: Client, message: Message) => {
   if (message.author.bot) return;
 
   //Prefixes also have mention match

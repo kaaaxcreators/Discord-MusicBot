@@ -3,7 +3,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import { queue } from '../index';
 import sendError from '../util/error';
 
-export default {
+module.exports = {
   info: {
     name: 'earrape',
     description: 'Toggle Earrape Mode',

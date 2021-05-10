@@ -2,7 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 
 import { commands, config } from '../index';
 
-export default {
+module.exports = {
   info: {
     name: 'help',
     description: 'To show all commands',

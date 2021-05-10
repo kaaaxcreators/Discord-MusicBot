@@ -2,7 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 
 import { config } from '../index';
 
-export default {
+module.exports = {
   info: {
     name: 'count',
     description: 'See how many Servers the Bot is in',

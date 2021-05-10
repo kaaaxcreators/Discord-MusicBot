@@ -3,7 +3,7 @@ import { Client, Message } from 'discord.js';
 import { queue } from '../index';
 import sendError from '../util/error';
 
-export default {
+module.exports = {
   info: {
     name: 'loop',
     description: 'Toggle music loop',
@@ -12,7 +12,7 @@ export default {
   },
 
   run: async function (client: Client, message: Message) {
-    const serverQueue = queue.get(message.guild.id);
+    const serverQueue = queue.get(message.guild!.id);
     if (serverQueue) {
       serverQueue.loop = !serverQueue.loop;
       return message.channel.send({

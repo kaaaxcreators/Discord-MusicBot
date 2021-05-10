@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-export default {
+module.exports = {
   info: {
     name: 'invite',
     description: 'To add/invite the bot to your server',

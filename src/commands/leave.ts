@@ -2,7 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 
 import sendError from '../util/error';
 
-export default {
+module.exports = {
   info: {
     name: 'leave',
     aliases: ['goaway', 'disconnect'],
