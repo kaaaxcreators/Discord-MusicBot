@@ -1,4 +1,7 @@
-const sendError = require('../util/error');
+import { Client, Message } from 'discord.js';
+
+import { config, queue as Queue } from '../index';
+import sendError from '../util/error';
 
 module.exports = {
   info: {
@@ -8,20 +11,22 @@ module.exports = {
     aliases: ['rm']
   },
 
-  run: async function (client, message, args) {
-    const queue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message, args: string[]) {
+    const queue = Queue.get(message.guild!.id);
     if (!queue) return sendError('There is no queue.', message.channel).catch(console.error);
-    if (!args.length) return sendError(`Usage: ${client.config.prefix}\`remove <Queue Number>\``);
-    if (isNaN(args[0])) return sendError(`Usage: ${client.config.prefix}\`remove <Queue Number>\``);
+    if (!args.length)
+      return sendError(`Usage: ${config.prefix}\`remove <Queue Number>\``, message.channel);
+    if (isNaN(Number(args[0])))
+      return sendError(`Usage: ${config.prefix}\`remove <Queue Number>\``, message.channel);
     if (queue.songs.length == 1)
       return sendError('There is no queue.', message.channel).catch(console.error);
-    if (args[0] > queue.songs.length)
+    if (Number(args[0]) > queue.songs.length)
       return sendError(
         `The queue is only ${queue.songs.length} songs long!`,
         message.channel
       ).catch(console.error);
     try {
-      const song = queue.songs.splice(args[0] - 1, 1);
+      const song = queue.songs.splice(Number(args[0]) - 1, 1);
       sendError(
         `❌ **|** Removed: **\`${song[0].title}\`** from the queue.`,
         queue.textChannel

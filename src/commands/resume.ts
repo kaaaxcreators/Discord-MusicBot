@@ -1,5 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-const sendError = require('../util/error');
+import { Client, Message, MessageEmbed } from 'discord.js';
+
+import { queue } from '../index';
+import sendError from '../util/error';
 
 module.exports = {
   info: {
@@ -9,12 +11,12 @@ module.exports = {
     aliases: []
   },
 
-  run: async function (client, message) {
-    const serverQueue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message) {
+    const serverQueue = queue.get(message.guild!.id);
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();
-      let xd = new MessageEmbed()
+      const xd = new MessageEmbed()
         .setDescription('▶ Resumed the music for you!')
         .setColor('YELLOW')
         .setAuthor(

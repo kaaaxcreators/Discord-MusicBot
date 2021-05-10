@@ -1,13 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
+import scdl from 'soundcloud-downloader';
 import yts from 'yt-search';
 
-import { config, queue as Queue } from '../index';
+import { queue as Queue } from '../index';
 import sendError from '../util/error';
-const scdl = require('soundcloud-downloader').default;
 
 export default {
-  async play(song: Song, message: Message, client: Client) {
+  async play(song: Song, message: Message, client: Client): Promise<void> {
     const queue = Queue.get(message.guild!.id);
     if (!song) {
       Queue.delete(message.guild!.id);
@@ -19,9 +19,9 @@ export default {
     try {
       if (song.url.includes('soundcloud.com')) {
         try {
-          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS, config.SOUNDCLOUD);
+          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS);
         } catch (error) {
-          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, config.SOUNDCLOUD);
+          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3);
           streamType = 'unknown';
         }
       } else if (song.url.includes('youtube.com')) {

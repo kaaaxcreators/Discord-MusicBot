@@ -1,4 +1,5 @@
 import { Client, Message } from 'discord.js';
+import events from 'events';
 
 import { commands, config } from '../index';
 
@@ -29,7 +30,7 @@ module.exports = async (client: Client, message: Message) => {
       console.error(reason);
     }
   });
-  require('events').EventEmitter.defaultMaxListeners = 25;
+  events.EventEmitter.defaultMaxListeners = 25;
 
   //Executing the codes when we get the command or aliases
   if (cmd && cmd.run) {

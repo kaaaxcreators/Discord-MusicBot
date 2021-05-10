@@ -1,6 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-const sendError = require('../util/error');
-const ProgressBar = require('../util/ProgressBar');
+import { Client, Message, MessageEmbed } from 'discord.js';
+
+import { queue } from '../index';
+import sendError from '../util/error';
+import ProgressBar from '../util/ProgressBar';
 
 module.exports = {
   info: {
@@ -10,16 +12,16 @@ module.exports = {
     aliases: ['np']
   },
 
-  run: async function (client, message) {
-    const serverQueue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message) {
+    const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
-    let song = serverQueue.songs[0];
+    const song = serverQueue.songs[0];
     const Progress = ProgressBar(
       serverQueue.connection.dispatcher.streamTime,
       song.duration.seconds * 1000,
       10
     );
-    let thing = new MessageEmbed()
+    const thing = new MessageEmbed()
       .setAuthor(
         'Now Playing',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'

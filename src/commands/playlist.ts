@@ -1,8 +1,10 @@
-const { Util, MessageEmbed } = require('discord.js');
-const yts = require('yt-search');
-var ytpl = require('ytpl');
-const sendError = require('../util/error');
-const { play } = require('../util/playing');
+import { Client, Message, MessageEmbed, Util, VoiceChannel } from 'discord.js';
+import yts from 'yt-search';
+import ytpl from 'ytpl';
+
+import { config, IQueue, queue } from '../index';
+import sendError from '../util/error';
+import play, { Song } from '../util/playing';
 module.exports = {
   info: {
     name: 'playlist',
@@ -11,22 +13,22 @@ module.exports = {
     aliases: ['pl']
   },
 
-  run: async function (client, message, args) {
-    const channel = message.member.voice.channel;
+  run: async function (client: Client, message: Message, args: string[]) {
+    const channel = message.member!.voice.channel!;
     if (!channel)
       return sendError(
         "I'm sorry but you need to be in a voice channel to play music!",
         message.channel
       );
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
-    var searchString = args.join(' ');
-    const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has('CONNECT'))
+    const searchString = args.join(' ');
+    const permissions = channel.permissionsFor(message.client.user!);
+    if (!permissions!.has('CONNECT'))
       return sendError(
         'I cannot connect to your voice channel, make sure I have the proper permissions!',
         message.channel
       );
-    if (!permissions.has('SPEAK'))
+    if (!permissions!.has('SPEAK'))
       return sendError(
         'I cannot speak in this voice channel, make sure I have the proper permissions!',
         message.channel
@@ -34,7 +36,7 @@ module.exports = {
 
     if (!searchString || !url)
       return sendError(
-        `Usage: ${message.client.config.prefix}playlist <YouTube Playlist URL | Playlist Name>`,
+        `Usage: ${config.prefix}playlist <YouTube Playlist URL | Playlist Name>`,
         message.channel
       );
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
@@ -58,22 +60,22 @@ module.exports = {
       }
     } else {
       try {
-        var searched = await yts.search(searchString);
+        const searched = await yts.search(searchString);
 
         if (searched.playlists.length === 0)
           return sendError(
             'Looks like i was unable to find the playlist on YouTube',
             message.channel
           );
-        var songInfo = searched.playlists[0];
-        let listurl = songInfo.listId;
+        const songInfo = searched.playlists[0];
+        const listurl = songInfo.listId;
         const playlist = await ytpl(listurl);
         const videos = await playlist.items;
         for (const video of videos) {
           // eslint-disable-line no-await-in-loop
           await handleVideo(video, message, channel, true); // eslint-disable-line no-await-in-loop
         }
-        let thing = new MessageEmbed()
+        const thing = new MessageEmbed()
           .setAuthor(
             'Playlist has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -89,9 +91,14 @@ module.exports = {
       }
     }
 
-    async function handleVideo(video, message, channel, playlist = false) {
-      const serverQueue = message.client.queue.get(message.guild.id);
-      const song = {
+    async function handleVideo(
+      video: any,
+      message: Message,
+      channel: VoiceChannel,
+      playlist = false
+    ) {
+      const serverQueue = queue.get(message.guild!.id);
+      const song: Song = {
         id: video.id,
         title: Util.escapeMarkdown(video.title),
         views: video.views ? video.views : '-',
@@ -102,7 +109,7 @@ module.exports = {
         req: message.author
       };
       if (!serverQueue) {
-        const queueConstruct = {
+        const queueConstruct: IQueue = {
           textChannel: message.channel,
           voiceChannel: channel,
           connection: null,
@@ -111,22 +118,22 @@ module.exports = {
           playing: true,
           loop: false
         };
-        message.client.queue.set(message.guild.id, queueConstruct);
+        queue.set(message.guild!.id, queueConstruct);
         queueConstruct.songs.push(song);
 
         try {
-          var connection = await channel.join();
+          const connection = await channel.join();
           queueConstruct.connection = connection;
-          play(queueConstruct.songs[0], message);
+          play.play(queueConstruct.songs[0], message, client);
         } catch (error) {
           console.error(`I could not join the voice channel: ${error}`);
-          message.client.queue.delete(message.guild.id);
+          queue.delete(message.guild!.id);
           return sendError(`I could not join the voice channel: ${error}`, message.channel);
         }
       } else {
         serverQueue.songs.push(song);
         if (playlist) return;
-        let thing = new MessageEmbed()
+        const thing = new MessageEmbed()
           .setAuthor(
             'Song has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'

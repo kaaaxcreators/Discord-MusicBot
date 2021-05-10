@@ -16,10 +16,11 @@ export default class Util {
   static async pagination(
     msg: Message,
     author: User,
-    contents: string[],
+    contents: string[] | string[][],
     init = true,
     currPage = 0
   ) {
+    console.log(contents);
     if (init) for (const emoji of this.paginationEmojis) await msg.react(emoji);
 
     const collector = msg.createReactionCollector(

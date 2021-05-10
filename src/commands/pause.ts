@@ -1,5 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-const sendError = require('../util/error');
+import { Client, Message, MessageEmbed } from 'discord.js';
+
+import { queue } from '../index';
+import sendError from '../util/error';
 
 module.exports = {
   info: {
@@ -9,20 +11,20 @@ module.exports = {
     aliases: []
   },
 
-  run: async function (client, message) {
-    const serverQueue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message) {
+    const serverQueue = queue.get(message.guild!.id);
     if (serverQueue && serverQueue.playing) {
       serverQueue.playing = false;
       try {
         serverQueue.connection.dispatcher.pause();
       } catch (error) {
-        message.client.queue.delete(message.guild.id);
+        queue.delete(message.guild!.id);
         return sendError(
           `:notes: The player has stopped and the queue has been cleared.: ${error}`,
           message.channel
         );
       }
-      let xd = new MessageEmbed()
+      const xd = new MessageEmbed()
         .setDescription('⏸ Paused the music for you!')
         .setColor('YELLOW')
         .setTitle('Music has been paused!');

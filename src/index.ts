@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config(); //Loading .env
 import {
   Client,
@@ -35,6 +36,7 @@ export const config = {
 fs.readdir(__dirname + '/events/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const event = require(__dirname + `/events/${file}`);
     const eventName = file.split('.')[0];
     client.on(eventName, event.bind(null, client));
@@ -47,6 +49,7 @@ fs.readdir(__dirname + '/commands/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);

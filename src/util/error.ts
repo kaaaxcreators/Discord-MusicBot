@@ -1,6 +1,4 @@
-import { DMChannel, NewsChannel, TextChannel } from 'discord.js';
-
-const { MessageEmbed } = require('discord.js');
+import { DMChannel, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 
 /**
  * Easy to send errors because im lazy to do the same things :p

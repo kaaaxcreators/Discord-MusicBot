@@ -1,4 +1,7 @@
-const sendError = require('../util/error');
+import { Client, Message } from 'discord.js';
+
+import { queue } from '../index';
+import sendError from '../util/error';
 
 module.exports = {
   info: {
@@ -8,14 +11,14 @@ module.exports = {
     aliases: []
   },
 
-  run: async function (client, message) {
-    const channel = message.member.voice.channel;
+  run: async function (client: Client, message: Message) {
+    const channel = message.member!.voice.channel!;
     if (!channel)
       return sendError(
         "I'm sorry but you need to be in a voice channel to play music!",
         message.channel
       );
-    const serverQueue = message.client.queue.get(message.guild.id);
+    const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue)
       return sendError('There is nothing playing that I could stop for you.', message.channel);
     if (!serverQueue.connection) return;
@@ -23,14 +26,14 @@ module.exports = {
     try {
       serverQueue.connection.dispatcher.end();
     } catch (error) {
-      message.guild.me.voice.channel.leave();
-      message.client.queue.delete(message.guild.id);
+      message.guild!.me!.voice.channel!.leave();
+      queue.delete(message.guild!.id);
       return sendError(
         `:notes: The player has stopped and the queue has been cleared.: ${error}`,
         message.channel
       );
     }
-    message.client.queue.delete(message.guild.id);
+    queue.delete(message.guild!.id);
     serverQueue.songs = [];
     message.react('✅');
   }

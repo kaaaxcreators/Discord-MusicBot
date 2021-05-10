@@ -18,6 +18,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'simple-import-sort/imports': 'error'
+    'simple-import-sort/imports': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off'
   }
 };
