@@ -1,7 +1,7 @@
 import { Client, Message, MessageEmbed, TextChannel } from 'discord.js';
 
+import { config, queue as Queue } from '../index';
 import sendError from '../util/error';
-import { queue as Queue, config } from "../index"
 import Util from '../util/pagination';
 
 export const info = {
@@ -11,7 +11,7 @@ export const info = {
   aliases: ['q', 'list', 'songlist', 'song-list']
 };
 export async function run(client: Client, message: Message) {
-    const permissions = (message.channel as TextChannel).permissionsFor(message.client.user!);
+  const permissions = (message.channel as TextChannel).permissionsFor(message.client.user!);
   if (!permissions!.has(['MANAGE_MESSAGES', 'ADD_REACTIONS']))
     return sendError('Missing permission to manage messages or add reactions', message.channel);
 

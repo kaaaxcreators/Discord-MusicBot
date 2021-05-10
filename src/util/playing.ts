@@ -1,17 +1,16 @@
-import { Client, Message } from "discord.js";
+import { Client, Message, MessageEmbed } from 'discord.js';
+import ytdlDiscord from 'discord-ytdl-core';
+import yts from 'yt-search';
 
-import { config } from '../index';
-
-const { MessageEmbed } = require('discord.js');
-const ytdlDiscord = require('discord-ytdl-core');
-const sendError = require('../util/error');
+import { config, queue as Queue } from '../index';
+import sendError from '../util/error';
 const scdl = require('soundcloud-downloader').default;
 
 export default {
-  async play(song, message: Message, client: Client) {
-    const queue = message.client.queue.get(message.guild.id);
+  async play(song: Song, message: Message, client: Client) {
+    const queue = Queue.get(message.guild!.id);
     if (!song) {
-      message.client.queue.delete(message.guild.id);
+      Queue.delete(message.guild!.id);
       return;
     }
     let stream;
@@ -52,26 +51,26 @@ export default {
       }
     }
 
-    queue.connection.on('disconnect', () => message.client.queue.delete(message.guild?.id));
+    queue!.connection.on('disconnect', () => Queue.delete(message.guild!.id));
 
-    const dispatcher = queue.connection
+    const dispatcher = queue!.connection
       .play(stream, { type: streamType })
       .on('finish', () => {
-        const shifted = queue.songs.shift();
-        if (queue.loop === true) {
-          queue.songs.push(shifted);
+        const shifted = queue!.songs.shift();
+        if (queue!.loop === true) {
+          queue!.songs.push(shifted);
         }
-        module.exports.play(queue.songs[0], message);
+        module.exports.play(queue!.songs[0], message);
       })
       .on('error', (err: Error) => {
         console.error(err);
-        queue.songs.shift();
-        module.exports.play(queue.songs[0], message);
+        queue!.songs.shift();
+        module.exports.play(queue!.songs[0], message);
       });
 
-    dispatcher.setVolumeLogarithmic(queue.volume / 100);
+    dispatcher.setVolumeLogarithmic(queue!.volume / 100);
 
-    let thing = new MessageEmbed()
+    const thing = new MessageEmbed()
       .setAuthor(
         'Started Playing Music!',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -82,6 +81,17 @@ export default {
       .addField('Duration', song.duration, true)
       .addField('Requested by', song.req.tag, true)
       .setFooter(`Views: ${song.views} | ${song.ago}`);
-    queue.textChannel.send(thing);
+    queue!.textChannel.send(thing);
   }
 };
+
+export interface Song {
+  id: string;
+  title: string;
+  views: string;
+  url: string;
+  ago: string;
+  duration: yts.Duration;
+  img: string;
+  req: any;
+}

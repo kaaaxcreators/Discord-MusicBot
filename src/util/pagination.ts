@@ -1,8 +1,8 @@
-import { Message, User } from "discord.js";
+import { Message, User } from 'discord.js';
 
 export default class Util {
-  static chunk(arr: string[], size: number) {
-    const temp = [];
+  static chunk(arr: string[], size: number): string[] {
+    const temp: string[] = [];
     for (let i = 0; i < arr.length; i += size) {
       temp.push(arr.slice(i, i + size));
     }
@@ -13,7 +13,13 @@ export default class Util {
     return ['◀', '⛔', '▶'];
   }
 
-  static async pagination(msg: Message, author: User, contents: string[], init = true, currPage = 0) {
+  static async pagination(
+    msg: Message,
+    author: User,
+    contents: string[],
+    init = true,
+    currPage = 0
+  ) {
     if (init) for (const emoji of this.paginationEmojis) await msg.react(emoji);
 
     const collector = msg.createReactionCollector(
@@ -48,4 +54,4 @@ export default class Util {
         if (['time', 'user'].includes(reason)) msg.reactions.removeAll();
       });
   }
-};
+}

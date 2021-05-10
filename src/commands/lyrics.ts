@@ -1,9 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const lyricsFinder = require('lyrics-finder');
-const sendError = require('../util/error');
-const splitlyrics = require('../util/pagination');
+import { Client, Message, MessageEmbed } from 'discord.js';
+import {queue as Queue} from '../index';
+import lyricsFinder from 'lyrics-finder';
+import sendError from '../util/error';
+import splitlyrics from '../util/pagination';
 
-module.exports = {
+export default {
   info: {
     name: 'lyrics',
     description: 'Get lyrics for the currently playing song',
@@ -11,8 +12,8 @@ module.exports = {
     aliases: ['ly']
   },
 
-  run: async function (client, message) {
-    const queue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message) {
+    const queue = Queue.get(message.guild!.id);
     if (!queue) return sendError('There is nothing playing.', message.channel).catch(console.error);
 
     let lyrics = null;

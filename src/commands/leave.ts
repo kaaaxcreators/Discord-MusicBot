@@ -1,7 +1,8 @@
-const { MessageEmbed } = require('discord.js');
-const sendError = require('../util/error');
+import { Client, Message, MessageEmbed } from 'discord.js';
 
-module.exports = {
+import sendError from '../util/error';
+
+export default {
   info: {
     name: 'leave',
     aliases: ['goaway', 'disconnect'],
@@ -9,17 +10,17 @@ module.exports = {
     usage: ''
   },
 
-  run: async function (client, message) {
-    let channel = message.member.voice.channel;
+  run: async function (client: Client, message: Message) {
+    const channel = message.member!.voice.channel;
     if (!channel)
       return sendError("I'm sorry but you need to be in a voice channel!", message.channel);
-    if (!message.guild.me.voice.channel)
+    if (!message.guild!.me!.voice.channel)
       return sendError('I Am Not In Any Voice Channel!', message.channel);
 
     try {
-      await message.guild.me.voice.channel.leave();
+      await message.guild!.me!.voice.channel.leave();
     } catch (error) {
-      await message.guild.me.voice.kick(message.guild.me.id);
+      await message.guild!.me!.voice.kick(message.guild!.me!.id);
       return sendError('Trying To Leave The Voice Channel...', message.channel);
     }
 

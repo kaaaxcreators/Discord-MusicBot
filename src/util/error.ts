@@ -1,4 +1,4 @@
-import { DMChannel, NewsChannel, TextChannel } from "discord.js";
+import { DMChannel, NewsChannel, TextChannel } from 'discord.js';
 
 const { MessageEmbed } = require('discord.js');
 
@@ -8,7 +8,7 @@ const { MessageEmbed } = require('discord.js');
  * @param {TextChannel | DMChannel | NewsChannel} channel - A Channel to send error
  */
 export default async (text: string, channel: TextChannel | DMChannel | NewsChannel) => {
-  let embed = new MessageEmbed()
+  const embed = new MessageEmbed()
     .setColor('RED')
     .setDescription(text)
     .setFooter('Something went wrong :(');

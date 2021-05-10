@@ -1,5 +1,6 @@
-import { Client, Message } from "discord.js";
-import { config, commands } from "../index"
+import { Client, Message } from 'discord.js';
+
+import { commands, config } from '../index';
 
 export default async (client: Client, message: Message) => {
   if (message.author.bot) return;
@@ -37,5 +38,5 @@ export default async (client: Client, message: Message) => {
 };
 
 export interface Reason {
-  stack: any
+  stack: any;
 }

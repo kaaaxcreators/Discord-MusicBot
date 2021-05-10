@@ -1,19 +1,29 @@
 require('dotenv').config(); //Loading .env
+import {
+  Client,
+  Collection,
+  DMChannel,
+  Message,
+  NewsChannel,
+  TextChannel,
+  VoiceChannel
+} from 'discord.js';
 import fs from 'fs';
+
 import keepAlive from './server';
-import { Collection, Client, Message, DMChannel, NewsChannel, TextChannel, VoiceChannel } from "discord.js";
 
 export const client = new Client();
 export const commands = new Collection<string, Command>();
 export const queue = new Map<string, IQueue>();
 
-export interface IQueue{
-  textChannel: TextChannel | DMChannel | NewsChannel,
-  voiceChannel: VoiceChannel,
-  connection: any,
-  songs: any[],
-  volume: number,
-  playing: Boolean
+export interface IQueue {
+  textChannel: TextChannel | DMChannel | NewsChannel;
+  voiceChannel: VoiceChannel;
+  connection: any;
+  songs: any[];
+  volume: number;
+  playing: boolean;
+  loop: boolean;
 }
 
 export const config = {
@@ -26,7 +36,7 @@ fs.readdir(__dirname + '/events/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     const event = require(__dirname + `/events/${file}`);
-    let eventName = file.split('.')[0];
+    const eventName = file.split('.')[0];
     client.on(eventName, event.bind(null, client));
     console.log('Loading Event: ' + eventName);
   });
@@ -37,8 +47,8 @@ fs.readdir('./commands/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
-    let props = require(`./commands/${file}`);
-    let commandName = file.split('.')[0];
+    const props = require(`./commands/${file}`);
+    const commandName = file.split('.')[0];
     commands.set(commandName, props);
     console.log('Loading Command: ' + commandName);
   });
@@ -48,13 +58,13 @@ fs.readdir('./commands/', (err, files) => {
 keepAlive();
 client.login(process.env.TOKEN);
 
-export interface Command{
+export interface Command {
   info: {
-    name: string,
-    description: string,
-    usage: string,
-    aliases: string[]
-  },
+    name: string;
+    description: string;
+    usage: string;
+    aliases: string[];
+  };
 
-  run: (client: Client, message: Message, args: string[]) => any
+  run: (client: Client, message: Message, args: string[]) => any;
 }

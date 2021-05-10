@@ -1,4 +1,4 @@
-import { Client } from "discord.js";
+import { Client } from 'discord.js';
 
 export default async (client: Client) => {
   console.log(`[API] Logged in as ${client.user?.username}`);

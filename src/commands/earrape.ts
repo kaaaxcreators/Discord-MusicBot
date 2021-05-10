@@ -1,7 +1,9 @@
-const { MessageEmbed } = require('discord.js');
-const sendError = require('../util/error');
+import { Client, Message, MessageEmbed } from 'discord.js';
 
-module.exports = {
+import { queue } from '../index';
+import sendError from '../util/error';
+
+export default {
   info: {
     name: 'earrape',
     description: 'Toggle Earrape Mode',
@@ -9,21 +11,21 @@ module.exports = {
     aliases: []
   },
 
-  run: async function (client, message) {
-    const channel = message.member.voice.channel;
+  run: async function (client: Client, message: Message) {
+    const channel = message.member!.voice.channel;
     if (!channel)
       return sendError(
         "I'm sorry but you need to be in a voice channel to play music!",
         message.channel
       );
-    const serverQueue = message.client.queue.get(message.guild.id);
+    const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
     if (!serverQueue.connection)
       return sendError('There is nothing playing in this server.', message.channel);
     const volume = serverQueue.volume == 696 ? 80 : 696;
     serverQueue.volume = volume;
     serverQueue.connection.dispatcher.setVolumeLogarithmic(volume / 100);
-    let xd = new MessageEmbed()
+    const xd = new MessageEmbed()
       .setDescription(`I set the volume to: **${volume / 1}**`)
       .setAuthor(
         'Server Volume Manager',

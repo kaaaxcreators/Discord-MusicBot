@@ -2,11 +2,11 @@
   "name": "discordjs",
   "version": "3.0.0",
   "description": "Advanced discord music bot",
-  "main": "index.js",
-  "license": "GPL-3.0",
+  "main": "dist/index.js",
+  "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "lint": "eslint . --ignore-path ./.gitignore",
     "lint:fix": "eslint . --ignore-path ./.gitignore --fix"
   },
@@ -31,12 +31,14 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
+    "@types/yt-search": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.0",
+    "typescript": "^4.2.4"
   }
 }

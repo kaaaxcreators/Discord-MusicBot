@@ -1,6 +1,9 @@
-const sendError = require('../util/error');
+import { Client, Message } from 'discord.js';
 
-module.exports = {
+import { queue } from '../index';
+import sendError from '../util/error';
+
+export default {
   info: {
     name: 'loop',
     description: 'Toggle music loop',
@@ -8,8 +11,8 @@ module.exports = {
     aliases: ['l']
   },
 
-  run: async function (client, message) {
-    const serverQueue = message.client.queue.get(message.guild.id);
+  run: async function (client: Client, message: Message) {
+    const serverQueue = queue.get(message.guild.id);
     if (serverQueue) {
       serverQueue.loop = !serverQueue.loop;
       return message.channel.send({
