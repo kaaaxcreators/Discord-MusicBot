@@ -25,5 +25,4 @@ Replace your_client_id with your client id from your Discord Application
 - [ ] Discord Slash Commands (==discord.js@13)
 - [ ] Spotify Support
 - [ ] ?Permissions
-- [ ] Workflows, Tests, Dependabot
 - [ ] Convert to Typescript
