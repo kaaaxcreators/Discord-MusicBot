@@ -1,10 +1,14 @@
+import { Client, Message } from "discord.js";
+
+import { config } from '../index';
+
 const { MessageEmbed } = require('discord.js');
 const ytdlDiscord = require('discord-ytdl-core');
 const sendError = require('../util/error');
 const scdl = require('soundcloud-downloader').default;
 
-module.exports = {
-  async play(song, message, client) {
+export default {
+  async play(song, message: Message, client: Client) {
     const queue = message.client.queue.get(message.guild.id);
     if (!song) {
       message.client.queue.delete(message.guild.id);
@@ -16,9 +20,9 @@ module.exports = {
     try {
       if (song.url.includes('soundcloud.com')) {
         try {
-          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS, client.config.SOUNDCLOUD);
+          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS, config.SOUNDCLOUD);
         } catch (error) {
-          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, client.config.SOUNDCLOUD);
+          stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, config.SOUNDCLOUD);
           streamType = 'unknown';
         }
       } else if (song.url.includes('youtube.com')) {
@@ -29,12 +33,12 @@ module.exports = {
           opusEncoded: true
         });
         streamType = 'opus';
-        stream.on('error', function (er) {
-          if (er) {
+        stream.on('error', function (err: Error) {
+          if (err) {
             if (queue) {
               module.exports.play(queue.songs[0], message);
               return sendError(
-                `An unexpected error has occurred.\nPossible type \`${er}\``,
+                `An unexpected error has occurred.\nPossible type \`${err}\``,
                 message.channel
               );
             }
@@ -48,7 +52,7 @@ module.exports = {
       }
     }
 
-    queue.connection.on('disconnect', () => message.client.queue.delete(message.guild.id));
+    queue.connection.on('disconnect', () => message.client.queue.delete(message.guild?.id));
 
     const dispatcher = queue.connection
       .play(stream, { type: streamType })
@@ -59,7 +63,7 @@ module.exports = {
         }
         module.exports.play(queue.songs[0], message);
       })
-      .on('error', (err) => {
+      .on('error', (err: Error) => {
         console.error(err);
         queue.songs.shift();
         module.exports.play(queue.songs[0], message);

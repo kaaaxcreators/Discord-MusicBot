@@ -1,5 +1,7 @@
-module.exports = class Util {
-  static chunk(arr, size) {
+import { Message, User } from "discord.js";
+
+export default class Util {
+  static chunk(arr: string[], size: number) {
     const temp = [];
     for (let i = 0; i < arr.length; i += size) {
       temp.push(arr.slice(i, i + size));
@@ -11,7 +13,7 @@ module.exports = class Util {
     return ['◀', '⛔', '▶'];
   }
 
-  static async pagination(msg, author, contents, init = true, currPage = 0) {
+  static async pagination(msg: Message, author: User, contents: string[], init = true, currPage = 0) {
     if (init) for (const emoji of this.paginationEmojis) await msg.react(emoji);
 
     const collector = msg.createReactionCollector(

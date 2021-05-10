@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const server = express();
 const port = process.env.PORT || 8080;
 server.all('/', (req, res) => {
@@ -11,4 +11,4 @@ function keepAlive() {
     console.log('Server is Ready!');
   });
 }
-module.exports = keepAlive;
+export default keepAlive;
