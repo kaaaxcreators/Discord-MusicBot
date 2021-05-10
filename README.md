@@ -35,6 +35,19 @@ In App Configs set Environment Variables
 
 Deployment: Deploy via ImageName: `kaaaxcreators/discordjs`
 
+## 💨 Run Projects
+
+### Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaaaxcreators/discordjs)
+
+### Replit
+
+[![Run on Repl.it](https://repl.it/badge/github/kaaaxcreators/discordjs)](https://repl.it/github/kaaaxcreators/discordjs)
+
+### Glitch
+
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/kaaaxcreators/discordjs)
 
 ## 🌱 Environment Variables
 
@@ -43,7 +56,7 @@ Deployment: Deploy via ImageName: `kaaaxcreators/discordjs`
 - `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
 - `PRESENCE`: Discord Presence Text
 
-## Todo
+## 📝 Todo
 
 - [ ] Discord Slash Commands (==discord.js@13)
 - [ ] Spotify Support

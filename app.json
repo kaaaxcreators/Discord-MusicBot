@@ -1,8 +1,8 @@
 {
-    "name": "Discord-MusicBot",
+    "name": "kaaaxcreators-discordjs",
     "description": "Very simple discord music bot with the discord.js with Song Name playing. It can able to play music with the song name",
     "repository": "https://github.com/kaaaxcreators/discordjs",
-    "logo": "https://cdn.discordapp.com/avatars/750613142488481843/e6326038dbe2243ca551ba5b6ecd8bf2.png?size=1024",
+    "logo": "https://kaaaxcreators.de/img/sizes/favicon-1000x1000.png",
     "keywords": ["node", "discord", "youtube","music","bot"],
     "image": "heroku/nodejs",
     "buildpacks": [
@@ -26,6 +26,10 @@
         "description": "The client id of soundcloud.",
         "value": "",
         "required": "false"
+      },
+      "PRESENCE": {
+        "description": "The Discord Presence ('Activity')",
+        "required": "true"
       }
     }  
   }
