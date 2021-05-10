@@ -16,12 +16,11 @@
     "@discordjs/opus": "^0.5.0",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "^12.5.3",
-    "dotenv": "^9.0.0",
+    "dotenv": "^9.0.1",
     "express": "^4.17.1",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
     "lyrics-finder": "^21.7.0",
-    "opusscript": "^0.0.8",
     "soundcloud-downloader": "^1.0.0",
     "youtube-sr": "^4.0.6",
     "yt-search": "^2.8.0",
@@ -30,9 +29,10 @@
     "ytpl": "^2.2.1"
   },
   "devDependencies": {
+    "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   }
 }

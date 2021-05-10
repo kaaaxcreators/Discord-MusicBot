@@ -15,6 +15,6 @@ jobs:
       - name: Cache node modules
         uses: c-hive/gha-npm-cache@v1
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run lint command
         run: npm run lint
