@@ -1,3 +1,8 @@
+# 💥BREAKING CHANGES!
+# DON'T USE THE BOT IN THIS STATE❗
+
+---
+
 # discordjs
 
 See Original Source, there is a new Version with more features and a Web Interface3
