@@ -1,4 +1,5 @@
 import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
+import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
 import { IQueue, queue } from '../index';
@@ -101,7 +102,7 @@ module.exports = {
       title: Util.escapeMarkdown(songInfo.title!),
       views: String(songInfo.views).padStart(10, ' ').trim(),
       ago: songInfo.uploadedAt!,
-      duration: songInfo.durationFormatted,
+      duration: songInfo.duration,
       url: `https://www.youtube.com/watch?v=${songInfo.id}`,
       img: songInfo.thumbnail!.url!,
       req: message.author
@@ -117,7 +118,7 @@ module.exports = {
         .setThumbnail(song.img)
         .setColor('YELLOW')
         .addField('Name', song.title, true)
-        .addField('Duration', song.duration, true)
+        .addField('Duration', pMS(song.duration), true)
         .addField('Requested by', song.req.tag, true)
         .setFooter(`Views: ${song.views} | ${song.ago}`);
       return message.channel.send(thing);

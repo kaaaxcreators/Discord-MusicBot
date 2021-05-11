@@ -5,7 +5,8 @@ import ytdl from 'ytdl-core';
 
 import { IQueue, queue } from '../index';
 import sendError from '../util/error';
-import play from '../util/playing';
+import play, { Song } from '../util/playing';
+
 module.exports = {
   info: {
     name: 'play',
@@ -40,7 +41,7 @@ module.exports = {
     const serverQueue = queue.get(message.guild!.id);
 
     let songInfo;
-    let song;
+    let song: Song;
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
         songInfo = await ytdl.getInfo(url);
@@ -51,7 +52,7 @@ module.exports = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           img: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
-          duration: songInfo.videoDetails.lengthSeconds,
+          duration: Number(songInfo.videoDetails.lengthSeconds) * 1000,
           ago: songInfo.videoDetails.publishDate,
           views: String(songInfo.videoDetails.viewCount).padStart(10, ' '),
           req: message.author
@@ -69,13 +70,13 @@ module.exports = {
             message.channel
           );
         song = {
-          id: songInfo.permalink,
-          title: songInfo.title,
-          url: songInfo.permalink_url,
-          img: songInfo.artwork_url,
-          ago: songInfo.last_modified,
-          views: String(songInfo.playback_count).padStart(10, ' '),
-          duration: Math.ceil(songInfo.duration! / 1000),
+          id: songInfo.permalink!,
+          title: songInfo.title!,
+          url: songInfo.permalink_url!,
+          img: songInfo.artwork_url!,
+          ago: songInfo.last_modified!,
+          views: String(songInfo.playback_count).padStart(10, ' ').trim(),
+          duration: Math.ceil(songInfo.duration!),
           req: message.author
         };
       } catch (error) {
@@ -95,7 +96,7 @@ module.exports = {
           views: String(songInfo.views).padStart(10, ' ').trim(),
           url: songInfo.url,
           ago: songInfo.ago,
-          duration: songInfo.duration,
+          duration: songInfo.duration.seconds * 1000,
           img: songInfo.image,
           req: message.author
         };

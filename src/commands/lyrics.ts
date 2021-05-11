@@ -21,8 +21,6 @@ module.exports = {
 
     try {
       lyrics = await lyricsFinder(queue.songs[0].title);
-      console.log('Lyrics: ' + lyrics);
-      console.log('Song: ' + queue.songs[0]);
       if (!lyrics) lyrics = [`No lyrics found for ${queue.songs[0].title}.`];
     } catch (error) {
       lyrics = [`No lyrics found for ${queue.songs[0].title}.`];

@@ -1,10 +1,11 @@
 import { Message, MessageEmbed, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
+import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader';
-import yts from 'yt-search';
 
 import { queue as Queue } from '../index';
 import sendError from '../util/error';
+import play from './playing';
 
 export default {
   async play(song: Song, message: Message): Promise<void> {
@@ -33,21 +34,19 @@ export default {
         });
         streamType = 'opus';
         stream.on('error', function (err: Error) {
-          if (err) {
-            if (queue) {
-              module.exports.play(queue.songs[0], message);
-              return sendError(
-                `An unexpected error has occurred.\nPossible type \`${err}\``,
-                message.channel
-              );
-            }
+          if (err && queue) {
+            play.play(queue.songs[0], message);
+            return sendError(
+              `An unexpected error has occurred.\nPossible type \`${err}\``,
+              message.channel
+            );
           }
         });
       }
     } catch (error) {
       if (queue) {
         queue.songs.shift();
-        module.exports.play(queue.songs[0], message);
+        play.play(queue.songs[0], message);
       }
     }
 
@@ -60,12 +59,12 @@ export default {
         if (queue!.loop === true) {
           queue!.songs.push(shifted);
         }
-        module.exports.play(queue!.songs[0], message);
+        play.play(queue!.songs[0], message);
       })
       .on('error', (err: Error) => {
         console.error(err);
         queue!.songs.shift();
-        module.exports.play(queue!.songs[0], message);
+        play.play(queue!.songs[0], message);
       });
 
     dispatcher.setVolumeLogarithmic(queue!.volume / 100);
@@ -78,20 +77,20 @@ export default {
       .setThumbnail(song.img)
       .setColor('BLUE')
       .addField('Name', song.title, true)
-      .addField('Duration', song.duration, true)
+      .addField('Duration', pMS(song.duration), true)
       .addField('Requested by', song.req.tag, true)
       .setFooter(`Views: ${song.views} | ${song.ago}`);
     queue!.textChannel.send(thing);
   }
 };
-
 export interface Song {
   id: string;
   title: string;
   views: string;
   url: string;
   ago: string;
-  duration: yts.Duration | string;
+  /** Duration in ms */
+  duration: number;
   img: string;
   req: User;
 }

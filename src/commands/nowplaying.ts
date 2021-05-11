@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 
 import { queue } from '../index';
 import sendError from '../util/error';
+import { Song } from '../util/playing';
 import ProgressBar from '../util/ProgressBar';
 
 module.exports = {
@@ -15,12 +16,8 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
-    const song = serverQueue.songs[0];
-    const Progress = ProgressBar(
-      serverQueue.connection.dispatcher.streamTime,
-      song.duration.seconds * 1000,
-      10
-    );
+    const song: Song = serverQueue.songs[0];
+    const Progress = ProgressBar(serverQueue.connection.dispatcher.streamTime, song.duration, 10);
     const thing = new MessageEmbed()
       .setAuthor(
         'Now Playing',

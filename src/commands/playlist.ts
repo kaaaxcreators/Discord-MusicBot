@@ -92,7 +92,7 @@ module.exports = {
     }
 
     async function handleVideo(
-      video: any,
+      video: ytpl.Item,
       message: Message,
       channel: VoiceChannel,
       playlist = false
@@ -101,11 +101,11 @@ module.exports = {
       const song: Song = {
         id: video.id,
         title: Util.escapeMarkdown(video.title),
-        views: video.views ? video.views : '-',
-        ago: video.ago ? video.ago : '-',
-        duration: video.duration,
+        views: '-',
+        ago: '-',
+        duration: Number(video.duration!),
         url: `https://www.youtube.com/watch?v=${video.id}`,
-        img: video.thumbnail,
+        img: video.thumbnails[0].url!,
         req: message.author
       };
       if (!serverQueue) {

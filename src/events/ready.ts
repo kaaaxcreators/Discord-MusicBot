@@ -5,7 +5,7 @@ module.exports = async (client: Client) => {
   client.user!.setPresence({
     status: 'online', // You can show online, idle, and dnd
     activity: {
-      name: 'Music', // The message shown
+      name: `${process.env.PRESENCE} | ${process.env.PREFIX}help`, // The message shown
       type: 'LISTENING' // PLAYING, WATCHING, LISTENING, STREAMING,
     }
   });
