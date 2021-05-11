@@ -91,3 +91,8 @@ Enter Environment Variables
 - [ ] Spotify Support
 - [ ] ?Permissions
 - [ ] Convert to Typescript
+
+## Credits
+
+The Bot is not a fork from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
+But the Idea and Code is mainly from there. This Repo is also called the "Origin", "Original Source" or "Original"
