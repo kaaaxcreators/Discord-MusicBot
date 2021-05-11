@@ -16,5 +16,5 @@ jobs:
         uses: c-hive/gha-npm-cache@v1
       - name: Install dependencies
         run: npm ci
-      - name: Run lint command
+      - name: Run build command
         run: npm run build
