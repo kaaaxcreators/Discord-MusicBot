@@ -3,7 +3,7 @@ import YouTube, { Video } from 'youtube-sr';
 
 import { IQueue, queue } from '../index';
 import sendError from '../util/error';
-import play from '../util/playing';
+import play, { Song } from '../util/playing';
 module.exports = {
   info: {
     name: 'search',
@@ -57,7 +57,6 @@ module.exports = {
             .join('\n')}`
         )
         .setFooter('Type the number of the song to add it to the playlist');
-      // eslint-disable-next-line max-depth
       message.channel.send(embedPlay).then((m) =>
         m.delete({
           timeout: 15000
@@ -65,7 +64,7 @@ module.exports = {
       );
       try {
         response = await message.channel.awaitMessages(
-          (message2) => message2.content > 0 && message2.content < 11,
+          (message) => message.content > 0 && message.content < 11,
           {
             max: 1,
             time: 20000,
@@ -82,7 +81,7 @@ module.exports = {
           }
         });
       }
-      const videoIndex = parseInt(response.first().content);
+      const videoIndex = parseInt(response.first()!.content);
       video = searched[videoIndex - 1];
     } catch (err) {
       console.error(err);
@@ -97,14 +96,14 @@ module.exports = {
     // response.clear();
     const songInfo = video;
 
-    const song = {
-      id: songInfo.id,
-      title: Util.escapeMarkdown(songInfo.title),
+    const song: Song = {
+      id: songInfo.id!,
+      title: Util.escapeMarkdown(songInfo.title!),
       views: String(songInfo.views).padStart(10, ' ').trim(),
-      ago: songInfo.uploadedAt,
+      ago: songInfo.uploadedAt!,
       duration: songInfo.durationFormatted,
       url: `https://www.youtube.com/watch?v=${songInfo.id}`,
-      img: songInfo.thumbnail.url,
+      img: songInfo.thumbnail!.url!,
       req: message.author
     };
 
@@ -139,7 +138,7 @@ module.exports = {
     try {
       const connection = await channel.join();
       queueConstruct.connection = connection;
-      play.play(queueConstruct.songs[0], message, client);
+      play.play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(`I could not join the voice channel: ${error}`);
       queue.delete(message.guild!.id);

@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import scdl from 'soundcloud-downloader';
 import yts from 'yt-search';
@@ -7,7 +7,7 @@ import { queue as Queue } from '../index';
 import sendError from '../util/error';
 
 export default {
-  async play(song: Song, message: Message, client: Client): Promise<void> {
+  async play(song: Song, message: Message): Promise<void> {
     const queue = Queue.get(message.guild!.id);
     if (!song) {
       Queue.delete(message.guild!.id);
@@ -91,7 +91,7 @@ export interface Song {
   views: string;
   url: string;
   ago: string;
-  duration: yts.Duration;
+  duration: yts.Duration | string;
   img: string;
-  req: any;
+  req: User;
 }
