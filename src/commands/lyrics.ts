@@ -17,15 +17,15 @@ module.exports = {
     const queue = Queue.get(message.guild!.id);
     if (!queue) return sendError('There is nothing playing.', message.channel).catch(console.error);
 
-    let lyrics = null;
+    let lyrics: string[] = [];
 
     try {
       lyrics = await lyricsFinder(queue.songs[0].title);
       console.log('Lyrics: ' + lyrics);
       console.log('Song: ' + queue.songs[0]);
-      if (!lyrics) lyrics = `No lyrics found for ${queue.songs[0].title}.`;
+      if (!lyrics) lyrics = [`No lyrics found for ${queue.songs[0].title}.`];
     } catch (error) {
-      lyrics = `No lyrics found for ${queue.songs[0].title}.`;
+      lyrics = [`No lyrics found for ${queue.songs[0].title}.`];
     }
     const splittedLyrics = splitlyrics.chunk(lyrics, 1024);
 
