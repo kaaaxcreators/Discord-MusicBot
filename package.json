@@ -16,7 +16,7 @@
     "@discordjs/opus": "^0.5.0",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "^12.5.3",
-    "dotenv": "^9.0.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
