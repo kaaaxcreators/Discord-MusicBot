@@ -1,7 +1,7 @@
 {
-    "name": "kaaaxcreators-discordjs",
+    "name": "kaaaxcreators-discord-musicbot",
     "description": "Very simple discord music bot with the discord.js with Song Name playing. It can able to play music with the song name",
-    "repository": "https://github.com/kaaaxcreators/discordjs",
+    "repository": "https://github.com/kaaaxcreators/Discord-MusicBot",
     "logo": "https://kaaaxcreators.de/img/sizes/favicon-1000x1000.png",
     "keywords": ["node", "discord", "youtube","music","bot"],
     "image": "heroku/nodejs",

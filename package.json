@@ -1,13 +1,22 @@
 {
-  "name": "discordjs",
-  "version": "3.0.0",
-  "description": "Advanced discord music bot",
+  "name": "discord-musicbot",
+  "version": "1.0.0",
+  "description": "Typescript Discord Music Bot",
   "main": "dist/index.js",
   "license": "MIT",
+  "author": "Bernd Storath <bernd@kaaaxcreators.de>",
+  "repository": {
+    "url": "git+https://github.com/kaaaxcreators/Discord-MusicBot.git",
+    "type": "git"
+  },
+  "homepage": "https://github.com/kaaaxcreators/Discord-MusicBot#readme",
+  "bugs": {
+    "url": "https://github.com/kaaaxcreators/Discord-MusicBot/issues"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "local": "npm run build && npm run start",
+    "deploy": "tsc && node dist/index.js",
     "lint": "eslint . --ignore-path ./.gitignore",
     "lint:fix": "eslint . --ignore-path ./.gitignore --fix"
   },
@@ -42,5 +51,26 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.3.0",
     "typescript": "^4.2.4"
-  }
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://www.buymeacoffee.com/kaaaxcreators"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "heroku",
+    "music",
+    "bot",
+    "docker",
+    "youtube",
+    "discord-music-bot",
+    "soundcloud",
+    "repl",
+    "discordjs",
+    "discord-bot",
+    "music-bot",
+    "glitch"
+  ]
 }

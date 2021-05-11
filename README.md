@@ -1,10 +1,12 @@
-# discordjs
+# Discord-MusicBot
 
-See Original Source, there is a new Version with more features and a Web Interface3
+## 🤖 Typescript Discord Music Bot
 
-I will split from the Original because I don't want Lavalink, Webinterface and other stuff
+See Original Source, there is a new Version with more features and a Web Interface
 
-This will cause less updates because I am alone, feel free to open Pull Requests, Issues and Feature Requests
+I will split from the Original because I don't want Lavalink, Webinterface and the other stuff
+
+This will cause less updates because I am alone but feel free to open Pull Requests, Issues and Feature Requests
 
 ## 💻 First Start
 
@@ -31,7 +33,7 @@ Replace `your_client_id` with your client id from your Discord Application
 
 ### 🐳 Docker
 
-Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discordjs)
+Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discord-musicbot)
 
 When starting the container provide the Environment Variables
 
@@ -43,11 +45,11 @@ Container HTTP Port: `8080`
 
 In App Configs set Environment Variables
 
-Deployment: Deploy via ImageName: `kaaaxcreators/discordjs`
+Deployment: Deploy via ImageName: `kaaaxcreators/discord-musicbot`
 
 ### Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaaaxcreators/discordjs)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaaaxcreators/Discord-MusicBot)
 
 App name: Any name you want
 
@@ -61,7 +63,7 @@ Click: Deploy app
 
 ### Replit
 
-[![Run on Repl.it](https://repl.it/badge/github/kaaaxcreators/discordjs)](https://repl.it/github/kaaaxcreators/discordjs)
+[![Run on Repl.it](https://repl.it/badge/github/kaaaxcreators/Discord-MusicBot)](https://repl.it/github/kaaaxcreators/Discord-MusicBot)
 
 On the Sidebar click on the Lock ("Secrets (Environment Variables)")
 
@@ -75,7 +77,7 @@ Wait until "[API] Logged in as `<your_bot_name>`"
 
 ### Glitch
 
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/kaaaxcreators/discordjs)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/kaaaxcreators/Discord-MusicBot)
 
 Delete `.env`
 
@@ -85,14 +87,7 @@ Enter Environment Variables
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
-## 📝 Todo
-
-- [ ] Discord Slash Commands (==discord.js@13)
-- [ ] Spotify Support
-- [ ] ?Permissions
-- [ ] Convert to Typescript
-
-## Credits
+## ©️ Credits
 
 The Bot is not a fork from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
 But the Idea and Code is mainly from there. This Repo is also called the "Origin", "Original Source" or "Original"
