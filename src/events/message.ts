@@ -39,5 +39,5 @@ module.exports = async (client: Client, message: Message) => {
 };
 
 export interface Reason {
-  stack: any;
+  stack: unknown;
 }

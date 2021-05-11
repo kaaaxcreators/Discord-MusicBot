@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, User } from 'discord.js';
+import { Message, MessageEmbed, StreamType, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader';
@@ -15,7 +15,7 @@ export default {
       return;
     }
     let stream;
-    let streamType;
+    let streamType: StreamType;
 
     try {
       if (song.url.includes('soundcloud.com')) {
@@ -50,14 +50,14 @@ export default {
       }
     }
 
-    queue!.connection.on('disconnect', () => Queue.delete(message.guild!.id));
+    queue!.connection!.on('disconnect', () => Queue.delete(message.guild!.id));
 
-    const dispatcher = queue!.connection
-      .play(stream, { type: streamType })
+    const dispatcher = queue!
+      .connection!.play(stream, { type: streamType! })
       .on('finish', () => {
         const shifted = queue!.songs.shift();
         if (queue!.loop === true) {
-          queue!.songs.push(shifted);
+          queue!.songs.push(shifted!);
         }
         play.play(queue!.songs[0], message);
       })

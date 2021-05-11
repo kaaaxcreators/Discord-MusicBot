@@ -7,11 +7,13 @@ import {
   Message,
   NewsChannel,
   TextChannel,
-  VoiceChannel
+  VoiceChannel,
+  VoiceConnection
 } from 'discord.js';
 import fs from 'fs';
 
 import keepAlive from './server';
+import { Song } from './util/playing';
 
 export const client = new Client();
 export const commands = new Collection<string, Command>();
@@ -20,8 +22,8 @@ export const queue = new Map<string, IQueue>();
 export interface IQueue {
   textChannel: TextChannel | DMChannel | NewsChannel;
   voiceChannel: VoiceChannel;
-  connection: any;
-  songs: any[];
+  connection: VoiceConnection | null;
+  songs: Song[];
   volume: number;
   playing: boolean;
   loop: boolean;
@@ -69,5 +71,5 @@ export interface Command {
     aliases: string[];
   };
 
-  run: (client: Client, message: Message, args: string[]) => any;
+  run: (client: Client, message: Message, args: string[]) => never;
 }

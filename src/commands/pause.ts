@@ -16,7 +16,7 @@ module.exports = {
     if (serverQueue && serverQueue.playing) {
       serverQueue.playing = false;
       try {
-        serverQueue.connection.dispatcher.pause();
+        serverQueue.connection!.dispatcher.pause();
       } catch (error) {
         queue.delete(message.guild!.id);
         return sendError(

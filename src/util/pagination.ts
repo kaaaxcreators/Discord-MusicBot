@@ -9,7 +9,7 @@ export default class Util {
     return temp;
   }
 
-  static get paginationEmojis() {
+  static get paginationEmojis(): string[] {
     return ['◀', '⛔', '▶'];
   }
 
@@ -19,7 +19,7 @@ export default class Util {
     contents: string[] | string[][],
     init = true,
     currPage = 0
-  ) {
+  ): Promise<void> {
     if (init) for (const emoji of this.paginationEmojis) await msg.react(emoji);
 
     const collector = msg.createReactionCollector(

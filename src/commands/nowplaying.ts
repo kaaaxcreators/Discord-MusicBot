@@ -17,7 +17,7 @@ module.exports = {
     const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
     const song: Song = serverQueue.songs[0];
-    const Progress = ProgressBar(serverQueue.connection.dispatcher.streamTime, song.duration, 10);
+    const Progress = ProgressBar(serverQueue.connection!.dispatcher.streamTime, song.duration, 10);
     const thing = new MessageEmbed()
       .setAuthor(
         'Now Playing',

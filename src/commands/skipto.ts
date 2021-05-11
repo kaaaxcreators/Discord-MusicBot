@@ -34,13 +34,13 @@ module.exports = {
 
     if (queue.loop) {
       for (let i = 0; i < Number(args[0]) - 2; i++) {
-        queue.songs.push(queue.songs.shift());
+        queue.songs.push(queue.songs.shift()!);
       }
     } else {
       queue.songs = queue.songs.slice(Number(args[0]) - 2);
     }
     try {
-      queue.connection.dispatcher.end();
+      queue.connection!.dispatcher.end();
     } catch (error) {
       queue.voiceChannel.leave();
       Queue.delete(message.guild!.id);
