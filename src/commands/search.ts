@@ -1,5 +1,5 @@
-import { Client, Message, MessageEmbed, Util } from 'discord.js';
-import YouTube from 'youtube-sr';
+import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
+import YouTube, { Video } from 'youtube-sr';
 
 import { IQueue, queue } from '../index';
 import sendError from '../util/error';
@@ -36,8 +36,10 @@ module.exports = {
     if (!searchString) return sendError("You didn't provide what to search", message.channel);
 
     const serverQueue = queue.get(message.guild!.id);
+    let response: Collection<string, Message> = new Collection<string, Message>();
+    let video: Video;
     try {
-      const searched = await YouTube.search(searchString, { limit: 10 });
+      const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
       if (searched[0] == undefined)
         return sendError('Looks like i was unable to find the song on YouTube', message.channel);
       let index = 0;
@@ -47,9 +49,9 @@ module.exports = {
         .setDescription(
           `${searched
             .map(
-              (video2) =>
-                `**\`${++index}\`  |** [\`${video2.title}\`](${video2.url}) - \`${
-                  video2.durationFormatted
+              (video) =>
+                `**\`${++index}\`  |** [\`${video.title}\`](${video.url}) - \`${
+                  video.durationFormatted
                 }\``
             )
             .join('\n')}`
@@ -62,7 +64,7 @@ module.exports = {
         })
       );
       try {
-        const response = await message.channel.awaitMessages(
+        response = await message.channel.awaitMessages(
           (message2) => message2.content > 0 && message2.content < 11,
           {
             max: 1,
@@ -81,7 +83,7 @@ module.exports = {
         });
       }
       const videoIndex = parseInt(response.first().content);
-      const video = await searched[videoIndex - 1];
+      video = searched[videoIndex - 1];
     } catch (err) {
       console.error(err);
       return message.channel.send({
@@ -92,7 +94,7 @@ module.exports = {
       });
     }
 
-    response.delete();
+    // response.clear();
     const songInfo = video;
 
     const song = {
