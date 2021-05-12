@@ -64,7 +64,22 @@ fs.readdir(__dirname + '/commands/', (err, files) => {
 
 //Logging in to discord
 keepAlive();
-client.login(config.TOKEN);
+try {
+  client.login(config.TOKEN).catch((err) => LoginError(err));
+} catch (err) {
+  LoginError(err);
+}
+
+function LoginError(err: Error) {
+  console.log(
+    'An Error occurred: ' + err.message
+      ? err.message == 'An invalid token was provided.'
+        ? 'You specified a wrong Discord Bot Token! Check your Environment Variables'
+        : err.message
+      : err
+  );
+  process.exit();
+}
 
 export interface Command {
   info: {
