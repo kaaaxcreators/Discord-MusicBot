@@ -1,4 +1,5 @@
 import { Client, Message, MessageEmbed, Util, VoiceChannel } from 'discord.js';
+import pMS from 'pretty-ms';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
@@ -103,7 +104,7 @@ module.exports = {
         title: Util.escapeMarkdown(video.title),
         views: '-',
         ago: '-',
-        duration: Number(video.duration!),
+        duration: video.durationSec! * 1000,
         url: `https://www.youtube.com/watch?v=${video.id}`,
         img: video.thumbnails[0].url!,
         req: message.author
@@ -141,7 +142,7 @@ module.exports = {
           .setThumbnail(song.img)
           .setColor('YELLOW')
           .addField('Name', song.title, true)
-          .addField('Duration', song.duration, true)
+          .addField('Duration', pMS(song.duration), true)
           .addField('Requested by', song.req.tag, true)
           .setFooter(`Views: ${song.views} | ${song.ago}`);
         return message.channel.send(thing);
