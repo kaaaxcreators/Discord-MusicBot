@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config(); //Loading .env
 import {
   Client,
   Collection,
@@ -10,6 +9,8 @@ import {
   VoiceChannel,
   VoiceConnection
 } from 'discord.js';
+import dotenv from 'dotenv-safe'; //Loading .env
+dotenv.config();
 import fs from 'fs';
 
 import keepAlive from './server';
@@ -29,9 +30,11 @@ export interface IQueue {
   loop: boolean;
 }
 
-export const config = {
-  prefix: process.env.PREFIX ? process.env.PREFIX : '',
-  SOUNDCLOUD: process.env.SOUNDCLOUD_CLIENT_ID ? process.env.SOUNDCLOUD_CLIENT_ID : ''
+export const config: Config = {
+  prefix: process.env.PREFIX!,
+  SOUNDCLOUD: process.env.SOUNDCLOUD_CLIENT_ID!,
+  TOKEN: process.env.TOKEN!,
+  PRESENCE: process.env.PRESENCE!
 };
 
 //Loading Events
@@ -61,7 +64,7 @@ fs.readdir(__dirname + '/commands/', (err, files) => {
 
 //Logging in to discord
 keepAlive();
-client.login(process.env.TOKEN);
+client.login(config.TOKEN);
 
 export interface Command {
   info: {
@@ -72,4 +75,11 @@ export interface Command {
   };
 
   run: (client: Client, message: Message, args: string[]) => never;
+}
+
+export interface Config {
+  TOKEN: string;
+  prefix: string;
+  SOUNDCLOUD: string;
+  PRESENCE: string;
 }
