@@ -1,2 +1,2 @@
-run = "node index.js"
+run = "npm run deploy"
 language = "NodeJS"
