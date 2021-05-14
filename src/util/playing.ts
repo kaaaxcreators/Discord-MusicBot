@@ -1,7 +1,7 @@
 import { Message, MessageEmbed, StreamType, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import pMS from 'pretty-ms';
-import scdl from 'soundcloud-downloader';
+import scdl from 'soundcloud-downloader/dist/index';
 
 import { queue as Queue } from '../index';
 import sendError from '../util/error';

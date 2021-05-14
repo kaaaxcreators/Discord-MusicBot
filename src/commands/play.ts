@@ -1,5 +1,5 @@
 import { Client, Message, MessageEmbed, Util } from 'discord.js';
-import scdl from 'soundcloud-downloader';
+import scdl from 'soundcloud-downloader/dist/index';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
