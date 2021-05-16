@@ -15,15 +15,9 @@ module.exports = {
 
     commands.forEach((cmd) => {
       const cmdinfo = cmd.info;
-      allcmds +=
-        '`' +
-        config.prefix +
-        cmdinfo.name +
-        ' ' +
-        cmdinfo.usage +
-        '` ~ ' +
-        cmdinfo.description +
-        '\n';
+      // Remove unnecessary space
+      const usage = cmdinfo.usage ? ' ' + cmdinfo.usage : '';
+      allcmds += '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
     });
 
     const embed = new MessageEmbed()
@@ -36,6 +30,7 @@ module.exports = {
       .setFooter(`To get info of each command you can do ${config.prefix}help [command]`);
 
     if (!args[0]) return message.channel.send(embed);
+    // If Argument supplied get details of specific command
     else {
       const cmd = args[0];
       let command = commands.get(cmd);

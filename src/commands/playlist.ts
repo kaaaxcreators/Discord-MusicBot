@@ -133,6 +133,7 @@ module.exports = {
         }
       } else {
         serverQueue.songs.push(song);
+        // If Playlist don't send message for each Song
         if (playlist) return;
         const thing = new MessageEmbed()
           .setAuthor(

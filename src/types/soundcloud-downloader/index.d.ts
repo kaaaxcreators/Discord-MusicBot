@@ -3,6 +3,9 @@
 // Dependencies for this module:
 //   ../axios
 
+// Custom Typing because of this:
+// https://github.com/zackradisic/node-soundcloud-downloader/issues/76
+
 declare module 'soundcloud-downloader/dist/index' {
   import { Transcoding, TrackInfo, User } from 'soundcloud-downloader/dist/info';
   import { FilterPredicateObject } from 'soundcloud-downloader/dist/filter-media';

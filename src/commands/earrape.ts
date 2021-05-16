@@ -22,6 +22,7 @@ module.exports = {
     if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
     if (!serverQueue.connection)
       return sendError('There is nothing playing in this server.', message.channel);
+    // Detect if earrape Mode is toggled with fixed volume (probably bad, but otherwise I would need persistence (e.g. db))
     const volume = serverQueue.volume == 696 ? 80 : 696;
     serverQueue.volume = volume;
     serverQueue.connection.dispatcher.setVolumeLogarithmic(volume / 100);

@@ -94,7 +94,6 @@ module.exports = {
       });
     }
 
-    // response.clear();
     const songInfo = video;
 
     const song: Song = {

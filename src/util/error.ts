@@ -1,9 +1,9 @@
 import { DMChannel, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 
 /**
- * Easy to send errors because im lazy to do the same things :p
- * @param {String} text - Message which is need to send
- * @param {TextChannel | DMChannel | NewsChannel} channel - A Channel to send error
+ * Easier to send errors instead of doing it over and over
+ * @param {String} text - Message to send
+ * @param {TextChannel | DMChannel | NewsChannel} channel - The Channel to send error to
  */
 export default async (
   text: string,

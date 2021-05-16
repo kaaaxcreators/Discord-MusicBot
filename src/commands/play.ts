@@ -123,6 +123,7 @@ module.exports = {
       return message.channel.send(thing);
     }
 
+    // If Queue doesn't exist create one
     const queueConstruct: IQueue = {
       textChannel: message.channel,
       voiceChannel: channel,

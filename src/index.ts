@@ -9,8 +9,12 @@ import {
   VoiceChannel,
   VoiceConnection
 } from 'discord.js';
-import dotenv from 'dotenv-safe'; //Loading .env
-dotenv.config();
+import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
+try {
+  dotenv.config();
+} catch (err) {
+  EnvError(err);
+}
 import fs from 'fs';
 
 import keepAlive from './server';
@@ -62,20 +66,36 @@ fs.readdir(__dirname + '/commands/', (err, files) => {
   });
 });
 
-//Logging in to discord
+// Start Server
 keepAlive();
+//Logging in to discord
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {
   LoginError(err);
 }
 
+// Custom Bad Token Error Handling
 function LoginError(err: Error) {
   console.log(
     'An Error occurred: ' + err.message
       ? err.message == 'An invalid token was provided.'
         ? 'You specified a wrong Discord Bot Token! Check your Environment Variables'
         : err.message
+      : err
+  );
+  process.exit();
+}
+
+// Custom Missing Env Vars Error Handling
+function EnvError(err: MissingEnvVarsError) {
+  console.log(
+    'An Error occurred: ' + err.missing
+      ? `These Environment Variables are missing: ${err.missing
+          .map((err) => `"${err}"`)
+          .join(', ')}\nAdd them to the Environment Variables!`
+      : err.message
+      ? err.message
       : err
   );
   process.exit();
