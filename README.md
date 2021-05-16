@@ -1,12 +1,4 @@
-# Discord-MusicBot
-
-## 🤖 Typescript Discord Music Bot
-
-See Original Source, there is a new Version with more features and a Web Interface
-
-I will split from the Original because I don't want Lavalink, Webinterface and the other stuff
-
-This will cause less updates because I am alone but feel free to open Pull Requests, Issues and Feature Requests
+# 🤖 Typescript Discord Music Bot
 
 ## 💻 First Start
 
@@ -97,5 +89,5 @@ Enter Environment Variables
 
 ## ©️ Credits
 
-The Bot is not a fork from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
-But the Idea and Code is mainly from there. This Repo is also called the "Origin", "Original Source" or "Original"
+This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
+I didn't like the move to Lavalink which adds an unnecessary dependency, because you need a server which hosts Lavalink and not everyone wants to. Through my approach that the client handles all music, it sometimes hangs or lags shortly but not really noticeable
