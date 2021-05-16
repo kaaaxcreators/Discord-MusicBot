@@ -24,9 +24,9 @@ Replace `your_client_id` with your client id from your Discord Application
 
 ## <img src="https://emoji.gg/assets/emoji/SpotifyLogo.png" width="32" height="32" align="left"> Spotify
 
-Create an App on the [Spotify developers dashboard](https://developer.spotify.com/dashboard/applications)
+Create an App on the [Spotify Developers Dashboard](https://developer.spotify.com/dashboard/applications)
 
-Client ID and Client Secret is necessary for the Environment Variables
+Client ID and Client Secret are necessary for the Environment Variables
 
 ## 🌱 Environment Variables
 
