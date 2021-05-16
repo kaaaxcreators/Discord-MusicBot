@@ -22,12 +22,20 @@ https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=2205
 
 Replace `your_client_id` with your client id from your Discord Application
 
+## <img src="https://emoji.gg/assets/emoji/SpotifyLogo.png" width="32" height="32" align="left"> Spotify
+
+Create an App on the [Spotify developers dashboard](https://developer.spotify.com/dashboard/applications)
+
+Client ID and Client Secret is necessary for the Environment Variables
+
 ## 🌱 Environment Variables
 
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
 - `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
 - `PRESENCE`: Discord Presence Text
+- `SPOTIFY_CLIENT_ID`: Spotify Client ID
+- `SPOTIFY_CLIENT_SECRET`: Spotify Client Secret
 
 ## 💨 Run Projects
 

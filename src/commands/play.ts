@@ -1,10 +1,11 @@
 import { Client, Message, MessageEmbed, Util } from 'discord.js';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
+import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { IQueue, queue } from '../index';
+import { config, IQueue, queue } from '../index';
 import sendError from '../util/error';
 import play, { Song } from '../util/playing';
 
@@ -78,6 +79,26 @@ module.exports = {
           ago: songInfo.last_modified!,
           views: String(songInfo.playback_count).padStart(10, ' ').trim(),
           duration: Math.ceil(songInfo.duration!),
+          req: message.author
+        };
+      } catch (error) {
+        console.error(error);
+        return sendError(error.message, message.channel).catch(console.error);
+      }
+    } else if (spdl.validateURL(url)) {
+      try {
+        spdl.setCredentials(config.SPOTIFYID, config.SPOTIFYSECRET);
+        songInfo = await spdl.getInfo(url);
+        if (!songInfo)
+          return sendError('Looks like i was unable to find the song on Spotify', message.channel);
+        song = {
+          id: songInfo.id,
+          title: songInfo.title,
+          url: songInfo.url,
+          img: songInfo.thumbnail,
+          ago: '-',
+          views: '-',
+          duration: songInfo.duration!,
           req: message.author
         };
       } catch (error) {

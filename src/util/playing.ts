@@ -2,8 +2,9 @@ import { Message, MessageEmbed, StreamType, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
+import spdl from 'spdl-core';
 
-import { queue as Queue } from '../index';
+import { config, queue as Queue } from '../index';
 import sendError from '../util/error';
 import play from './playing';
 
@@ -28,6 +29,24 @@ export default {
         }
       } else if (song.url.includes('youtube.com')) {
         stream = await ytdlDiscord(song.url, {
+          filter: 'audioonly',
+          quality: 'highestaudio',
+          highWaterMark: 1 << 25,
+          opusEncoded: true
+        });
+        streamType = 'opus';
+        stream.on('error', function (err: Error) {
+          if (err && queue) {
+            play.play(queue.songs[0], message);
+            return sendError(
+              `An unexpected error has occurred.\nPossible type \`${err}\``,
+              message.channel
+            );
+          }
+        });
+      } else if (song.url.includes('spotify.com')) {
+        spdl.setCredentials(config.SPOTIFYID, config.SPOTIFYSECRET);
+        stream = await spdl(song.url, {
           filter: 'audioonly',
           quality: 'highestaudio',
           highWaterMark: 1 << 25,

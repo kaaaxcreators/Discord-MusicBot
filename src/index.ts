@@ -38,7 +38,9 @@ export const config: Config = {
   prefix: process.env.PREFIX!,
   SOUNDCLOUD: process.env.SOUNDCLOUD_CLIENT_ID!,
   TOKEN: process.env.TOKEN!,
-  PRESENCE: process.env.PRESENCE!
+  PRESENCE: process.env.PRESENCE!,
+  SPOTIFYID: process.env.SPOTIFY_CLIENT_ID!,
+  SPOTIFYSECRET: process.env.SPOTIFY_CLIENT_SECRET!
 };
 
 //Loading Events
@@ -117,4 +119,6 @@ export interface Config {
   prefix: string;
   SOUNDCLOUD: string;
   PRESENCE: string;
+  SPOTIFYID: string;
+  SPOTIFYSECRET: string;
 }
