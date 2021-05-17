@@ -13,7 +13,7 @@ module.exports = {
   info: {
     name: 'play',
     description: 'To play songs :D',
-    usage: '<YouTube_URL> | <song_name>',
+    usage: '<YouTube URL> | <Spotify Track URL> | <Song Name>',
     aliases: ['p']
   },
 
