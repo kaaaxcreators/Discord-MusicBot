@@ -17,7 +17,6 @@ try {
 }
 import fs from 'fs';
 
-import keepAlive from './server';
 import { Song } from './util/playing';
 
 export const client = new Client();
@@ -66,8 +65,6 @@ fs.readdir(__dirname + '/commands/', (err, files) => {
   });
 });
 
-// Start Server
-keepAlive();
 //Logging in to discord
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
