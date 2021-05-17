@@ -20,16 +20,24 @@
       },
       "PREFIX": {
         "description": "Bot Prefix",
-        "value": "!"
+        "value": "!",
+        "required": "true"
       },
       "SOUNDCLOUD_CLIENT_ID": {
         "description": "Soundcloud Client ID",
         "value": "2t9loNQH90kzJcsFCODdigxfp325aq4z",
-        "required": "false"
+        "required": "true"
       },
       "PRESENCE": {
         "description": "Discord Presence Text",
-        "value": "",
+        "required": "true"
+      },
+      "SPOTIFY_CLIENT_ID": {
+        "description": "Spotify Client ID",
+        "required": "true"
+      },
+      "SPOTIFY_CLIENT_SECRET": {
+        "description": "Spotify Client Secret",
         "required": "true"
       }
     }  

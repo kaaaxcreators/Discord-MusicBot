@@ -1,12 +1,4 @@
-# Discord-MusicBot
-
-## 🤖 Typescript Discord Music Bot
-
-See Original Source, there is a new Version with more features and a Web Interface
-
-I will split from the Original because I don't want Lavalink, Webinterface and the other stuff
-
-This will cause less updates because I am alone but feel free to open Pull Requests, Issues and Feature Requests
+# 🤖 Typescript Discord Music Bot
 
 ## 💻 First Start
 
@@ -22,12 +14,24 @@ https://discord.com/oauth2/authorize?client_id=<your_client_id>&permissions=2205
 
 Replace `your_client_id` with your client id from your Discord Application
 
+## <img src="https://emoji.gg/assets/emoji/SpotifyLogo.png" width="32" height="32" align="left"> Spotify
+
+Create an App on the [Spotify Developers Dashboard](https://developer.spotify.com/dashboard/applications)
+
+Client ID and Client Secret are necessary for the Environment Variables
+
+A Track has to be in this format: `https://open.spotify.com/track/<anything>`
+
+A Playlist has to be in this format: `https://open.spotify.com/playlist/<anything>`
+
 ## 🌱 Environment Variables
 
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
 - `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
 - `PRESENCE`: Discord Presence Text
+- `SPOTIFY_CLIENT_ID`: Spotify Client ID
+- `SPOTIFY_CLIENT_SECRET`: Spotify Client Secret
 
 ## 💨 Run Projects
 
@@ -89,5 +93,5 @@ Enter Environment Variables
 
 ## ©️ Credits
 
-The Bot is not a fork from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
-But the Idea and Code is mainly from there. This Repo is also called the "Origin", "Original Source" or "Original"
+This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
+I didn't like the move to Lavalink which adds an unnecessary dependency, because you need a server which hosts Lavalink and not everyone wants to. Through my approach that the client handles all music, it sometimes hangs or lags shortly but not really noticeable
