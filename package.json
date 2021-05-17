@@ -16,6 +16,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "release": "npx semantic-release",
     "deploy": "tsc && node dist/index.js",
     "lint": "eslint . --ignore-path ./.gitignore",
     "lint:fix": "eslint . --ignore-path ./.gitignore --fix"
@@ -43,6 +44,7 @@
     "ytpl": "^2.2.1"
   },
   "devDependencies": {
+    "@kaaaxcreators/config": "^1.1.0",
     "@types/dotenv-safe": "^8.1.1",
     "@types/express": "^4.17.11",
     "@types/yt-search": "^2.3.0",
