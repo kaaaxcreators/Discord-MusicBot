@@ -1,5 +1,6 @@
 import { Client } from 'discord.js';
 import express from 'express';
+import pMS from 'pretty-ms';
 
 function keepAlive(client: Client): void {
   const server = express();
@@ -12,7 +13,9 @@ function keepAlive(client: Client): void {
         client.user?.username
       }</b> is ready!<br>ClientID: <b>${client.user!.id}</b><br>Serving in <b>${
         client.guilds.cache.size
-      }</b> Servers`
+      }</b> Servers<br>Running since: <b>${new Date(
+        Date.now() - client.uptime!
+      ).toLocaleString()}</b> - Uptime: <b>${pMS(client.uptime!)}</b>`
     );
   });
   server.listen(port, () => {
