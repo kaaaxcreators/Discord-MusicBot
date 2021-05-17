@@ -20,6 +20,10 @@ Create an App on the [Spotify Developers Dashboard](https://developer.spotify.co
 
 Client ID and Client Secret are necessary for the Environment Variables
 
+A Track has to be in this format: `https://open.spotify.com/track/<anything>`
+
+A Playlist has to be in this format: `https://open.spotify.com/playlist/<anything>`
+
 ## 🌱 Environment Variables
 
 - `TOKEN`: Discord Bot Token
