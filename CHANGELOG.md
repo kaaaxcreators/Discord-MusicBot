@@ -1,3 +1,12 @@
+## [v1.1.0] - 2021-05-18
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.1.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.0.0...v1.1.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.1.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.1.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.1.0.tar.gz))
+
+### New features
+
+- [`42cf6ec`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/42cf6ec)  Total Player Count
+- [`ea9c739`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/ea9c739)  Support Youtube Livestream
+
 ## [v1.0.0] - 2021-05-17
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.0.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.0.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.0.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.0.0.tar.gz))
