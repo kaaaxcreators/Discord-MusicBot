@@ -28,12 +28,21 @@ export default {
           streamType = 'unknown';
         }
       } else if (song.url.includes('youtube.com')) {
-        stream = await ytdlDiscord(song.url, {
-          filter: 'audioonly',
-          quality: 'highestaudio',
-          highWaterMark: 1 << 25,
-          opusEncoded: true
-        });
+        // Don't filter audioonly when live
+        if (song.live) {
+          stream = await ytdlDiscord(song.url, {
+            quality: 'highestaudio',
+            highWaterMark: 1 << 25,
+            opusEncoded: true
+          });
+        } else {
+          stream = await ytdlDiscord(song.url, {
+            filter: 'audioonly',
+            quality: 'highestaudio',
+            highWaterMark: 1 << 25,
+            opusEncoded: true
+          });
+        }
         streamType = 'opus';
         stream.on('error', function (err: Error) {
           if (err && queue) {
@@ -97,7 +106,7 @@ export default {
       .setThumbnail(song.img)
       .setColor('BLUE')
       .addField('Name', song.title, true)
-      .addField('Duration', pMS(song.duration), true)
+      .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
       .addField('Requested by', song.req.tag, true)
       .setFooter(`Views: ${song.views} | ${song.ago}`);
     queue!.textChannel.send(thing);
@@ -112,5 +121,6 @@ export interface Song {
   /** Duration in ms */
   duration: number;
   img: string;
+  live?: boolean;
   req: User;
 }

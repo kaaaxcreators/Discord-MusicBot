@@ -56,7 +56,8 @@ module.exports = {
           img: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
           duration: Number(songInfo.videoDetails.lengthSeconds) * 1000,
           ago: songInfo.videoDetails.publishDate,
-          views: String(songInfo.videoDetails.viewCount).padStart(10, ' '),
+          views: String(songInfo.videoDetails.viewCount).padStart(10, ' ').trim(),
+          live: songInfo.videoDetails.isLiveContent,
           req: message.author
         };
       } catch (error) {
@@ -138,7 +139,7 @@ module.exports = {
         .setThumbnail(song.img!)
         .setColor('YELLOW')
         .addField('Name', song.title, true)
-        .addField('Duration', pMS(song.duration), true)
+        .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
         .addField('Requested by', song.req.tag, true)
         .setFooter(`Views: ${song.views} | ${song.ago}`);
       return message.channel.send(thing);
