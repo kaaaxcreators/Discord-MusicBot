@@ -8,7 +8,8 @@ module.exports = {
     name: 'loop',
     description: 'Toggle music loop',
     usage: '',
-    aliases: ['l']
+    aliases: ['l'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

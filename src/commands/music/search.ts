@@ -10,7 +10,8 @@ module.exports = {
     name: 'search',
     description: 'To search songs :D',
     usage: '<song_name>',
-    aliases: ['sc']
+    aliases: ['sc'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message, args: string[]) {

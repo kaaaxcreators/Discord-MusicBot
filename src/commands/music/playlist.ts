@@ -13,7 +13,8 @@ module.exports = {
     name: 'playlist',
     description: 'To play songs :D',
     usage: '<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>',
-    aliases: ['pl']
+    aliases: ['pl'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message, args: string[]) {

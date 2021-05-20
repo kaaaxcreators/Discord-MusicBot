@@ -9,7 +9,8 @@ module.exports = {
     name: 'queue',
     description: 'To show the server songs queue',
     usage: '',
-    aliases: ['q', 'list', 'songlist', 'song-list']
+    aliases: ['q', 'list', 'songlist', 'song-list'],
+    categorie: 'music'
   },
   run: async function (client: Client, message: Message) {
     const permissions = (message.channel as TextChannel).permissionsFor(message.client.user!);

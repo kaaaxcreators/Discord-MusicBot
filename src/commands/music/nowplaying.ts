@@ -10,7 +10,8 @@ module.exports = {
     name: 'nowplaying',
     description: 'To show the music which is currently playing in this server',
     usage: '',
-    aliases: ['np']
+    aliases: ['np'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

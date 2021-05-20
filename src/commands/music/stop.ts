@@ -8,7 +8,8 @@ module.exports = {
     name: 'stop',
     description: 'To stop the music and clearing the queue',
     usage: '',
-    aliases: []
+    aliases: [],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

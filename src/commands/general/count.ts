@@ -7,7 +7,8 @@ module.exports = {
     name: 'count',
     description: 'See how many Servers the Bot is in',
     usage: '',
-    aliases: ['servercount']
+    aliases: ['servercount'],
+    categorie: 'general'
   },
   run: async function (client: Client, message: Message) {
     const count = new MessageEmbed()

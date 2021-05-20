@@ -7,7 +7,8 @@ module.exports = {
     name: 'ping',
     description: 'Pong!',
     usage: '',
-    aliases: ['latency']
+    aliases: ['latency'],
+    categorie: 'general'
   },
   run: async function (client: Client, message: Message) {
     return message.channel.send('Loading data').then(async (msg) => {

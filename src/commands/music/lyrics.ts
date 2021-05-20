@@ -10,7 +10,8 @@ module.exports = {
     name: 'lyrics',
     description: 'Get lyrics for the currently playing song',
     usage: '',
-    aliases: ['ly']
+    aliases: ['ly'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

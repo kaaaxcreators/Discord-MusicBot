@@ -8,7 +8,8 @@ module.exports = {
     name: 'earrape',
     description: 'Toggle Earrape Mode',
     usage: '',
-    aliases: []
+    aliases: [],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

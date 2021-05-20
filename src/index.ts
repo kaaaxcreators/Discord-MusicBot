@@ -119,6 +119,7 @@ export interface Command {
     description: string;
     usage: string;
     aliases: string[];
+    categorie: string;
   };
 
   run: (client: Client, message: Message, args: string[]) => never;

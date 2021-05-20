@@ -7,17 +7,30 @@ module.exports = {
     name: 'help',
     description: 'To show all commands',
     usage: '[command]',
-    aliases: ['commands', 'help me', 'pls help']
+    aliases: ['commands', 'help me', 'pls help'],
+    categorie: 'general'
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
-    let allcmds = '';
+    let generalcmds = '';
+    let musiccmds = '';
 
     commands.forEach((cmd) => {
       const cmdinfo = cmd.info;
       // Remove unnecessary space
       const usage = cmdinfo.usage ? ' ' + cmdinfo.usage : '';
-      allcmds += '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+      switch (cmdinfo.categorie) {
+        case 'general':
+          generalcmds +=
+            '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          break;
+        case 'music':
+          musiccmds +=
+            '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          break;
+        default:
+          break;
+      }
     });
 
     const embed = new MessageEmbed()
@@ -26,7 +39,8 @@ module.exports = {
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE')
-      .setDescription(allcmds)
+      .addField(':information_source: General', generalcmds)
+      .addField(':notes: Music', musiccmds)
       .setFooter(`To get info of each command you can do ${config.prefix}help [command]`);
 
     if (!args[0]) return message.channel.send(embed);

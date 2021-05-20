@@ -8,7 +8,8 @@ module.exports = {
     name: 'shuffle',
     description: 'Shuffle queue',
     usage: '',
-    aliases: []
+    aliases: [],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message) {

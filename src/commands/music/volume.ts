@@ -8,7 +8,8 @@ module.exports = {
     name: 'volume',
     description: 'To change the server song queue volume',
     usage: '[volume]',
-    aliases: ['v', 'vol']
+    aliases: ['v', 'vol'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message, args: string[]) {

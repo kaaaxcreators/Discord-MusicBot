@@ -8,7 +8,8 @@ module.exports = {
     name: 'skipto',
     description: 'Skip to the selected queue number',
     usage: '<number>',
-    aliases: ['st']
+    aliases: ['st'],
+    categorie: 'music'
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
