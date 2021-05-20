@@ -1,3 +1,16 @@
+## [v1.2.0] - 2021-05-20
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.2.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.1.0...v1.2.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.2.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.2.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.2.0.tar.gz))
+
+### New features
+
+- [`44f17ca`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/44f17ca)  better times through moment, stat commands
+
+### Updates
+
+- [`55428ca`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/55428ca)  Moved to seperate Folders
+- [`8ea0ea6`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/8ea0ea6)  Categorize
+
 ## [v1.1.0] - 2021-05-18
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.1.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.0.0...v1.1.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.1.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.1.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.1.0.tar.gz))
