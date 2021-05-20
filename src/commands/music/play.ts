@@ -5,7 +5,7 @@ import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { config, IQueue, queue } from '../../index';
+import { Command, config, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 
@@ -15,7 +15,11 @@ module.exports = {
     description: 'To play songs :D',
     usage: '<YouTube URL> | <Spotify Track URL> | <Song Name>',
     aliases: ['p'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -170,4 +174,4 @@ module.exports = {
       return sendError(`I could not join the voice channel: ${error}`, message.channel);
     }
   }
-};
+} as Command;

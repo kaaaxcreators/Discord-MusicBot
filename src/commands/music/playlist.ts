@@ -5,7 +5,7 @@ import { getTracks } from 'spotify-url-info';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
-import { config, IQueue, queue } from '../../index';
+import { Command, config, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 module.exports = {
@@ -14,7 +14,11 @@ module.exports = {
     description: 'To play songs :D',
     usage: '<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>',
     aliases: ['pl'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -235,4 +239,4 @@ module.exports = {
       return;
     }
   }
-};
+} as Command;

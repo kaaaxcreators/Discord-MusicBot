@@ -2,7 +2,7 @@ import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
-import { IQueue, queue } from '../../index';
+import { Command, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 module.exports = {
@@ -11,7 +11,11 @@ module.exports = {
     description: 'To search songs :D',
     usage: '<song_name>',
     aliases: ['sc'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -147,4 +151,4 @@ module.exports = {
       return sendError(`I could not join the voice channel: ${error}`, message.channel);
     }
   }
-};
+} as Command;

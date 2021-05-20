@@ -1,12 +1,18 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
+import { Command } from '../..';
+
 module.exports = {
   info: {
     name: 'invite',
     description: 'To add/invite the bot to your server',
     usage: '',
     aliases: ['inv'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -28,4 +34,4 @@ module.exports = {
       .setColor('BLUE');
     return message.channel.send(invite);
   }
-};
+} as Command;

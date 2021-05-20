@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { queue } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +9,11 @@ module.exports = {
     description: 'To change the server song queue volume',
     usage: '[volume]',
     aliases: ['v', 'vol'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -42,4 +46,4 @@ module.exports = {
       .setColor('BLUE');
     return message.channel.send(xd);
   }
-};
+} as Command;

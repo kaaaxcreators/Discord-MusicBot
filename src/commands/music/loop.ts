@@ -1,6 +1,6 @@
 import { Client, Message } from 'discord.js';
 
-import { queue } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +9,11 @@ module.exports = {
     description: 'Toggle music loop',
     usage: '',
     aliases: ['l'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -27,4 +31,4 @@ module.exports = {
     }
     return sendError('There is nothing playing in this server.', message.channel);
   }
-};
+} as Command;

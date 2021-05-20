@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import moment from 'moment';
 import pMS from 'pretty-ms';
 
+import { Command } from '../..';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -10,7 +11,11 @@ module.exports = {
     description: 'Get Bot Stats',
     usage: '',
     aliases: ['uptime', 'statistics'],
-    categorie: 'general'
+    categorie: 'general',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
   run: async function (client: Client, message: Message) {
     try {
@@ -37,4 +42,4 @@ module.exports = {
       return sendError('Something went wrong', message.channel);
     }
   }
-};
+} as Command;

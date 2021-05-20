@@ -5,6 +5,7 @@ import {
   DMChannel,
   Message,
   NewsChannel,
+  PermissionResolvable,
   TextChannel,
   VoiceChannel,
   VoiceConnection
@@ -126,9 +127,15 @@ export interface Command {
     usage: string;
     aliases: string[];
     categorie: string;
+    permissions: Permissions;
   };
 
-  run: (client: Client, message: Message, args: string[]) => never;
+  run: (client: Client, message: Message, args: string[]) => unknown;
+}
+
+export interface Permissions {
+  channel: PermissionResolvable[];
+  member: PermissionResolvable[];
 }
 
 export interface Config {

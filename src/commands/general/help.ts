@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { commands, config } from '../../index';
+import { Command, commands, config } from '../../index';
 
 module.exports = {
   info: {
@@ -8,7 +8,11 @@ module.exports = {
     description: 'To show all commands',
     usage: '[command]',
     aliases: ['commands', 'help me', 'pls help'],
-    categorie: 'general'
+    categorie: 'general',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -61,4 +65,4 @@ Aliases: ${command.info.aliases.join(', ')}
       message.channel.send(commandinfo);
     }
   }
-};
+} as Command;

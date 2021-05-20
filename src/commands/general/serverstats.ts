@@ -1,6 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import moment from 'moment';
 
+import { Command } from '../..';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +10,11 @@ module.exports = {
     description: 'Get Server Stats',
     usage: '',
     aliases: ['guildstats'],
-    categorie: 'general'
+    categorie: 'general',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
   run: async function (client: Client, message: Message) {
     try {
@@ -50,4 +55,4 @@ module.exports = {
       return sendError('An error occurred', message.channel);
     }
   }
-};
+} as Command;

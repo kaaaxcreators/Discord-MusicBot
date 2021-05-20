@@ -1,7 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import lyricsFinder from 'lyrics-finder';
 
-import { queue as Queue } from '../../index';
+import { Command, queue as Queue } from '../../index';
 import sendError from '../../util/error';
 import splitlyrics from '../../util/pagination';
 
@@ -11,7 +11,11 @@ module.exports = {
     description: 'Get lyrics for the currently playing song',
     usage: '',
     aliases: ['ly'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -43,4 +47,4 @@ module.exports = {
     if (splittedLyrics.length > 1)
       await splitlyrics.pagination(lyricsMsg, message.author, splittedLyrics);
   }
-};
+} as Command;

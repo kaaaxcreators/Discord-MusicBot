@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { queue } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +9,11 @@ module.exports = {
     description: 'Toggle Earrape Mode',
     usage: '',
     aliases: [],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -36,4 +40,4 @@ module.exports = {
       .setColor('BLUE');
     return message.channel.send(xd);
   }
-};
+} as Command;

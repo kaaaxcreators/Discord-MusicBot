@@ -1,6 +1,6 @@
 import { Client, Message } from 'discord.js';
 
-import { config, queue as Queue } from '../../index';
+import { Command, config, queue as Queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +9,11 @@ module.exports = {
     description: 'Remove song from the queue',
     usage: '<number>',
     aliases: ['rm'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
@@ -40,4 +44,4 @@ module.exports = {
       );
     }
   }
-};
+} as Command;

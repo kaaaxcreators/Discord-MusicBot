@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { config } from '../../index';
+import { Command, config } from '../../index';
 
 module.exports = {
   info: {
@@ -8,7 +8,11 @@ module.exports = {
     description: 'See how many Servers the Bot is in',
     usage: '',
     aliases: ['servercount'],
-    categorie: 'general'
+    categorie: 'general',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
   run: async function (client: Client, message: Message) {
     const count = new MessageEmbed()
@@ -17,4 +21,4 @@ module.exports = {
       .setFooter(`Use ${config.prefix}invite to add/invite the Bot to your server`);
     return message.channel.send(count);
   }
-};
+} as Command;

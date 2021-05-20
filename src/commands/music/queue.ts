@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed, TextChannel } from 'discord.js';
 
-import { config, queue as Queue } from '../../index';
+import { Command, config, queue as Queue } from '../../index';
 import sendError from '../../util/error';
 import Util from '../../util/pagination';
 
@@ -10,7 +10,11 @@ module.exports = {
     description: 'To show the server songs queue',
     usage: '',
     aliases: ['q', 'list', 'songlist', 'song-list'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
   run: async function (client: Client, message: Message) {
     const permissions = (message.channel as TextChannel).permissionsFor(message.client.user!);
@@ -50,4 +54,4 @@ module.exports = {
       message.channel.send(`An error occurred: ${e.message}.`);
     }
   }
-};
+} as Command;

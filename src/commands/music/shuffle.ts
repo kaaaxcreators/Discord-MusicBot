@@ -1,6 +1,6 @@
 import { Client, Message } from 'discord.js';
 
-import { queue } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -9,7 +9,11 @@ module.exports = {
     description: 'Shuffle queue',
     usage: '',
     aliases: [],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -33,4 +37,4 @@ module.exports = {
       );
     }
   }
-};
+} as Command;

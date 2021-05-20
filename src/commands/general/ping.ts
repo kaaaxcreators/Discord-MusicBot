@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { config } from '../../index';
+import { Command, config } from '../../index';
 
 module.exports = {
   info: {
@@ -8,7 +8,11 @@ module.exports = {
     description: 'Pong!',
     usage: '',
     aliases: ['latency'],
-    categorie: 'general'
+    categorie: 'general',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
   run: async function (client: Client, message: Message) {
     return message.channel.send('Loading data').then(async (msg) => {
@@ -22,4 +26,4 @@ module.exports = {
       message.channel.send(ping);
     });
   }
-};
+} as Command;

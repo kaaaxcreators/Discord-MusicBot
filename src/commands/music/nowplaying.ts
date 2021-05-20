@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { queue } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 import { Song } from '../../util/playing';
 import ProgressBar from '../../util/ProgressBar';
@@ -11,7 +11,11 @@ module.exports = {
     description: 'To show the music which is currently playing in this server',
     usage: '',
     aliases: ['np'],
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -41,7 +45,7 @@ module.exports = {
       .setFooter(`Views: ${song.views} | ${song.ago}`);
     return message.channel.send(thing);
   }
-};
+} as Command;
 
 export interface Progress {
   Bar: string;

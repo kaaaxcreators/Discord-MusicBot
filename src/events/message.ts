@@ -1,7 +1,8 @@
-import { Client, Message } from 'discord.js';
+import { Client, Message, NewsChannel, TextChannel } from 'discord.js';
 import events from 'events';
 
 import { commands, config } from '../index';
+import sendError from '../util/error';
 
 module.exports = async (client: Client, message: Message) => {
   if (message.author.bot) return;
@@ -36,6 +37,29 @@ module.exports = async (client: Client, message: Message) => {
 
   // Executing the command with Context and args
   if (cmd && cmd.run) {
+    if (cmd.info.permissions) {
+      message.channel = <TextChannel | NewsChannel>message.channel;
+      if (
+        cmd.info.permissions.channel &&
+        !message.channel.permissionsFor(client.user!)?.has(cmd.info.permissions.channel)
+      ) {
+        return sendError(
+          "I don't have enough permissions!\nRequired:\n" +
+            cmd.info.permissions.channel.map((perm) => `• ${perm}`).join('\n'),
+          message.channel
+        );
+      }
+      if (
+        cmd.info.permissions.member &&
+        !message.channel.permissionsFor(message.member!)?.has(cmd.info.permissions.member)
+      ) {
+        return sendError(
+          "You don't have enough permissions!\nRequired:\n" +
+            cmd.info.permissions.member.map((perm) => `• ${perm}`).join('\n'),
+          message.channel
+        );
+      }
+    }
     cmd.run(client, message, args);
   } else return;
 };

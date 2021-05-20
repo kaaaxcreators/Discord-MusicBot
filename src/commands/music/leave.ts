@@ -1,5 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
+import { Command } from '../..';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -8,7 +9,11 @@ module.exports = {
     aliases: ['goaway', 'disconnect'],
     description: 'Leave The Voice Channel!',
     usage: '',
-    categorie: 'music'
+    categorie: 'music',
+    permissions: {
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      member: []
+    }
   },
 
   run: async function (client: Client, message: Message) {
@@ -39,4 +44,4 @@ module.exports = {
       .send(Embed)
       .catch(() => message.channel.send('🎶 Left The Voice Channel :C'));
   }
-};
+} as Command;
