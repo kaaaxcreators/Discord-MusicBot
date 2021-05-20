@@ -1,9 +1,9 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import lyricsFinder from 'lyrics-finder';
 
-import { queue as Queue } from '../index';
-import sendError from '../util/error';
-import splitlyrics from '../util/pagination';
+import { queue as Queue } from '../../index';
+import sendError from '../../util/error';
+import splitlyrics from '../../util/pagination';
 
 module.exports = {
   info: {

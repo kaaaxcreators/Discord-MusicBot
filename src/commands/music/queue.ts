@@ -1,8 +1,8 @@
 import { Client, Message, MessageEmbed, TextChannel } from 'discord.js';
 
-import { config, queue as Queue } from '../index';
-import sendError from '../util/error';
-import Util from '../util/pagination';
+import { config, queue as Queue } from '../../index';
+import sendError from '../../util/error';
+import Util from '../../util/pagination';
 
 module.exports = {
   info: {

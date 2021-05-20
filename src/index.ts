@@ -54,16 +54,29 @@ fs.readdir(__dirname + '/events/', (err, files) => {
   });
 });
 
-//Loading Commands
-fs.readdir(__dirname + '/commands/', (err, files) => {
+//Loading Music
+fs.readdir(__dirname + '/commands/music', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const props = require(__dirname + `/commands/${file}`);
+    const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.log('Loading Command: ' + commandName);
+    console.log('Loading Music Command: ' + commandName);
+  });
+});
+
+//Loading General
+fs.readdir(__dirname + '/commands/general', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach((file) => {
+    if (!file.endsWith('.js')) return;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const props = require(__dirname + `/commands/general/${file}`);
+    const commandName = file.split('.')[0];
+    commands.set(commandName, props);
+    console.log('Loading General Command: ' + commandName);
   });
 });
 

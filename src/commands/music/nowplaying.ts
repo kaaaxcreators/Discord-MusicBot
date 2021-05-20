@@ -1,9 +1,9 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { queue } from '../index';
-import sendError from '../util/error';
-import { Song } from '../util/playing';
-import ProgressBar from '../util/ProgressBar';
+import { queue } from '../../index';
+import sendError from '../../util/error';
+import { Song } from '../../util/playing';
+import ProgressBar from '../../util/ProgressBar';
 
 module.exports = {
   info: {

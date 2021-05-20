@@ -2,9 +2,9 @@ import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
-import { IQueue, queue } from '../index';
-import sendError from '../util/error';
-import play, { Song } from '../util/playing';
+import { IQueue, queue } from '../../index';
+import sendError from '../../util/error';
+import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'search',

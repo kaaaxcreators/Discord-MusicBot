@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import sendError from '../util/error';
+import sendError from '../../util/error';
 
 module.exports = {
   info: {

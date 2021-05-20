@@ -1,7 +1,7 @@
 import { Client, Message } from 'discord.js';
 
-import { queue } from '../index';
-import sendError from '../util/error';
+import { queue } from '../../index';
+import sendError from '../../util/error';
 
 module.exports = {
   info: {

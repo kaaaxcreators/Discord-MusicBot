@@ -5,9 +5,9 @@ import { getTracks } from 'spotify-url-info';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
-import { config, IQueue, queue } from '../index';
-import sendError from '../util/error';
-import play, { Song } from '../util/playing';
+import { config, IQueue, queue } from '../../index';
+import sendError from '../../util/error';
+import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'playlist',

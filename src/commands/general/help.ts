@@ -1,6 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 
-import { commands, config } from '../index';
+import { commands, config } from '../../index';
 
 module.exports = {
   info: {

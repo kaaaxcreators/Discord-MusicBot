@@ -5,9 +5,9 @@ import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { config, IQueue, queue } from '../index';
-import sendError from '../util/error';
-import play, { Song } from '../util/playing';
+import { config, IQueue, queue } from '../../index';
+import sendError from '../../util/error';
+import play, { Song } from '../../util/playing';
 
 module.exports = {
   info: {
