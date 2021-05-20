@@ -39,11 +39,11 @@ export default function docs(): void {
     switch (cmdinfo.categorie) {
       case 'general':
         generalcmds +=
-          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n\n';
         break;
       case 'music':
         musiccmds +=
-          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n\n';
         break;
       default:
         break;
