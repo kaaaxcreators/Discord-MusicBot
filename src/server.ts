@@ -1,5 +1,6 @@
 import { Client } from 'discord.js';
 import express from 'express';
+import moment from 'moment';
 import pMS from 'pretty-ms';
 
 async function keepAlive(client: Client): Promise<void> {
@@ -13,6 +14,7 @@ async function keepAlive(client: Client): Promise<void> {
   for (const guild of guilds) {
     totalmembers += guild.memberCount;
   }
+  const uptime = new Date(Date.now() - client.uptime!);
   server.all('/', (req, res) => {
     // Cool Website
     res.send(
@@ -22,9 +24,9 @@ async function keepAlive(client: Client): Promise<void> {
         guilds.length
       }</b> Servers with a Total of <b>${JSON.stringify(
         totalmembers
-      )}</b> Members<br>Running since: <b>${new Date(
-        Date.now() - client.uptime!
-      ).toLocaleString()}</b> - Uptime: <b>${pMS(client.uptime!)}</b>`
+      )}</b> Members<br>Running since: <b>${uptime.toLocaleString()}</b> - Uptime: <b>${pMS(
+        client.uptime!
+      )}</b> - Started: <b>${moment(uptime).fromNow()}</b>`
     );
   });
   server.listen(port, () => {

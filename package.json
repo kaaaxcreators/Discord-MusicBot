@@ -33,6 +33,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
     "lyrics-finder": "^21.7.0",
+    "moment": "^2.29.1",
     "pretty-ms": "^7.0.1",
     "soundcloud-downloader": "^1.0.0",
     "spdl-core": "^1.7.0",
