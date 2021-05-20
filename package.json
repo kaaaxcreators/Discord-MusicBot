@@ -19,7 +19,8 @@
     "release": "npx semantic-release",
     "deploy": "tsc && node dist/index.js",
     "lint": "eslint . --ignore-path ./.gitignore",
-    "lint:fix": "eslint . --ignore-path ./.gitignore --fix"
+    "lint:fix": "eslint . --ignore-path ./.gitignore --fix",
+    "docs": "cross-env DOCS=true npm run deploy"
   },
   "engines": {
     "node": ">=14.x"
@@ -50,6 +51,7 @@
     "@types/yt-search": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",

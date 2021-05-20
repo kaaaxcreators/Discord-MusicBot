@@ -17,6 +17,7 @@ try {
 }
 import fs from 'fs';
 
+import docs from './docs';
 import { Song } from './util/playing';
 
 export const client = new Client();
@@ -41,6 +42,11 @@ export const config: Config = {
   SPOTIFYID: process.env.SPOTIFY_CLIENT_ID!,
   SPOTIFYSECRET: process.env.SPOTIFY_CLIENT_SECRET!
 };
+
+// Generate Docs if Env is set
+if (process.env.DOCS == 'true') {
+  docs();
+}
 
 //Loading Events
 fs.readdir(__dirname + '/events/', (err, files) => {

@@ -33,6 +33,10 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 - `SPOTIFY_CLIENT_ID`: Spotify Client ID
 - `SPOTIFY_CLIENT_SECRET`: Spotify Client Secret
 
+## 📑 Commands
+
+A List of all available commands is available [here](COMMANDS.md)
+
 ## 💨 Run Projects
 
 ### 🐳 Docker
