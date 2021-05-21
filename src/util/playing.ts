@@ -4,7 +4,7 @@ import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
 
-import { config, queue as Queue } from '../index';
+import { queue as Queue } from '../index';
 import sendError from '../util/error';
 import play from './playing';
 
@@ -54,7 +54,6 @@ export default {
           }
         });
       } else if (song.url.includes('spotify.com')) {
-        spdl.setCredentials(config.SPOTIFYID, config.SPOTIFYSECRET);
         stream = await spdl(song.url, {
           filter: 'audioonly',
           quality: 'highestaudio',

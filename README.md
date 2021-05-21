@@ -16,9 +16,9 @@ Replace `your_client_id` with your client id from your Discord Application
 
 ## <img src="https://emoji.gg/assets/emoji/SpotifyLogo.png" width="32" height="32" align="left"> Spotify
 
-Create an App on the [Spotify Developers Dashboard](https://developer.spotify.com/dashboard/applications)
+Spotify Tracks and Playlists are supported
 
-Client ID and Client Secret are necessary for the Environment Variables
+But it really just tries to find the Spotify Song on Youtube
 
 A Track has to be in this format: `https://open.spotify.com/track/<anything>`
 
@@ -30,8 +30,6 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 - `PREFIX`: Bot Prefix
 - `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
 - `PRESENCE`: Discord Presence Text
-- `SPOTIFY_CLIENT_ID`: Spotify Client ID
-- `SPOTIFY_CLIENT_SECRET`: Spotify Client Secret
 
 ## 📑 Commands
 

@@ -5,7 +5,7 @@ import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { Command, config, IQueue, queue } from '../../index';
+import { Command, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 
@@ -93,7 +93,6 @@ module.exports = {
       }
     } else if (spdl.validateURL(url)) {
       try {
-        spdl.setCredentials(config.SPOTIFYID, config.SPOTIFYSECRET);
         songInfo = await spdl.getInfo(url);
         if (!songInfo)
           return sendError('Looks like i was unable to find the song on Spotify', message.channel);
