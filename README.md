@@ -1,5 +1,12 @@
 # 🤖 Typescript Discord Music Bot
 
+[![wakatime](https://wakatime.com/badge/github/kaaaxcreators/Discord-MusicBot.svg)](https://wakatime.com/badge/github/kaaaxcreators/Discord-MusicBot)
+[![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square)](https://gitmoji.dev)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Typescript](https://img.shields.io/badge/TypeScript-strict%20%F0%9F%92%AA-blue)](https://www.typescriptlang.org/)
+[![GitHub](https://img.shields.io/github/license/kaaaxcreators/Discord-MusicBot)](https://github.com/kaaaxcreators/Discord-MusicBot/blob/main/LICENSE)
+[![Release CI](https://github.com/kaaaxcreators/Discord-MusicBot/actions/workflows/release.yml/badge.svg)](https://github.com/kaaaxcreators/Discord-MusicBot/actions/workflows/release.yml)
+
 ## 💻 First Start
 
 Rename `.env.example` to `.env`  
