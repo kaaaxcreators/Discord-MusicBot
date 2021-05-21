@@ -70,6 +70,9 @@ export default {
             );
           }
         });
+      } else if (song.id == 'radio') {
+        stream = song.url;
+        streamType = 'unknown';
       }
     } catch (error) {
       if (queue) {
