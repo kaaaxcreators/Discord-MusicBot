@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, TextChannel } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 
 import { Command, config, queue as Queue } from '../../index';
 import sendError from '../../util/error';
@@ -12,15 +12,11 @@ module.exports = {
     aliases: ['q', 'list', 'songlist', 'song-list'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES', 'ADD_REACTIONS'],
       member: []
     }
   },
   run: async function (client: Client, message: Message) {
-    const permissions = (message.channel as TextChannel).permissionsFor(message.client.user!);
-    if (!permissions!.has(['MANAGE_MESSAGES', 'ADD_REACTIONS']))
-      return sendError('Missing permission to manage messages or add reactions', message.channel);
-
     const queue = Queue.get(message.guild!.id);
     if (!queue) return sendError('There is nothing playing in this server.', message.channel);
 

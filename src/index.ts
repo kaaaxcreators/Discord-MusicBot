@@ -134,7 +134,9 @@ export interface Command {
 }
 
 export interface Permissions {
+  /** Permissions the Bot needs */
   channel: PermissionResolvable[];
+  /** Permissions the Member needs */
   member: PermissionResolvable[];
 }
 

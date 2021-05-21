@@ -16,7 +16,7 @@ module.exports = {
     aliases: ['pl'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
       member: []
     }
   },
@@ -30,17 +30,6 @@ module.exports = {
       );
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
-    const permissions = channel.permissionsFor(message.client.user!);
-    if (!permissions!.has('CONNECT'))
-      return sendError(
-        'I cannot connect to your voice channel, make sure I have the proper permissions!',
-        message.channel
-      );
-    if (!permissions!.has('SPEAK'))
-      return sendError(
-        'I cannot speak in this voice channel, make sure I have the proper permissions!',
-        message.channel
-      );
 
     if (!searchString || !url)
       return sendError(

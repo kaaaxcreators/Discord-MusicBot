@@ -3,7 +3,7 @@ import lyricsFinder from 'lyrics-finder';
 
 import { Command, queue as Queue } from '../../index';
 import sendError from '../../util/error';
-import splitlyrics from '../../util/pagination';
+import Util from '../../util/pagination';
 
 module.exports = {
   info: {
@@ -13,7 +13,7 @@ module.exports = {
     aliases: ['ly'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES', 'ADD_REACTIONS'],
       member: []
     }
   },
@@ -30,7 +30,7 @@ module.exports = {
     } catch (error) {
       lyrics = [`No lyrics found for ${queue.songs[0].title}.`];
     }
-    const splittedLyrics = splitlyrics.chunk(lyrics, 1024);
+    const splittedLyrics = Util.chunk(lyrics, 1024);
 
     const lyricsEmbed = new MessageEmbed()
       .setAuthor(
@@ -44,7 +44,6 @@ module.exports = {
       .setTimestamp();
 
     const lyricsMsg = await message.channel.send(lyricsEmbed);
-    if (splittedLyrics.length > 1)
-      await splitlyrics.pagination(lyricsMsg, message.author, splittedLyrics);
+    if (splittedLyrics.length > 1) await Util.pagination(lyricsMsg, message.author, splittedLyrics);
   }
 } as Command;
