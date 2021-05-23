@@ -38,6 +38,8 @@
 
 `mqueue` ~ To show the server songs queue
 
+`mradio <Stream URL> | <Attachment>` ~ **[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment
+
 `mremove <number>` ~ Remove song from the queue
 
 `mresume` ~ To resume the paused music
