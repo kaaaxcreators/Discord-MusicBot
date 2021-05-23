@@ -1,3 +1,12 @@
+## [v1.3.0] - 2021-05-23
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.3.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.2.0...v1.3.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.3.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.3.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.3.0.tar.gz))
+
+### New features
+
+- [`03959a2`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/03959a2)  Updated spdl-core, Removed Spotify API need
+- [`201f513`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/201f513)  Radio Streams
+
 ## [v1.2.0] - 2021-05-20
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.2.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.1.0...v1.2.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.2.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.2.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.2.0.tar.gz))
