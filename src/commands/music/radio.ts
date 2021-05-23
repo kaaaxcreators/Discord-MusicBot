@@ -66,7 +66,7 @@ module.exports = {
     };
     if (serverQueue) {
       serverQueue.songs.push(song);
-      const thing = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setAuthor(
           'Song has been added to queue',
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -77,7 +77,7 @@ module.exports = {
         .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
         .addField('Requested by', song.req.tag, true)
         .setFooter(`Views: ${song.views} | ${song.ago}`);
-      return message.channel.send(thing);
+      return message.channel.send(embed);
     }
 
     // If Queue doesn't exist create one

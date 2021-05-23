@@ -32,7 +32,7 @@ module.exports = {
     }
     const splittedLyrics = Util.chunk(lyrics, 1024);
 
-    const lyricsEmbed = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setAuthor(
         `${queue.songs[0].title} — Lyrics`,
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -43,7 +43,7 @@ module.exports = {
       .setFooter(`Page 1 of ${splittedLyrics.length}.`)
       .setTimestamp();
 
-    const lyricsMsg = await message.channel.send(lyricsEmbed);
+    const lyricsMsg = await message.channel.send(embed);
     if (splittedLyrics.length > 1) await Util.pagination(lyricsMsg, message.author, splittedLyrics);
   }
 } as Command;

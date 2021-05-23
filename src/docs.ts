@@ -3,7 +3,9 @@ import fs from 'fs';
 import { config } from './index';
 
 const commands = new Map();
-
+/**
+ * Synchronous Doc Generation
+ */
 export default function docs(): void {
   console.log('Creating Docs');
   //Loading Music
@@ -32,6 +34,7 @@ export default function docs(): void {
   let musiccmds = '';
 
   // Looping through
+  // copied from help command
   commands.forEach((cmd) => {
     const cmdinfo = cmd.info;
     // Remove unnecessary space

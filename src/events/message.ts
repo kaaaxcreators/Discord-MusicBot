@@ -35,8 +35,9 @@ module.exports = async (client: Client, message: Message) => {
   });
   events.EventEmitter.defaultMaxListeners = 25;
 
-  // Executing the command with Context and args
+  // Executing the command with Context and Arguments
   if (cmd && cmd.run) {
+    // Check for Bot Permissions
     if (cmd.info.permissions) {
       message.channel = <TextChannel | NewsChannel>message.channel;
       if (
@@ -49,6 +50,7 @@ module.exports = async (client: Client, message: Message) => {
           message.channel
         );
       }
+      // Check for Member Permissions
       if (
         cmd.info.permissions.member &&
         !message.channel.permissionsFor(message.member!)?.has(cmd.info.permissions.member)

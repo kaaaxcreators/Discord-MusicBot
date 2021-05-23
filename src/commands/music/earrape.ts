@@ -31,13 +31,13 @@ module.exports = {
     const volume = serverQueue.volume == 696 ? 80 : 696;
     serverQueue.volume = volume;
     serverQueue.connection.dispatcher.setVolumeLogarithmic(volume / 100);
-    const xd = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(`I set the volume to: **${volume / 1}**`)
       .setAuthor(
         'Server Volume Manager',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE');
-    return message.channel.send(xd);
+    return message.channel.send(embed);
   }
 } as Command;

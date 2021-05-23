@@ -8,7 +8,7 @@ import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'search',
-    description: 'To search songs :D',
+    description: 'Search Songs',
     usage: '<song_name>',
     aliases: ['sc'],
     categorie: 'music',
@@ -37,7 +37,7 @@ module.exports = {
       if (searched[0] == undefined)
         return sendError('Looks like i was unable to find the song on YouTube', message.channel);
       let index = 0;
-      const embedPlay = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setColor('BLUE')
         .setAuthor(`Results for "${args.join(' ')}"`, message.author.displayAvatarURL())
         .setDescription(
@@ -51,7 +51,7 @@ module.exports = {
             .join('\n')}`
         )
         .setFooter('Type the number of the song to add it to the playlist');
-      message.channel.send(embedPlay).then((m) =>
+      message.channel.send(embed).then((m) =>
         m.delete({
           timeout: 15000
         })
@@ -102,7 +102,7 @@ module.exports = {
 
     if (serverQueue) {
       serverQueue.songs.push(song);
-      const thing = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setAuthor(
           'Song has been added to queue',
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -113,7 +113,7 @@ module.exports = {
         .addField('Duration', pMS(song.duration), true)
         .addField('Requested by', song.req.tag, true)
         .setFooter(`Views: ${song.views} | ${song.ago}`);
-      return message.channel.send(thing);
+      return message.channel.send(embed);
     }
 
     const queueConstruct: IQueue = {

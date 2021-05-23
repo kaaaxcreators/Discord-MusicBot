@@ -11,7 +11,7 @@ import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'playlist',
-    description: 'To play songs :D',
+    description: 'Play a Playlist',
     usage: '<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>',
     aliases: ['pl'],
     categorie: 'music',
@@ -63,7 +63,7 @@ module.exports = {
           const infos = await spdl.getInfo(video);
           await handleSpotify(infos, message, channel, true); // eslint-disable-line no-await-in-loop
         }
-        const thing = new MessageEmbed()
+        const embed = new MessageEmbed()
           .setAuthor(
             'Playlist has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -73,7 +73,7 @@ module.exports = {
           .setDescription(
             `✅  **|**  Playlist: **\`${songInfo.title}\`** has added \`${playlist.length}\` videos to the queue`
           );
-        return message.channel.send(thing);
+        return message.channel.send(embed);
       } catch (error) {
         return sendError('An unexpected error has occurred', message.channel).catch(console.error);
       }
@@ -93,7 +93,7 @@ module.exports = {
         for (const video of videos) {
           await handleVideo(video, message, channel, true);
         }
-        const thing = new MessageEmbed()
+        const embed = new MessageEmbed()
           .setAuthor(
             'Playlist has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -103,7 +103,7 @@ module.exports = {
           .setDescription(
             `✅  **|**  Playlist: **\`${songInfo.title}\`** has added \`${videos.length}\` videos to the queue`
           );
-        return message.channel.send(thing);
+        return message.channel.send(embed);
       } catch (error) {
         return sendError('An unexpected error has occurred', message.channel).catch(console.error);
       }
@@ -152,7 +152,7 @@ module.exports = {
         serverQueue.songs.push(song);
         // If Playlist don't send message for each Song
         if (playlist) return;
-        const thing = new MessageEmbed()
+        const embed = new MessageEmbed()
           .setAuthor(
             'Song has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -163,7 +163,7 @@ module.exports = {
           .addField('Duration', pMS(song.duration), true)
           .addField('Requested by', song.req.tag, true)
           .setFooter(`Views: ${song.views} | ${song.ago}`);
-        return message.channel.send(thing);
+        return message.channel.send(embed);
       }
       return;
     }
@@ -211,7 +211,7 @@ module.exports = {
         serverQueue.songs.push(song);
         // If Playlist don't send message for each Song
         if (playlist) return;
-        const thing = new MessageEmbed()
+        const embed = new MessageEmbed()
           .setAuthor(
             'Song has been added to queue',
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -222,7 +222,7 @@ module.exports = {
           .addField('Duration', pMS(song.duration), true)
           .addField('Requested by', song.req.tag, true)
           .setFooter(`Views: ${song.views} | ${song.ago}`);
-        return message.channel.send(thing);
+        return message.channel.send(embed);
       }
       return;
     }

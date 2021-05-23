@@ -5,7 +5,7 @@ import { Command, commands, config } from '../../index';
 module.exports = {
   info: {
     name: 'help',
-    description: 'To show all commands',
+    description: 'Show all commands',
     usage: '[command]',
     aliases: ['commands', 'help me', 'pls help'],
     categorie: 'general',

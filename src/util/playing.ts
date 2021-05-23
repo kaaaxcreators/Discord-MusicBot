@@ -100,7 +100,7 @@ export default {
 
     dispatcher.setVolumeLogarithmic(queue!.volume / 100);
 
-    const thing = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setAuthor(
         'Started Playing Music!',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -111,9 +111,11 @@ export default {
       .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
       .addField('Requested by', song.req.tag, true)
       .setFooter(`Views: ${song.views} | ${song.ago}`);
-    queue!.textChannel.send(thing);
+    queue!.textChannel.send(embed);
   }
 };
+
+/** Represents a Song in the Queue */
 export interface Song {
   id: string;
   title: string;

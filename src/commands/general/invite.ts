@@ -5,7 +5,7 @@ import { Command } from '../..';
 module.exports = {
   info: {
     name: 'invite',
-    description: 'To add/invite the bot to your server',
+    description: 'Add/invite the bot to your server',
     usage: '',
     aliases: ['inv'],
     categorie: 'music',
@@ -19,7 +19,7 @@ module.exports = {
     //set the permissions id here (https://discordapi.com/permissions.html)
     const permissions = 2205280320;
 
-    const invite = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle(`Invite ${client.user!.username}`)
       .setDescription(
         `Want me in your server? Invite me today! \n\n [Invite Link](https://discord.com/oauth2/authorize?client_id=${
@@ -32,6 +32,6 @@ module.exports = {
         }&permissions=${permissions}&scope=applications.commands%20bot`
       )
       .setColor('BLUE');
-    return message.channel.send(invite);
+    return message.channel.send(embed);
   }
 } as Command;

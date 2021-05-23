@@ -15,10 +15,10 @@ module.exports = {
     }
   },
   run: async function (client: Client, message: Message) {
-    const count = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setDescription(`The Bot is currently in ${client.guilds.cache.size} Servers`)
       .setFooter(`Use ${config.prefix}invite to add/invite the Bot to your server`);
-    return message.channel.send(count);
+    return message.channel.send(embed);
   }
 } as Command;

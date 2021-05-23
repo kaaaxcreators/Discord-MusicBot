@@ -6,7 +6,7 @@ import sendError from '../../util/error';
 module.exports = {
   info: {
     name: 'pause',
-    description: 'To pause the current music in the server',
+    description: 'Pause the current music',
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -29,11 +29,11 @@ module.exports = {
           message.channel
         );
       }
-      const xd = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setDescription('⏸ Paused the music for you!')
         .setColor('YELLOW')
         .setTitle('Music has been paused!');
-      return message.channel.send(xd);
+      return message.channel.send(embed);
     }
     return sendError('There is nothing playing in this server.', message.channel);
   }

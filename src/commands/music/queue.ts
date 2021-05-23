@@ -7,7 +7,7 @@ import Util from '../../util/pagination';
 module.exports = {
   info: {
     name: 'queue',
-    description: 'To show the server songs queue',
+    description: 'Show the server queue',
     usage: '',
     aliases: ['q', 'list', 'songlist', 'song-list'],
     categorie: 'music',

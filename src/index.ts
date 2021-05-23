@@ -25,6 +25,7 @@ export const client = new Client();
 export const commands = new Collection<string, Command>();
 export const queue = new Map<string, IQueue>();
 
+/** Represents the Queue */
 export interface IQueue {
   textChannel: TextChannel | DMChannel | NewsChannel;
   voiceChannel: VoiceChannel;
@@ -120,6 +121,7 @@ function EnvError(err: MissingEnvVarsError) {
   process.exit();
 }
 
+/** Represents a Command */
 export interface Command {
   info: {
     name: string;
@@ -133,14 +135,14 @@ export interface Command {
   run: (client: Client, message: Message, args: string[]) => unknown;
 }
 
-export interface Permissions {
+interface Permissions {
   /** Permissions the Bot needs */
   channel: PermissionResolvable[];
   /** Permissions the Member needs */
   member: PermissionResolvable[];
 }
 
-export interface Config {
+interface Config {
   TOKEN: string;
   prefix: string;
   SOUNDCLOUD: string;

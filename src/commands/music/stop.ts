@@ -6,7 +6,7 @@ import sendError from '../../util/error';
 module.exports = {
   info: {
     name: 'stop',
-    description: 'To stop the music and clearing the queue',
+    description: 'Stop the music and clear the queue',
     usage: '',
     aliases: [],
     categorie: 'music',

@@ -6,7 +6,7 @@ import sendError from '../../util/error';
 module.exports = {
   info: {
     name: 'skip',
-    description: 'To skip the current music',
+    description: 'Skip the current song',
     usage: '',
     aliases: ['s'],
     categorie: 'music',
@@ -31,12 +31,12 @@ module.exports = {
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();
-      const xd = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setDescription('▶ Resumed the music for you!')
         .setColor('YELLOW')
         .setTitle('Music has been Resumed!');
 
-      return message.channel.send(xd).catch((err) => console.log(err));
+      return message.channel.send(embed).catch((err) => console.log(err));
     }
 
     try {

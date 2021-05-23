@@ -6,7 +6,7 @@ import sendError from '../../util/error';
 module.exports = {
   info: {
     name: 'resume',
-    description: 'To resume the paused music',
+    description: 'Resume the paused music',
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -21,14 +21,14 @@ module.exports = {
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection!.dispatcher.resume();
-      const xd = new MessageEmbed()
+      const embed = new MessageEmbed()
         .setDescription('▶ Resumed the music for you!')
         .setColor('YELLOW')
         .setAuthor(
           'Music has been Resumed!',
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         );
-      return message.channel.send(xd);
+      return message.channel.send(embed);
     }
     return sendError('There is nothing playing in this server.', message.channel);
   }

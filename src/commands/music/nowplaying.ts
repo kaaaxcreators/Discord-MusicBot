@@ -8,7 +8,7 @@ import ProgressBar from '../../util/ProgressBar';
 module.exports = {
   info: {
     name: 'nowplaying',
-    description: 'To show the music which is currently playing in this server',
+    description: 'Get music which is currently playing',
     usage: '',
     aliases: ['np'],
     categorie: 'music',
@@ -31,7 +31,7 @@ module.exports = {
     } else {
       Progress = ProgressBar(serverQueue.connection!.dispatcher.streamTime, song.duration, 10);
     }
-    const thing = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setAuthor(
         'Now Playing',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -43,7 +43,7 @@ module.exports = {
       .addField('Percentage', Progress.percentageText, true)
       .addField('Requested by', song.req.tag, true)
       .setFooter(`Views: ${song.views} | ${song.ago}`);
-    return message.channel.send(thing);
+    return message.channel.send(embed);
   }
 } as Command;
 

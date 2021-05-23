@@ -6,7 +6,7 @@ import sendError from '../../util/error';
 module.exports = {
   info: {
     name: 'volume',
-    description: 'To change the server song queue volume',
+    description: 'Change the server queue volume',
     usage: '[volume]',
     aliases: ['v', 'vol'],
     categorie: 'music',
@@ -37,13 +37,13 @@ module.exports = {
       ).catch((err) => console.log(err));
     serverQueue.volume = Number(args[0]);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
-    const xd = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(`I set the volume to: **${Number(args[0]) / 1}/100**`)
       .setAuthor(
         'Server Volume Manager',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE');
-    return message.channel.send(xd);
+    return message.channel.send(embed);
   }
 } as Command;

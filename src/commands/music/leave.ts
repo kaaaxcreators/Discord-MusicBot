@@ -30,7 +30,7 @@ module.exports = {
       return sendError('Trying To Leave The Voice Channel...', message.channel);
     }
 
-    const Embed = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setAuthor(
         'Leave Voice Channel',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
@@ -41,7 +41,7 @@ module.exports = {
       .setTimestamp();
 
     return message.channel
-      .send(Embed)
+      .send(embed)
       .catch(() => message.channel.send('🎶 Left The Voice Channel :C'));
   }
 } as Command;
