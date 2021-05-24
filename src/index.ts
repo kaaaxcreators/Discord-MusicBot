@@ -38,11 +38,8 @@ export interface IQueue {
 
 export const config: Config = {
   prefix: process.env.PREFIX!,
-  SOUNDCLOUD: process.env.SOUNDCLOUD_CLIENT_ID!,
   TOKEN: process.env.TOKEN!,
-  PRESENCE: process.env.PRESENCE!,
-  SPOTIFYID: process.env.SPOTIFY_CLIENT_ID!,
-  SPOTIFYSECRET: process.env.SPOTIFY_CLIENT_SECRET!
+  PRESENCE: process.env.PRESENCE!
 };
 
 // Generate Docs if Env is set
@@ -145,8 +142,5 @@ interface Permissions {
 interface Config {
   TOKEN: string;
   prefix: string;
-  SOUNDCLOUD: string;
   PRESENCE: string;
-  SPOTIFYID: string;
-  SPOTIFYSECRET: string;
 }

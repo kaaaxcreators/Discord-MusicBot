@@ -35,7 +35,6 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
-- `SOUNDCLOUD_CLIENT_ID`: Soundcloud Client ID. Use: `2t9loNQH90kzJcsFCODdigxfp325aq4z`
 - `PRESENCE`: Discord Presence Text
 
 ## 📑 Commands
