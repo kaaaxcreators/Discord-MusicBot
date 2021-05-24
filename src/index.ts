@@ -17,6 +17,8 @@ try {
   EnvError(err);
 }
 import fs from 'fs';
+import i18n from 'i18n';
+import path from 'path';
 
 import docs from './docs';
 import { Song } from './util/playing';
@@ -36,11 +38,33 @@ export interface IQueue {
   loop: boolean;
 }
 
+const locales = ['en'];
+const locale = process.env.LOCALE || 'en';
+
 export const config: Config = {
   prefix: process.env.PREFIX!,
   TOKEN: process.env.TOKEN!,
-  PRESENCE: process.env.PRESENCE!
+  PRESENCE: process.env.PRESENCE!,
+  LOCALE: locales.includes(locale) ? locale : 'en'
 };
+
+// Configure i18n
+i18n.configure({
+  locales: locales,
+  directory: path.join(__dirname, '/../locales'),
+  defaultLocale: 'en',
+  objectNotation: true,
+  register: global,
+
+  logWarnFn: function (msg) {
+    console.log(msg);
+  },
+
+  logErrorFn: function (msg) {
+    console.log(msg);
+  }
+});
+i18n.setLocale(config.LOCALE);
 
 // Generate Docs if Env is set
 if (process.env.DOCS == 'true') {
@@ -55,7 +79,7 @@ fs.readdir(__dirname + '/events/', (err, files) => {
     const event = require(__dirname + `/events/${file}`);
     const eventName = file.split('.')[0];
     client.on(eventName, event.bind(null, client));
-    console.log('Loading Event: ' + eventName);
+    console.log(i18n.__('index.event') + ' ' + eventName);
   });
 });
 
@@ -68,7 +92,7 @@ fs.readdir(__dirname + '/commands/music', (err, files) => {
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.log('Loading Music Command: ' + commandName);
+    console.log(i18n.__('index.command.music') + ' ' + commandName);
   });
 });
 
@@ -81,7 +105,7 @@ fs.readdir(__dirname + '/commands/general', (err, files) => {
     const props = require(__dirname + `/commands/general/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.log('Loading General Command: ' + commandName);
+    console.log(i18n.__('index.command.general') + ' ' + commandName);
   });
 });
 
@@ -95,9 +119,9 @@ try {
 // Custom Bad Token Error Handling
 function LoginError(err: Error) {
   console.log(
-    'An Error occurred: ' + err.message
-      ? err.message == 'An invalid token was provided.'
-        ? 'You specified a wrong Discord Bot Token! Check your Environment Variables'
+    i18n.__('error.occurred') + ' ' + err.message
+      ? err.message == i18n.__('index.token.invalid')
+        ? i18n.__('index.token.env')
         : err.message
       : err
   );
@@ -107,10 +131,10 @@ function LoginError(err: Error) {
 // Custom Missing Env Vars Error Handling
 function EnvError(err: MissingEnvVarsError) {
   console.log(
-    'An Error occurred: ' + err.missing
-      ? `These Environment Variables are missing: ${err.missing
+    i18n.__('error.occurred') + ' ' + err.missing
+      ? `${i18n.__('index.env.missing')} ${err.missing
           .map((err) => `"${err}"`)
-          .join(', ')}\nAdd them to the Environment Variables!`
+          .join(', ')}\n${i18n.__('index.env.add')}`
       : err.message
       ? err.message
       : err
@@ -143,4 +167,5 @@ interface Config {
   TOKEN: string;
   prefix: string;
   PRESENCE: string;
+  LOCALE: string;
 }

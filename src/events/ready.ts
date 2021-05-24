@@ -1,12 +1,14 @@
 import { Client } from 'discord.js';
+import i18n from 'i18n';
 
 import { config } from '../index';
+i18n.setLocale(config.LOCALE);
 import keepAlive from '../server';
 
 module.exports = async (client: Client) => {
   // Start Express Website
   keepAlive(client);
-  console.log(`[API] Logged in as ${client.user!.username}`);
+  console.log(`${i18n.__('ready.loggedin')} ${client.user!.username}`);
   client.user!.setPresence({
     status: 'online', // You can show online, idle, and dnd
     activity: {

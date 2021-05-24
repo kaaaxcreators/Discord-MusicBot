@@ -1,12 +1,14 @@
-import { Client, Message } from 'discord.js';
+import { Client, Message, MessageEmbedOptions } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'loop',
-    description: 'Toggle music loop',
+    description: i18n.__('loop.description'),
     usage: '',
     aliases: ['l'],
     categorie: 'music',
@@ -23,12 +25,12 @@ module.exports = {
       return message.channel.send({
         embed: {
           color: 'GREEN',
-          description: `🔂  **|**  Loop is **\`${
-            serverQueue.loop === true ? 'enabled' : 'disabled'
-          }\`**`
-        }
+          description: i18n.__mf('loop.status', {
+            status: serverQueue.loop === true ? i18n.__('loop.enabled') : i18n.__('loop.disabled')
+          })
+        } as MessageEmbedOptions
       });
     }
-    return sendError('There is nothing playing in this server.', message.channel);
+    return sendError(i18n.__('error.noqueue'), message.channel);
   }
 } as Command;

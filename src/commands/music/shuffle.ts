@@ -1,12 +1,14 @@
 import { Client, Message } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'shuffle',
-    description: 'Shuffle queue',
+    description: i18n.__('shuffle.description'),
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -31,10 +33,7 @@ module.exports = {
     } catch (error) {
       message.guild!.me!.voice.channel!.leave();
       queue.delete(message.guild!.id);
-      return sendError(
-        `:notes: The player has stopped and the queue has been cleared.: \`${error}\``,
-        message.channel
-      );
+      return sendError(`:notes: ${i18n.__('error.music')}: \`${error}\``, message.channel);
     }
   }
 } as Command;

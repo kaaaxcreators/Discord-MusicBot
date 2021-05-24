@@ -1,4 +1,5 @@
 import { Client, Message, MessageEmbed, Util, VoiceChannel } from 'discord.js';
+import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import spdl from 'spdl-core';
 import { getTracks } from 'spotify-url-info';
@@ -6,13 +7,14 @@ import yts from 'yt-search';
 import ytpl from 'ytpl';
 
 import { Command, config, IQueue, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'playlist',
-    description: 'Play a Playlist',
-    usage: '<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>',
+    description: i18n.__('playlist.description'),
+    usage: i18n.__('playlist.usage'),
     aliases: ['pl'],
     categorie: 'music',
     permissions: {
@@ -23,23 +25,19 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
 
     if (!searchString || !url)
       return sendError(
-        `Usage: ${config.prefix}playlist <YouTube Playlist URL | Playlist Name>`,
+        i18n.__mf('playlist.missingargs', { prefix: config.prefix }),
         message.channel
       );
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       try {
         const playlist = await ytpl(url);
-        if (!playlist) return sendError('Playlist not found', message.channel);
+        if (!playlist) return sendError(i18n.__('playlist.notfound.notfound'), message.channel);
         const videos = await playlist.items;
         for (const video of videos) {
           await handleVideo(video, message, channel, true);
@@ -47,12 +45,17 @@ module.exports = {
         return message.channel.send({
           embed: {
             color: 'GREEN',
-            description: `✅  **|**  Playlist: **\`${playlist.title}\`** has added \`${videos.length}\` videos to the queue`
+            description: i18n.__mf('playlist.added', {
+              playlist: playlist.title,
+              videos: videos.length
+            })
           }
         });
       } catch (error) {
         console.error(error);
-        return sendError('Playlist not found :(', message.channel).catch(console.error);
+        return sendError(i18n.__('playlist.notfound.notfound'), message.channel).catch(
+          console.error
+        );
       }
     } else if (url.match(/(^https?:\/\/open\.spotify\.com\/playlist\/)([a-z,A-Z,0-9]+)?.*$/gi)) {
       try {
@@ -65,27 +68,24 @@ module.exports = {
         }
         const embed = new MessageEmbed()
           .setAuthor(
-            'Playlist has been added to queue',
+            i18n.__('playlist.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(
-            `✅  **|**  Playlist: **\`${songInfo.title}\`** has added \`${playlist.length}\` videos to the queue`
+            i18n.__mf('playlist.added', { playlist: songInfo.title, videos: playlist.length })
           );
         return message.channel.send(embed);
       } catch (error) {
-        return sendError('An unexpected error has occurred', message.channel).catch(console.error);
+        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     } else {
       try {
         const searched = await yts.search(searchString);
 
         if (searched.playlists.length === 0)
-          return sendError(
-            'Looks like i was unable to find the playlist on YouTube',
-            message.channel
-          );
+          return sendError(i18n.__('playlist.notfound.youtube'), message.channel);
         const songInfo = searched.playlists[0];
         const listurl = songInfo.listId;
         const playlist = await ytpl(listurl);
@@ -95,17 +95,15 @@ module.exports = {
         }
         const embed = new MessageEmbed()
           .setAuthor(
-            'Playlist has been added to queue',
+            i18n.__('playlist.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
-          .setDescription(
-            `✅  **|**  Playlist: **\`${songInfo.title}\`** has added \`${videos.length}\` videos to the queue`
-          );
+          .setDescription(i18n.__mf('paylist.added', { playlist: songInfo.title, videos: length }));
         return message.channel.send(embed);
       } catch (error) {
-        return sendError('An unexpected error has occurred', message.channel).catch(console.error);
+        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     }
 
@@ -144,9 +142,9 @@ module.exports = {
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {
-          console.error(`I could not join the voice channel: ${error}`);
+          console.error(`${i18n.__('error.join')} ${error}`);
           queue.delete(message.guild!.id);
-          return sendError(`I could not join the voice channel: ${error}`, message.channel);
+          return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
         }
       } else {
         serverQueue.songs.push(song);
@@ -154,15 +152,15 @@ module.exports = {
         if (playlist) return;
         const embed = new MessageEmbed()
           .setAuthor(
-            'Song has been added to queue',
+            i18n.__('play.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(song.img)
           .setColor('YELLOW')
-          .addField('Name', song.title, true)
-          .addField('Duration', pMS(song.duration), true)
-          .addField('Requested by', song.req.tag, true)
-          .setFooter(`Views: ${song.views} | ${song.ago}`);
+          .addField(i18n.__('play.embed.name'), song.title, true)
+          .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
+          .addField(i18n.__('play.embed.request'), song.req.tag, true)
+          .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
         return message.channel.send(embed);
       }
       return;
@@ -203,9 +201,9 @@ module.exports = {
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {
-          console.error(`I could not join the voice channel: ${error}`);
+          console.error(`${i18n.__('error.join')} ${error}`);
           queue.delete(message.guild!.id);
-          return sendError(`I could not join the voice channel: ${error}`, message.channel);
+          return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
         }
       } else {
         serverQueue.songs.push(song);
@@ -213,15 +211,15 @@ module.exports = {
         if (playlist) return;
         const embed = new MessageEmbed()
           .setAuthor(
-            'Song has been added to queue',
+            i18n.__('play.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(song.img)
           .setColor('YELLOW')
-          .addField('Name', song.title, true)
-          .addField('Duration', pMS(song.duration), true)
-          .addField('Requested by', song.req.tag, true)
-          .setFooter(`Views: ${song.views} | ${song.ago}`);
+          .addField(i18n.__('play.embed.name'), song.title, true)
+          .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
+          .addField(i18n.__('play.embed.request'), song.req.tag, true)
+          .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
         return message.channel.send(embed);
       }
       return;

@@ -1,11 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
 import { Command, config } from '../../index';
+i18n.setLocale(config.LOCALE);
 
 module.exports = {
   info: {
     name: 'count',
-    description: 'See how many Servers the Bot is in',
+    description: i18n.__('count.description'),
     usage: '',
     aliases: ['servercount'],
     categorie: 'general',
@@ -17,8 +19,8 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
-      .setDescription(`The Bot is currently in ${client.guilds.cache.size} Servers`)
-      .setFooter(`Use ${config.prefix}invite to add/invite the Bot to your server`);
+      .setDescription(i18n.__mf('count.embed.description', { servers: client.guilds.cache.size }))
+      .setFooter(i18n.__mf('count.embed.footer', { prefix: config.prefix }));
     return message.channel.send(embed);
   }
 } as Command;

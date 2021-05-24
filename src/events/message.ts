@@ -1,7 +1,9 @@
 import { Client, Message, NewsChannel, TextChannel } from 'discord.js';
 import events from 'events';
+import i18n from 'i18n';
 
 import { commands, config } from '../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 
 module.exports = async (client: Client, message: Message) => {
@@ -39,7 +41,7 @@ module.exports = async (client: Client, message: Message) => {
   if (cmd && cmd.run) {
     // Only run General Commands in DM
     if (cmd.info.categorie != 'general' && message.channel.type == 'dm')
-      return sendError('Only General Commands are supported in DMs!', message.channel);
+      return sendError(i18n.__('message.onlygeneral'), message.channel);
     // Check for Bot Permissions only on Servers
     if (cmd.info.permissions && message.channel.type != 'dm') {
       message.channel = <TextChannel | NewsChannel>message.channel;
@@ -48,7 +50,7 @@ module.exports = async (client: Client, message: Message) => {
         !message.channel.permissionsFor(client.user!)?.has(cmd.info.permissions.channel)
       ) {
         return sendError(
-          "I don't have enough permissions!\nRequired:\n" +
+          i18n.__('message.permissions.member') +
             cmd.info.permissions.channel.map((perm) => `• ${perm}`).join('\n'),
           message.channel
         );
@@ -59,7 +61,7 @@ module.exports = async (client: Client, message: Message) => {
         !message.channel.permissionsFor(message.member!)?.has(cmd.info.permissions.member)
       ) {
         return sendError(
-          "You don't have enough permissions!\nRequired:\n" +
+          i18n.__('message.permissions.member') +
             cmd.info.permissions.member.map((perm) => `• ${perm}`).join('\n'),
           message.channel
         );

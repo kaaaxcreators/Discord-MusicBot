@@ -1,10 +1,12 @@
 import { Message, MessageEmbed, StreamType, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
+import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
 
-import { queue as Queue } from '../index';
+import { config, queue as Queue } from '../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 import play from './playing';
 
@@ -47,10 +49,7 @@ export default {
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
-            return sendError(
-              `An unexpected error has occurred.\nPossible type \`${err}\``,
-              message.channel
-            );
+            return sendError(`${i18n.__('error.possible')} \`${err}\``, message.channel);
           }
         });
       } else if (song.url.includes('spotify.com')) {
@@ -64,10 +63,7 @@ export default {
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
-            return sendError(
-              `An unexpected error has occurred.\nPossible type \`${err}\``,
-              message.channel
-            );
+            return sendError(`${i18n.__('error.possible')} \`${err}\``, message.channel);
           }
         });
       } else if (song.id == 'radio') {
@@ -102,15 +98,15 @@ export default {
 
     const embed = new MessageEmbed()
       .setAuthor(
-        'Started Playing Music!',
+        i18n.__('music.started'),
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setThumbnail(song.img)
       .setColor('BLUE')
-      .addField('Name', song.title, true)
-      .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
-      .addField('Requested by', song.req.tag, true)
-      .setFooter(`Views: ${song.views} | ${song.ago}`);
+      .addField(i18n.__('music.name'), song.title, true)
+      .addField(i18n.__('music.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
+      .addField(i18n.__('music.request'), song.req.tag, true)
+      .setFooter(`${i18n.__('music.views')} ${song.views} | ${song.ago}`);
     queue!.textChannel.send(embed);
   }
 };
