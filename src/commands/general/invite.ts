@@ -8,7 +8,7 @@ module.exports = {
     description: 'Add/invite the bot to your server',
     usage: '',
     aliases: ['inv'],
-    categorie: 'music',
+    categorie: 'general',
     permissions: {
       channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
       member: []

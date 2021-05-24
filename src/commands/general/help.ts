@@ -7,7 +7,7 @@ module.exports = {
     name: 'help',
     description: 'Show all commands',
     usage: '[command]',
-    aliases: ['commands', 'help me', 'pls help'],
+    aliases: ['commands'],
     categorie: 'general',
     permissions: {
       channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
@@ -44,8 +44,8 @@ module.exports = {
       )
       .setColor('BLUE')
       .addField(':information_source: General', generalcmds)
-      .addField(':notes: Music', musiccmds)
       .setFooter(`To get info of each command you can do ${config.prefix}help [command]`);
+    if (message.channel.type != 'dm') embed.addField(':notes: Music', musiccmds);
 
     if (!args[0]) return message.channel.send(embed);
     // If Argument supplied get details of specific command

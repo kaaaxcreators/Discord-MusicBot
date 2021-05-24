@@ -128,7 +128,7 @@ export interface Command {
     description: string;
     usage: string;
     aliases: string[];
-    categorie: string;
+    categorie: 'general' | 'music';
     permissions: Permissions;
   };
 

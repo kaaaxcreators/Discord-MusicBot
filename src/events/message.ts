@@ -37,8 +37,11 @@ module.exports = async (client: Client, message: Message) => {
 
   // Executing the command with Context and Arguments
   if (cmd && cmd.run) {
-    // Check for Bot Permissions
-    if (cmd.info.permissions) {
+    // Only run General Commands in DM
+    if (cmd.info.categorie != 'general' && message.channel.type == 'dm')
+      return sendError('Only General Commands are supported in DMs!', message.channel);
+    // Check for Bot Permissions only on Servers
+    if (cmd.info.permissions && message.channel.type != 'dm') {
       message.channel = <TextChannel | NewsChannel>message.channel;
       if (
         cmd.info.permissions.channel &&
