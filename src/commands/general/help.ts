@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import i18n from 'i18n';
 
 import { Command, commands, config } from '../../index';
+import Util from '../../util/pagination';
 i18n.setLocale(config.LOCALE);
 
 module.exports = {
@@ -38,31 +39,38 @@ module.exports = {
           break;
       }
     });
-
+    const helptext = [
+      `**:information_source: ${i18n.__(
+        'help.embed.fields.general'
+      )}**\n${generalcmds}\n**:notes: ${i18n.__('help.embed.fields.music')}**\n${musiccmds}`
+    ];
+    const splittedHelp = Util.chunk(helptext, 1024);
     const embed = new MessageEmbed()
       .setAuthor(
         i18n.__('help.embed.author') + ' ' + client.user!.username,
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE')
-      .addField(':information_source: ' + i18n.__('help.embed.fields.general'), generalcmds)
+      .setDescription(splittedHelp[0])
       .setFooter(i18n.__mf('help.embed.footer', { prefix: config.prefix }));
-    if (message.channel.type != 'dm')
-      embed.addField(':notes: ' + i18n.__('help.embed.fields.music'), musiccmds);
 
-    if (!args[0]) return message.channel.send(embed);
+    if (!args[0]) {
+      const helpmsg = await message.channel.send(embed);
+      if (splittedHelp.length > 1) await Util.pagination(helpmsg, message.author, splittedHelp);
+    }
     // If Argument supplied get details of specific command
     else {
       const cmd = args[0];
       let command = commands.get(cmd);
       if (!command) command = commands.find((x) => x.info.aliases.includes(cmd));
       if (!command) return message.channel.send('Unknown Command');
+      const usage = command.info.usage ? ` ${command.info.usage}` : '';
       const commandinfo = new MessageEmbed()
         .setTitle(i18n.__('help.spec.command') + ' ' + command.info.name)
         .setColor('YELLOW').setDescription(`
 ${i18n.__('help.spec.name')} ${command.info.name}
 ${i18n.__('help.spec.description')} ${command.info.description}
-${i18n.__('help.spec.usage')} \`\`${config.prefix}${command.info.name} ${command.info.usage}\`\`
+${i18n.__('help.spec.usage')} \`\`${config.prefix}${command.info.name}${usage}\`\`
 ${i18n.__('help.spec.aliases')} ${command.info.aliases.join(', ')}
 `);
       message.channel.send(commandinfo);
