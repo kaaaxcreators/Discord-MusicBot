@@ -1,3 +1,11 @@
+## [v1.4.1] - 2021-05-25
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.1) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.4.0...v1.4.1) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.1) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.1.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.1.tar.gz))
+
+### Bug fixes
+
+- [`d668f8e`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d668f8e)  Fix Help To Long, No Space when usage is empty
+
 ## [v1.4.0] - 2021-05-25
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.3.0...v1.4.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.0.tar.gz))
