@@ -209,7 +209,7 @@
       "now": "Now Playing",
       "text": "Text Channel",
       "voice": "Voice Channel",
-      "description": "No songs to play next add songs by ``${config.prefix}play <song_name>``",
+      "description": "No songs to play next add songs by `{prefix}play <song_name>`",
       "footer": "Currently Server Volume is {volume} Page 1 of {pages}."
     }
   },
@@ -281,5 +281,6 @@
     "embed": {
       "description": "I set the volume to: **{volume}/100**"
     }
-  }
+  },
+  "pagination": "Page {page} of {pages}."
 }

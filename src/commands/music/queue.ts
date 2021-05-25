@@ -44,7 +44,8 @@ module.exports = {
       .addField(i18n.__('queue.embed.text'), queue.textChannel, true)
       .addField(i18n.__('queue.embed.voice'), queue.voiceChannel, true)
       .setFooter(i18n.__mf('queue.embed.footer', { volume: queue.volume, pages: chunked.length }));
-    if (queue.songs.length === 1) embed.setDescription(i18n.__('queue.embed.description'));
+    if (queue.songs.length === 1)
+      embed.setDescription(i18n.__mf('queue.embed.description', { prefix: config.prefix }));
 
     try {
       const queueMsg = await message.channel.send(embed);
