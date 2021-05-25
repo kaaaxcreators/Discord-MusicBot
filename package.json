@@ -22,7 +22,8 @@
     "lint:fix": "eslint . --ignore-path ./.gitignore --fix && stylelint **/*.{css,html} --ignore-path ./.gitignore --fix",
     "docs": "cross-env DOCS=true npm run deploy",
     "dev": "ts-node src/index.ts",
-    "test": "npm run build && corde"
+    "test": "npm run build && corde",
+    "test:only": "corde"
   },
   "engines": {
     "node": ">=14.x"
