@@ -1,0 +1,285 @@
+{
+    "message": {
+        "onlygeneral": "In DMs werden nur allgemeine Befehle unterstützt!",
+        "permissions": {
+            "bot": "Ich habe nicht genug Berechtigungen!\nErforderlich:\n",
+            "member": "Sie haben nicht genügend Berechtigungen!\nErforderlich:\n"
+        }
+    },
+    "ready": {
+        "loggedin": "[API] Eingeloggt als"
+    },
+    "index": {
+        "event": "Laden des Ereignis:",
+        "command": {
+            "music": "Laden des Musikbefehls:",
+            "general": "Laden des allgemeinen Befehls:"
+        },
+        "env": {
+            "missing": "Diese Umgebungsvariablen fehlen:",
+            "add": "Fügen Sie sie den Umgebungsvariablen hinzu!"
+        },
+        "token": {
+            "invalid": "Ein ungültiges Token wurde bereitgestellt.",
+            "env": "Sie haben ein falsches Discord Bot Token angegeben! Überprüfen Sie Ihre Umgebungsvariablen"
+        }
+    },
+    "server": {
+        "ready": "Server ist bereit!"
+    },
+    "music": {
+        "started": "Begann Musik zu spielen!",
+        "name": "Name",
+        "duration": "Dauer",
+        "request": "Angefordert von",
+        "views": "Ansichten:"
+    },
+    "error": {
+        "occurred": "Ein Fehler ist aufgetreten:",
+        "possible": "Ein unerwarteter Fehler ist aufgetreten.\nMöglicher Typ",
+        "something": "Etwas ist schief gelaufen :(",
+        "needvc": "Es tut mir leid, aber Sie müssen in einem Sprachkanal sein, um Musik abzuspielen!",
+        "noqueue": "Auf diesem Server wird nichts abgespielt.",
+        "music": "Der Spieler hat angehalten und die Warteschlange wurde gelöscht.",
+        "join": "Ich konnte dem Sprachkanal nicht beitreten:"
+    },
+    "count": {
+        "description": "Sehen Sie, auf wie vielen Servern sich der Bot befindet",
+        "embed": {
+            "description": "Der Bot befindet sich derzeit auf {Servern} Servern",
+            "footer": "Verwenden Sie {Präfix} einladen, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
+        }
+    },
+    "help": {
+        "description": "Alle Befehle anzeigen",
+        "embed": {
+            "author": "Befehle von",
+            "fields": {
+                "general": "Allgemeines",
+                "music": "Musik"
+            },
+            "footer": "Um Informationen zu jedem Befehl zu erhalten, können Sie {Präfix} help [Befehl] ausführen."
+        },
+        "spec": {
+            "command": "Befehl:",
+            "name": "Name:",
+            "description": "Beschreibung:",
+            "usage": "Verwendung:",
+            "aliases": "Aliase:"
+        }
+    },
+    "invite": {
+        "description": "Fügen Sie den Bot zu Ihrem Server hinzu bzw. laden Sie ihn ein",
+        "embed": {
+            "title": "Einladen",
+            "description": "Willst du mich auf deinem Server? Lade mich heute ein!\n\n [Link einladen] ({url})"
+        }
+    },
+    "ping": {
+        "description": "Netzwerkinformationen abrufen",
+        "loading": "Lade Daten",
+        "embed": {
+            "description": "Pong! 🏓",
+            "latency": "Latenz",
+            "footer": "Verwenden Sie {Präfix} einladen, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
+        }
+    },
+    "serverstats": {
+        "description": "Serverstatistiken abrufen",
+        "embed": {
+            "title": "Gildeninformationen für",
+            "channels": {
+                "channels": "Kanäle",
+                "text": "Text",
+                "voice": "Stimme",
+                "categories": "Kategorien",
+                "other": "Andere"
+            },
+            "member": {
+                "member": "Mitglied",
+                "owner": "Gildenbesitzer:",
+                "total": "Gesamt:"
+            },
+            "roles": "Rollen",
+            "emojis": "Emojis",
+            "none": "Keiner",
+            "other": {
+                "other": "Andere",
+                "region": "Region:",
+                "created": "Hergestellt in:"
+            }
+        }
+    },
+    "stats": {
+        "description": "Holen Sie sich Bot-Statistiken",
+        "embed": {
+            "title": "Statistiken über",
+            "uptime": "Betriebszeit",
+            "members": "Mitglieder",
+            "servers": "Server",
+            "running": "Laufen seit",
+            "started": "Gestartet"
+        }
+    },
+    "earrape": {
+        "description": "Earrape-Modus umschalten",
+        "embed": {
+            "description": "Ich stelle die Lautstärke auf: ** {Lautstärke} **",
+            "author": "Server Volume Manager"
+        }
+    },
+    "leave": {
+        "notinvc": "Ich bin in keinem Sprachkanal!",
+        "trying": "Der Versuch, den Sprachkanal zu verlassen ...",
+        "embed": {
+            "author": "Sprachkanal verlassen",
+            "title": "Erfolg",
+            "description": "🎶 Verließ den Sprachkanal."
+        },
+        "left": "🎶 Den Sprachkanal verlassen: C.",
+        "description": "Leave.description"
+    },
+    "loop": {
+        "description": "Musikschleife umschalten",
+        "status": "🔂 ** | ** Schleife ist ** `{Status}` **",
+        "enabled": "aktiviert",
+        "disabled": "deaktiviert"
+    },
+    "lyrics": {
+        "description": "Holen Sie sich die Texte für das aktuell abgespielte Lied",
+        "notfound": "Keine Texte gefunden für",
+        "embed": {
+            "author": "{Liedtext",
+            "footer": "Seite 1 von {Seiten}."
+        }
+    },
+    "nowplaying": {
+        "description": "Holen Sie sich Musik, die gerade abgespielt wird",
+        "live": "WOHNEN",
+        "embed": {
+            "author": "Läuft gerade",
+            "name": "Name",
+            "progress": "Fortschritt",
+            "percentage": "Prozentsatz",
+            "request": "Angefordert von",
+            "views": "Ansichten:"
+        }
+    },
+    "pause": {
+        "description": "Unterbrechen Sie die aktuelle Musik",
+        "embed": {
+            "description": "⏸ Musik für dich angehalten!",
+            "title": "Musik wurde angehalten!"
+        }
+    },
+    "play": {
+        "description": "Spiele ein Lied",
+        "usage": "<YouTube URL> | <Spotify Track URL> | <Liedname>",
+        "missingargs": "Sie haben nicht angegeben, was Sie spielen sollen",
+        "notfound": {
+            "youtube": "Es sieht so aus, als ob ich das Lied auf YouTube nicht finden konnte",
+            "soundcloud": "Sieht so aus, als ob ich den Song auf SoundCloud nicht finden konnte",
+            "spotify": "Es sieht so aus, als ob ich das Lied auf Spotify nicht finden konnte"
+        },
+        "embed": {
+            "author": "Song wurde zur Warteschlange hinzugefügt",
+            "name": "Name",
+            "duration": "Dauer",
+            "request": "Angefordert von",
+            "views": "Ansichten:"
+        }
+    },
+    "playlist": {
+        "description": "Spielen Sie eine Wiedergabeliste",
+        "usage": "<URL der YouTube-Wiedergabeliste> | <Spotify Playlist URL> | <Name der Wiedergabeliste>",
+        "missingargs": "Verwendung: `{Präfix} Wiedergabeliste <YouTube-Wiedergabelisten-URL | Name der Wiedergabeliste> `",
+        "notfound": {
+            "notfound": "Wiedergabeliste nicht gefunden",
+            "youtube": "Anscheinend konnte ich die Wiedergabeliste auf YouTube nicht finden"
+        },
+        "added": "✅ ** | ** Wiedergabeliste: ** `{Wiedergabeliste}` ** hat `{Videos}` Videos zur Warteschlange hinzugefügt",
+        "embed": {
+            "author": "Die Wiedergabeliste wurde zur Warteschlange hinzugefügt"
+        }
+    },
+    "queue": {
+        "description": "Zeigen Sie die Serverwarteschlange an",
+        "embed": {
+            "author": "Server Songs Queue",
+            "now": "Läuft gerade",
+            "text": "Textkanal",
+            "voice": "Sprachkanal",
+            "description": "Keine Songs, die als nächstes abgespielt werden sollen Fügen Sie Songs hinzu, indem Sie $ {config.prefix} <Song_name> `` abspielen",
+            "footer": "Derzeit ist das Server-Volume {volume} Seite 1 von {pages}."
+        }
+    },
+    "radio": {
+        "description": "** [EXPERIMENTELL] ** Spielen Sie einen beliebigen Stream von einer URL oder einem Anhang ab",
+        "usage": "<Stream URL> | <Anhang>",
+        "missingargs": "Sie haben nicht angegeben, was Sie spielen sollen",
+        "embed": {
+            "author": "Song wurde zur Warteschlange hinzugefügt",
+            "name": "Name",
+            "duration": "Dauer",
+            "request": "Angefordert von",
+            "views": "Ansichten:"
+        }
+    },
+    "remove": {
+        "description": "Entfernen Sie ein Lied aus der Warteschlange",
+        "usage": "<Nummer>",
+        "missingargs": "Verwendung: `{Präfix} entferne <Warteschlangennummer>`",
+        "short": "Die Warteschlange ist nur {Songs} Songs lang!",
+        "embed": {
+            "description": "❌ ** | ** Entfernt: ** `{song}` ** aus der Warteschlange."
+        }
+    },
+    "resume": {
+        "description": "Setzen Sie die angehaltene Musik fort",
+        "embed": {
+            "description": "▶ Musik für Sie wieder aufgenommen!",
+            "author": "Musik wurde wieder aufgenommen!"
+        }
+    },
+    "search": {
+        "description": "Songs suchen",
+        "usage": "<Liedname>",
+        "missingargs": "Sie haben nicht angegeben, wonach gesucht werden soll",
+        "notfound": "Es sieht so aus, als ob ich das Lied auf YouTube nicht finden konnte",
+        "result": {
+            "author": "Ergebnisse für \"{args}\"",
+            "footer": "Geben Sie die Nummer des Songs ein, um ihn der Wiedergabeliste hinzuzufügen"
+        },
+        "selected": "Innerhalb von 20 Sekunden wurde nichts ausgewählt, die Anfrage wurde abgebrochen.",
+        "noresults": "🆘 ** | ** Ich konnte keine Suchergebnisse erhalten"
+    },
+    "shuffle": {
+        "description": "Warteschlange mischen"
+    },
+    "skip": {
+        "description": "Überspringe das aktuelle Lied",
+        "nothing": "Es gibt nichts zu spielen, was ich für dich überspringen könnte."
+    },
+    "skipto": {
+        "description": "Springe zur ausgewählten Warteschlangennummer",
+        "usage": "<Nummer>",
+        "missingargs": "** Verwendung **: `{Präfix} skipto <Nummer>`",
+        "short": "Die Warteschlange ist nur {Songs} Songs lang!",
+        "embed": {
+            "description": "{author} ⏭ übersprang `{songs}` songs"
+        }
+    },
+    "stop": {
+        "description": "Stoppen Sie die Musik und löschen Sie die Warteschlange",
+        "nothing": "Es spielt nichts, was ich für dich aufhalten könnte."
+    },
+    "volume": {
+        "description": "Ändern Sie das Serverwarteschlangenvolumen",
+        "current": "Das aktuelle Volume ist: ** {Volume} **",
+        "numbers": "Nur Zahlen!",
+        "between": "Sie können die Lautstärke nicht mehr als 150 oder weniger als 0 einstellen",
+        "embed": {
+            "description": "Ich stelle die Lautstärke auf: ** {volume} / 100 **"
+        }
+    }
+}

@@ -99,6 +99,10 @@ Enter Environment Variables
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
+## 🌐 Localization
+
+You can add and contribute to Languages [here](https://poeditor.com/join/project?hash=vC5ESOmMLK)
+
 ## ©️ Credits
 
 This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).

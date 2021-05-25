@@ -38,7 +38,7 @@ export interface IQueue {
   loop: boolean;
 }
 
-const locales = ['en'];
+const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';
 
 export const config: Config = {
