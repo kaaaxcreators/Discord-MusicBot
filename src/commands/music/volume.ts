@@ -1,12 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'volume',
-    description: 'Change the server queue volume',
+    description: i18n.__('volume.description'),
     usage: '[volume]',
     aliases: ['v', 'vol'],
     categorie: 'music',
@@ -18,27 +20,22 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
-    if (!serverQueue.connection)
-      return sendError('There is nothing playing in this server.', message.channel);
-    if (!args[0]) return message.channel.send(`The current volume is: **${serverQueue.volume}**`);
+    if (!serverQueue) return sendError(i18n.__('error.noqueue'), message.channel);
+    if (!serverQueue.connection) return sendError(i18n.__('error.noqueue'), message.channel);
+    if (!args[0])
+      return message.channel.send(i18n.__mf('volume.current', { volume: serverQueue.volume }));
     if (isNaN(Number(args[0])))
-      return message.channel.send(':notes: Numbers only!').catch((err) => console.log(err));
+      return message.channel
+        .send(':notes: ' + i18n.__('volume.numbers'))
+        .catch((err) => console.log(err));
     if (parseInt(args[0]) > 150 || Number(args[0]) < 0)
-      return sendError(
-        "You can't set the volume more than 150. or lower than 0",
-        message.channel
-      ).catch((err) => console.log(err));
+      return sendError(i18n.__('volume.between'), message.channel).catch((err) => console.log(err));
     serverQueue.volume = Number(args[0]);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
     const embed = new MessageEmbed()
-      .setDescription(`I set the volume to: **${Number(args[0]) / 1}/100**`)
+      .setDescription(i18n.__mf('volume.embed.description', { volume: Number(args[0]) / 1 }))
       .setAuthor(
         'Server Volume Manager',
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'

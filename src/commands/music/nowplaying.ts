@@ -1,6 +1,8 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import { Song } from '../../util/playing';
 import ProgressBar from '../../util/ProgressBar';
@@ -8,7 +10,7 @@ import ProgressBar from '../../util/ProgressBar';
 module.exports = {
   info: {
     name: 'nowplaying',
-    description: 'Get music which is currently playing',
+    description: i18n.__('nowplaying.description'),
     usage: '',
     aliases: ['np'],
     categorie: 'music',
@@ -20,29 +22,29 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError('There is nothing playing in this server.', message.channel);
+    if (!serverQueue) return sendError(i18n.__('error.noqueue'), message.channel);
     const song: Song = serverQueue.songs[0];
     let Progress: Progress;
     if (song.live) {
       Progress = {
         Bar: '▇—▇—▇—▇—▇—',
-        percentageText: 'LIVE'
+        percentageText: i18n.__('nowplaying.live')
       };
     } else {
       Progress = ProgressBar(serverQueue.connection!.dispatcher.streamTime, song.duration, 10);
     }
     const embed = new MessageEmbed()
       .setAuthor(
-        'Now Playing',
+        i18n.__('nowplaying.embed.author'),
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setThumbnail(song.img)
       .setColor('BLUE')
-      .addField('Name', song.title, true)
-      .addField('Progress', Progress.Bar, true)
-      .addField('Percentage', Progress.percentageText, true)
-      .addField('Requested by', song.req.tag, true)
-      .setFooter(`Views: ${song.views} | ${song.ago}`);
+      .addField(i18n.__('nowplaying.embed.name'), song.title, true)
+      .addField(i18n.__('nowplaying.embed.progress'), Progress.Bar, true)
+      .addField(i18n.__('nowplaying.embed.percentage'), Progress.percentageText, true)
+      .addField(i18n.__('nowplaying.embed.request'), song.req.tag, true)
+      .setFooter(`${i18n.__('nowplaying.embed.views')} ${song.views} | ${song.ago}`);
     return message.channel.send(embed);
   }
 } as Command;

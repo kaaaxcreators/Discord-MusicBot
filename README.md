@@ -37,6 +37,11 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 - `PREFIX`: Bot Prefix
 - `PRESENCE`: Discord Presence Text
 
+Optional:
+
+- `LOCALE`: Language ([ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
+Available Languages are `de`, `en`. Defaults to `en`
+
 ## 📑 Commands
 
 A List of all available commands is available [here](COMMANDS.md)
@@ -98,6 +103,10 @@ Rename `.env.example` to `.env`
 Enter Environment Variables
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
+
+## 🌐 Localization
+
+You can add and contribute to Languages [here](https://poeditor.com/join/project?hash=vC5ESOmMLK)
 
 ## ©️ Credits
 

@@ -1,12 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'skip',
-    description: 'Skip the current song',
+    description: i18n.__('skip.description'),
     usage: '',
     aliases: ['s'],
     categorie: 'music',
@@ -18,23 +20,18 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const channel = message.member!.voice.channel!;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue)
-      return sendError('There is nothing playing that I could skip for you.', message.channel);
+    if (!serverQueue) return sendError(i18n.__('skip.nothing'), message.channel);
     if (!serverQueue.connection) return;
     if (!serverQueue.connection.dispatcher) return;
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();
       const embed = new MessageEmbed()
-        .setDescription('▶ Resumed the music for you!')
+        .setDescription(i18n.__('resume.embed.description'))
         .setColor('YELLOW')
-        .setTitle('Music has been Resumed!');
+        .setTitle(i18n.__('resume.embed.author'));
 
       return message.channel.send(embed).catch((err) => console.log(err));
     }
@@ -44,10 +41,7 @@ module.exports = {
     } catch (error) {
       serverQueue.voiceChannel.leave();
       queue.delete(message.guild!.id);
-      return sendError(
-        `:notes: The player has stopped and the queue has been cleared.: ${error}`,
-        message.channel
-      );
+      return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
     }
     message.react('✅');
   }

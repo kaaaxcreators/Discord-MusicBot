@@ -1,7 +1,9 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 import moment from 'moment';
 
-import { Command } from '../..';
+import { Command, config } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
@@ -31,30 +33,43 @@ module.exports = {
       const roles = guild.roles.cache.map((role) => role).join(' ');
       const emojis = guild.emojis.cache.map((emoji) => emoji).join(' ');
       const embed = new MessageEmbed()
-        .setTitle(`📈 Guild Information for ${guild.name}`)
+        .setTitle(`📈 ${i18n.__('serverstats.embed.title')} ${guild.name}`)
         .setDescription(`ID: ${guild.id}`)
         .setThumbnail(guild.iconURL()!)
         .setColor('RANDOM')
         .addField(
-          '❯ Channels',
-          `• ${textchannels.size} Text\n• ${voicechannels.size} Voice\n• ${categories.size} Categories\n• ${otherchannels.size} Other`
+          '❯ ' + i18n.__('serverstats.embed.channels.channels'),
+          `• ${textchannels.size} ${i18n.__('serverstats.embed.channels.text')}\n• ${
+            voicechannels.size
+          } ${i18n.__('serverstats.embed.channels.voice')}\n• ${categories.size} ${i18n.__(
+            'serverstats.embed.channels.categories'
+          )}\n• ${otherchannels.size} ${i18n.__('serverstats.embed.channels.other')}`
         )
-        .addField('❯ Member', `• Guild Owner: ${guildowner}\n• Total: ${guild.members.cache.size}`)
-        .addField('❯ Roles', roles ? roles : 'None')
-        .addField('❯ Emojis', emojis ? emojis : 'None')
         .addField(
-          '❯ Other',
-          `• Region: ${
-            guild.region
-          }\n• Created At: ${guild.createdAt.toLocaleDateString()}, ${moment(
-            guild.createdAt
-          ).fromNow()}`
+          '❯ ' + i18n.__('serverstats.member.member'),
+          `• ${i18n.__('serverstats.member.owner')} ${guildowner}\n• ${i18n.__(
+            'serverstats.member.total'
+          )} ${guild.members.cache.size}`
+        )
+        .addField(
+          '❯ ' + i18n.__('serverstats.embed.roles'),
+          roles ? roles : i18n.__('serverstats.embed.none')
+        )
+        .addField(
+          '❯ ' + i18n.__('serverstats.embed.emojis'),
+          emojis ? emojis : i18n.__('serverstats.embed.none')
+        )
+        .addField(
+          '❯ ' + i18n.__('serverstats.embed.other.other'),
+          `• ${i18n.__('serverstats.embed.other.region')} ${guild.region}\n• ${i18n.__(
+            'serverstats.embed.other.created'
+          )} ${guild.createdAt.toLocaleDateString()}, ${moment(guild.createdAt).fromNow()}`
         )
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
       return message.channel.send(embed);
     } catch {
-      return sendError('An error occurred', message.channel);
+      return sendError(i18n.__('error.something'), message.channel);
     }
   }
 } as Command;

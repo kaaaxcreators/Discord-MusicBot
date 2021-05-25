@@ -1,12 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'pause',
-    description: 'Pause the current music',
+    description: i18n.__('pause.description'),
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -24,17 +26,14 @@ module.exports = {
         serverQueue.connection!.dispatcher.pause();
       } catch (error) {
         queue.delete(message.guild!.id);
-        return sendError(
-          `:notes: The player has stopped and the queue has been cleared.: ${error}`,
-          message.channel
-        );
+        return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
       }
       const embed = new MessageEmbed()
-        .setDescription('⏸ Paused the music for you!')
+        .setDescription(i18n.__('pause.embed.description'))
         .setColor('YELLOW')
-        .setTitle('Music has been paused!');
+        .setTitle(i18n.__('pause.embed.title'));
       return message.channel.send(embed);
     }
-    return sendError('There is nothing playing in this server.', message.channel);
+    return sendError(i18n.__('error.noqueue'), message.channel);
   }
 } as Command;

@@ -1,15 +1,17 @@
 import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
+import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
-import { Command, IQueue, queue } from '../../index';
+import { Command, config, IQueue, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'search',
-    description: 'Search Songs',
-    usage: '<song_name>',
+    description: i18n.__('search.description'),
+    usage: i18n.__('search.usage'),
     aliases: ['sc'],
     categorie: 'music',
     permissions: {
@@ -20,26 +22,24 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
 
     const searchString = args.join(' ');
-    if (!searchString) return sendError("You didn't provide what to search", message.channel);
+    if (!searchString) return sendError(i18n.__('search.missingargs'), message.channel);
 
     const serverQueue = queue.get(message.guild!.id);
     let response: Collection<string, Message> = new Collection<string, Message>();
     let video: Video;
     try {
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
-      if (searched[0] == undefined)
-        return sendError('Looks like i was unable to find the song on YouTube', message.channel);
+      if (searched[0] == undefined) return sendError(i18n.__('search.notfound'), message.channel);
       let index = 0;
       const embed = new MessageEmbed()
         .setColor('BLUE')
-        .setAuthor(`Results for "${args.join(' ')}"`, message.author.displayAvatarURL())
+        .setAuthor(
+          i18n.__mf('search.result.author', { args: args.join(' ') }),
+          message.author.displayAvatarURL()
+        )
         .setDescription(
           `${searched
             .map(
@@ -50,7 +50,7 @@ module.exports = {
             )
             .join('\n')}`
         )
-        .setFooter('Type the number of the song to add it to the playlist');
+        .setFooter(i18n.__('search.result.footer'));
       message.channel.send(embed).then((m) =>
         m.delete({
           timeout: 15000
@@ -70,8 +70,7 @@ module.exports = {
         return message.channel.send({
           embed: {
             color: 'RED',
-            description:
-              'Nothing has been selected within 20 seconds, the request has been canceled.'
+            description: i18n.__('search.selected')
           }
         });
       }
@@ -82,7 +81,7 @@ module.exports = {
       return message.channel.send({
         embed: {
           color: 'RED',
-          description: '🆘  **|**  I could not obtain any search results'
+          description: i18n.__('search.noresults')
         }
       });
     }
@@ -104,15 +103,15 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          'Song has been added to queue',
+          i18n.__('play.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img)
         .setColor('YELLOW')
-        .addField('Name', song.title, true)
-        .addField('Duration', pMS(song.duration), true)
-        .addField('Requested by', song.req.tag, true)
-        .setFooter(`Views: ${song.views} | ${song.ago}`);
+        .addField(i18n.__('play.embed.name'), song.title, true)
+        .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
+        .addField(i18n.__('play.embed.request'), song.req.tag, true)
+        .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
     }
 
@@ -133,10 +132,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(`I could not join the voice channel: ${error}`);
+      console.error(`${i18n.__('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`I could not join the voice channel: ${error}`, message.channel);
+      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;

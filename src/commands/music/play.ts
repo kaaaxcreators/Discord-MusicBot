@@ -1,19 +1,21 @@
 import { Client, Message, MessageEmbed, Util } from 'discord.js';
+import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { Command, IQueue, queue } from '../../index';
+import { Command, config, IQueue, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 
 module.exports = {
   info: {
     name: 'play',
-    description: 'Play a Songs',
-    usage: '<YouTube URL> | <Spotify Track URL> | <Song Name>',
+    description: i18n.__('play.description'),
+    usage: i18n.__('play.usage'),
     aliases: ['p'],
     categorie: 'music',
     permissions: {
@@ -24,14 +26,10 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
 
     const searchString = args.join(' ');
-    if (!searchString) return sendError("You didn't provide what to play", message.channel);
+    if (!searchString) return sendError(i18n.__('play.missingargs'), message.channel);
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const serverQueue = queue.get(message.guild!.id);
 
@@ -40,8 +38,7 @@ module.exports = {
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
         songInfo = await ytdl.getInfo(url);
-        if (!songInfo)
-          return sendError('Looks like i was unable to find the song on YouTube', message.channel);
+        if (!songInfo) return sendError(i18n.__('play.notfound.youtube'), message.channel);
         song = {
           id: songInfo.videoDetails.videoId,
           title: songInfo.videoDetails.title,
@@ -60,11 +57,7 @@ module.exports = {
     } else if (url.match(/^https?:\/\/(soundcloud\.com)\/(.*)$/gi)) {
       try {
         songInfo = await scdl.getInfo(url);
-        if (!songInfo)
-          return sendError(
-            'Looks like i was unable to find the song on SoundCloud',
-            message.channel
-          );
+        if (!songInfo) return sendError(i18n.__('play.notfound.soundcloud'), message.channel);
         song = {
           id: songInfo.permalink!,
           title: songInfo.title!,
@@ -82,8 +75,7 @@ module.exports = {
     } else if (spdl.validateURL(url)) {
       try {
         songInfo = await spdl.getInfo(url);
-        if (!songInfo)
-          return sendError('Looks like i was unable to find the song on Spotify', message.channel);
+        if (!songInfo) return sendError(i18n.__('play.notfound.spotify'), message.channel);
         song = {
           id: songInfo.id,
           title: songInfo.title,
@@ -102,7 +94,7 @@ module.exports = {
       try {
         const searched = await yts.search(searchString);
         if (searched.videos.length === 0)
-          return sendError('Looks like i was unable to find the song on YouTube', message.channel);
+          return sendError(i18n.__('play.notfound.youtube'), message.channel);
 
         songInfo = searched.videos[0];
         song = {
@@ -125,15 +117,15 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          'Song has been added to queue',
+          i18n.__('play.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img!)
         .setColor('YELLOW')
-        .addField('Name', song.title, true)
-        .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
-        .addField('Requested by', song.req.tag, true)
-        .setFooter(`Views: ${song.views} | ${song.ago}`);
+        .addField(i18n.__('play.embed.name'), song.title, true)
+        .addField(i18n.__('play.embed.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
+        .addField(i18n.__('play.embed.request'), song.req.tag, true)
+        .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
     }
 
@@ -155,10 +147,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(`I could not join the voice channel: ${error}`);
+      console.error(`${i18n.__('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`I could not join the voice channel: ${error}`, message.channel);
+      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;

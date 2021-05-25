@@ -1,13 +1,15 @@
 import { Client, Message } from 'discord.js';
+import i18n from 'i18n';
 
 import { Command, config, queue as Queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'skipto',
-    description: 'Skip to the selected queue number',
-    usage: '<number>',
+    description: i18n.__('skipto.description'),
+    usage: i18n.__('skipto.usage'),
     aliases: ['st'],
     categorie: 'music',
     permissions: {
@@ -22,16 +24,16 @@ module.exports = {
         .send({
           embed: {
             color: 'GREEN',
-            description: `**Usage**: \`${config.prefix}skipto <number>\``
+            description: i18n.__mf('skipto.missingargs', { prefix: config.prefix })
           }
         })
         .catch(console.error);
 
     const queue = Queue.get(message.guild!.id);
-    if (!queue) return sendError('There is no queue.', message.channel).catch(console.error);
+    if (!queue) return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
     if (Number(args[0]) > queue.songs.length)
       return sendError(
-        `The queue is only ${queue.songs.length} songs long!`,
+        i18n.__mf('skipto.short', { songs: queue.songs.length }),
         message.channel
       ).catch(console.error);
 
@@ -49,17 +51,17 @@ module.exports = {
     } catch (error) {
       queue.voiceChannel.leave();
       Queue.delete(message.guild!.id);
-      return sendError(
-        `:notes: The player has stopped and the queue has been cleared.: ${error}`,
-        message.channel
-      );
+      return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
     }
 
     queue.textChannel
       .send({
         embed: {
           color: 'GREEN',
-          description: `${message.author} ⏭ skipped \`${Number(args[0]) - 1}\` songs`
+          description: i18n.__mf('skipto.embed.description', {
+            author: message.author,
+            songs: Number(args[0]) - 1
+          })
         }
       })
       .catch(console.error);

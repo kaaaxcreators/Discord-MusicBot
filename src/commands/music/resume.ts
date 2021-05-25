@@ -1,12 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 
-import { Command, queue } from '../../index';
+import { Command, config, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'resume',
-    description: 'Resume the paused music',
+    description: i18n.__('resume.description'),
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -22,14 +24,14 @@ module.exports = {
       serverQueue.playing = true;
       serverQueue.connection!.dispatcher.resume();
       const embed = new MessageEmbed()
-        .setDescription('▶ Resumed the music for you!')
+        .setDescription(i18n.__('resume.embed.description'))
         .setColor('YELLOW')
         .setAuthor(
-          'Music has been Resumed!',
+          i18n.__('resume.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         );
       return message.channel.send(embed);
     }
-    return sendError('There is nothing playing in this server.', message.channel);
+    return sendError(i18n.__('error.noqueue'), message.channel);
   }
 } as Command;

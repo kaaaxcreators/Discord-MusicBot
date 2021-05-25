@@ -1,14 +1,16 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 import moment from 'moment';
 import pMS from 'pretty-ms';
 
-import { Command } from '../..';
+import { Command, config } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'stats',
-    description: 'Get Bot Stats',
+    description: i18n.__('stats.description'),
     usage: '',
     aliases: ['uptime', 'statistics'],
     categorie: 'general',
@@ -27,19 +29,19 @@ module.exports = {
       }
       const uptime = new Date(Date.now() - client.uptime!);
       const embed = new MessageEmbed()
-        .setTitle(`📊 Statistics about ${client.user?.username}`)
+        .setTitle(`📊 ${i18n.__('stats.embed.title')} ${client.user?.username}`)
         .setThumbnail(client.user!.avatarURL()!)
         .setColor('RANDOM')
-        .addField('Uptime', pMS(client.uptime!), true)
-        .addField('Members', totalmembers, true)
-        .addField('Servers', guilds.length, true)
-        .addField('Running Since', uptime.toLocaleString(), true)
-        .addField('Started', moment(uptime).fromNow(), true)
+        .addField(i18n.__('stats.embed.uptime'), pMS(client.uptime!), true)
+        .addField(i18n.__('stats.embed.members'), totalmembers, true)
+        .addField(i18n.__('stats.embed.servers'), guilds.length, true)
+        .addField(i18n.__('stats.embed.running'), uptime.toLocaleString(), true)
+        .addField(i18n.__('stats.embed.started'), moment(uptime).fromNow(), true)
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
       return message.channel.send(embed);
     } catch {
-      return sendError('Something went wrong', message.channel);
+      return sendError(i18n.__('error.something'), message.channel);
     }
   }
 } as Command;

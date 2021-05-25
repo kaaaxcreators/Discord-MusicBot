@@ -1,7 +1,11 @@
 import { Client } from 'discord.js';
 import express from 'express';
+import i18n from 'i18n';
 import moment from 'moment';
 import pMS from 'pretty-ms';
+
+import { config } from './index';
+i18n.setLocale(config.LOCALE);
 
 async function keepAlive(client: Client): Promise<void> {
   const server = express();
@@ -30,7 +34,7 @@ async function keepAlive(client: Client): Promise<void> {
     );
   });
   server.listen(port, () => {
-    console.log('Server is Ready!');
+    console.log(i18n.__('server.ready'));
   });
 }
 

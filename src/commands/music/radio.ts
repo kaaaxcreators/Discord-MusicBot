@@ -1,16 +1,18 @@
 import { Client, Collection, Message, MessageEmbed } from 'discord.js';
+import i18n from 'i18n';
 import fetch, { Response } from 'node-fetch';
 import pMS from 'pretty-ms';
 
-import { Command, IQueue, queue } from '../../index';
+import { Command, config, IQueue, queue } from '../../index';
+i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 
 module.exports = {
   info: {
     name: 'radio',
-    description: '**[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment',
-    usage: '<Stream URL> | <Attachment>',
+    description: i18n.__('radio.description'),
+    usage: i18n.__('radio.usage'),
     aliases: [],
     categorie: 'music',
     permissions: {
@@ -21,11 +23,7 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
+    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
     const searchString = args.join(' ');
     const attachment = message.attachments
       ? message.attachments.array()
@@ -35,7 +33,7 @@ module.exports = {
         : undefined
       : undefined;
     if ((searchString || attachment) == null)
-      return sendError("You didn't provide what to play", message.channel);
+      return sendError(i18n.__('radio.missingargs'), message.channel);
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment : '';
     const serverQueue = queue.get(message.guild!.id);
 
@@ -50,7 +48,7 @@ module.exports = {
       if (attachment) {
         console.log(url + ': ' + err);
       }
-      return sendError('Something went wrong!', message.channel);
+      return sendError(i18n.__('error.something'), message.channel);
     }
     data.headers.forEach((value, key) => songInfo.set(key, value));
     const song: Song = {
@@ -68,15 +66,15 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          'Song has been added to queue',
+          i18n.__('radio.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img!)
         .setColor('YELLOW')
-        .addField('Name', song.title, true)
-        .addField('Duration', song.live ? 'LIVE' : pMS(song.duration), true)
-        .addField('Requested by', song.req.tag, true)
-        .setFooter(`Views: ${song.views} | ${song.ago}`);
+        .addField(i18n.__('radio.embed.name'), song.title, true)
+        .addField(i18n.__('radio.embed.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
+        .addField(i18n.__('radio.embed.request'), song.req.tag, true)
+        .setFooter(`${i18n.__('radio.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
     }
 
@@ -98,10 +96,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(`I could not join the voice channel: ${error}`);
+      console.error(`${i18n.__('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`I could not join the voice channel: ${error}`, message.channel);
+      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;
