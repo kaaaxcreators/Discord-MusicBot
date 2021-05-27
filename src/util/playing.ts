@@ -24,7 +24,7 @@ export default {
       if (song.url.includes('soundcloud.com')) {
         try {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS);
-          streamType = 'opus';
+          streamType = 'ogg/opus';
         } catch (error) {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3);
           streamType = 'unknown';
