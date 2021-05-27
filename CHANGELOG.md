@@ -1,3 +1,11 @@
+## [v1.4.2] - 2021-05-27
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.2) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.4.1...v1.4.2) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.2) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.2.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.2.tar.gz))
+
+### Critical hotfixes
+
+- [`3ea8fd2`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/3ea8fd2)  Fix Soundcloud
+
 ## [v1.4.1] - 2021-05-25
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.1) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.4.0...v1.4.1) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.1) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.1.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.1.tar.gz))
