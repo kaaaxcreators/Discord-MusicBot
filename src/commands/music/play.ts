@@ -51,10 +51,12 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        console.error(error);
-        return message.reply(error.message).catch(console.error);
+        return sendError(
+          i18n.__('error.occurred') + ' ' + error.message || error,
+          message.channel
+        ).catch(console.error);
       }
-    } else if (url.match(/^https?:\/\/(soundcloud\.com)\/(.*)$/gi)) {
+    } else if (scdl.isValidUrl(url)) {
       try {
         songInfo = await scdl.getInfo(url);
         if (!songInfo) return sendError(i18n.__('play.notfound.soundcloud'), message.channel);
@@ -69,8 +71,10 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        console.error(error);
-        return sendError(error.message, message.channel).catch(console.error);
+        return sendError(
+          i18n.__('error.occurred') + ' ' + error.message || error,
+          message.channel
+        ).catch(console.error);
       }
     } else if (spdl.validateURL(url)) {
       try {
@@ -87,8 +91,7 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        console.error(error);
-        return sendError(error.message, message.channel).catch(console.error);
+        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     } else {
       try {
@@ -108,8 +111,10 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        console.error(error);
-        return message.reply(error.message).catch(console.error);
+        return sendError(
+          i18n.__('error.occurred') + ' ' + error.message || error,
+          message.channel
+        ).catch(console.error);
       }
     }
 

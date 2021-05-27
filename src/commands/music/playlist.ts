@@ -56,7 +56,7 @@ module.exports = {
           console.error
         );
       }
-    } else if (url.match(/(^https?:\/\/open\.spotify\.com\/playlist\/)([a-z,A-Z,0-9]+)?.*$/gi)) {
+    } else if (spdl.validateURL(url, 'playlist')) {
       try {
         const playlist = (await getTracks(url)).map((value) => value.external_urls.spotify);
         const songInfo = await spdl.getInfo(playlist[0]);
