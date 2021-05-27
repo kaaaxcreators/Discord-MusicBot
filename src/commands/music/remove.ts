@@ -9,7 +9,7 @@ module.exports = {
   info: {
     name: 'remove',
     description: i18n.__('remove.description'),
-    usage: i18n.__('remove.number'),
+    usage: i18n.__('remove.usage'),
     aliases: ['rm'],
     categorie: 'music',
     permissions: {
