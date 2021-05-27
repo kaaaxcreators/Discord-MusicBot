@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, Util } from 'discord.js';
+import { Client, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
@@ -19,7 +19,14 @@ module.exports = {
     aliases: ['p'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
+      channel: [
+        'VIEW_CHANNEL',
+        'SEND_MESSAGES',
+        'EMBED_LINKS',
+        'CONNECT',
+        'SPEAK',
+        'MANAGE_MESSAGES'
+      ],
       member: []
     }
   },
@@ -35,6 +42,9 @@ module.exports = {
 
     let songInfo;
     let song: Song;
+    const searchtext = await message.channel.send({
+      embed: { description: ':mag: Searching...' } as MessageEmbedOptions
+    });
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
         songInfo = await ytdl.getInfo(url);
@@ -51,6 +61,7 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
+        if (searchtext.deletable) searchtext.delete();
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -71,6 +82,7 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
+        if (searchtext.deletable) searchtext.delete();
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -91,7 +103,11 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
+        if (searchtext.deletable) searchtext.delete();
+        return sendError(
+          i18n.__('error.occurred') + ' ' + error.message || error,
+          message.channel
+        ).catch(console.error);
       }
     } else {
       try {
@@ -111,6 +127,7 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
+        if (searchtext.deletable) searchtext.delete();
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -131,7 +148,7 @@ module.exports = {
         .addField(i18n.__('play.embed.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
         .addField(i18n.__('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
-      return message.channel.send(embed);
+      return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
     }
 
     // If Queue doesn't exist create one
@@ -150,7 +167,7 @@ module.exports = {
     try {
       const connection = await channel.join();
       queueConstruct.connection = connection;
-      play.play(queueConstruct.songs[0], message);
+      play.play(queueConstruct.songs[0], message, searchtext);
     } catch (error) {
       console.error(`${i18n.__('error.join')} ${error}`);
       queue.delete(message.guild!.id);

@@ -11,7 +11,7 @@ import sendError from '../util/error';
 import play from './playing';
 
 export default {
-  async play(song: Song, message: Message): Promise<void> {
+  async play(song: Song, message: Message, searchMessage?: Message): Promise<void> {
     const queue = Queue.get(message.guild!.id);
     if (!song) {
       Queue.delete(message.guild!.id);
@@ -107,7 +107,11 @@ export default {
       .addField(i18n.__('music.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
       .addField(i18n.__('music.request'), song.req.tag, true)
       .setFooter(`${i18n.__('music.views')} ${song.views} | ${song.ago}`);
-    queue!.textChannel.send(embed);
+    if (searchMessage && searchMessage.editable) {
+      searchMessage.edit(embed);
+    } else {
+      queue!.textChannel.send(embed);
+    }
   }
 };
 

@@ -250,7 +250,7 @@
     "notfound": "Looks like i was unable to find the song on YouTube",
     "result": {
       "author": "Results for \"{args}\"",
-      "footer": "Type the number of the song to add it to the playlist"
+      "footer": "Type the number of the song to add it to the queue"
     },
     "selected": "Nothing has been selected within 20 seconds, the request has been canceled.",
     "noresults": "🆘  **|**  I could not obtain any search results"

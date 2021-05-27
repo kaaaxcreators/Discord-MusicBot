@@ -27,11 +27,9 @@ module.exports = {
     if (!args[0])
       return message.channel.send(i18n.__mf('volume.current', { volume: serverQueue.volume }));
     if (isNaN(Number(args[0])))
-      return message.channel
-        .send(':notes: ' + i18n.__('volume.numbers'))
-        .catch((err) => console.log(err));
+      return message.channel.send(':notes: ' + i18n.__('volume.numbers')).catch();
     if (parseInt(args[0]) > 150 || Number(args[0]) < 0)
-      return sendError(i18n.__('volume.between'), message.channel).catch((err) => console.log(err));
+      return sendError(i18n.__('volume.between'), message.channel).catch();
     serverQueue.volume = Number(args[0]);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
     const embed = new MessageEmbed()

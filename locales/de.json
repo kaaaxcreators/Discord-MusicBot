@@ -250,7 +250,7 @@
         "notfound": "Es sieht so aus, als ob ich das Lied auf YouTube nicht finden konnte",
         "result": {
             "author": "Ergebnisse für \"{args}\"",
-            "footer": "Geben Sie die Nummer des Songs ein, um ihn der Wiedergabeliste hinzuzufügen"
+            "footer": "Geben Sie die Nummer des Songs ein, um ihn der Warteschlange hinzuzufügen"
         },
         "selected": "Innerhalb von 20 Sekunden wurde nichts ausgewählt, die Anfrage wurde abgebrochen.",
         "noresults": "🆘 ** | ** Ich konnte keine Suchergebnisse erhalten"

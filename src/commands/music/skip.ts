@@ -33,7 +33,7 @@ module.exports = {
         .setColor('YELLOW')
         .setTitle(i18n.__('resume.embed.author'));
 
-      return message.channel.send(embed).catch((err) => console.log(err));
+      return message.channel.send(embed).catch();
     }
 
     try {

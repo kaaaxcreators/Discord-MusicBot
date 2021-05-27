@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, Util, VoiceChannel } from 'discord.js';
+import { Client, Message, MessageEmbed, MessageEmbedOptions, Util, VoiceChannel } from 'discord.js';
 import i18n from 'i18n';
 import spdl from 'spdl-core';
 import { getTracks } from 'spotify-url-info';
@@ -17,7 +17,14 @@ module.exports = {
     aliases: ['pl'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
+      channel: [
+        'VIEW_CHANNEL',
+        'SEND_MESSAGES',
+        'EMBED_LINKS',
+        'CONNECT',
+        'SPEAK',
+        'MANAGE_MESSAGES'
+      ],
       member: []
     }
   },
@@ -33,6 +40,9 @@ module.exports = {
         i18n.__mf('playlist.missingargs', { prefix: config.prefix }),
         message.channel
       );
+    const searchtext = await message.channel.send({
+      embed: { description: ':mag: Searching...' } as MessageEmbedOptions
+    });
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       try {
         const playlist = await ytpl(url);
@@ -41,17 +51,19 @@ module.exports = {
         for (const video of videos) {
           await handleVideo(video, message, channel);
         }
-        return message.channel.send({
-          embed: {
-            color: 'GREEN',
-            description: i18n.__mf('playlist.added', {
-              playlist: playlist.title,
-              videos: videos.length
-            })
-          }
-        });
+        const embed = new MessageEmbed()
+          .setAuthor(
+            i18n.__('playlist.embed.author'),
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          )
+          .setThumbnail(playlist.bestThumbnail.url!)
+          .setColor('GREEN')
+          .setDescription(
+            i18n.__mf('playlist.added', { playlist: playlist.title, videos: videos.length })
+          );
+        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
-        console.error(error);
+        if (searchtext.deletable) searchtext.delete();
         return sendError(i18n.__('playlist.notfound.notfound'), message.channel).catch(
           console.error
         );
@@ -74,8 +86,9 @@ module.exports = {
           .setDescription(
             i18n.__mf('playlist.added', { playlist: songInfo.title, videos: playlist.length })
           );
-        return message.channel.send(embed);
+        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
+        if (searchtext.deletable) searchtext.delete();
         return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     } else {
@@ -99,8 +112,9 @@ module.exports = {
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(i18n.__mf('paylist.added', { playlist: songInfo.title, videos: length }));
-        return message.channel.send(embed);
+        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
+        if (searchtext.deletable) searchtext.delete();
         return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     }

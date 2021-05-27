@@ -45,9 +45,6 @@ module.exports = {
         throw new Error('Not Okay!');
       }
     } catch (err) {
-      if (attachment) {
-        console.log(url + ': ' + err);
-      }
       return sendError(i18n.__('error.something'), message.channel);
     }
     data.headers.forEach((value, key) => songInfo.set(key, value));

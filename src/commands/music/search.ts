@@ -1,4 +1,4 @@
-import { Client, Collection, Message, MessageEmbed, Util } from 'discord.js';
+import { Client, Collection, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
@@ -31,6 +31,9 @@ module.exports = {
     let response: Collection<string, Message> = new Collection<string, Message>();
     let video: Video;
     try {
+      const searchtext = await message.channel.send({
+        embed: { description: ':mag: Searching...' } as MessageEmbedOptions
+      });
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
       if (searched[0] == undefined) return sendError(i18n.__('search.notfound'), message.channel);
       let index = 0;
@@ -51,10 +54,8 @@ module.exports = {
             .join('\n')}`
         )
         .setFooter(i18n.__('search.result.footer'));
-      message.channel.send(embed).then((m) =>
-        m.delete({
-          timeout: 15000
-        })
+      (searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed)).then((m) =>
+        m.delete({ timeout: 15000 })
       );
       try {
         response = await message.channel.awaitMessages(
@@ -66,7 +67,7 @@ module.exports = {
           }
         );
       } catch (err) {
-        console.error(err);
+        // console.error(err); spams console when user doesn't select anything
         return message.channel.send({
           embed: {
             color: 'RED',
