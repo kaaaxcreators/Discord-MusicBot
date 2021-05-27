@@ -19,6 +19,8 @@ module.exports = {
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
+    if (message.member?.voice.channel != message.guild?.me?.voice.channel)
+      return sendError(i18n.__('error.samevc'), message.channel);
     const queue = Queue.get(message.guild!.id);
     if (!queue) return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
     if (!args.length)

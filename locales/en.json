@@ -39,7 +39,9 @@
     "possible": "An unexpected error has occurred.\nPossible type",
     "something": "Something went wrong :(",
     "needvc": "I'm sorry but you need to be in a voice channel to play music!",
+    "samevc": "I'm sorry but you need to be in the same voice channel as me!",
     "noqueue": "There is nothing playing in this server.",
+    "nopause": "There is nothing paused in this server.",
     "music": "The player has stopped and the queue has been cleared.",
     "join": "I could not join the voice channel:"
   },

@@ -19,6 +19,8 @@ module.exports = {
   },
 
   run: async function (client: Client, message: Message, args: string[]) {
+    if (message.member?.voice.channel != message.guild?.me?.voice.channel)
+      return sendError(i18n.__('error.samevc'), message.channel);
     if (!args.length || isNaN(Number(args[0])))
       return message.channel
         .send({

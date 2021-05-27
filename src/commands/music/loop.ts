@@ -19,6 +19,8 @@ module.exports = {
   },
 
   run: async function (client: Client, message: Message) {
+    if (message.member?.voice.channel != message.guild?.me?.voice.channel)
+      return sendError(i18n.__('error.samevc'), message.channel);
     const serverQueue = queue.get(message.guild!.id);
     if (serverQueue) {
       serverQueue.loop = !serverQueue.loop;
