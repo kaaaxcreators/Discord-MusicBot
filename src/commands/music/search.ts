@@ -109,7 +109,7 @@ module.exports = {
         )
         .setThumbnail(song.img)
         .setColor('YELLOW')
-        .addField(i18n.__('play.embed.name'), song.title, true)
+        .addField(i18n.__('play.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
         .addField(i18n.__('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);

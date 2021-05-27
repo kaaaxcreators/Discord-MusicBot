@@ -68,7 +68,7 @@ module.exports = {
         )
         .setThumbnail(song.img!)
         .setColor('YELLOW')
-        .addField(i18n.__('radio.embed.name'), song.title, true)
+        .addField(i18n.__('radio.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(i18n.__('radio.embed.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
         .addField(i18n.__('radio.embed.request'), song.req.tag, true)
         .setFooter(`${i18n.__('radio.embed.views')} ${song.views} | ${song.ago}`);

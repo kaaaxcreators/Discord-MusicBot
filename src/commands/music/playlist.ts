@@ -163,7 +163,7 @@ module.exports = {
       const serverQueue = queue.get(message.guild!.id);
       const song: Song = {
         id: video.id,
-        title: Util.escapeMarkdown(video.title),
+        title: `[${Util.escapeMarkdown(video.title)}](${video.url})`,
         views: '-',
         ago: '-',
         duration: video.duration ? video.duration : 0,

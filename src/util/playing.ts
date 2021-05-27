@@ -103,7 +103,7 @@ export default {
       )
       .setThumbnail(song.img)
       .setColor('BLUE')
-      .addField(i18n.__('music.name'), song.title, true)
+      .addField(i18n.__('music.name'), `[${song.title}](${song.url})`, true)
       .addField(i18n.__('music.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
       .addField(i18n.__('music.request'), song.req.tag, true)
       .setFooter(`${i18n.__('music.views')} ${song.views} | ${song.ago}`);
