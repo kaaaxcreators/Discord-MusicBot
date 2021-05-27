@@ -1,6 +1,5 @@
 import { Client, Message, MessageEmbed, Util, VoiceChannel } from 'discord.js';
 import i18n from 'i18n';
-import pMS from 'pretty-ms';
 import spdl from 'spdl-core';
 import { getTracks } from 'spotify-url-info';
 import yts from 'yt-search';
@@ -40,7 +39,7 @@ module.exports = {
         if (!playlist) return sendError(i18n.__('playlist.notfound.notfound'), message.channel);
         const videos = await playlist.items;
         for (const video of videos) {
-          await handleVideo(video, message, channel, true);
+          await handleVideo(video, message, channel);
         }
         return message.channel.send({
           embed: {
@@ -59,12 +58,11 @@ module.exports = {
       }
     } else if (url.match(/(^https?:\/\/open\.spotify\.com\/playlist\/)([a-z,A-Z,0-9]+)?.*$/gi)) {
       try {
-        const tracks = await getTracks(url);
-        const playlist = tracks.map((value) => value.external_urls.spotify);
+        const playlist = (await getTracks(url)).map((value) => value.external_urls.spotify);
         const songInfo = await spdl.getInfo(playlist[0]);
         for (const video of playlist) {
           const infos = await spdl.getInfo(video);
-          await handleSpotify(infos, message, channel, true); // eslint-disable-line no-await-in-loop
+          await handleSpotify(infos, message, channel); // eslint-disable-line no-await-in-loop
         }
         const embed = new MessageEmbed()
           .setAuthor(
@@ -91,7 +89,7 @@ module.exports = {
         const playlist = await ytpl(listurl);
         const videos = await playlist.items;
         for (const video of videos) {
-          await handleVideo(video, message, channel, true);
+          await handleVideo(video, message, channel);
         }
         const embed = new MessageEmbed()
           .setAuthor(
@@ -107,12 +105,7 @@ module.exports = {
       }
     }
 
-    async function handleVideo(
-      video: ytpl.Item,
-      message: Message,
-      channel: VoiceChannel,
-      playlist = false
-    ) {
+    async function handleVideo(video: ytpl.Item, message: Message, channel: VoiceChannel) {
       const serverQueue = queue.get(message.guild!.id);
       const song: Song = {
         id: video.id,
@@ -147,38 +140,19 @@ module.exports = {
           return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
         }
       } else {
-        serverQueue.songs.push(song);
-        // If Playlist don't send message for each Song
-        if (playlist) return;
-        const embed = new MessageEmbed()
-          .setAuthor(
-            i18n.__('play.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
-          .setThumbnail(song.img)
-          .setColor('YELLOW')
-          .addField(i18n.__('play.embed.name'), song.title, true)
-          .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
-          .addField(i18n.__('play.embed.request'), song.req.tag, true)
-          .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
-        return message.channel.send(embed);
+        return serverQueue.songs.push(song);
       }
       return;
     }
 
-    async function handleSpotify(
-      video: spdl.trackInfo,
-      message: Message,
-      channel: VoiceChannel,
-      playlist = false
-    ) {
+    async function handleSpotify(video: spdl.trackInfo, message: Message, channel: VoiceChannel) {
       const serverQueue = queue.get(message.guild!.id);
       const song: Song = {
         id: video.id,
         title: Util.escapeMarkdown(video.title),
         views: '-',
         ago: '-',
-        duration: video.duration!,
+        duration: video.duration ? video.duration : 0,
         url: video.url,
         img: video.thumbnail,
         req: message.author
@@ -206,21 +180,7 @@ module.exports = {
           return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
         }
       } else {
-        serverQueue.songs.push(song);
-        // If Playlist don't send message for each Song
-        if (playlist) return;
-        const embed = new MessageEmbed()
-          .setAuthor(
-            i18n.__('play.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
-          .setThumbnail(song.img)
-          .setColor('YELLOW')
-          .addField(i18n.__('play.embed.name'), song.title, true)
-          .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
-          .addField(i18n.__('play.embed.request'), song.req.tag, true)
-          .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
-        return message.channel.send(embed);
+        return serverQueue.songs.push(song);
       }
       return;
     }
