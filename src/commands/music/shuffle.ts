@@ -4,6 +4,7 @@ import i18n from 'i18n';
 import { Command, config, queue } from '../../index';
 i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
+import console from '../../util/logger';
 
 module.exports = {
   info: {

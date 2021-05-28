@@ -1,11 +1,15 @@
 import { Client } from 'discord.js';
 import express from 'express';
+import { Server } from 'http';
 import i18n from 'i18n';
 import moment from 'moment';
 import pMS from 'pretty-ms';
 
 import { config } from './index';
+import console from './util/logger';
 i18n.setLocale(config.LOCALE);
+
+let app: Server;
 
 async function keepAlive(client: Client): Promise<void> {
   const server = express();
@@ -33,9 +37,14 @@ async function keepAlive(client: Client): Promise<void> {
       )}</b> - Started: <b>${moment(uptime).fromNow()}</b>`
     );
   });
-  server.listen(port, () => {
-    console.log(i18n.__('server.ready'));
+  app = server.listen(port, () => {
+    console.info(i18n.__('server.ready'));
   });
 }
 
+function exit(): void {
+  app.close();
+}
+
 export default keepAlive;
+export { exit };

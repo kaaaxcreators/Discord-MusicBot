@@ -41,6 +41,7 @@ Optional:
 
 - `LOCALE`: Language ([ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
 Available Languages are `de`, `en`. Defaults to `en`
+- `LOG`: Log Filename. Defaults to `logs.log`
 
 ## 📑 Commands
 
@@ -108,7 +109,26 @@ Enter Environment Variables
 
 You can add and contribute to Languages [here](https://poeditor.com/join/project?hash=vC5ESOmMLK)
 
+## 📁 Log
+
+Example
+
+```log
+[2021-05-28 16:05:28] info "dist\index.js:95:26" "Laden des Musikbefehls: earrape",
+```
+
+| Meaning | Value in Example                  | Description                          |
+|---------|-----------------------------------|--------------------------------------|
+| When    | [2021-05-28 16:05:28]             | Time in Format `YYYY-MM-DD HH:MM:SS` |
+| Type    | info                              | Log Level / Reason                   |
+| Where   | "dist\index.js:95:26"             | Where the Log is comming from        |
+| What    | "Laden des Musikbefehls: earrape" | What was logged                      |
+
 ## ©️ Credits
 
 This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
 I didn't like the move to Lavalink which adds an unnecessary dependency, because you need a server which hosts Lavalink and not everyone wants to. Through my approach that the client handles all music, it sometimes hangs or lags shortly but not really noticeable
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
