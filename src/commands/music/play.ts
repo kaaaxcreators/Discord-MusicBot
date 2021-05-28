@@ -1,5 +1,7 @@
 import { Client, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18n from 'i18n';
+import millify from 'millify';
+import moment from 'moment';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
@@ -55,8 +57,8 @@ module.exports = {
           url: songInfo.videoDetails.video_url,
           img: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
           duration: Number(songInfo.videoDetails.lengthSeconds) * 1000,
-          ago: songInfo.videoDetails.publishDate,
-          views: String(songInfo.videoDetails.viewCount).padStart(10, ' ').trim(),
+          ago: moment(songInfo.videoDetails.publishDate).fromNow(),
+          views: millify(Number(songInfo.videoDetails.viewCount)),
           live: songInfo.videoDetails.isLiveContent,
           req: message.author
         };
@@ -76,8 +78,8 @@ module.exports = {
           title: songInfo.title!,
           url: songInfo.permalink_url!,
           img: songInfo.artwork_url!,
-          ago: songInfo.last_modified!,
-          views: String(songInfo.playback_count).padStart(10, ' ').trim(),
+          ago: moment(songInfo.last_modified!).fromNow(),
+          views: millify(songInfo.playback_count!),
           duration: Math.ceil(songInfo.duration!),
           req: message.author
         };
@@ -119,7 +121,7 @@ module.exports = {
         song = {
           id: songInfo.videoId,
           title: Util.escapeMarkdown(songInfo.title),
-          views: String(songInfo.views).padStart(10, ' ').trim(),
+          views: millify(songInfo.views),
           url: songInfo.url,
           ago: songInfo.ago,
           duration: songInfo.duration.seconds * 1000,
@@ -145,7 +147,11 @@ module.exports = {
         .setThumbnail(song.img!)
         .setColor('YELLOW')
         .addField(i18n.__('play.embed.name'), `[${song.title}](${song.url})`, true)
-        .addField(i18n.__('play.embed.duration'), song.live ? 'LIVE' : pMS(song.duration), true)
+        .addField(
+          i18n.__('play.embed.duration'),
+          song.live ? 'LIVE' : pMS(song.duration, { secondsDecimalDigits: 0 }),
+          true
+        )
         .addField(i18n.__('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
       return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);

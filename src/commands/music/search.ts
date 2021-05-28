@@ -1,5 +1,6 @@
 import { Client, Collection, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18n from 'i18n';
+import millify from 'millify';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
@@ -92,7 +93,7 @@ module.exports = {
     const song: Song = {
       id: songInfo.id!,
       title: Util.escapeMarkdown(songInfo.title!),
-      views: String(songInfo.views).padStart(10, ' ').trim(),
+      views: millify(songInfo.views),
       ago: songInfo.uploadedAt!,
       duration: songInfo.duration,
       url: `https://www.youtube.com/watch?v=${songInfo.id}`,
@@ -110,7 +111,11 @@ module.exports = {
         .setThumbnail(song.img)
         .setColor('YELLOW')
         .addField(i18n.__('play.embed.name'), `[${song.title}](${song.url})`, true)
-        .addField(i18n.__('play.embed.duration'), pMS(song.duration), true)
+        .addField(
+          i18n.__('play.embed.duration'),
+          pMS(song.duration, { secondsDecimalDigits: 0 }),
+          true
+        )
         .addField(i18n.__('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
