@@ -64,7 +64,7 @@ module.exports = {
         embed: {
           color: 'GREEN',
           description: i18n.__mf('skipto.embed.description', {
-            author: message.author,
+            author: '<@' + message.author + '>',
             songs: Number(args[0]) - 1
           })
         }
