@@ -46,9 +46,9 @@ module.exports = {
           )}\n• ${otherchannels.size} ${i18n.__('serverstats.embed.channels.other')}`
         )
         .addField(
-          '❯ ' + i18n.__('serverstats.member.member'),
-          `• ${i18n.__('serverstats.member.owner')} ${guildowner}\n• ${i18n.__(
-            'serverstats.member.total'
+          '❯ ' + i18n.__('serverstats.embed.member.member'),
+          `• ${i18n.__('serverstats.embed.member.owner')} ${guildowner}\n• ${i18n.__(
+            'serverstats.embed.member.total'
           )} ${guild.members.cache.size}`
         )
         .addField(
