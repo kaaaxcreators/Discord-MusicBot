@@ -1,3 +1,11 @@
+## [v1.4.3] - 2021-05-28
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.3) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.4.2...v1.4.3) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.3) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.3.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.3.tar.gz))
+
+### Bug fixes
+
+- [`c3f4d4b`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/c3f4d4b)  🌐 Fix Localization
+
 ## [v1.4.2] - 2021-05-27
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v1.4.2) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v1.4.1...v1.4.2) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v1.4.2) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.2.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v1.4.2.tar.gz))
