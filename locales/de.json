@@ -284,5 +284,6 @@
             "description": "Ich stelle die Lautstärke auf: ** {volume} / 100 **"
         }
     },
-    "pagination": "Seite {page} von {pages}."
+    "pagination": "Seite {page} von {pages}.",
+    "searching": "🔍 Suche..."
 }

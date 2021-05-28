@@ -45,7 +45,7 @@ module.exports = {
     let songInfo;
     let song: Song;
     const searchtext = await message.channel.send({
-      embed: { description: ':mag: Searching...' } as MessageEmbedOptions
+      embed: { description: i18n.__('searching') } as MessageEmbedOptions
     });
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {

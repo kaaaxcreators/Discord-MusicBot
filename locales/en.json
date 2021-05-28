@@ -284,5 +284,6 @@
       "description": "I set the volume to: **{volume}/100**"
     }
   },
-  "pagination": "Page {page} of {pages}."
+  "pagination": "Page {page} of {pages}.",
+  "searching": "🔍 Searching..."
 }

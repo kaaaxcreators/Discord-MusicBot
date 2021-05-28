@@ -33,7 +33,7 @@ module.exports = {
     let video: Video;
     try {
       const searchtext = await message.channel.send({
-        embed: { description: ':mag: Searching...' } as MessageEmbedOptions
+        embed: { description: i18n.__('searching') } as MessageEmbedOptions
       });
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
       if (searched[0] == undefined) return sendError(i18n.__('search.notfound'), message.channel);
