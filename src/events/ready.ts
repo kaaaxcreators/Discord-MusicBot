@@ -1,20 +1,25 @@
 import { Client } from 'discord.js';
+import Express from 'express';
+import http from 'http';
 import i18n from 'i18n';
 
 import { config } from '../index';
 import console, { exit } from '../util/logger';
 i18n.setLocale(config.LOCALE);
-import keepAlive, { exit as serverExit } from '../server';
 
 module.exports = async (client: Client) => {
-  // Start Express Website
-  keepAlive(client);
+  // Create API
+  const server = http
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    .createServer(Express().use('/', require('../api/index')))
+    .listen(process.env.PORT || 8080, () => i18n.__('server.ready'));
+  // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {
     try {
       console.info('Stopping...');
       client.destroy();
       console.info('Stopped Bot');
-      serverExit();
+      server.close();
       console.info('Stopped Server');
     } finally {
       exit();

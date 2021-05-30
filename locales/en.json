@@ -139,7 +139,7 @@
       "description": "🎶 Left The Voice Channel."
     },
     "left": "🎶 Left The Voice Channel :C",
-    "description": "leave.description"
+    "description": "Leave The Voice Channel!"
   },
   "loop": {
     "description": "Toggle music loop",

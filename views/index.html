@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Discord-MusicBot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link ref="shortcut icon" href="/Music.gif" type="image/gif">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+
+<body>
+  <section class="main">
+    <div class="commands" id="commands">
+      <div class="container">
+        <h2 class="title text-center">Commands</h2>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Command</th>
+              <th scope="col">Aliases</th>
+              <th scope="col">Usage</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody id="commands-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+  </script>
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    :root {
+      --scrollbar-color: #909090;
+      --scrollbar-hover: #606060;
+    }
+
+    body {
+      background: var(--bs-gray-dark);
+      color: #fff;
+    }
+
+    .navbar-toggler {
+      display: none;
+    }
+
+    .commands {
+      margin-top: 100px;
+    }
+
+    .commands .title {
+      position: relative;
+      margin-bottom: 40px;
+      padding-bottom: 25px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: white;
+    }
+
+    .commands .title:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 1px;
+      background-color: #f70037;
+    }
+
+    .commands .title:after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 45px;
+      height: 3px;
+      background-color: #f70037;
+    }
+
+    @media only screen and (max-width: 630px) {
+      .navbar-toggler {
+        display: inherit;
+      }
+
+      .nav-links {
+        display: none !important;
+      }
+    }
+
+    @media only screen and (min-width: 600px) {
+      ::-webkit-scrollbar {
+        width: 16px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        border-width: 4px;
+        border-color: transparent;
+        border-style: solid;
+        background-clip: content-box;
+        background-color: var(--scrollbar-color);
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        border-radius: 8px;
+        border-width: 4px;
+        border-color: transparent;
+        border-style: solid;
+        background-clip: content-box;
+        background-color: var(--scrollbar-hover);
+      }
+    }
+  </style>
+  <script>
+    // https://stackoverflow.com/a/12034334/13707908
+    var entityMap = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '/': '&#x2F;',
+      '`': '&#x60;',
+      '=': '&#x3D;'
+    };
+
+    function escapeHtml(string) {
+      return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+        return entityMap[s];
+      });
+    }
+    $(document).ready(() => {
+      $.get('/api/commands', (data) => {
+        data.commands.forEach((cmd) => {
+          $('#commands-body').append(`<tr>
+<th scope="row">${cmd.name}</th>
+<td>${cmd.aliases ? cmd.aliases.join(", ") : ""}</td>
+<td>${cmd.usage ? escapeHtml(cmd.usage): ""}</td>
+<td>${cmd.description ? cmd.description : ""}</td>
+</tr>`);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

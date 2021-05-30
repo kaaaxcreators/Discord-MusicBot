@@ -42,6 +42,10 @@ Optional:
 - `LOCALE`: Language ([ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
 Available Languages are `de`, `en`. Defaults to `en`
 - `LOG`: Log Filename. Defaults to `logs.log`
+- `PERMS`: Discord Permission Integer. Defaults to `2205280320`
+- `WEB`: Hosting Website including Protocol. Defaults to `http://localhost`
+- `SCOPES`: Discord OAuth2 Scopes separated with a space. Defaults to `identify guilds applications.commands`
+- `CALLBACK`: Discord OAuth2 Callback URL. Defaults to `/api/callback`
 
 ## 📑 Commands
 
