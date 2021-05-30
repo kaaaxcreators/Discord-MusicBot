@@ -16,11 +16,12 @@ try {
 } catch (err) {
   EnvError(err);
 }
-import fs from 'fs';
+import { existsSync, readdir } from 'fs';
 import i18n from 'i18n';
 import path from 'path';
 
 import docs from './docs';
+import console, { logFileName } from './util/logger';
 import { Song } from './util/playing';
 
 export const client = new Client();
@@ -57,11 +58,11 @@ i18n.configure({
   register: global,
 
   logWarnFn: function (msg) {
-    console.log(msg);
+    console.info(msg);
   },
 
   logErrorFn: function (msg) {
-    console.log(msg);
+    console.info(msg);
   }
 });
 i18n.setLocale(config.LOCALE);
@@ -71,20 +72,22 @@ if (process.env.DOCS == 'true') {
   docs();
 }
 
+if (existsSync(logFileName)) console.warn('Log File already exists!');
+
 //Loading Events
-fs.readdir(__dirname + '/events/', (err, files) => {
+readdir(__dirname + '/events/', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const event = require(__dirname + `/events/${file}`);
     const eventName = file.split('.')[0];
     client.on(eventName, event.bind(null, client));
-    console.log(i18n.__('index.event') + ' ' + eventName);
+    console.info(i18n.__('index.event') + ' ' + eventName);
   });
 });
 
 //Loading Music
-fs.readdir(__dirname + '/commands/music', (err, files) => {
+readdir(__dirname + '/commands/music', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
@@ -92,12 +95,12 @@ fs.readdir(__dirname + '/commands/music', (err, files) => {
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.log(i18n.__('index.command.music') + ' ' + commandName);
+    console.info(i18n.__('index.command.music') + ' ' + commandName);
   });
 });
 
 //Loading General
-fs.readdir(__dirname + '/commands/general', (err, files) => {
+readdir(__dirname + '/commands/general', (err, files) => {
   if (err) return console.error(err);
   files.forEach((file) => {
     if (!file.endsWith('.js')) return;
@@ -105,7 +108,7 @@ fs.readdir(__dirname + '/commands/general', (err, files) => {
     const props = require(__dirname + `/commands/general/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.log(i18n.__('index.command.general') + ' ' + commandName);
+    console.info(i18n.__('index.command.general') + ' ' + commandName);
   });
 });
 
@@ -118,7 +121,7 @@ try {
 
 // Custom Bad Token Error Handling
 function LoginError(err: Error) {
-  console.log(
+  console.info(
     i18n.__('error.occurred') + ' ' + err.message
       ? err.message == i18n.__('index.token.invalid')
         ? i18n.__('index.token.env')
@@ -130,7 +133,7 @@ function LoginError(err: Error) {
 
 // Custom Missing Env Vars Error Handling
 function EnvError(err: MissingEnvVarsError) {
-  console.log(
+  console.info(
     i18n.__('error.occurred') + ' ' + err.missing
       ? `${i18n.__('index.env.missing')} ${err.missing
           .map((err) => `"${err}"`)

@@ -3,6 +3,7 @@ import i18n from 'i18n';
 import lyricsFinder from 'lyrics-finder';
 
 import { Command, config, queue as Queue } from '../../index';
+import console from '../../util/logger';
 i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import Util from '../../util/pagination';

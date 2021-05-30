@@ -6,6 +6,7 @@ import pMS from 'pretty-ms';
 import { Command, config, IQueue, queue } from '../../index';
 i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
+import console from '../../util/logger';
 import play, { Song } from '../../util/playing';
 
 module.exports = {

@@ -9,6 +9,7 @@ import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
 import { Command, config, IQueue, queue } from '../../index';
+import console from '../../util/logger';
 i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
