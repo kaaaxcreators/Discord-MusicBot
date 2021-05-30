@@ -139,7 +139,7 @@
 			"description": "🎶 Verließ den Sprachkanal."
 		},
 		"left": "🎶 Den Sprachkanal verlassen: C.",
-		"description": "Leave.description"
+		"description": "Verlassen Sie den Sprachkanal!"
 	},
 	"loop": {
 		"description": "Musikschleife umschalten",
