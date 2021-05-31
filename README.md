@@ -36,6 +36,7 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
 - `PRESENCE`: Discord Presence Text
+- `SECRET`: Discord Client Secret
 
 Optional:
 

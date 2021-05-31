@@ -12,7 +12,7 @@ module.exports = async (client: Client) => {
   const server = http
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     .createServer(Express().use('/', require('../api/index')))
-    .listen(process.env.PORT || 8080, () => i18n.__('server.ready'));
+    .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
   // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {
     try {

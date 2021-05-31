@@ -1,8 +1,10 @@
+import { Permissions } from 'discord.js';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import { join } from 'path';
 
 import { client, commands, config } from '../index';
+import Auth from './Middlewares/Auth';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
 
@@ -30,8 +32,36 @@ api.get('/api/info', (req, res) => {
   });
 });
 
+api.get('/dashboard', Auth, (req, res) => {
+  res.sendFile(join(__dirname, '../../views/dashboard.html'));
+});
+
+api.get('/servers', Auth, (req, res) => {
+  res.sendFile(join(__dirname, '../../views/servers.html'));
+});
+
+api.get('/servers/:id', Auth, (req, res) => {
+  if (!req.user!.guilds!.find((x) => x.id == req.params.id)) return res.redirect('/servers');
+  res.sendFile(join(__dirname, '../../views/server.html'));
+});
+
+api.get('/api/user', async (req, res) => {
+  if (!req.user) return res.send({});
+  req.user!.guilds!.map((g) => {
+    g.hasPerms = new Permissions(g.permissions).has('MANAGE_GUILD', true);
+    g.inGuild = client.guilds.cache.has(g.id);
+    return g;
+  });
+  res.send({ user: req.user });
+});
+
 api.get('/api/commands', (req, res) => {
   res.send({ commands: Commands });
+});
+
+api.get('/logout', (req, res) => {
+  if (req.user) req.logout();
+  res.redirect('/');
 });
 
 export default api;

@@ -51,7 +51,9 @@ export const config: Config = {
   PERMISSION: process.env.PERMS || '2205280320',
   WEBSITE: process.env.WEB || 'http://localhost',
   SCOPES: process.env.SCOPES?.split(' ') || 'identify guilds applications.commands'.split(' '),
-  CALLBACK: process.env.CALLBACK || '/api/callback'
+  CALLBACK: process.env.CALLBACK || '/api/callback',
+  SECRET: process.env.SECRET!,
+  COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving'
 };
 
 // Configure i18n
@@ -178,4 +180,6 @@ interface Config {
   WEBSITE: string;
   SCOPES: string[];
   CALLBACK: string;
+  SECRET: string;
+  COOKIESECRET: string;
 }
