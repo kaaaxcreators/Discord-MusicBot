@@ -48,7 +48,7 @@ export const config: Config = {
   TOKEN: process.env.TOKEN!,
   PRESENCE: process.env.PRESENCE!,
   LOCALE: locales.includes(locale) ? locale : 'en',
-  PERMISSION: process.env.PERMS || '2205280320',
+  PERMISSION: process.env.PERMS || '2205281600',
   WEBSITE: process.env.WEB || 'http://localhost',
   SCOPES: process.env.SCOPES?.split(' ') || 'identify guilds applications.commands'.split(' '),
   CALLBACK: process.env.CALLBACK || '/api/callback',
