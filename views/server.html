@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Server | Discord-MusicBot</title>
+  <link ref="shortcut icon" href="/Music.gif" type="image/gif">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <section class="main">
+    <main style="margin-top: 58px">
+      <div class="container pt-4">
+        <section>
+          <h1 class="server-name"></h1>
+          <h1>Manage server</h1>
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-danger" id="songInQueue">0</h3>
+                      <p class="mb-0">Song in queue</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-music text-danger fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-success" id="songLoop"></h3>
+                      <p class="mb-0">Song Loop</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-redo text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-warning" id="queueLoop"></h3>
+                      <p class="mb-0">Queue Loop</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-sync text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-info" id="prefix">&gt;</h3>
+                      <p class="mb-0">Prefix</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-robot text-info fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container text-center" id="song-info">
+            <h1>Song info</h1>
+            <p>Now playing: <span id="now-playing"></span></p>
+            <br />
+            <p>Duration</p>
+            <p id="duration"></p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/js/server.js"></script>
+  <link rel="stylesheet" href="/css/server.css">
+</body>
+
+</html>

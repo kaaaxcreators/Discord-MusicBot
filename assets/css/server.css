@@ -8,41 +8,6 @@ body {
   color: #fff;
 }
 
-.commands {
-  margin-top: 100px;
-}
-
-.commands .title {
-  position: relative;
-  margin-bottom: 40px;
-  padding-bottom: 25px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: white;
-}
-
-.commands .title:before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  height: 1px;
-  background-color: #f70037;
-}
-
-.commands .title:after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 45px;
-  height: 3px;
-  background-color: #f70037;
-}
-
 @media only screen and (min-width: 600px) {
   ::-webkit-scrollbar {
     width: 16px;
