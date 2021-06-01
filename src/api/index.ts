@@ -60,4 +60,4 @@ api.use('/', Static(join(__dirname, '../../assets')));
 
 api.use('/', routes);
 
-module.exports = api;
+export default api;
