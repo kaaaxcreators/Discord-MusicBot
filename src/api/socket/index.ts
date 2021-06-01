@@ -47,11 +47,15 @@ function socket(io: Server): void {
             maxDuration:
               player.songs[0] && player.connection
                 ? pMS(player.songs[0].duration, {
-                    colonNotation: true
+                    colonNotation: true,
+                    secondsDecimalDigits: 0
                   })
                 : false,
             position: player.connection
-              ? pMS(player.connection.dispatcher.streamTime, { colonNotation: true })
+              ? pMS(player.connection.dispatcher.streamTime, {
+                  colonNotation: true,
+                  secondsDecimalDigits: 0
+                })
               : false,
             nowPlaying: player.songs[0] ? player.songs[0] : false
           });
