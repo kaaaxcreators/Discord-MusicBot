@@ -16,7 +16,12 @@ function socket(io: Server): void {
         const { client } = await import('../../index');
         socket.emit('dashboard', {
           users: client.users.cache.size,
-          guilds: client.guilds.cache.size
+          guilds: client.guilds.cache.size,
+          uptime: pMS(client.uptime!, { secondsDecimalDigits: 0 }),
+          avatarURL: client.user!.avatarURL()
+            ? client.user!.avatarURL()
+            : 'https://i.imgur.com/fFReq20.png',
+          username: client.user!.username
         });
       }, 1000);
     });

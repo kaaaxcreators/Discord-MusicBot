@@ -9,15 +9,130 @@
   <link ref="shortcut icon" href="/Music.gif" type="image/gif">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" />
 </head>
 
 <body>
   <section class="main">
+    <!--Main Navigation-->
+    <header>
+      <!-- Sidebar -->
+      <nav id="sidebarMenu" class="collapse d-lg-block sidebar">
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+              <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
+            </a>
+            <a href="/servers" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-server fa-fw me-3"></i><span>Manage Servers</span>
+            </a>
+            <a href="/logout" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <!-- Sidebar -->
+
+      <!-- Navbar -->
+      <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+            onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Brand -->
+          <a class="navbar-brand text-white" href="/">
+            <img src="/Music.gif" height="40" alt="" loading="lazy" />
+            Dashboard
+          </a>
+          <div>
+            <h1 class="server-name"></h1>
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar -->
+    </header>
+    <main style="margin-top: 58px;">
+      <div class="container pt-4">
+        <section>
+          <h1>Bot Details</h1>
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-success" id="users">-</h3>
+                      <p class="mb-0">Users</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="far fa-user text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-warning" id="guilds">-</h3>
+                      <p class="mb-0">Servers</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-server text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-warning" id="uptime">-</h3>
+                      <p class="mb-0">Uptime</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-clock text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <img class="text-warning" id="avatar" src="" />
+                      <p class="mb-0">Avatar</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-user text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   <script src="/js/dashboard.js"></script>
   <link rel="stylesheet" href="/css/dashboard.css">
 </body>

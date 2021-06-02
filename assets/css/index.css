@@ -8,6 +8,20 @@ body {
   color: #fff;
 }
 
+.navbar-toggler {
+  display: none;
+}
+
+@media only screen and (max-width: 630px) {
+  .navbar-toggler {
+    display: inherit;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+}
+
 .commands {
   margin-top: 100px;
 }
@@ -21,7 +35,7 @@ body {
   color: white;
 }
 
-.commands .title:before {
+.commands .title::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -32,7 +46,7 @@ body {
   background-color: #f70037;
 }
 
-.commands .title:after {
+.commands .title::after {
   content: "";
   position: absolute;
   bottom: -1px;

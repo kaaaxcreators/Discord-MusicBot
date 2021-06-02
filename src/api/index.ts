@@ -15,7 +15,7 @@ passport.use(
       clientID: client.user!.id,
       clientSecret: config.SECRET,
       callbackURL: config.WEBSITE + config.CALLBACK,
-      scope: config.SCOPES.join(' ')
+      scope: 'identify guilds'
     },
     (accessToken, refreshToken, profile, done) => {
       // User logged in
