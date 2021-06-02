@@ -1,5 +1,32 @@
 /* eslint-disable no-undef */
+
+function translate(json) {
+  const varTags = Array.from(document.getElementsByTagName('var'));
+  varTags.forEach((v, i) => {
+    try {
+      if (varTags[i].parentElement.childElementCount > 1) {
+        varTags[i].textContent = new Function(
+          'return this.' + varTags[i].textContent.toLowerCase() + ';'
+        ).call(json);
+      } else {
+        varTags[i].parentElement.textContent = new Function(
+          'return this.' + varTags[i].textContent.toLowerCase() + ';'
+        ).call(json);
+      }
+    } catch (e) {
+      varTags[i].textContent = '';
+      console.warn('Error in <var/> Tag: ' + e.message);
+    }
+  });
+}
+
 $(document).ready(() => {
+  let translation = {};
+  $.get('/api/translations', ({ translations, locale }) => {
+    document.documentElement.lang = locale;
+    translation = translations;
+    translate(translations);
+  });
   $.get('/api/user', (data) => {
     let Guild = data.user.guilds.find((x) => x.id == window.location.pathname.split('/')[2]);
     if (!Guild.inGuild) {
@@ -20,12 +47,11 @@ $(document).ready(() => {
     $('#songLoop').text(data.songsLoop);
     $('#songInQueue').text(data.queue);
     $('#prefix').text(data.prefix);
-    $('#now-playing').text(data.nowPlaying ? data.nowPlaying.title : 'Nothing playing');
+    $('#now-playing').text(
+      data.nowPlaying ? data.nowPlaying.title : translation.web.server.song.nothing
+    );
     if (data.position)
       $('#duration').html(`${data.position}<span> ${data.bar} </span>${data.maxDuration}`);
-    else
-      $('#duration').html(
-        `<span> Nothing is playing right now, Add some songs in discord? </span>`
-      );
+    else $('#duration').html(`<span> ${translation.web.server.song.nothingrn} </span>`);
   });
 });

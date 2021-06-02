@@ -1,9 +1,11 @@
 import { Permissions } from 'discord.js';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
+import i18n from 'i18n';
 import { join } from 'path';
 
 import { client, commands, config } from '../index';
+i18n.setLocale(config.LOCALE);
 import Auth from './Middlewares/Auth';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
@@ -12,7 +14,7 @@ const api = Router();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: 500, // limit each IP to 500 requests per windowMs
   draft_polli_ratelimit_headers: true
 });
 
@@ -57,6 +59,10 @@ api.get('/api/user', async (req, res) => {
 
 api.get('/api/commands', (req, res) => {
   res.send({ commands: Commands });
+});
+
+api.get('/api/translations', (req, res) => {
+  res.send({ translations: i18n.getCatalog(config.LOCALE), locale: config.LOCALE });
 });
 
 api.get('/logout', (req, res) => {

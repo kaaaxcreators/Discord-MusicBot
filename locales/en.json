@@ -218,7 +218,7 @@
   "radio": {
     "description": "**[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment",
     "usage": "<Stream URL> | <Attachment>",
-    "missingargs":"You didn't provide what to play",
+    "missingargs": "You didn't provide what to play",
     "embed": {
       "author": "Song has been added to queue",
       "name": "Name",
@@ -285,5 +285,55 @@
     }
   },
   "pagination": "Page {page} of {pages}.",
-  "searching": "🔍 Searching..."
+  "searching": "🔍 Searching...",
+  "web": {
+    "index": {
+      "nav1": "Discord Music Bot",
+      "nav2": "Dashboard",
+      "commands": {
+        "commands": "Commands",
+        "command": "Command",
+        "aliases": "Aliases",
+        "usage": "Usage",
+        "description": "Description"
+      }
+    },
+    "side": {
+      "dashboard": "Main dashboard",
+      "servers": "Manage Servers",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "nav": {
+        "dashboard": "Dashboard"
+      },
+      "details": {
+        "details": "Bot Details",
+        "users": "Users",
+        "servers": "Servers",
+        "uptime": "Uptime",
+        "avatar": "Avatar"
+      }
+    },
+    "server": {
+      "manage": "Manage Server",
+      "details": {
+        "manage": "Manage server",
+        "queue": "Song in queue",
+        "loop": "Song Loop",
+        "prefix": "Prefix"
+      },
+      "song": {
+        "info": "Song info",
+        "now": "Now playing:",
+        "duration": "Duration",
+        "nothing": "Nothing Playing",
+        "nothingrn": "Nothing is playing right now"
+      }
+    },
+    "servers": {
+      "servers": "Servers",
+      "select": "Select a server to manage"
+    }
+  }
 }
