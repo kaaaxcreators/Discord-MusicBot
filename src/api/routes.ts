@@ -2,10 +2,12 @@ import { Permissions } from 'discord.js';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import i18n from 'i18n';
+import livereload from 'livereload';
 import { join } from 'path';
 
 import { client, commands, config } from '../index';
 i18n.setLocale(config.LOCALE);
+
 import Auth from './Middlewares/Auth';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
@@ -19,6 +21,11 @@ const limiter = rateLimit({
 });
 
 api.use(limiter);
+
+if (process.env.LIVERELOAD == 'true') {
+  const server = livereload.createServer();
+  server.watch([join(__dirname + '../../../views'), join(__dirname + '../../../assets')]);
+}
 
 api.get('/', (req, res) => {
   res.sendFile(join(__dirname, '../../views/index.html'));

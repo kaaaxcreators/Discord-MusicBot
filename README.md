@@ -47,6 +47,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `WEB`: Hosting Website including Protocol. Defaults to `http://localhost`
 - `SCOPES`: Discord OAuth2 Scopes separated with a space. Defaults to `identify guilds applications.commands`
 - `CALLBACK`: Discord OAuth2 Callback URL. Defaults to `/api/callback`
+- `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension)
 
 ## 📑 Commands
 
