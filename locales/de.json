@@ -289,7 +289,7 @@
     "web": {
         "index": {
             "nav1": "Discord Musik Bot",
-            "nav2": "Instrumententafel",
+            "nav2": "Dashboard",
             "commands": {
                 "commands": "Befehle",
                 "command": "Befehl",
@@ -305,14 +305,14 @@
         },
         "dashboard": {
             "nav": {
-                "dashboard": "Instrumententafel"
+                "dashboard": "Dashboard"
             },
             "details": {
                 "details": "Bot-Details",
                 "users": "Benutzer",
                 "servers": "Server",
                 "uptime": "Betriebszeit",
-                "avatar": "Benutzerbild"
+                "avatar": "Avatar"
             }
         },
         "server": {
