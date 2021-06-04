@@ -140,7 +140,7 @@ Disable the Express Server and with it the Dashboard
 
 Add Environment Variable `DISABLE_WEB` with content `true`
 
-You still have to set all [Required Environment  Variables](#-environment-variables--required) but they can be empty
+You still have to set all [Required Environment  Variables](#required) but they can be empty
 
 ## ©️ Credits
 
