@@ -60,7 +60,7 @@ A List of all available commands is available [here](COMMANDS.md)
 
 Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discord-musicbot)
 
-When starting the container provide the Environment Variables
+When starting the container provide the [Environment Variables](-environment-variables)
 
 ### <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
 
@@ -68,7 +68,7 @@ Create New App without Persistent Data
 
 Container HTTP Port: `8080`
 
-In App Configs set Environment Variables
+In App Configs set [Environment Variables](-environment-variables)
 
 Deployment: Deploy via ImageName: `kaaaxcreators/discord-musicbot`
 
@@ -92,7 +92,7 @@ Click: Deploy app
 
 On the Sidebar click on the Lock ("Secrets (Environment Variables)")
 
-Enter Environment Variables
+Enter [Environment Variables](-environment-variables)
 
 Click on "Run ▶️"
 
@@ -108,7 +108,7 @@ Delete `.env`
 
 Rename `.env.example` to `.env`
 
-Enter Environment Variables
+Enter [Environment Variables](-environment-variables)
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
