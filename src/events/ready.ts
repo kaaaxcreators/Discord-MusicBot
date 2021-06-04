@@ -32,7 +32,7 @@ module.exports = async (client: Client) => {
     status: 'online', // You can show online, idle, and dnd
     activity: {
       name: `${config.PRESENCE} | ${config.prefix}help`, // The Activity shown
-      type: 'LISTENING' // PLAYING, WATCHING, LISTENING or STREAMING
+      type: config.PRESENCETYPE
     }
   });
 };

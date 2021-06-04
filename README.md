@@ -35,8 +35,9 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
-- `PRESENCE`: Discord Presence Text
+- `PRESENCE`: Discord Presence/Activity Text
 - `SECRET`: Discord Client Secret
+- `WEB`: Hosting Website including Protocol
 
 Optional:
 
@@ -44,10 +45,10 @@ Optional:
 Available Languages are `de`, `en`. Defaults to `en`
 - `LOG`: Log Filename. Defaults to `logs.log`
 - `PERMS`: Discord Permission Integer. Defaults to `2205281600`
-- `WEB`: Hosting Website including Protocol. Defaults to `http://localhost`
 - `SCOPES`: Discord OAuth2 Scopes separated with a space. Defaults to `identify guilds applications.commands`
 - `CALLBACK`: Discord OAuth2 Callback URL. Defaults to `/api/callback`
-- `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension)
+- `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension),
+- `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 
 ## 📑 Commands
 

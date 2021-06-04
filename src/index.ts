@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import {
+  ActivityType,
   Client,
   Collection,
   DMChannel,
@@ -43,13 +44,17 @@ export interface IQueue {
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';
 
+const PresenceTypes = ['STREAMING', 'WATCHING', 'PLAYING', 'LISTENING'];
+const PresenceType = <ActivityType>process.env.PRESENCETYPE || 'LISTENING';
+
 export const config: Config = {
   prefix: process.env.PREFIX!,
   TOKEN: process.env.TOKEN!,
   PRESENCE: process.env.PRESENCE!,
+  PRESENCETYPE: PresenceTypes.includes(PresenceType) ? PresenceType : 'LISTENING',
   LOCALE: locales.includes(locale) ? locale : 'en',
   PERMISSION: process.env.PERMS || '2205281600',
-  WEBSITE: process.env.WEB || 'http://localhost',
+  WEBSITE: process.env.WEB!,
   SCOPES: process.env.SCOPES?.split(' ') || 'identify guilds applications.commands'.split(' '),
   CALLBACK: process.env.CALLBACK || '/api/callback',
   SECRET: process.env.SECRET!,
@@ -175,6 +180,7 @@ interface Config {
   TOKEN: string;
   prefix: string;
   PRESENCE: string;
+  PRESENCETYPE: ActivityType;
   LOCALE: string;
   PERMISSION: string;
   WEBSITE: string;
