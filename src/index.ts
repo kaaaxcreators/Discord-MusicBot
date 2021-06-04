@@ -58,7 +58,8 @@ export const config: Config = {
   SCOPES: process.env.SCOPES?.split(' ') || 'identify guilds applications.commands'.split(' '),
   CALLBACK: process.env.CALLBACK || '/api/callback',
   SECRET: process.env.SECRET!,
-  COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving'
+  COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
+  DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false
 };
 
 // Configure i18n
@@ -188,4 +189,5 @@ interface Config {
   CALLBACK: string;
   SECRET: string;
   COOKIESECRET: string;
+  DISABLEWEB: boolean;
 }

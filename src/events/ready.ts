@@ -9,20 +9,25 @@ import console, { exit } from '../util/logger';
 i18n.setLocale(config.LOCALE);
 
 module.exports = async (client: Client) => {
-  // Create API
-  const server = http
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    .createServer(Express().use('/', (await import('../api/index')).default))
-    .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
-  (await import('../api/socket/index')).default(new Server(server));
+  let server: http.Server;
+  if (!config.DISABLEWEB) {
+    // Create API
+    server = http
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      .createServer(Express().use('/', (await import('../api/index')).default))
+      .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
+    (await import('../api/socket/index')).default(new Server(server));
+  }
   // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {
     try {
       console.info('Stopping...');
       client.destroy();
       console.info('Stopped Bot');
-      server.close();
-      console.info('Stopped Server');
+      if (!config.DISABLEWEB) {
+        server.close();
+        console.info('Stopped Server');
+      }
     } finally {
       exit();
     }
