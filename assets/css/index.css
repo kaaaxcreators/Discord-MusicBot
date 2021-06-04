@@ -1,25 +1,46 @@
 :root {
   --scrollbar-color: #909090;
   --scrollbar-hover: #606060;
+  --background: var(--bs-gray-dark);
+  --text: #fff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--bs-white-dark);
+    --text: #000;
+  }
 }
 
 body {
-  background: var(--bs-gray-dark);
-  color: #fff;
+  background: var(--background);
+  color: var(--text);
 }
 
-.navbar-toggler {
-  display: none;
+.hero {
+  margin-top: 5%;
 }
 
-@media only screen and (max-width: 630px) {
-  .navbar-toggler {
-    display: inherit;
-  }
+.footer {
+  background: #192027;
+  text-align: center;
+  padding: 32px 0;
+}
 
-  .nav-links {
-    display: none !important;
-  }
+.footer p {
+  margin: 0;
+  line-height: 26px;
+  font-size: 15px;
+  color: #999;
+}
+
+.footer p a {
+  color: #5867dd;
+  text-decoration: none;
+}
+
+.footer p a:hover {
+  color: #34bfa3;
 }
 
 .commands {
@@ -32,7 +53,7 @@ body {
   padding-bottom: 25px;
   text-transform: uppercase;
   font-weight: 700;
-  color: white;
+  color: var(--text);
 }
 
 .commands .title::before {
@@ -43,7 +64,7 @@ body {
   transform: translateX(-50%);
   width: 140px;
   height: 1px;
-  background-color: #f70037;
+  background-color: #0d6efd;
 }
 
 .commands .title::after {
@@ -54,7 +75,7 @@ body {
   transform: translateX(-50%);
   width: 45px;
   height: 3px;
-  background-color: #f70037;
+  background-color: #0d6efd;
 }
 
 @media only screen and (min-width: 600px) {

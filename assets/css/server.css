@@ -1,16 +1,33 @@
 :root {
   --scrollbar-color: #909090;
   --scrollbar-hover: #606060;
+  --background: var(--bs-gray-dark);
+  --text: #fff;
+  --card-text: #000;
+  --card-background: var(--bs-gray);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--bs-white);
+    --text: #000;
+    --card-background: var(--bs-light);
+  }
 }
 
 body {
-  background: var(--bs-gray-dark);
-  color: #fff;
+  background: var(--background);
+  color: var(--text);
   overflow-x: hidden;
 }
 
 .card {
-  color: black;
+  background-color: var(--card-background);
+  color: var(--card-text);
+}
+
+.list-group-item {
+  background-color: var(--card-background);
 }
 
 @media (min-width: 991.98px) {

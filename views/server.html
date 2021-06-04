@@ -16,6 +16,29 @@
 <body>
   <section class="main">
     <header>
+      <!-- Navbar -->
+      <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+            onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Brand -->
+          <a class="navbar-brand" href="/">
+            <img src="/Music.gif" height="40" alt="" loading="lazy" />
+            Manage Server
+          </a>
+          <div>
+            <h1 class="server-name"></h1>
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar -->
+      
       <!-- Sidebar -->
       <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
         <div class="position-sticky">
@@ -33,29 +56,6 @@
         </div>
       </nav>
       <!-- Sidebar -->
-
-      <!-- Navbar -->
-      <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
-            onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
-            <i class="fas fa-bars"></i>
-          </button>
-
-          <!-- Brand -->
-          <a class="navbar-brand text-white" href="/">
-            <img src="/Music.gif" height="40" alt="" loading="lazy" />
-            Manage Server
-          </a>
-          <div>
-            <h1 class="server-name"></h1>
-          </div>
-        </div>
-      </nav>
-      <!-- Navbar -->
     </header>
     <main style="margin-top: 58px;">
       <div class="container pt-4">

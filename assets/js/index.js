@@ -42,6 +42,15 @@ $(document).ready(() => {
     document.documentElement.lang = locale;
     translate(translations);
   });
+  $.get('/api/info', (data) => {
+    const url = `https://discord.com/oauth2/authorize?client_id=${data.ClientID}&permissions=${
+      data.Permissions
+    }&scope=${data.Scopes.join('%20')}&redirect_uri=${data.Website}${
+      data.CallbackURL
+    }&response_type=code`;
+    $('#hero').append(`<a href="${url}" class="btn btn-primary" type="button">Invite</a>
+    <a href="/dashboard" class="btn btn-outline-primary" type="button">Dashboard</a>`);
+  });
   $.get('/api/commands', (data) => {
     data.commands.forEach((cmd) => {
       $('#commands-body').append(`<tr>

@@ -1,11 +1,22 @@
 :root {
   --scrollbar-color: #909090;
   --scrollbar-hover: #606060;
+  --background: var(--bs-gray-dark);
+  --text: #fff;
+  --list-item: var(--bs-gray);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--bs-white);
+    --text: #000;
+    --list-item: var(--bs-light);
+  }
 }
 
 body {
-  background: var(--bs-gray-dark);
-  color: #fff;
+  background: var(--background);
+  color: var(--text);
   overflow-x: hidden;
 }
 
@@ -13,6 +24,10 @@ body {
   main {
     padding-left: 240px;
   }
+}
+
+.list-group-item {
+  background-color: var(--list-item);
 }
 
 /* Sidebar */
