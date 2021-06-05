@@ -106,7 +106,7 @@ export default {
       .addField(i18n.__('music.name'), `[${song.title}](${song.url})`, true)
       .addField(
         i18n.__('music.duration'),
-        song.live ? 'LIVE' : pMS(song.duration, { secondsDecimalDigits: 0 }),
+        song.live ? i18n.__('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
         true
       )
       .addField(i18n.__('music.request'), song.req.tag, true)

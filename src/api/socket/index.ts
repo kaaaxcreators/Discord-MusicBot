@@ -1,7 +1,9 @@
+import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import { Server } from 'socket.io';
 
 import { config } from '../../index';
+i18n.setLocale(config.LOCALE);
 import ProgressBar from '../../util/ProgressBar';
 
 let dashboard: NodeJS.Timeout;
@@ -46,15 +48,22 @@ function socket(io: Server): void {
             prefix: config.prefix,
             bar:
               player.songs[0] && player.connection
-                ? ProgressBar(player.connection.dispatcher.streamTime, player.songs[0].duration, 20)
-                    .Bar
+                ? player.songs[0].live
+                  ? '▇—▇—▇—▇—▇—▇—▇—▇—▇—▇—'
+                  : ProgressBar(
+                      player.connection.dispatcher.streamTime,
+                      player.songs[0].duration,
+                      20
+                    ).Bar
                 : false,
             maxDuration:
               player.songs[0] && player.connection
-                ? pMS(player.songs[0].duration, {
-                    colonNotation: true,
-                    secondsDecimalDigits: 0
-                  })
+                ? player.songs[0].live
+                  ? i18n.__('nowplaying.live')
+                  : pMS(player.songs[0].duration, {
+                      colonNotation: true,
+                      secondsDecimalDigits: 0
+                    })
                 : false,
             position: player.connection
               ? pMS(player.connection.dispatcher.streamTime, {

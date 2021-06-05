@@ -72,7 +72,7 @@ module.exports = {
         .addField(i18n.__('radio.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(
           i18n.__('radio.embed.duration'),
-          song.live ? 'LIVE' : pMS(song.duration, { secondsDecimalDigits: 0 }),
+          song.live ? i18n.__('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
           true
         )
         .addField(i18n.__('radio.embed.request'), song.req.tag, true)

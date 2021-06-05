@@ -157,7 +157,7 @@
     },
     "nowplaying": {
         "description": "Holen Sie sich Musik, die gerade abgespielt wird",
-        "live": "WOHNEN",
+        "live": "LIVE",
         "embed": {
             "author": "Läuft gerade",
             "name": "Name",
