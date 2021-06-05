@@ -21,6 +21,10 @@ body {
   overflow-x: hidden;
 }
 
+var {
+  color: var(--text);
+}
+
 .card {
   background-color: var(--card-background);
   color: var(--card-text);
