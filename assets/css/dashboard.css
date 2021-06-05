@@ -5,6 +5,7 @@
   --text: #fff;
   --card-text: #000;
   --card-background: var(--bs-gray);
+  --text-success: hsl(152, 69%, 50%) !important;
 }
 
 @media (prefers-color-scheme: light) {
@@ -12,6 +13,7 @@
     --background: var(--bs-white);
     --text: #000;
     --card-background: var(--bs-light);
+    --text-success: #198754 !important;
   }
 }
 
@@ -23,6 +25,10 @@ body {
 
 var {
   color: var(--text);
+}
+
+.text-success {
+  color: var(--text-success) !important;
 }
 
 @media (min-width: 991.98px) {

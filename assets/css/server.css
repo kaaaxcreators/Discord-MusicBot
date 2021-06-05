@@ -5,6 +5,8 @@
   --text: #fff;
   --card-text: #000;
   --card-background: var(--bs-gray);
+  --text-success: hsl(152, 69%, 50%) !important;
+  --text-danger: hsl(354, 70%, 60%) !important;
 }
 
 @media (prefers-color-scheme: light) {
@@ -12,6 +14,8 @@
     --background: var(--bs-white);
     --text: #000;
     --card-background: var(--bs-light);
+    --text-success: #198754 !important;
+    --text-danger: #dc3545 !important;
   }
 }
 
@@ -23,6 +27,14 @@ body {
 
 var {
   color: var(--text);
+}
+
+.text-success {
+  color: var(--text-success) !important;
+}
+
+.text-danger {
+  color: var(--text-danger) !important;
 }
 
 .card {
