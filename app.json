@@ -23,21 +23,18 @@
         "value": "!",
         "required": "true"
       },
-      "SOUNDCLOUD_CLIENT_ID": {
-        "description": "Soundcloud Client ID",
-        "value": "2t9loNQH90kzJcsFCODdigxfp325aq4z",
-        "required": "true"
-      },
       "PRESENCE": {
         "description": "Discord Presence Text",
+        "value": "kaaaxcreators.de",
         "required": "true"
       },
-      "SPOTIFY_CLIENT_ID": {
-        "description": "Spotify Client ID",
+      "SECRET": {
+        "description": "Discord Client Secret",
         "required": "true"
       },
-      "SPOTIFY_CLIENT_SECRET": {
-        "description": "Spotify Client Secret",
+      "WEB": {
+        "description": "Hosting Website including Protocol",
+        "value": "0.0.0.0",
         "required": "true"
       }
     }  

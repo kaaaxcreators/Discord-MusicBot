@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import {
+  ActivityType,
   Client,
   Collection,
   DMChannel,
@@ -16,12 +17,13 @@ try {
 } catch (err) {
   EnvError(err);
 }
-import { existsSync, readdir } from 'fs';
+
+import { readdir } from 'fs';
 import i18n from 'i18n';
 import path from 'path';
 
 import docs from './docs';
-import console, { logFileName } from './util/logger';
+import console from './util/logger';
 import { Song } from './util/playing';
 
 export const client = new Client();
@@ -42,11 +44,22 @@ export interface IQueue {
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';
 
+const PresenceTypes = ['STREAMING', 'WATCHING', 'PLAYING', 'LISTENING'];
+const PresenceType = <ActivityType>process.env.PRESENCETYPE || 'LISTENING';
+
 export const config: Config = {
   prefix: process.env.PREFIX!,
   TOKEN: process.env.TOKEN!,
   PRESENCE: process.env.PRESENCE!,
-  LOCALE: locales.includes(locale) ? locale : 'en'
+  PRESENCETYPE: PresenceTypes.includes(PresenceType) ? PresenceType : 'LISTENING',
+  LOCALE: locales.includes(locale) ? locale : 'en',
+  PERMISSION: process.env.PERMS || '2205281600',
+  WEBSITE: process.env.WEB!,
+  SCOPES: process.env.SCOPES?.split(' ') || 'identify guilds applications.commands'.split(' '),
+  CALLBACK: process.env.CALLBACK || '/api/callback',
+  SECRET: process.env.SECRET!,
+  COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
+  DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false
 };
 
 // Configure i18n
@@ -71,8 +84,6 @@ i18n.setLocale(config.LOCALE);
 if (process.env.DOCS == 'true') {
   docs();
 }
-
-if (existsSync(logFileName)) console.warn('Log File already exists!');
 
 //Loading Events
 readdir(__dirname + '/events/', (err, files) => {
@@ -112,7 +123,7 @@ readdir(__dirname + '/commands/general', (err, files) => {
   });
 });
 
-//Logging in to discord
+//Logging in to discord and start server
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {
@@ -170,5 +181,13 @@ interface Config {
   TOKEN: string;
   prefix: string;
   PRESENCE: string;
+  PRESENCETYPE: ActivityType;
   LOCALE: string;
+  PERMISSION: string;
+  WEBSITE: string;
+  SCOPES: string[];
+  CALLBACK: string;
+  SECRET: string;
+  COOKIESECRET: string;
+  DISABLEWEB: boolean;
 }

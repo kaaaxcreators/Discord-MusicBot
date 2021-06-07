@@ -1,21 +1,33 @@
 import { Client } from 'discord.js';
+import Express from 'express';
+import http from 'http';
 import i18n from 'i18n';
+import { Server } from 'socket.io';
 
 import { config } from '../index';
 import console, { exit } from '../util/logger';
 i18n.setLocale(config.LOCALE);
-import keepAlive, { exit as serverExit } from '../server';
 
 module.exports = async (client: Client) => {
-  // Start Express Website
-  keepAlive(client);
+  let server: http.Server;
+  if (!config.DISABLEWEB) {
+    // Create API
+    server = http
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      .createServer(Express().use('/', (await import('../api/index')).default))
+      .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
+    (await import('../api/socket/index')).default(new Server(server));
+  }
+  // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {
     try {
       console.info('Stopping...');
       client.destroy();
       console.info('Stopped Bot');
-      serverExit();
-      console.info('Stopped Server');
+      if (!config.DISABLEWEB) {
+        server.close();
+        console.info('Stopped Server');
+      }
     } finally {
       exit();
     }
@@ -25,7 +37,7 @@ module.exports = async (client: Client) => {
     status: 'online', // You can show online, idle, and dnd
     activity: {
       name: `${config.PRESENCE} | ${config.prefix}help`, // The Activity shown
-      type: 'LISTENING' // PLAYING, WATCHING, LISTENING or STREAMING
+      type: config.PRESENCETYPE
     }
   });
 };

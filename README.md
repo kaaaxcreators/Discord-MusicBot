@@ -33,15 +33,25 @@ A Playlist has to be in this format: `https://open.spotify.com/playlist/<anythin
 
 ## 🌱 Environment Variables
 
+### Required
+
 - `TOKEN`: Discord Bot Token
 - `PREFIX`: Bot Prefix
-- `PRESENCE`: Discord Presence Text
+- `PRESENCE`: Discord Presence/Activity Text
+- `SECRET`: Discord Client Secret
+- `WEB`: Hosting Website including Protocol
 
-Optional:
+### Optional
 
 - `LOCALE`: Language ([ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
 Available Languages are `de`, `en`. Defaults to `en`
 - `LOG`: Log Filename. Defaults to `logs.log`
+- `PERMS`: Discord Permission Integer. Defaults to `2205281600`
+- `SCOPES`: Discord OAuth2 Scopes separated with a space. Defaults to `identify guilds applications.commands`
+- `CALLBACK`: Discord OAuth2 Callback URL. Defaults to `/api/callback`
+- `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension),
+- `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
+- `DISABLE_WEB`: Check [here](#-disabling-dashboard)
 
 ## 📑 Commands
 
@@ -53,7 +63,7 @@ A List of all available commands is available [here](COMMANDS.md)
 
 Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcreators/discord-musicbot)
 
-When starting the container provide the Environment Variables
+When starting the container provide the [Environment Variables](#-environment-variables)
 
 ### <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
 
@@ -61,7 +71,7 @@ Create New App without Persistent Data
 
 Container HTTP Port: `8080`
 
-In App Configs set Environment Variables
+In App Configs set [Environment Variables](#-environment-variables)
 
 Deployment: Deploy via ImageName: `kaaaxcreators/discord-musicbot`
 
@@ -85,7 +95,7 @@ Click: Deploy app
 
 On the Sidebar click on the Lock ("Secrets (Environment Variables)")
 
-Enter Environment Variables
+Enter [Environment Variables](#-environment-variables)
 
 Click on "Run ▶️"
 
@@ -101,7 +111,7 @@ Delete `.env`
 
 Rename `.env.example` to `.env`
 
-Enter Environment Variables
+Enter [Environment Variables](#-environment-variables)
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
@@ -123,6 +133,18 @@ Example
 | Type    | info                              | Log Level / Reason                   |
 | Where   | "dist\index.js:95:26"             | Where the Log is comming from        |
 | What    | "Laden des Musikbefehls: earrape" | What was logged                      |
+
+## ❌ Disabling Dashboard
+
+Disable the Express Server and with it the Dashboard
+
+Add Environment Variable `DISABLE_WEB` with content `true`
+
+You still have to set all [Required Environment  Variables](#required) but they can be empty
+
+## ⬆️ Migration
+
+See [MIGRATE](MIGRATE.md) for more infos
 
 ## ©️ Credits
 
