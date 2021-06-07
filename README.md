@@ -142,6 +142,10 @@ Add Environment Variable `DISABLE_WEB` with content `true`
 
 You still have to set all [Required Environment  Variables](#required) but they can be empty
 
+## ⬆️ Migration
+
+See [MIGRATE](MIGRATE.md) for more infos
+
 ## ©️ Credits
 
 This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
