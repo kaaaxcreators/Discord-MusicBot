@@ -149,6 +149,12 @@ See [MIGRATE](MIGRATE.md) for more infos
 
 ## 🤔 didyoumean
 
+responds to u if you mistype a command with the nearest possible solution.
+
+Enable it by setting a Env Var `DIDYOUMEAN` with content/value `true`
+
+Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
+
 ## ©️ Credits
 
 This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
