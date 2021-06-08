@@ -59,7 +59,8 @@ export const config: Config = {
   CALLBACK: process.env.CALLBACK || '/api/callback',
   SECRET: process.env.SECRET!,
   COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
-  DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false
+  DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
+  DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false
 };
 
 // Configure i18n
@@ -200,4 +201,5 @@ interface Config {
   SECRET: string;
   COOKIESECRET: string;
   DISABLEWEB: boolean;
+  DIDYOUMEAN: boolean;
 }

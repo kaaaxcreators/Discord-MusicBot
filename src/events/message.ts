@@ -1,3 +1,4 @@
+import didYouMean from 'didyoumean2';
 import { Client, Message, NewsChannel, TextChannel } from 'discord.js';
 import events from 'events';
 import i18n from 'i18n';
@@ -25,11 +26,11 @@ module.exports = async (client: Client, message: Message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
 
   // Making the command lowerCase because our file name will be in lowerCase
-  const command = args.shift()?.toLowerCase();
+  const command = args.shift()!.toLowerCase();
 
   // Searching a command with Name or Alias
   const cmd =
-    commands.get(command!) ||
+    commands.get(command) ||
     commands.find((x) => x && x.info && x.info.aliases && x.info.aliases.includes(command!));
 
   process.on('unhandledRejection', (reason: Error, promise) => {
@@ -73,6 +74,16 @@ module.exports = async (client: Client, message: Message) => {
       }
     }
     cmd.run(client, message, args);
+  } else if (config.DIDYOUMEAN) {
+    const result = didYouMean(
+      command,
+      commands.map((value) => value.info.name)
+    );
+    if (result) {
+      return message.channel.send(`Did you mean \`${config.prefix}${result}\`?`);
+    } else {
+      return;
+    }
   } else {
     return;
   }
