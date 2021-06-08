@@ -1,5 +1,5 @@
 import didYouMean from 'didyoumean2';
-import { Client, Message, NewsChannel, TextChannel } from 'discord.js';
+import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 import events from 'events';
 import i18n from 'i18n';
 
@@ -75,14 +75,28 @@ module.exports = async (client: Client, message: Message) => {
     }
     cmd.run(client, message, args);
   } else if (config.DIDYOUMEAN) {
-    const result = didYouMean(
-      command,
-      commands.map((value) => value.info.name)
-    );
-    if (result) {
-      return message.channel.send(`Did you mean \`${config.prefix}${result}\`?`);
-    } else {
-      return;
+    try {
+      const result = didYouMean(
+        command,
+        commands.map((value) => value.info.name)
+      );
+      if (result) {
+        const embed = new MessageEmbed()
+          .setTitle('🤔 didyoumean')
+          .setTimestamp()
+          .setDescription(i18n.__mf('message.dym', { command: result }))
+          .addField(
+            i18n.__('help.spec.description'),
+            commands.get(result)?.info.description || i18n.__('error.something')
+          )
+          .setColor('DARK_VIVID_PINK')
+          .setFooter(message.author.username, message.author.avatarURL()!);
+        return message.channel.send(embed);
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.error(err.message || err);
     }
   } else {
     return;
