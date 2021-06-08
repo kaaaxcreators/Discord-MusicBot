@@ -24,7 +24,9 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
-    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
+    if (!channel) {
+      return sendError(i18n.__('error.needvc'), message.channel);
+    }
     const searchString = args.join(' ');
     const attachment = message.attachments
       ? message.attachments.array()
@@ -33,8 +35,9 @@ module.exports = {
           : undefined
         : undefined
       : undefined;
-    if ((searchString || attachment) == null)
+    if ((searchString || attachment) == null) {
       return sendError(i18n.__('radio.missingargs'), message.channel);
+    }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment : '';
     const serverQueue = queue.get(message.guild!.id);
 

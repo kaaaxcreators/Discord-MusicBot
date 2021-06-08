@@ -20,9 +20,12 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const channel = message.member!.voice.channel;
-    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
-    if (!message.guild!.me!.voice.channel)
+    if (!channel) {
+      return sendError(i18n.__('error.needvc'), message.channel);
+    }
+    if (!message.guild!.me!.voice.channel) {
       return sendError(i18n.__('leave.notinvc'), message.channel);
+    }
 
     try {
       await message.guild!.me!.voice.channel.leave();

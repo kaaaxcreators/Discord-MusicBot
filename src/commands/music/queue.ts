@@ -20,7 +20,9 @@ module.exports = {
   },
   run: async function (client: Client, message: Message) {
     const queue = Queue.get(message.guild!.id);
-    if (!queue) return sendError(i18n.__('error.noqueue'), message.channel);
+    if (!queue) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
 
     const que = queue.songs.map(
       (t, i) => `\`${++i}.\` | [\`${t.title}\`](${t.url}) - [<@${t.req.id}>]`
@@ -44,12 +46,15 @@ module.exports = {
       .addField(i18n.__('queue.embed.text'), queue.textChannel, true)
       .addField(i18n.__('queue.embed.voice'), queue.voiceChannel, true)
       .setFooter(i18n.__mf('queue.embed.footer', { volume: queue.volume, pages: chunked.length }));
-    if (queue.songs.length === 1)
+    if (queue.songs.length === 1) {
       embed.setDescription(i18n.__mf('queue.embed.description', { prefix: config.prefix }));
+    }
 
     try {
       const queueMsg = await message.channel.send(embed);
-      if (chunked.length > 1) await Util.pagination(queueMsg, message.author, chunked);
+      if (chunked.length > 1) {
+        await Util.pagination(queueMsg, message.author, chunked);
+      }
     } catch (e) {
       message.channel.send(`An error occurred: ${e.message}.`);
     }

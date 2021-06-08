@@ -24,10 +24,14 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
-    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
+    if (!channel) {
+      return sendError(i18n.__('error.needvc'), message.channel);
+    }
 
     const searchString = args.join(' ');
-    if (!searchString) return sendError(i18n.__('search.missingargs'), message.channel);
+    if (!searchString) {
+      return sendError(i18n.__('search.missingargs'), message.channel);
+    }
 
     const serverQueue = queue.get(message.guild!.id);
     let response: Collection<string, Message> = new Collection<string, Message>();
@@ -37,7 +41,9 @@ module.exports = {
         embed: { description: i18n.__('searching') } as MessageEmbedOptions
       });
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
-      if (searched[0] == undefined) return sendError(i18n.__('search.notfound'), message.channel);
+      if (searched[0] == undefined) {
+        return sendError(i18n.__('search.notfound'), message.channel);
+      }
       let index = 0;
       const embed = new MessageEmbed()
         .setColor('BLUE')

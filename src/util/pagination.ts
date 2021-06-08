@@ -24,7 +24,11 @@ export default class Util {
     init = true,
     currPage = 0
   ): Promise<void> {
-    if (init) for (const emoji of this.paginationEmojis) await msg.react(emoji);
+    if (init) {
+      for (const emoji of this.paginationEmojis) {
+        await msg.react(emoji);
+      }
+    }
 
     const collector = msg.createReactionCollector(
       (reaction, user) => {
@@ -41,9 +45,15 @@ export default class Util {
         reaction.users.remove(author);
 
         const emoji = reaction.emoji.name;
-        if (emoji === this.paginationEmojis[0]) currPage--;
-        if (emoji === this.paginationEmojis[1]) return collector.stop();
-        if (emoji === this.paginationEmojis[2]) currPage++;
+        if (emoji === this.paginationEmojis[0]) {
+          currPage--;
+        }
+        if (emoji === this.paginationEmojis[1]) {
+          return collector.stop();
+        }
+        if (emoji === this.paginationEmojis[2]) {
+          currPage++;
+        }
         currPage = ((currPage % contents.length) + contents.length) % contents.length;
 
         const embed = msg.embeds[0]
@@ -55,7 +65,9 @@ export default class Util {
         this.pagination(msg, author, contents, false, currPage);
       })
       .on('end', (_, reason) => {
-        if (['time', 'user'].includes(reason)) msg.reactions.removeAll();
+        if (['time', 'user'].includes(reason)) {
+          msg.reactions.removeAll();
+        }
       });
   }
 }

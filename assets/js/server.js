@@ -50,8 +50,10 @@ $(document).ready(() => {
     $('#now-playing').text(
       data.nowPlaying ? data.nowPlaying.title : translation.web.server.song.nothing
     );
-    if (data.position)
+    if (data.position) {
       $('#duration').html(`${data.position}<span> ${data.bar} </span>${data.maxDuration}`);
-    else $('#duration').html(`<span> ${translation.web.server.song.nothingrn} </span>`);
+    } else {
+      $('#duration').html(`<span> ${translation.web.server.song.nothingrn} </span>`);
+    }
   });
 });

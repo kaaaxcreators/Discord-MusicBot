@@ -13,7 +13,9 @@ function socket(io: Server): void {
   io.on('connection', (socket) => {
     //Bot's Main Page
     socket.on('dashboard', () => {
-      if (dashboard) clearInterval(dashboard);
+      if (dashboard) {
+        clearInterval(dashboard);
+      }
       dashboard = setInterval(async () => {
         const { client } = await import('../../index');
         socket.emit('dashboard', {
@@ -29,11 +31,15 @@ function socket(io: Server): void {
     });
 
     socket.on('server', (ServerID) => {
-      if (server) clearInterval(server);
+      if (server) {
+        clearInterval(server);
+      }
       server = setInterval(async () => {
         const { client, queue } = await import('../../index');
         const Guild = client.guilds.cache.get(ServerID);
-        if (!Guild) return socket.emit('error', 'Unable to find that server');
+        if (!Guild) {
+          return socket.emit('error', 'Unable to find that server');
+        }
         const player = queue.get(Guild.id);
         if (!player) {
           socket.emit('server', {

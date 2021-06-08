@@ -27,7 +27,9 @@ $(document).ready(() => {
   });
   $.get('/api/user', (data) => {
     data.user.guilds.forEach((Guild) => {
-      if (!Guild.hasPerms) return;
+      if (!Guild.hasPerms) {
+        return;
+      }
       $('#servers').append(`
 <img class="server-${Guild.id}${
         Guild.inGuild ? '' : ' grayscale'

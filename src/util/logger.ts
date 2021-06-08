@@ -12,8 +12,9 @@ const logFileName = process.env.LOG || 'logs.log';
  * @param  {ILogObject} logObject
  */
 function logToTransport(logObject: ILogObject): void {
-  if (!existsSync(logFileName) && logFileName.split('.')[1] == 'json')
+  if (!existsSync(logFileName) && logFileName.split('.')[1] == 'json') {
     appendFileSync(logFileName, '[');
+  }
   appendFileSync(logFileName, formatLog(logObject) + ',\n');
 }
 /**
@@ -21,7 +22,9 @@ function logToTransport(logObject: ILogObject): void {
  */
 function exit(): void {
   try {
-    if (!existsSync(logFileName)) throw 'File does not exist';
+    if (!existsSync(logFileName)) {
+      throw 'File does not exist';
+    }
     // Remove Last 2 Characters from string
     if (logFileName.split('.')[1] == 'json') {
       let text = readFileSync(logFileName);

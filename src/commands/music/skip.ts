@@ -22,12 +22,19 @@ module.exports = {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
-    )
+    ) {
       return sendError(i18n.__('error.samevc'), message.channel);
+    }
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError(i18n.__('skip.nothing'), message.channel);
-    if (!serverQueue.connection) return;
-    if (!serverQueue.connection.dispatcher) return;
+    if (!serverQueue) {
+      return sendError(i18n.__('skip.nothing'), message.channel);
+    }
+    if (!serverQueue.connection) {
+      return;
+    }
+    if (!serverQueue.connection.dispatcher) {
+      return;
+    }
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();

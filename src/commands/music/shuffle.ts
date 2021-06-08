@@ -23,10 +23,13 @@ module.exports = {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
-    )
+    ) {
       return sendError(i18n.__('error.samevc'), message.channel);
+    }
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError('There is no queue.', message.channel).catch(console.error);
+    if (!serverQueue) {
+      return sendError('There is no queue.', message.channel).catch(console.error);
+    }
     try {
       const songs = serverQueue.songs;
       for (let i = songs.length - 1; i > 1; i--) {

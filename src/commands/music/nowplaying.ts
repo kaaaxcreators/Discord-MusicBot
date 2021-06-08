@@ -22,7 +22,9 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError(i18n.__('error.noqueue'), message.channel);
+    if (!serverQueue) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
     const song: Song = serverQueue.songs[0];
     let Progress: Progress;
     if (song.live) {

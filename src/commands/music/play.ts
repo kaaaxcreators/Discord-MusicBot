@@ -36,10 +36,14 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
-    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
+    if (!channel) {
+      return sendError(i18n.__('error.needvc'), message.channel);
+    }
 
     const searchString = args.join(' ');
-    if (!searchString) return sendError(i18n.__('play.missingargs'), message.channel);
+    if (!searchString) {
+      return sendError(i18n.__('play.missingargs'), message.channel);
+    }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const serverQueue = queue.get(message.guild!.id);
 
@@ -51,7 +55,9 @@ module.exports = {
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
         songInfo = await ytdl.getInfo(url);
-        if (!songInfo) return sendError(i18n.__('play.notfound.youtube'), message.channel);
+        if (!songInfo) {
+          return sendError(i18n.__('play.notfound.youtube'), message.channel);
+        }
         song = {
           id: songInfo.videoDetails.videoId,
           title: songInfo.videoDetails.title,
@@ -64,7 +70,9 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -73,7 +81,9 @@ module.exports = {
     } else if (scdl.isValidUrl(url)) {
       try {
         songInfo = await scdl.getInfo(url);
-        if (!songInfo) return sendError(i18n.__('play.notfound.soundcloud'), message.channel);
+        if (!songInfo) {
+          return sendError(i18n.__('play.notfound.soundcloud'), message.channel);
+        }
         song = {
           id: songInfo.permalink!,
           title: songInfo.title!,
@@ -85,7 +95,9 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -94,7 +106,9 @@ module.exports = {
     } else if (spdl.validateURL(url)) {
       try {
         songInfo = await spdl.getInfo(url);
-        if (!songInfo) return sendError(i18n.__('play.notfound.spotify'), message.channel);
+        if (!songInfo) {
+          return sendError(i18n.__('play.notfound.spotify'), message.channel);
+        }
         song = {
           id: songInfo.id,
           title: songInfo.title,
@@ -106,7 +120,9 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel
@@ -115,8 +131,9 @@ module.exports = {
     } else {
       try {
         const searched = await yts.search(searchString);
-        if (searched.videos.length === 0)
+        if (searched.videos.length === 0) {
           return sendError(i18n.__('play.notfound.youtube'), message.channel);
+        }
 
         songInfo = searched.videos[0];
         song = {
@@ -130,7 +147,9 @@ module.exports = {
           req: message.author
         };
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(
           i18n.__('error.occurred') + ' ' + error.message || error,
           message.channel

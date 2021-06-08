@@ -7,7 +7,9 @@ i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 
 module.exports = async (client: Client, message: Message) => {
-  if (message.author.bot) return;
+  if (message.author.bot) {
+    return;
+  }
 
   // Respond to Prefix or Tag
   const prefixMention = new RegExp(`^<@!?${client.user?.id}> `);
@@ -15,7 +17,9 @@ module.exports = async (client: Client, message: Message) => {
     ? message.content.match(prefixMention)![0]
     : config.prefix;
 
-  if (message.content.indexOf(prefix) !== 0) return;
+  if (message.content.indexOf(prefix) !== 0) {
+    return;
+  }
 
   // Get Args after Prefix
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -40,8 +44,9 @@ module.exports = async (client: Client, message: Message) => {
   // Executing the command with Context and Arguments
   if (cmd && cmd.run) {
     // Only run General Commands in DM
-    if (cmd.info.categorie != 'general' && message.channel.type == 'dm')
+    if (cmd.info.categorie != 'general' && message.channel.type == 'dm') {
       return sendError(i18n.__('message.onlygeneral'), message.channel);
+    }
     // Check for Bot Permissions only on Servers
     if (cmd.info.permissions && message.channel.type != 'dm') {
       message.channel = <TextChannel | NewsChannel>message.channel;
@@ -68,5 +73,7 @@ module.exports = async (client: Client, message: Message) => {
       }
     }
     cmd.run(client, message, args);
-  } else return;
+  } else {
+    return;
+  }
 };

@@ -50,12 +50,16 @@ api.get('/servers', Auth, (req, res) => {
 });
 
 api.get('/servers/:id', Auth, (req, res) => {
-  if (!req.user!.guilds!.find((x) => x.id == req.params.id)) return res.redirect('/servers');
+  if (!req.user!.guilds!.find((x) => x.id == req.params.id)) {
+    return res.redirect('/servers');
+  }
   res.sendFile(join(__dirname, '../../views/server.html'));
 });
 
 api.get('/api/user', async (req, res) => {
-  if (!req.user) return res.send({});
+  if (!req.user) {
+    return res.send({});
+  }
   req.user!.guilds!.map((g) => {
     g.hasPerms = new Permissions(g.permissions).has('MANAGE_GUILD', true);
     g.inGuild = client.guilds.cache.has(g.id);
@@ -73,7 +77,9 @@ api.get('/api/translations', (req, res) => {
 });
 
 api.get('/logout', (req, res) => {
-  if (req.user) req.logout();
+  if (req.user) {
+    req.logout();
+  }
   res.redirect('/');
 });
 

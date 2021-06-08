@@ -23,13 +23,17 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const queue = Queue.get(message.guild!.id);
-    if (!queue) return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
+    if (!queue) {
+      return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
+    }
 
     let lyrics: string[] = [];
 
     try {
       lyrics = await lyricsFinder(queue.songs[0].title);
-      if (!lyrics) lyrics = [`${i18n.__('lyrics.notfound')} ${queue.songs[0].title}.`];
+      if (!lyrics) {
+        lyrics = [`${i18n.__('lyrics.notfound')} ${queue.songs[0].title}.`];
+      }
     } catch (error) {
       lyrics = [`${i18n.__('lyrics.notfound')} ${queue.songs[0].title}.`];
     }
@@ -47,6 +51,8 @@ module.exports = {
       .setTimestamp();
 
     const lyricsMsg = await message.channel.send(embed);
-    if (splittedLyrics.length > 1) await Util.pagination(lyricsMsg, message.author, splittedLyrics);
+    if (splittedLyrics.length > 1) {
+      await Util.pagination(lyricsMsg, message.author, splittedLyrics);
+    }
   }
 } as Command;

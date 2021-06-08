@@ -87,7 +87,9 @@ if (process.env.DOCS == 'true') {
 
 //Loading Events
 readdir(__dirname + '/events/', (err, files) => {
-  if (err) return console.error(err);
+  if (err) {
+    return console.error(err);
+  }
   files.forEach((file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const event = require(__dirname + `/events/${file}`);
@@ -99,9 +101,13 @@ readdir(__dirname + '/events/', (err, files) => {
 
 //Loading Music
 readdir(__dirname + '/commands/music', (err, files) => {
-  if (err) return console.error(err);
+  if (err) {
+    return console.error(err);
+  }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) {
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
@@ -112,9 +118,13 @@ readdir(__dirname + '/commands/music', (err, files) => {
 
 //Loading General
 readdir(__dirname + '/commands/general', (err, files) => {
-  if (err) return console.error(err);
+  if (err) {
+    return console.error(err);
+  }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) {
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/general/${file}`);
     const commandName = file.split('.')[0];

@@ -56,14 +56,20 @@ module.exports = {
 
     if (!args[0]) {
       const helpmsg = await message.channel.send(embed);
-      if (splittedHelp.length > 1) await Util.pagination(helpmsg, message.author, splittedHelp);
+      if (splittedHelp.length > 1) {
+        await Util.pagination(helpmsg, message.author, splittedHelp);
+      }
     }
     // If Argument supplied get details of specific command
     else {
       const cmd = args[0];
       let command = commands.get(cmd);
-      if (!command) command = commands.find((x) => x.info.aliases.includes(cmd));
-      if (!command) return message.channel.send('Unknown Command');
+      if (!command) {
+        command = commands.find((x) => x.info.aliases.includes(cmd));
+      }
+      if (!command) {
+        return message.channel.send('Unknown Command');
+      }
       const usage = command.info.usage ? ` ${command.info.usage}` : '';
       const commandinfo = new MessageEmbed()
         .setTitle(i18n.__('help.spec.command') + ' ' + command.info.name)

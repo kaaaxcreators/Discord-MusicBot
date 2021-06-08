@@ -9,8 +9,11 @@ import { config } from '../../index';
  * @param  {NextFunction} next
  */
 const Auth = (req: Request, res: Response, next: NextFunction): void => {
-  if (!req.user) return res.redirect(config.CALLBACK);
-  else next();
+  if (!req.user) {
+    return res.redirect(config.CALLBACK);
+  } else {
+    next();
+  }
 };
 
 export default Auth;

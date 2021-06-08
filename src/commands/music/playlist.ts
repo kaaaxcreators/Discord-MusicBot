@@ -32,22 +32,27 @@ module.exports = {
 
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
-    if (!channel) return sendError(i18n.__('error.needvc'), message.channel);
+    if (!channel) {
+      return sendError(i18n.__('error.needvc'), message.channel);
+    }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
 
-    if (!searchString || !url)
+    if (!searchString || !url) {
       return sendError(
         i18n.__mf('playlist.missingargs', { prefix: config.prefix }),
         message.channel
       );
+    }
     const searchtext = await message.channel.send({
       embed: { description: i18n.__('searching') } as MessageEmbedOptions
     });
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       try {
         const playlist = await ytpl(url);
-        if (!playlist) return sendError(i18n.__('playlist.notfound.notfound'), message.channel);
+        if (!playlist) {
+          return sendError(i18n.__('playlist.notfound.notfound'), message.channel);
+        }
         const videos = await playlist.items;
         for (const video of videos) {
           await handleVideo(video, message, channel);
@@ -64,7 +69,9 @@ module.exports = {
           );
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(i18n.__('playlist.notfound.notfound'), message.channel).catch(
           console.error
         );
@@ -89,15 +96,18 @@ module.exports = {
           );
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     } else {
       try {
         const searched = await yts.search(searchString);
 
-        if (searched.playlists.length === 0)
+        if (searched.playlists.length === 0) {
           return sendError(i18n.__('playlist.notfound.youtube'), message.channel);
+        }
         const songInfo = searched.playlists[0];
         const listurl = songInfo.listId;
         const playlist = await ytpl(listurl);
@@ -115,7 +125,9 @@ module.exports = {
           .setDescription(i18n.__mf('paylist.added', { playlist: songInfo.title, videos: length }));
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
-        if (searchtext.deletable) searchtext.delete();
+        if (searchtext.deletable) {
+          searchtext.delete();
+        }
         return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
       }
     }

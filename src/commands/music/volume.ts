@@ -22,17 +22,25 @@ module.exports = {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
-    )
+    ) {
       return sendError(i18n.__('error.samevc'), message.channel);
+    }
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError(i18n.__('error.noqueue'), message.channel);
-    if (!serverQueue.connection) return sendError(i18n.__('error.noqueue'), message.channel);
-    if (!args[0])
+    if (!serverQueue) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
+    if (!serverQueue.connection) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
+    if (!args[0]) {
       return message.channel.send(i18n.__mf('volume.current', { volume: serverQueue.volume }));
-    if (isNaN(Number(args[0])))
+    }
+    if (isNaN(Number(args[0]))) {
       return message.channel.send(':notes: ' + i18n.__('volume.numbers')).catch();
-    if (parseInt(args[0]) > 150 || Number(args[0]) < 0)
+    }
+    if (parseInt(args[0]) > 150 || Number(args[0]) < 0) {
       return sendError(i18n.__('volume.between'), message.channel).catch();
+    }
     serverQueue.volume = Number(args[0]);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
     const embed = new MessageEmbed()

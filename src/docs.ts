@@ -11,7 +11,9 @@ export default function docs(): void {
   //Loading Music
   const music = fs.readdirSync(__dirname + '/commands/music');
   music.forEach((file) => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) {
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
@@ -22,7 +24,9 @@ export default function docs(): void {
   //Loading General
   const general = fs.readdirSync(__dirname + '/commands/general');
   general.forEach((file) => {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) {
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/general/${file}`);
     const commandName = file.split('.')[0];

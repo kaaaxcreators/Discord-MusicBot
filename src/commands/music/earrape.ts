@@ -22,11 +22,16 @@ module.exports = {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
-    )
+    ) {
       return sendError(i18n.__('error.samevc'), message.channel);
+    }
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) return sendError(i18n.__('error.noqueue'), message.channel);
-    if (!serverQueue.connection) return sendError(i18n.__('error.noqueue'), message.channel);
+    if (!serverQueue) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
+    if (!serverQueue.connection) {
+      return sendError(i18n.__('error.noqueue'), message.channel);
+    }
     // Detect if earrape Mode is toggled with fixed volume (probably bad, but otherwise I would need persistence (e.g. db))
     const volume = serverQueue.volume == 696 ? 80 : 696;
     serverQueue.volume = volume;

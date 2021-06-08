@@ -23,9 +23,10 @@ module.exports = {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
-    )
+    ) {
       return sendError(i18n.__('error.samevc'), message.channel);
-    if (!args.length || isNaN(Number(args[0])))
+    }
+    if (!args.length || isNaN(Number(args[0]))) {
       return message.channel
         .send({
           embed: {
@@ -34,14 +35,18 @@ module.exports = {
           }
         })
         .catch(console.error);
+    }
 
     const queue = Queue.get(message.guild!.id);
-    if (!queue) return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
-    if (Number(args[0]) > queue.songs.length)
+    if (!queue) {
+      return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
+    }
+    if (Number(args[0]) > queue.songs.length) {
       return sendError(
         i18n.__mf('skipto.short', { songs: queue.songs.length }),
         message.channel
       ).catch(console.error);
+    }
 
     queue.playing = true;
 
