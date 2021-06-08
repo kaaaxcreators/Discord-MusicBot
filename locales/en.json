@@ -4,7 +4,8 @@
     "permissions": {
       "bot": "I don't have enough permissions!\nRequired:\n",
       "member": "You don't have enough permissions!\nRequired:\n"
-    }
+    },
+    "dym": "Did you mean `{command}`?"
   },
   "ready": {
     "loggedin": "[API] Logged in as"

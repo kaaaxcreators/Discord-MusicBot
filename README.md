@@ -52,6 +52,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension),
 - `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 - `DISABLE_WEB`: Check [here](#-disabling-dashboard)
+- `DIDYOUMEAN`: Check [here](#-didyoumean)
 
 ## 📑 Commands
 
@@ -145,6 +146,14 @@ You still have to set all [Required Environment  Variables](#required) but they 
 ## ⬆️ Migration
 
 See [MIGRATE](MIGRATE.md) for more infos
+
+## 🤔 didyoumean
+
+responds to u if you mistype a command with the nearest possible solution.
+
+Enable it by setting a Env Var `DIDYOUMEAN` with content/value `true`
+
+Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
 
 ## ©️ Credits
 
