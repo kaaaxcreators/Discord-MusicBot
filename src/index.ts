@@ -60,7 +60,8 @@ export const config: Config = {
   SECRET: process.env.SECRET!,
   COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
   DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
-  DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false
+  DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
+  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false
 };
 
 // Configure i18n
@@ -202,4 +203,5 @@ interface Config {
   COOKIESECRET: string;
   DISABLEWEB: boolean;
   DIDYOUMEAN: boolean;
+  GUILDPREFIX: boolean;
 }

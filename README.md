@@ -53,6 +53,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 - `DISABLE_WEB`: Check [here](#-disabling-dashboard)
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
+- `GUILDPREFIX`: Check [here](#-guild-prefix)
 
 ## 📑 Commands
 
@@ -154,6 +155,12 @@ responds to u if you mistype a command with the nearest possible solution.
 Enable it by setting a Env Var `DIDYOUMEAN` with content/value `true`
 
 Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
+
+## <img src="https://cdn.icon-icons.com/icons2/1865/PNG/512/servers_119542.png" width="32" height="32" align="left"> Guild Prefix
+
+Be able to change Prefixes on per Guild basis
+
+Enable it by setting a Env Var `GUILDPREFIX` with content/value `true`
 
 ## ©️ Credits
 

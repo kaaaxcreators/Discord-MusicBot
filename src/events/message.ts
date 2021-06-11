@@ -4,6 +4,7 @@ import events from 'events';
 import i18n from 'i18n';
 
 import { commands, config } from '../index';
+import db, { getGuild } from '../util/database';
 i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 
@@ -12,12 +13,26 @@ module.exports = async (client: Client, message: Message) => {
     return;
   }
 
+  let botprefix = config.prefix;
+
+  // prefix from db if server
+  if (message.channel.type != 'dm' && config.GUILDPREFIX) {
+    const guildDB = await getGuild(message.guild!.id);
+    if (guildDB && guildDB.prefix) {
+      botprefix = guildDB.prefix;
+    }
+    if (!guildDB) {
+      db.set(message.guild!.id, { prefix: botprefix });
+    }
+  }
+
   // Respond to Prefix or Tag
   const prefixMention = new RegExp(`^<@!?${client.user?.id}> `);
   const prefix = message.content.match(prefixMention)
     ? message.content.match(prefixMention)![0]
-    : config.prefix;
+    : botprefix;
 
+  // prefix has to be at start
   if (message.content.indexOf(prefix) !== 0) {
     return;
   }
