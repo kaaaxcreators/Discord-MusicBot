@@ -44,7 +44,8 @@
     "noqueue": "There is nothing playing in this server.",
     "nopause": "There is nothing paused in this server.",
     "music": "The player has stopped and the queue has been cleared.",
-    "join": "I could not join the voice channel:"
+    "join": "I could not join the voice channel:",
+    "nodm": "This Command doesn't work in DMs"
   },
   "count": {
     "description": "See how many Servers the Bot is in",
@@ -335,6 +336,16 @@
     "servers": {
       "servers": "Servers",
       "select": "Select a server to manage"
+    }
+  },
+  "prefix": {
+    "description": "Change Guild Prefix",
+    "notenabled": "Guild Prefixes are not enabled",
+    "missingargs": "You didn't provide a new prefix",
+    "embed": {
+      "title": "Prefix",
+      "description": "Changed prefix from {oldprefix} to {newprefix}",
+      "footer": "Use {prefix}invite to add/invite the Bot to your server"
     }
   }
 }

@@ -1,10 +1,17 @@
 import jsoning from 'jsoning';
 
-const database = <Customjsoning>new jsoning('guild.json');
+import { config } from '../index';
+
+const database = <Customjsoning>new jsoning('db/guild.json');
 
 export async function getGuild(guildID: string): Promise<Database | false> {
   try {
-    return database.get(guildID);
+    const db = database.get(guildID);
+    if (!db) {
+      database.set(guildID, { prefix: config.prefix });
+      return { prefix: config.prefix };
+    }
+    return db;
   } catch (err) {
     console.error(err.message || err);
     return false;
@@ -20,4 +27,5 @@ export interface Database {
 
 export interface Customjsoning extends jsoning {
   set(key: string, value: Database): boolean;
+  get(key: string): Database | false;
 }

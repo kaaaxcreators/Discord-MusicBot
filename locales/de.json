@@ -44,7 +44,8 @@
 		"music": "Der Spieler hat angehalten und die Warteschlange wurde gelöscht.",
 		"join": "Ich konnte dem Sprachkanal nicht beitreten:",
 		"samevc": "Es tut mir leid, aber Sie müssen sich im selben Sprachkanal wie ich befinden!",
-		"nopause": "Auf diesem Server ist nichts angehalten."
+		"nopause": "Auf diesem Server ist nichts angehalten.",
+		"nodm": "Dieser Befehl funktioniert nicht in DMs"
 	},
 	"count": {
 		"description": "Sehen Sie, auf wie vielen Servern sich der Bot befindet",
