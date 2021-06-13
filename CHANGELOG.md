@@ -1,3 +1,17 @@
+## [v2.1.1] - 2021-06-13
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.1.1) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.1.0...v2.1.1) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.1.1) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.1.1.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.1.1.tar.gz))
+
+### Security issues
+
+- [`4229f74`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/4229f74) ️ Automatic Security Fix
+
+### Dependency updates
+
+- [`943307a`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/943307a)  Bump youtube-sr from 4.1.3 to 4.1.4 (#40)
+(Issues: [`#40`](https://github.com/kaaaxcreators/Discord-MusicBot/issues/40))- [`e3a46b3`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/e3a46b3)  Bump @discordjs/opus from 0.5.0 to 0.5.3
+- [`8e884cf`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/8e884cf)  Bump @kaaaxcreators/config from 1.1.0 to 1.1.1
+
 ## [v2.1.0] - 2021-06-08
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.1.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.0.0...v2.1.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.1.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.1.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.1.0.tar.gz))
