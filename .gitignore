@@ -105,3 +105,6 @@ dist
 
 # Enviroment File
 .env
+
+# Database
+db/
