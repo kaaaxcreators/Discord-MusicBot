@@ -342,9 +342,13 @@
     "description": "Change Guild Prefix",
     "notenabled": "Guild Prefixes are not enabled",
     "missingargs": "You didn't provide a new prefix",
+    "noargsembed": {
+      "description": "Current prefix is `{oldprefix}`",
+      "footer": "Usage: {oldprefix}prefix <prefix>"
+    },
     "embed": {
       "title": "Prefix",
-      "description": "Changed prefix from {oldprefix} to {newprefix}",
+      "description": "Changed prefix from `{oldprefix}` to `{newprefix}`",
       "footer": "Use {prefix}invite to add/invite the Bot to your server"
     }
   }

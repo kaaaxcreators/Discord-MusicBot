@@ -18,7 +18,7 @@ try {
   EnvError(err);
 }
 
-import { readdir } from 'fs';
+import { existsSync, mkdirSync, readdir } from 'fs';
 import i18n from 'i18n';
 import path from 'path';
 
@@ -135,7 +135,12 @@ readdir(__dirname + '/commands/general', (err, files) => {
   });
 });
 
-//Logging in to discord and start server
+// Setup DB
+if (!existsSync('db')) {
+  mkdirSync('db');
+}
+
+// Logging in to discord and start server
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {

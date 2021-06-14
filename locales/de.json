@@ -342,9 +342,13 @@
     "description": "Gildenpräfix ändern",
     "notenabled": "Gildenpräfixe sind nicht aktiviert",
     "missingargs": "Sie haben kein neues Präfix angegeben",
+		"noargsembed": {
+      "description": "Aktuelles Präfix ist `{oldprefix}`",
+      "footer": "Verwendung: {oldprefix}prefix <Präfix>"
+    },
     "embed": {
       "title": "Präfix",
-      "description": "Präfix von {oldprefix} in {newprefix} geändert",
+      "description": "Präfix von `{oldprefix}` in `{newprefix}` geändert",
       "footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen/einzuladen"
     }
   }

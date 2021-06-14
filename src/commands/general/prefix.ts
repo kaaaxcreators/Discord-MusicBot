@@ -36,8 +36,8 @@ module.exports = {
       return message.channel.send(
         new MessageEmbed()
           .setTitle(i18n.__('prefix.embed.title'))
-          .setDescription(`Current prefix is ${oldprefix}`)
-          .setFooter(`Usage: \`${oldprefix}prefix <prefix>\``)
+          .setDescription(i18n.__mf('prefix.noargsembed.description', { oldprefix: oldprefix }))
+          .setFooter(i18n.__mf('prefix.noargsembed.footer', { oldprefix: oldprefix }))
       );
     }
     database.set(message.guild!.id, { prefix: newprefix });
