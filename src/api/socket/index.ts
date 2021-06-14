@@ -18,6 +18,12 @@ function socket(io: Server): void {
       }
       dashboard = setInterval(async () => {
         const { client } = await import('../../index');
+        let totalvcs = 0;
+        client.guilds.cache.array().forEach((guild) => {
+          if (guild.voice?.connection) {
+            totalvcs += 1;
+          }
+        });
         socket.emit('dashboard', {
           users: client.users.cache.size,
           guilds: client.guilds.cache.size,
@@ -25,7 +31,8 @@ function socket(io: Server): void {
           avatarURL: client.user!.avatarURL()
             ? client.user!.avatarURL()
             : 'https://i.imgur.com/fFReq20.png',
-          username: client.user!.username
+          username: client.user!.username,
+          totalvcs: totalvcs
         });
       }, 1000);
     });

@@ -33,5 +33,6 @@ $(document).ready(() => {
     $('#uptime').text(data.uptime);
     $('#avatar').prop('src', data.avatarURL);
     $('.server-name').text(data.username);
+    $('#totalvcs').text(data.totalvcs);
   });
 });
