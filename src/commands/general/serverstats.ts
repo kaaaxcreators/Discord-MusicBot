@@ -21,7 +21,7 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     try {
       if (message.channel.type == 'dm') {
-        return sendError("This Command doesn't work in DMs", message.channel);
+        return sendError(i18n.__('error.nodm'), message.channel);
       }
       const guild = message.guild!;
       const textchannels = guild.channels.cache.filter((channel) => channel.type == 'text');

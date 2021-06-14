@@ -44,7 +44,8 @@
 		"music": "Der Spieler hat angehalten und die Warteschlange wurde gelöscht.",
 		"join": "Ich konnte dem Sprachkanal nicht beitreten:",
 		"samevc": "Es tut mir leid, aber Sie müssen sich im selben Sprachkanal wie ich befinden!",
-		"nopause": "Auf diesem Server ist nichts angehalten."
+		"nopause": "Auf diesem Server ist nichts angehalten.",
+		"nodm": "Dieser Befehl funktioniert nicht in DMs"
 	},
 	"count": {
 		"description": "Sehen Sie, auf wie vielen Servern sich der Bot befindet",
@@ -69,8 +70,7 @@
 			"description": "Beschreibung:",
 			"usage": "Verwendung:",
 			"aliases": "Aliase:"
-		},
-		"dym": "help.dym"
+		}
 	},
 	"invite": {
 		"description": "Fügen Sie den Bot zu Ihrem Server hinzu bzw. laden Sie ihn ein",
@@ -337,5 +337,19 @@
 			"servers": "Server",
 			"select": "Wählen Sie einen zu verwaltenden Server aus"
 		}
-	}
+	},
+  "prefix": {
+    "description": "Gildenpräfix ändern",
+    "notenabled": "Gildenpräfixe sind nicht aktiviert",
+    "missingargs": "Sie haben kein neues Präfix angegeben",
+		"noargsembed": {
+      "description": "Aktuelles Präfix ist `{oldprefix}`",
+      "footer": "Verwendung: {oldprefix}prefix <Präfix>"
+    },
+    "embed": {
+      "title": "Präfix",
+      "description": "Präfix von `{oldprefix}` in `{newprefix}` geändert",
+      "footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen/einzuladen"
+    }
+  }
 }

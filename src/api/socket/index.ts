@@ -36,7 +36,10 @@ function socket(io: Server): void {
       }
       server = setInterval(async () => {
         const { client, queue } = await import('../../index');
+        const { getGuild } = await import('../../util/database');
         const Guild = client.guilds.cache.get(ServerID);
+        const db = await getGuild(Guild!.id);
+        const prefix = (db && db.prefix) || config.prefix;
         if (!Guild) {
           return socket.emit('error', 'Unable to find that server');
         }
@@ -45,13 +48,13 @@ function socket(io: Server): void {
           socket.emit('server', {
             queue: 0,
             songsLoop: 'Disabled',
-            prefix: config.prefix
+            prefix: prefix
           });
         } else {
           socket.emit('server', {
             queue: player.songs ? player.songs.length : 0,
             songsLoop: player.loop ? 'Enabled' : 'Disabled',
-            prefix: config.prefix,
+            prefix: prefix,
             bar:
               player.songs[0] && player.connection
                 ? player.songs[0].live

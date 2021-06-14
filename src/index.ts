@@ -18,7 +18,7 @@ try {
   EnvError(err);
 }
 
-import { readdir } from 'fs';
+import { existsSync, mkdirSync, readdir } from 'fs';
 import i18n from 'i18n';
 import path from 'path';
 
@@ -60,7 +60,8 @@ export const config: Config = {
   SECRET: process.env.SECRET!,
   COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
   DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
-  DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false
+  DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
+  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false
 };
 
 // Configure i18n
@@ -134,7 +135,12 @@ readdir(__dirname + '/commands/general', (err, files) => {
   });
 });
 
-//Logging in to discord and start server
+// Setup DB
+if (!existsSync('db')) {
+  mkdirSync('db');
+}
+
+// Logging in to discord and start server
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {
@@ -202,4 +208,5 @@ interface Config {
   COOKIESECRET: string;
   DISABLEWEB: boolean;
   DIDYOUMEAN: boolean;
+  GUILDPREFIX: boolean;
 }

@@ -53,6 +53,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 - `DISABLE_WEB`: Check [here](#-disabling-dashboard)
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
+- `GUILDPREFIX`: Check [here](#-guild-prefix)
 
 ## 📑 Commands
 
@@ -66,13 +67,15 @@ Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcr
 
 When starting the container provide the [Environment Variables](#-environment-variables)
 
+Setup a Docker Volume at `/usr/src/app/db`
+
 ### <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
 
-Create New App without Persistent Data
+Create New App with Persistent Data
 
 Container HTTP Port: `8080`
 
-In App Configs set [Environment Variables](#-environment-variables)
+In App Configs set [Environment Variables](#-environment-variables) and a Persistent Directory with the Path in App being `/usr/src/app/db` and the Label anything you want
 
 Deployment: Deploy via ImageName: `kaaaxcreators/discord-musicbot`
 
@@ -154,6 +157,12 @@ responds to u if you mistype a command with the nearest possible solution.
 Enable it by setting a Env Var `DIDYOUMEAN` with content/value `true`
 
 Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
+
+## <img src="https://cdn.icon-icons.com/icons2/1865/PNG/512/servers_119542.png" width="32" height="32" align="left"> Guild Prefix
+
+Be able to change Prefixes on per Guild basis
+
+Enable it by setting a Env Var `GUILDPREFIX` with content/value `true`
 
 ## ©️ Credits
 
