@@ -27,6 +27,13 @@ module.exports = {
       for (const guild of client.guilds.cache.map((guilds) => guilds)) {
         totalmembers += guild.memberCount;
       }
+      // Get Voice Channel Count Bot is currently connected to
+      let totalvcs = 0;
+      for (const guild of client.guilds.cache.map((guilds) => guilds)) {
+        if (guild.voice?.connection) {
+          totalvcs += 1;
+        }
+      }
       const uptime = new Date(Date.now() - client.uptime!);
       const embed = new MessageEmbed()
         .setTitle(`📊 ${i18n.__('stats.embed.title')} ${client.user?.username}`)
@@ -37,6 +44,7 @@ module.exports = {
         .addField(i18n.__('stats.embed.servers'), guilds.length, true)
         .addField(i18n.__('stats.embed.running'), uptime.toLocaleString(), true)
         .addField(i18n.__('stats.embed.started'), moment(uptime).fromNow(), true)
+        .addField(i18n.__('stats.embed.totalvcs'), totalvcs, true)
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
       return message.channel.send(embed);

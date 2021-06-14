@@ -122,7 +122,8 @@
       "members": "Members",
       "servers": "Servers",
       "running": "Running Since",
-      "started": "Started"
+      "started": "Started",
+      "totalvcs": "VCs connected to"
     }
   },
   "earrape": {
@@ -314,7 +315,8 @@
         "users": "Users",
         "servers": "Servers",
         "uptime": "Uptime",
-        "avatar": "Avatar"
+        "avatar": "Avatar",
+        "totalvcs": "VCs connected to"
       }
     },
     "server": {
