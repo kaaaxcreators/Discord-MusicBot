@@ -67,13 +67,15 @@ Docker Images are available on the [Docker Hub](https://hub.docker.com/r/kaaaxcr
 
 When starting the container provide the [Environment Variables](#-environment-variables)
 
+Setup a Docker Volume at `/usr/src/app/db`
+
 ### <img src="https://caprover.com/img/logo-padded.png" width="32" height="32" align="left"> CapRover
 
-Create New App without Persistent Data
+Create New App with Persistent Data
 
 Container HTTP Port: `8080`
 
-In App Configs set [Environment Variables](#-environment-variables)
+In App Configs set [Environment Variables](#-environment-variables) and a Persistent Directory with the Path in App being `/usr/src/app/db` and the Label anything you want
 
 Deployment: Deploy via ImageName: `kaaaxcreators/discord-musicbot`
 
