@@ -86,13 +86,15 @@ var {
   overflow-y: auto;
 }
 
-#song-info span {
+#song-info span,
+#song-info a {
   color: #5867dd;
   text-decoration: none;
   cursor: pointer;
 }
 
-#song-info span:hover {
+#song-info span:hover,
+#song-info a:hover {
   color: #34bfa3;
 }
 

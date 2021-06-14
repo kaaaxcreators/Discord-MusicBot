@@ -47,9 +47,17 @@ $(document).ready(() => {
     $('#songLoop').text(data.songsLoop);
     $('#songInQueue').text(data.queue);
     $('#prefix').text(data.prefix);
-    $('#now-playing').text(
-      data.nowPlaying ? data.nowPlaying.title : translation.web.server.song.nothing
-    );
+    if (data.nowPlaying) {
+      $('#now-playing').text(data.nowPlaying.title);
+      $('#now-playing').replaceWith("<a id='now-playing'>" + $('#now-playing').html() + '</a>');
+      $('#now-playing').attr('href', data.nowPlaying.url);
+      $('#now-playing').attr('target', '_blank');
+    } else {
+      $('#now-playing').text(translation.web.server.song.nothing);
+      $('#now-playing').replaceWith(
+        "<span id='now-playing'>" + $('#now-playing').html() + '</span>'
+      );
+    }
     if (data.position) {
       $('#duration').html(`${data.position}<span> ${data.bar} </span>${data.maxDuration}`);
     } else {
