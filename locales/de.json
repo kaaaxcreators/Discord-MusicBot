@@ -70,8 +70,7 @@
 			"description": "Beschreibung:",
 			"usage": "Verwendung:",
 			"aliases": "Aliase:"
-		},
-		"dym": "help.dym"
+		}
 	},
 	"invite": {
 		"description": "Fügen Sie den Bot zu Ihrem Server hinzu bzw. laden Sie ihn ein",
@@ -338,5 +337,15 @@
 			"servers": "Server",
 			"select": "Wählen Sie einen zu verwaltenden Server aus"
 		}
-	}
+	},
+  "prefix": {
+    "description": "Gildenpräfix ändern",
+    "notenabled": "Gildenpräfixe sind nicht aktiviert",
+    "missingargs": "Sie haben kein neues Präfix angegeben",
+    "embed": {
+      "title": "Präfix",
+      "description": "Präfix von {oldprefix} in {newprefix} geändert",
+      "footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen/einzuladen"
+    }
+  }
 }
