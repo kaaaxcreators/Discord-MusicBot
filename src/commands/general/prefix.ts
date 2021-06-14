@@ -47,7 +47,7 @@ module.exports = {
       .setDescription(
         i18n.__mf('prefix.embed.description', { oldprefix: oldprefix, newprefix: newprefix })
       )
-      .setFooter(i18n.__mf('prefix.embed.footer', { prefix: config.prefix }));
+      .setFooter(i18n.__mf('prefix.embed.footer', { prefix: newprefix }));
     return message.channel.send(embed);
   }
 } as Command;
