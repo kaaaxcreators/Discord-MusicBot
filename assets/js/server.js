@@ -21,6 +21,10 @@ function translate(json) {
 }
 
 $(document).ready(() => {
+  $('[data-toggle="tooltip"]').tooltip();
+  $('#changeprefixsubmit').on('click', null, null, () => {
+    console.log('new prefix is: ' + $('#newprefix').val());
+  });
   let translation = {};
   $.get('/api/translations', ({ translations, locale }) => {
     document.documentElement.lang = locale;

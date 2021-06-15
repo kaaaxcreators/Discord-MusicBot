@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@kaaaxcreators/config": "^1.1.1",
+    "@types/connect-livereload": "^0.5.31",
     "@types/dotenv-safe": "^8.1.1",
     "@types/express": "^4.17.12",
     "@types/express-rate-limit": "^5.1.2",
@@ -70,6 +71,7 @@
     "@types/yt-search": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
+    "connect-livereload": "^0.6.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",

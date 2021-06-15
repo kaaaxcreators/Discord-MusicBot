@@ -1,3 +1,4 @@
+import { Message } from 'discord.js';
 import jsoning from 'jsoning';
 
 import { config } from '../index';
@@ -16,6 +17,19 @@ export async function getGuild(guildID: string): Promise<Database | false> {
   } catch (err) {
     console.error(err.message || err);
     return false;
+  }
+}
+
+export async function getPrefix(message: Message): Promise<string> {
+  if (message.channel.type == 'dm') {
+    return config.prefix;
+  } else {
+    const guildDB = await getGuild(message.channel.guild.id);
+    if (guildDB) {
+      return guildDB.prefix;
+    } else {
+      return config.prefix;
+    }
   }
 }
 

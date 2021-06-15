@@ -1,3 +1,4 @@
+import connectLivereload from 'connect-livereload';
 import { Permissions } from 'discord.js';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
@@ -6,6 +7,7 @@ import livereload from 'livereload';
 import { join } from 'path';
 
 import { client, commands, config } from '../index';
+import database, { getGuild } from '../util/database';
 i18n.setLocale(config.LOCALE);
 
 import Auth from './Middlewares/Auth';
@@ -25,6 +27,7 @@ api.use(limiter);
 if (process.env.LIVERELOAD == 'true') {
   const server = livereload.createServer();
   server.watch([join(__dirname + '../../../views'), join(__dirname + '../../../assets')]);
+  api.use(connectLivereload());
 }
 
 api.get('/', (req, res) => {
@@ -74,6 +77,38 @@ api.get('/api/commands', (req, res) => {
 
 api.get('/api/translations', (req, res) => {
   res.send({ translations: i18n.getCatalog(config.LOCALE), locale: config.LOCALE });
+});
+
+api.post('/api/settings/:id', async (req, res) => {
+  const prefix = <string | undefined>req.query.prefix;
+  const id = req.params.id;
+  const guildDB = await getGuild(id);
+  // Check if valid request
+  if (
+    !prefix ||
+    typeof prefix !== 'string' ||
+    typeof Number.parseInt(id) !== 'number' ||
+    isNaN(Number.parseInt(id))
+  ) {
+    return res.status(400).json({ status: 400 });
+  } else if (!req.user || req.isUnauthenticated()) {
+    res.status(401).json({ status: 401 });
+  } else if (
+    !req.user?.guilds
+      ?.map((guildInfo) => ({
+        id: guildInfo.id
+      }))
+      .some((arr) => arr.id == id)
+  ) {
+    res.status(403).json({ status: 403 });
+  } else if (!guildDB) {
+    res.status(500).json({ status: 500 });
+  } else if (prefix == guildDB.prefix) {
+    res.status(304).json({ status: 304 });
+  } else {
+    database.set(id, { prefix: prefix });
+    return res.json({ prefix: prefix });
+  }
 });
 
 api.get('/logout', (req, res) => {

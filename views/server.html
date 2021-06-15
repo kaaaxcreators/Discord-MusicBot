@@ -97,7 +97,7 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between px-md-1">
                     <div>
-                      <h3 class="text-info" id="prefix">&gt;</h3>
+                      <button type="button" class="btn btn-link text-info" data-bs-toggle="modal" data-bs-target="#changePrefix" id="prefix" data-toggle="tooltip" data-placement="top" title="Click to change Prefix">&gt;</button>
                       <p class="mb-0"><var>WEB.SERVER.DETAILS.PREFIX</var></p>
                     </div>
                     <div class="align-self-center">
@@ -117,6 +117,28 @@
             <p id="duration"></p>
           </div>
         </section>
+      </div>
+      <div class="modal fade" id="changePrefix" tabindex="-1" aria-labelledby="changePrefix" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content" style="color: var(--text) !important; background-color: var(--background) !important;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Change Prefix</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="newprefix" class="col-form-label">New Prefix:</label>
+                  <input type="text" class="form-control" id="newprefix" style="color: var(--text) !important; background-color: var(--background) !important;">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" id="changeprefixsubmit">Change Prefix</button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </section>
