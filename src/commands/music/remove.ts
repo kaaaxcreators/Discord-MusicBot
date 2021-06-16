@@ -3,6 +3,7 @@ import i18n from 'i18n';
 
 import { Command, config, queue as Queue } from '../../index';
 i18n.setLocale(config.LOCALE);
+import { getPrefix } from '../../util/database';
 import sendError from '../../util/error';
 import console from '../../util/logger';
 
@@ -30,11 +31,12 @@ module.exports = {
     if (!queue) {
       return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
     }
+    const prefix = getPrefix(message);
     if (!args.length) {
-      return sendError(i18n.__mf('remove.missingargs', { prefix: config.prefix }), message.channel);
+      return sendError(i18n.__mf('remove.missingargs', { prefix: prefix }), message.channel);
     }
     if (isNaN(Number(args[0]))) {
-      return sendError(i18n.__mf('remove.missingargs', { prefix: config.prefix }), message.channel);
+      return sendError(i18n.__mf('remove.missingargs', { prefix: prefix }), message.channel);
     }
     if (queue.songs.length == 1) {
       return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);

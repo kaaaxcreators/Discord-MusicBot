@@ -43,10 +43,9 @@ function socket(io: Server): void {
       }
       server = setInterval(async () => {
         const { client, queue } = await import('../../index');
-        const { getGuild } = await import('../../util/database');
+        const { getPrefix } = await import('../../util/database');
         const Guild = client.guilds.cache.get(ServerID);
-        const db = await getGuild(Guild!.id);
-        const prefix = (db && db.prefix) || config.prefix;
+        const prefix = await getPrefix(Guild!);
         if (!Guild) {
           return socket.emit('error', 'Unable to find that server');
         }
