@@ -29,7 +29,7 @@ module.exports = {
           true
         )
         .addField('WebSocket', Math.round(client.ws.ping) + 'ms', true)
-        .setFooter(i18n.__mf('ping.embed.footer', { prefix: getPrefix(message) }));
+        .setFooter(i18n.__mf('ping.embed.footer', { prefix: await getPrefix(message) }));
       message.channel.send(embed);
     });
   }

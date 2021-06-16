@@ -48,7 +48,9 @@ module.exports = {
       .addField(i18n.__('queue.embed.voice'), queue.voiceChannel, true)
       .setFooter(i18n.__mf('queue.embed.footer', { volume: queue.volume, pages: chunked.length }));
     if (queue.songs.length === 1) {
-      embed.setDescription(i18n.__mf('queue.embed.description', { prefix: getPrefix(message) }));
+      embed.setDescription(
+        i18n.__mf('queue.embed.description', { prefix: await getPrefix(message) })
+      );
     }
 
     try {

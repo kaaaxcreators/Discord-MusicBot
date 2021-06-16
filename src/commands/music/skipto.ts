@@ -32,7 +32,7 @@ module.exports = {
         .send({
           embed: {
             color: 'GREEN',
-            description: i18n.__mf('skipto.missingargs', { prefix: getPrefix(message) })
+            description: i18n.__mf('skipto.missingargs', { prefix: await getPrefix(message) })
           }
         })
         .catch(console.error);

@@ -31,7 +31,7 @@ module.exports = {
     if (!queue) {
       return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
     }
-    const prefix = getPrefix(message);
+    const prefix = await getPrefix(message);
     if (!args.length) {
       return sendError(i18n.__mf('remove.missingargs', { prefix: prefix }), message.channel);
     }

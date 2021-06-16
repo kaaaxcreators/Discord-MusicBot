@@ -21,7 +21,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setDescription(i18n.__mf('count.embed.description', { servers: client.guilds.cache.size }))
-      .setFooter(i18n.__mf('count.embed.footer', { prefix: getPrefix(message) }));
+      .setFooter(i18n.__mf('count.embed.footer', { prefix: await getPrefix(message) }));
     return message.channel.send(embed);
   }
 } as Command;
