@@ -41,7 +41,7 @@ module.exports = {
 
     if (!searchString || !url) {
       return sendError(
-        i18n.__mf('playlist.missingargs', { prefix: getPrefix(message) }),
+        i18n.__mf('playlist.missingargs', { prefix: await getPrefix(message) }),
         message.channel
       );
     }
