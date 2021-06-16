@@ -8,6 +8,7 @@ import ytpl from 'ytpl';
 import { Command, config, IQueue, queue } from '../../index';
 import console from '../../util/logger';
 i18n.setLocale(config.LOCALE);
+import { getPrefix } from '../../util/database';
 import sendError from '../../util/error';
 import play, { Song } from '../../util/playing';
 module.exports = {
@@ -40,7 +41,7 @@ module.exports = {
 
     if (!searchString || !url) {
       return sendError(
-        i18n.__mf('playlist.missingargs', { prefix: config.prefix }),
+        i18n.__mf('playlist.missingargs', { prefix: getPrefix(message) }),
         message.channel
       );
     }

@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Guild, Message } from 'discord.js';
 import jsoning from 'jsoning';
 
 import { config } from '../index';
@@ -19,17 +19,30 @@ export async function getGuild(guildID: string): Promise<Database | false> {
     return false;
   }
 }
-
-export async function getPrefix(message: Message): Promise<string> {
-  if (message.channel.type == 'dm') {
-    return config.prefix;
-  } else {
-    const guildDB = await getGuild(message.channel.guild.id);
+/**
+ * @param  {Message|Guild} reference Message or Guild Object the reference origin/sender
+ */
+export async function getPrefix(reference: Message | Guild): Promise<string> {
+  if (reference instanceof Message) {
+    if (reference.channel.type == 'dm') {
+      return config.prefix;
+    } else {
+      const guildDB = await getGuild(reference.channel.guild.id);
+      if (guildDB) {
+        return guildDB.prefix;
+      } else {
+        return config.prefix;
+      }
+    }
+  } else if (reference instanceof Guild) {
+    const guildDB = await getGuild(reference.id);
     if (guildDB) {
       return guildDB.prefix;
     } else {
       return config.prefix;
     }
+  } else {
+    return config.prefix;
   }
 }
 

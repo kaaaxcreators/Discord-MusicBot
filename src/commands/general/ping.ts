@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import i18n from 'i18n';
 
 import { Command, config } from '../../index';
+import { getPrefix } from '../../util/database';
 i18n.setLocale(config.LOCALE);
 
 module.exports = {
@@ -28,7 +29,7 @@ module.exports = {
           true
         )
         .addField('WebSocket', Math.round(client.ws.ping) + 'ms', true)
-        .setFooter(i18n.__mf('ping.embed.footer', { prefix: config.prefix }));
+        .setFooter(i18n.__mf('ping.embed.footer', { prefix: getPrefix(message) }));
       message.channel.send(embed);
     });
   }
