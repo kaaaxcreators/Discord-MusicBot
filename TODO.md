@@ -1,3 +1,5 @@
 # TODO
 
-Replace config.prefix with getPrefix
+- [x] Replace config.prefix with getPrefix
+- [ ] Fix Permissions
+- [ ] Show Error Message in Modal

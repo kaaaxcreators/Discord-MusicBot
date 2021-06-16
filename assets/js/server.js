@@ -23,7 +23,18 @@ function translate(json) {
 $(document).ready(() => {
   $('[data-toggle="tooltip"]').tooltip();
   $('#changeprefixsubmit').on('click', null, null, () => {
-    console.log('new prefix is: ' + $('#newprefix').val());
+    fetch(
+      `/api/settings/${window.location.pathname.split('/')[2]}?prefix=${$('#newprefix').val()}`,
+      { method: 'POST' }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Response is not okay');
+        } else {
+          $('#changePrefix').modal('toggle');
+        }
+      })
+      .catch((err) => console.error(err.message || err));
   });
   let translation = {};
   $.get('/api/translations', ({ translations, locale }) => {

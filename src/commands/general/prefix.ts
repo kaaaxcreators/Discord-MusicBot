@@ -16,7 +16,7 @@ module.exports = {
     categorie: 'general',
     permissions: {
       channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS'],
-      member: ['ADMINISTRATOR']
+      member: ['MANAGE_GUILD']
     }
   },
   run: async function (client: Client, message: Message, args: string[]) {
