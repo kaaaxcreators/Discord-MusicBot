@@ -98,7 +98,13 @@ api.post('/api/settings/:id', async (req, res) => {
       ?.map((guildInfo) => ({
         id: guildInfo.id
       }))
-      .some((arr) => arr.id == id)
+      .some((arr) => arr.id == id) ||
+    req.user?.guilds
+      ?.map((guildInfo) => ({
+        id: guildInfo.id,
+        hasPerms: guildInfo.hasPerms
+      }))
+      .find((arr) => arr.id == id)?.hasPerms
   ) {
     res.status(403).json({ status: 403 });
   } else if (!guildDB) {
