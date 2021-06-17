@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 function translate(json) {
   const varTags = Array.from(document.getElementsByTagName('var'));
   varTags.forEach((v, i) => {
@@ -25,6 +23,7 @@ $(document).ready(() => {
     document.documentElement.lang = locale;
     translate(translations);
   });
+  // eslint-disable-next-line no-undef
   const socket = io();
   socket.emit('dashboard');
   socket.on('dashboard', (data) => {

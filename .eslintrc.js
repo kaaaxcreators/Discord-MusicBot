@@ -7,7 +7,9 @@ module.exports = {
   },
   env: {
     node: true,
-    es6: true
+    es6: true,
+    browser: true,
+    jquery: true
   },
   plugins: ['simple-import-sort', '@typescript-eslint', 'prettier', 'html'],
   extends: [
