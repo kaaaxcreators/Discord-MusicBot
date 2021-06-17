@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 function translate(json) {
   const varTags = Array.from(document.getElementsByTagName('var'));
   varTags.forEach((v, i) => {

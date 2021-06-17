@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 function translate(json) {
   const varTags = Array.from(document.getElementsByTagName('var'));
   varTags.forEach((v, i) => {
@@ -29,12 +27,15 @@ $(document).ready(() => {
     )
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Response is not okay');
+          throw new Error(`${res.statusText}`);
         } else {
           $('#changePrefix').modal('toggle');
         }
       })
-      .catch((err) => console.error(err.message || err));
+      .catch((err) => {
+        console.error(err.message || err);
+        $('#prefixmodalerror').text(err.message || err);
+      });
   });
   let translation = {};
   $.get('/api/translations', ({ translations, locale }) => {
@@ -55,6 +56,7 @@ $(document).ready(() => {
     }
     $('.server-name').text(Guild.name);
   });
+  // eslint-disable-next-line no-undef
   var socket = io();
   socket.emit('server', window.location.pathname.split('/')[2]);
 
