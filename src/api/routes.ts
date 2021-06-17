@@ -94,12 +94,14 @@ api.post('/api/settings/:id', async (req, res) => {
   } else if (!req.user || req.isUnauthenticated()) {
     res.status(401).json({ status: 401 });
   } else if (
-    !req.user?.guilds
+    // check if is in guild and has perms
+    req.user.guilds
       ?.map((guildInfo) => ({
-        id: guildInfo.id
+        id: guildInfo.id,
+        hasPerms: guildInfo.hasPerms
       }))
-      .some((arr) => arr.id == id) ||
-    req.user?.guilds
+      .find((arr) => arr.id == id) &&
+    !req.user.guilds
       ?.map((guildInfo) => ({
         id: guildInfo.id,
         hasPerms: guildInfo.hasPerms
