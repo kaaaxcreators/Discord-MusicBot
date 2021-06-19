@@ -91,18 +91,18 @@ api.post('/api/settings/:id', async (req, res) => {
     isNaN(Number.parseInt(id))
   ) {
     return res.status(400).json({ status: 400 });
-  } else if (!req.user || req.isUnauthenticated()) {
+  } else if (!req.user || req.isUnauthenticated() || !req.user.guilds) {
     res.status(401).json({ status: 401 });
   } else if (
     // check if is in guild and has perms
     req.user.guilds
-      ?.map((guildInfo) => ({
+      .map((guildInfo) => ({
         id: guildInfo.id,
         hasPerms: guildInfo.hasPerms
       }))
       .find((arr) => arr.id == id) &&
     !req.user.guilds
-      ?.map((guildInfo) => ({
+      .map((guildInfo) => ({
         id: guildInfo.id,
         hasPerms: guildInfo.hasPerms
       }))

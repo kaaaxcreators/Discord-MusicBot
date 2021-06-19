@@ -11,7 +11,7 @@ let server: NodeJS.Timeout;
 
 function socket(io: Server): void {
   io.on('connection', (socket) => {
-    //Bot's Main Page
+    // Dashboard
     socket.on('dashboard', () => {
       if (dashboard) {
         clearInterval(dashboard);
@@ -37,6 +37,7 @@ function socket(io: Server): void {
       }, 1000);
     });
 
+    // Get Information about specific Server
     socket.on('server', (ServerID) => {
       if (server) {
         clearInterval(server);
@@ -53,13 +54,13 @@ function socket(io: Server): void {
         if (!player) {
           socket.emit('server', {
             queue: 0,
-            songsLoop: 'Disabled',
+            songsLoop: i18n.__('socket.disabled'),
             prefix: prefix
           });
         } else {
           socket.emit('server', {
             queue: player.songs ? player.songs.length : 0,
-            songsLoop: player.loop ? 'Enabled' : 'Disabled',
+            songsLoop: player.loop ? i18n.__('socket.enabled') : i18n.__('socket.disabled'),
             prefix: prefix,
             bar:
               player.songs[0] && player.connection
