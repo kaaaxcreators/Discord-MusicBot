@@ -8,14 +8,13 @@ import ProgressBar from '../../util/ProgressBar';
 
 let dashboard: NodeJS.Timeout;
 let server: NodeJS.Timeout;
+let connected = 0;
 
 function socket(io: Server): void {
   io.on('connection', (socket) => {
+    connected++;
     // Dashboard
     socket.on('dashboard', () => {
-      if (dashboard) {
-        clearInterval(dashboard);
-      }
       dashboard = setInterval(async () => {
         const { client } = await import('../../index');
         let totalvcs = 0;
@@ -39,9 +38,6 @@ function socket(io: Server): void {
 
     // Get Information about specific Server
     socket.on('server', (ServerID) => {
-      if (server) {
-        clearInterval(server);
-      }
       server = setInterval(async () => {
         const { client, queue } = await import('../../index');
         const { getPrefix } = await import('../../util/database');
@@ -91,6 +87,18 @@ function socket(io: Server): void {
           });
         }
       }, 1000);
+    });
+    // Remove Interval when nobody is connected anymore
+    socket.on('disconnect', () => {
+      connected--;
+      if (connected == 0) {
+        if (server) {
+          clearInterval(server);
+        }
+        if (dashboard) {
+          clearInterval(dashboard);
+        }
+      }
     });
   });
 }
