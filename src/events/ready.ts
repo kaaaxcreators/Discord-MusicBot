@@ -12,9 +12,8 @@ module.exports = async (client: Client) => {
   let server: http.Server;
   if (!config.DISABLEWEB) {
     // Create API
-    server = http
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      .createServer(Express().use('/', (await import('../api/index')).default))
+    server = Express()
+      .use('/', (await import('../api/index')).default)
       .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
     (await import('../api/socket/index')).default(new Server(server));
   }
