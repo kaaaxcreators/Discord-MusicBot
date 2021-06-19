@@ -6,16 +6,14 @@ import { config } from '../../index';
 i18n.setLocale(config.LOCALE);
 import ProgressBar from '../../util/ProgressBar';
 
-let dashboard: NodeJS.Timeout;
-let server: NodeJS.Timeout;
-let connected = 0;
-
 function socket(io: Server): void {
   io.on('connection', (socket) => {
-    connected++;
     // Dashboard
     socket.on('dashboard', () => {
-      dashboard = setInterval(async () => {
+      if (socket.Dashboard) {
+        clearInterval(socket.Dashboard);
+      }
+      socket.Dashboard = setInterval(async () => {
         const { client } = await import('../../index');
         let totalvcs = 0;
         client.guilds.cache.array().forEach((guild) => {
@@ -38,7 +36,10 @@ function socket(io: Server): void {
 
     // Get Information about specific Server
     socket.on('server', (ServerID) => {
-      server = setInterval(async () => {
+      if (socket.Server) {
+        clearInterval(socket.Server);
+      }
+      socket.Server = setInterval(async () => {
         const { client, queue } = await import('../../index');
         const { getPrefix } = await import('../../util/database');
         const Guild = client.guilds.cache.get(ServerID);
@@ -87,18 +88,6 @@ function socket(io: Server): void {
           });
         }
       }, 1000);
-    });
-    // Remove Interval when nobody is connected anymore
-    socket.on('disconnect', () => {
-      connected--;
-      if (connected == 0) {
-        if (server) {
-          clearInterval(server);
-        }
-        if (dashboard) {
-          clearInterval(dashboard);
-        }
-      }
     });
   });
 }
