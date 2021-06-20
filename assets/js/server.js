@@ -19,12 +19,10 @@ function translate(json) {
 }
 
 $(document).ready(() => {
-  $('[data-toggle="tooltip"]').tooltip();
   $('#changeprefixsubmit').on('click', null, null, () => {
-    fetch(
-      `/api/settings/${window.location.pathname.split('/')[2]}?prefix=${$('#newprefix').val()}`,
-      { method: 'POST' }
-    )
+    fetch(`/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}`, {
+      method: 'POST'
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`${res.statusText}`);
@@ -35,6 +33,47 @@ $(document).ready(() => {
       .catch((err) => {
         console.error(err.message || err);
         $('#prefixmodalerror').text(err.message || err);
+      });
+  });
+  $('#addsongsubmit').on('click', null, null, () => {
+    $('#songmodalerror').text('🔍 Searching...');
+    fetch(
+      `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(
+        $('#addSongSong').val()
+      )}`,
+      {
+        method: 'POST'
+      }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`${res.statusText}`);
+        } else {
+          $('#addSong').modal('toggle');
+          $('#songmodalerror').text('');
+        }
+      })
+      .catch((err) => {
+        console.error(err.message || err);
+        $('#songmodalerror').text(err.message || err);
+      });
+  });
+  $('#skipsong').on('click', null, null, () => {
+    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip`, {
+      method: 'POST'
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`${res.statusText}`);
+        } else {
+          res.json().then((json) => {
+            $('#customToastBody').text(`${json.status} Song`);
+            $('#customToast').toast('show');
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err.message || err);
       });
   });
   let translation = {};
@@ -64,12 +103,15 @@ $(document).ready(() => {
     $('#songLoop').text(data.songsLoop);
     $('#songInQueue').text(data.queue);
     $('#prefix').text(data.prefix);
+    $('#newprefix').attr('placeholder', data.prefix);
     if (data.nowPlaying) {
+      $('.needsqueue').show();
       $('#now-playing').text(data.nowPlaying.title);
       $('#now-playing').replaceWith("<a id='now-playing'>" + $('#now-playing').html() + '</a>');
       $('#now-playing').attr('href', data.nowPlaying.url);
       $('#now-playing').attr('target', '_blank');
     } else {
+      $('.needsqueue').hide();
       $('#now-playing').text(translation.web.server.song.nothing);
       $('#now-playing').replaceWith(
         "<span id='now-playing'>" + $('#now-playing').html() + '</span>'
