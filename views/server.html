@@ -97,7 +97,7 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between px-md-1">
                     <div>
-                      <button type="button" class="btn btn-link text-info" data-bs-toggle="modal" data-bs-target="#changePrefix" id="prefix" data-toggle="tooltip" data-placement="top" title="Click to change Prefix">&gt;</button>
+                      <h3 class="text-info" id="prefix">&gt;</h3>
                       <p class="mb-0"><var>WEB.SERVER.DETAILS.PREFIX</var></p>
                     </div>
                     <div class="align-self-center">
@@ -117,19 +117,26 @@
             <p id="duration"></p>
           </div>
         </section>
+        <section id="actions">
+          <h3>Actions</h3>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePrefix">Change Prefix</button>
+          <button type="button" class="btn btn-primary needsqueue" data-bs-toggle="modal" data-bs-target="#addSong">Add Song to Queue</button>
+          <button type="button" class="btn btn-primary needsqueue" id="skipsong">Skip Song</button>
+          </section>
+        </section>
       </div>
       <div class="modal fade" id="changePrefix" tabindex="-1" aria-labelledby="changePrefix" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content" style="color: var(--text) !important; background-color: var(--background) !important;">
+          <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Change Prefix</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form autocomplete="off" >
                 <div class="mb-3">
                   <label for="newprefix" class="col-form-label">New Prefix:</label>
-                  <input type="text" class="form-control" id="newprefix" style="color: var(--text) !important; background-color: var(--background) !important;">
+                  <input type="text" class="form-control" id="newprefix" autocomplete="off">
                 </div>
               </form>
             </div>
@@ -138,6 +145,40 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-primary" id="changeprefixsubmit">Change Prefix</button>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="addSong" tabindex="-1" aria-labelledby="addSong" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Song to Queue</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form autocomplete="off" >
+                <div class="mb-3">
+                  <label for="addSong" class="col-form-label">Name or URL:</label>
+                  <input type="text" class="form-control" id="addSongSong" autocomplete="off">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <span id="songmodalerror"></span>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" id="addsongsubmit">Add Song</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5;">
+        <div id="customToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Server Queue</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body" id="customToastBody">
+            This is a Toast
           </div>
         </div>
       </div>
