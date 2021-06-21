@@ -28,7 +28,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "didyoumean2": "^5.0.0",
-    "discord-ytdl-core": "^5.0.3",
+    "discord-ytdl-core": "^5.0.4",
     "discord.js": "^12.5.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
