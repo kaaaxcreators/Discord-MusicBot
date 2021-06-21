@@ -35,6 +35,19 @@
           <div>
             <h1 class="server-name"></h1>
           </div>
+          <div id="usermenu" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="usermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="column">
+                <img id="usericon" src="" width="25"></img>
+              </div>
+              <div class="column">
+                <h4 id="username"></h4>
+              </div>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="usermenuButton1">
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </div>
         </div>
       </nav>
       <!-- Navbar -->
@@ -46,12 +59,18 @@
             <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
               <i class="fas fa-tachometer-alt fa-fw me-3"></i><span><var>WEB.SIDE.DASHBOARD</var></span>
             </a>
-            <a href="/servers" class="list-group-item list-group-item-action py-2 ripple">
-              <i class="fas fa-server fa-fw me-3"></i><span><var>WEB.SIDE.SERVERS</var></span>
-            </a>
-            <a href="/logout" class="list-group-item list-group-item-action py-2 ripple">
-              <i class="fas fa-sign-out-alt fa-fw me-3"></i><span><var>WEB.SIDE.LOGOUT</var></span>
-            </a>
+            <div id="servermenu" class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="servermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="column">
+                  <img id="servericon" src="" width="25"></img>
+                </div>
+                <div class="column">
+                  <h4 id="servername"></h4>
+                </div>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="servermenuButton1" id="serverdropdownmenu">
+              </ul>
+            </div>
           </div>
         </div>
       </nav>

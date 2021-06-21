@@ -23,6 +23,11 @@ $(document).ready(() => {
     document.documentElement.lang = locale;
     translate(translations);
   });
+  $.get('/api/user', ({ user }) => {
+    console.log(user);
+    $('#usericon').attr('src', `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`);
+    $('#username').text(`${user.username}#${user.discriminator}`);
+  });
   // eslint-disable-next-line no-undef
   const socket = io();
   socket.emit('dashboard');

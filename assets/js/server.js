@@ -83,7 +83,34 @@ $(document).ready(() => {
     translate(translations);
   });
   $.get('/api/user', (data) => {
+    // User Menu
+    $('#usericon').attr(
+      'src',
+      `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}`
+    );
+    $('#username').text(`${data.user.username}#${data.user.discriminator}`);
     let Guild = data.user.guilds.find((x) => x.id == window.location.pathname.split('/')[2]);
+    $('#servername').text(Guild.name);
+    $('#servericon').attr(
+      'src',
+      Guild.icon
+        ? `https://cdn.discordapp.com/icons/${Guild.id}/${Guild.icon}`
+        : 'https://i.imgur.com/fFReq20.png'
+    );
+    // Guilds User and Bot are in and not current Guild
+    let Guilds = data.user.guilds.filter(
+      (guild) => guild.inGuild && guild.id != window.location.pathname.split('/')[2]
+    );
+    Guilds.forEach((guild) => {
+      $('#serverdropdownmenu').append(
+        `<li><a class="dropdown-item" href="/servers/${guild.id}"><img src=${
+          guild.icon
+            ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`
+            : 'https://i.imgur.com/fFReq20.png'
+        } height="15"></img>${guild.name}</a></li>`
+      );
+    });
+    console.log(Guild);
     if (!Guild.inGuild) {
       $.get('/api/info', (data) => {
         window.location = `https://discord.com/oauth2/authorize?client_id=${

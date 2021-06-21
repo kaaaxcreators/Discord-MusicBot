@@ -5,6 +5,7 @@
   --text: #fff;
   --card-text: #000;
   --card-background: var(--bs-gray);
+  --text-secondary: #6c757d !important;
   --text-success: hsl(152, 69%, 50%) !important;
   --text-danger: hsl(354, 70%, 60%) !important;
 }
@@ -44,6 +45,27 @@ var {
 
 .toast-header {
   color: var(--card-text);
+}
+
+.column {
+  float: left;
+  padding-left: 5px;
+}
+
+#serverdropdownmenu img {
+  padding-right: 5px;
+}
+
+#usermenu::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dropdown-item,
+.dropdown-menu {
+  background-color: var(--text-secondary);
+  color: var(--text);
 }
 
 .toast {
