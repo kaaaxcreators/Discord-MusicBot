@@ -14,4 +14,4 @@
 ### When Done
 
 - [ ] Translations
-- [ ] Theme Support
+- [ ] Improve Design

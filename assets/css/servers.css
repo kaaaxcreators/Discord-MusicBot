@@ -4,6 +4,7 @@
   --background: var(--bs-gray-dark);
   --text: #fff;
   --list-item: var(--bs-gray);
+  --text-secondary: #6c757d !important;
 }
 
 @media (prefers-color-scheme: light) {
@@ -21,6 +22,23 @@ body {
 }
 
 var {
+  color: var(--text);
+}
+
+.column {
+  float: left;
+  padding-left: 5px;
+}
+
+#usermenu::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dropdown-item,
+.dropdown-menu {
+  background-color: var(--text-secondary);
   color: var(--text);
 }
 
