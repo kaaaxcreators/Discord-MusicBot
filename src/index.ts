@@ -107,7 +107,7 @@ readdir(__dirname + '/commands/music', (err, files) => {
     return console.error(err);
   }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) {
+    if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -124,7 +124,7 @@ readdir(__dirname + '/commands/general', (err, files) => {
     return console.error(err);
   }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) {
+    if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -209,4 +209,11 @@ interface Config {
   DISABLEWEB: boolean;
   DIDYOUMEAN: boolean;
   GUILDPREFIX: boolean;
+}
+
+/**
+ * support typescript files when using ts-node
+ * @author <https://stackoverflow.com/a/45069552/13707908> */
+function endsWithAny(suffixes: string[], string: string) {
+  return suffixes.some((suffix) => string.endsWith(suffix));
 }
