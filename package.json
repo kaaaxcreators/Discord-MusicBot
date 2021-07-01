@@ -20,7 +20,8 @@
     "deploy": "tsc && node dist/index.js",
     "lint": "eslint . --ignore-path ./.gitignore && stylelint **/*.{css,html} --ignore-path ./.gitignore",
     "lint:fix": "eslint . --ignore-path ./.gitignore --fix && stylelint **/*.{css,html} --ignore-path ./.gitignore --fix",
-    "docs": "cross-env DOCS=true npm run deploy"
+    "docs": "cross-env DOCS=true npm run deploy",
+    "dev": "ts-node src/index.ts"
   },
   "engines": {
     "node": ">=14.x"
@@ -82,6 +83,7 @@
     "prettier": "^2.3.2",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-node": "^10.0.0",
     "typescript": "^4.3.5"
   },
   "funding": {
