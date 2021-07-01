@@ -1,17 +1,22 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // Credits: https://blog.logrocket.com/how-to-debug-node-js-apps-in-visual-studio-code/
   "version": "0.2.0",
   "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Discord Bot",
-      "program": "${workspaceFolder}/src/index.ts",
-      "outputCapture": "std",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
-    }
+      {
+          "type": "pwa-node",
+          "request": "launch",
+          "outputCapture": "std",
+          "name": "Launch Discord Bot",
+          "skipFiles": [
+              "<node_internals>/**"
+          ],
+          "runtimeArgs": [
+              "-r",
+              "ts-node/register"
+          ],
+          "args": [
+              "${workspaceFolder}/src/index.ts"
+          ]
+      }
   ]
 }
