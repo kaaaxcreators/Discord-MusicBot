@@ -32,7 +32,7 @@
     "discord.js": "^12.5.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
-    "express-rate-limit": "^5.2.6",
+    "express-rate-limit": "^5.3.0",
     "express-session": "^1.17.2",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.4.0",
