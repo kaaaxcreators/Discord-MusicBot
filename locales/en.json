@@ -335,6 +335,33 @@
 				"duration": "Duration",
 				"nothing": "Nothing Playing",
 				"nothingrn": "Nothing is playing right now"
+			},
+			"actions": {
+				"name": "Actions",
+				"changeprefix": "Change Prefix",
+				"add": "Add Song to Queue",
+				"play": "Play Song",
+				"skip": "Skip Song",
+				"modal": {
+					"changeprefix": {
+						"new": "New Prefix:",
+						"submit": "Change Prefix"
+					},
+					"add": {
+						"input": "Name or URL:",
+						"submit": "Add Song"
+					},
+					"play": {
+						"text": "Text Channel",
+						"voice": "Voice Channel",
+						"input": "Name or URL:", 
+						"submit": "Add Song"
+					},
+					"toast": {
+						"name": "Server Queue"
+					},
+					"cancel": "Cancel"
+				}
 			}
 		},
 		"servers": {

@@ -15,3 +15,4 @@
 
 - [ ] Translations
 - [ ] Improve Design
+- [ ] Documentation
