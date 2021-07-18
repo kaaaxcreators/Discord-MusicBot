@@ -9,10 +9,10 @@
 - [x] new layout
 - [x] be able to add songs to queue from dashboard
 - [x] be able to add songs without queue from dashboard
-- [ ] Don't have to login again when changing role, leaving, etc <- Security Issue
+- [ ] Don't have to login again when changing role, leaving, etc <- Security Issue (cant be fixed as of now)
 
 ### When Done
 
-- [ ] Translations
-- [ ] Improve Design
-- [ ] Documentation
+- [x] Translations (Autotranslate with POEditor)
+- [x] Improve Design
+- [ ] Documentation (make guildactions opt-in)
