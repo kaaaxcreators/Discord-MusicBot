@@ -19,6 +19,7 @@ import play, { Song } from '../util/playing';
 i18n.setLocale(config.LOCALE);
 
 import Auth from './Middlewares/Auth';
+import GuildActions from './Middlewares/GuildActions';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
 
@@ -48,7 +49,8 @@ api.get('/api/info', (req, res) => {
     Permissions: config.PERMISSION,
     Scopes: config.SCOPES,
     Website: config.WEBSITE,
-    CallbackURL: config.CALLBACK
+    CallbackURL: config.CALLBACK,
+    GuildActions: config.GUILDACTIONS
   });
 });
 
@@ -87,9 +89,10 @@ api.get('/api/translations', (req, res) => {
   res.send({ translations: i18n.getCatalog(config.LOCALE), locale: config.LOCALE });
 });
 
-api.post('/api/prefix/:id/:prefix', async (req, res) => {
+api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
   const { prefix, id } = req.params;
   const guildDB = await getGuild(id);
+  const { config } = await import('../index');
   // Check if valid request
   if (
     typeof prefix !== 'string' ||
@@ -100,19 +103,20 @@ api.post('/api/prefix/:id/:prefix', async (req, res) => {
   } else if (!req.user || req.isUnauthenticated() || !req.user.guilds) {
     res.status(401).json({ status: 401 });
   } else if (
-    // check if is in guild and has perms
-    req.user.guilds
+    // check if is in guild and has perms and guild prefix is enabled
+    (req.user.guilds
       .map((guildInfo) => ({
         id: guildInfo.id,
         hasPerms: guildInfo.hasPerms
       }))
       .find((arr) => arr.id == id) &&
-    !req.user.guilds
-      .map((guildInfo) => ({
-        id: guildInfo.id,
-        hasPerms: guildInfo.hasPerms
-      }))
-      .find((arr) => arr.id == id)?.hasPerms
+      !req.user.guilds
+        .map((guildInfo) => ({
+          id: guildInfo.id,
+          hasPerms: guildInfo.hasPerms
+        }))
+        .find((arr) => arr.id == id)!.hasPerms) ||
+    !config.GUILDPREFIX
   ) {
     res.status(403).json({ status: 403 });
   } else if (!guildDB) {
@@ -125,7 +129,7 @@ api.post('/api/prefix/:id/:prefix', async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/add/:song', async (req, res) => {
+api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
   const { id, song } = req.params;
   const vchannel = <string>req.query.vchannel;
   const mchannel = <string>req.query.mchannel;
@@ -310,7 +314,7 @@ api.post('/api/queue/:id/add/:song', async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/skip', async (req, res) => {
+api.post('/api/queue/:id/skip', GuildActions, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
@@ -352,7 +356,7 @@ api.post('/api/queue/:id/skip', async (req, res) => {
   }
 });
 
-api.get('/api/channels/:id', async (req, res) => {
+api.get('/api/channels/:id', GuildActions, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
@@ -404,7 +408,7 @@ api.get('/api/channels/:id', async (req, res) => {
   }
 });
 
-api.get('/api/update', async (req, res) => {
+api.get('/api/update', GuildActions, async (req, res) => {
   if (!req.user || req.isUnauthenticated() || !req.user.guilds || !req.user.refreshToken) {
     res.status(401).json({ status: 401 });
   } else {

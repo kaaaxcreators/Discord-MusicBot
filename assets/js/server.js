@@ -76,7 +76,7 @@ $(document).ready(() => {
     });
     $.each(channels.voiceChannels, (i, v) => {
       $('#selectvchannel').append(
-        v.id == channels.currentVoiceChannel.id
+        v.id == (channels.currentVoiceChannel && channels.currentVoiceChannel.id)
           ? $('<option>', {
               value: v.id,
               text: v.name,
@@ -178,15 +178,18 @@ $(document).ready(() => {
         } height="15"></img>${guild.name}</a></li>`
       );
     });
-    if (!Guild.inGuild) {
-      $.get('/api/info', (data) => {
+    $.get('/api/info', (data) => {
+      if (!Guild.inGuild) {
         window.location = `https://discord.com/oauth2/authorize?client_id=${
           data.ClientID
         }&permissions=${data.Permissions}&scope=bot%20${data.Scopes.join('%20')}&redirect_uri=${
           data.Website
         }${data.CallbackURL}&response_type=code`;
-      });
-    }
+      }
+      if (!data.GuildActions) {
+        $('#actions').hide();
+      }
+    });
     $('.server-name').text(Guild.name);
   });
   // eslint-disable-next-line no-undef

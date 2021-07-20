@@ -61,7 +61,8 @@ export const config: Config = {
   COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
   DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
   DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
-  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false
+  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false,
+  GUILDACTIONS: process.env.GUILDACTIONS ? /true/i.test(process.env.GUILDACTIONS) : false
 };
 
 export const Stats = {
@@ -214,6 +215,7 @@ interface Config {
   DISABLEWEB: boolean;
   DIDYOUMEAN: boolean;
   GUILDPREFIX: boolean;
+  GUILDACTIONS: boolean;
 }
 
 /**
