@@ -17,4 +17,4 @@
 
 - [x] Translations (Autotranslate with POEditor)
 - [x] Improve Design
-- [ ] Documentation (guildactions)
+- [x] Documentation (guildactions)
