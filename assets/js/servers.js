@@ -41,9 +41,14 @@ $(document).ready(() => {
       }" alt="${Guild.name}">
 </a>
 `);
-      $(`.server-${Guild.id}`).hover(() => {
+      $(`.server-${Guild.id}`).on('mouseenter', () => {
         $('.server-name').text(Guild.name);
       });
+      $(`.server-${Guild.id}`)
+        .parent()
+        .on('focus', () => {
+          $('.server-name').text(Guild.name);
+        });
     });
   });
 });
