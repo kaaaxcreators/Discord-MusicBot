@@ -10,7 +10,7 @@
 - [x] be able to add songs to queue from dashboard
 - [x] be able to add songs without queue from dashboard
 - [ ] Don't have to login again when changing role, leaving, etc <- Security Issue (cant be fixed as of now)
-- [ ] be able to select server without mouse
+- [x] be able to select server without mouse
 - [x] guildaction actions are opt-in
 
 ### When Done

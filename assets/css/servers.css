@@ -93,13 +93,13 @@ var {
 #servers a {
   margin: 10px;
   color: transparent;
-
-  /* display: block; */
   padding: 0;
+  width: auto;
+  display: block;
 }
 
 .row {
-  display: block;
+  display: flex;
 }
 
 .grayscale {
