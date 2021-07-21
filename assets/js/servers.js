@@ -33,13 +33,13 @@ $(document).ready(() => {
         return;
       }
       $('#servers').append(`
-<img class="server-${Guild.id}${
-        Guild.inGuild ? '' : ' grayscale'
-      }" onclick="window.location = '/servers/${Guild.id}'" width="60" height="60" src="${
+<a href="/servers/${Guild.id}">
+  <img class="server-${Guild.id}${Guild.inGuild ? '' : ' grayscale'}" width="60" height="60" src="${
         Guild.icon
           ? `https://cdn.discordapp.com/icons/${Guild.id}/${Guild.icon}.png`
           : 'https://i.imgur.com/fFReq20.png'
       }" alt="${Guild.name}">
+</a>
 `);
       $(`.server-${Guild.id}`).hover(() => {
         $('.server-name').text(Guild.name);

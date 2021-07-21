@@ -88,12 +88,18 @@ var {
 
 #servers img {
   border-radius: 50%;
-  margin: 10px;
-  cursor: pointer;
 }
 
-.hide {
-  display: none;
+#servers a {
+  margin: 10px;
+  color: transparent;
+
+  /* display: block; */
+  padding: 0;
+}
+
+.row {
+  display: block;
 }
 
 .grayscale {
