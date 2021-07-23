@@ -9,7 +9,7 @@ import { config } from '../../index';
  * @param  {NextFunction} next
  */
 const Auth = (req: Request, res: Response, next: NextFunction): void => {
-  if (!req.user) {
+  if (!req.user || req.isUnauthenticated()) {
     return res.redirect(config.CALLBACK);
   } else {
     next();

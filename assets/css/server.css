@@ -5,6 +5,7 @@
   --text: #fff;
   --card-text: #000;
   --card-background: var(--bs-gray);
+  --text-secondary: #6c757d !important;
   --text-success: hsl(152, 69%, 50%) !important;
   --text-danger: hsl(354, 70%, 60%) !important;
 }
@@ -42,6 +43,39 @@ var {
   color: var(--card-text);
 }
 
+.toast-header {
+  color: var(--card-text);
+}
+
+.column {
+  float: left;
+  padding-left: 5px;
+}
+
+#serverdropdownmenu img {
+  padding-right: 5px;
+}
+
+#usermenu::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dropdown-item,
+.dropdown-menu {
+  background-color: var(--text-secondary);
+  color: var(--text);
+}
+
+.toast {
+  background: var(--background);
+}
+
+.needsqueue {
+  display: none;
+}
+
 .list-group-item {
   background-color: var(--card-background);
 }
@@ -64,6 +98,13 @@ var {
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
   width: 240px;
   z-index: 600;
+}
+
+.modal-content,
+.form-control,
+.form-select {
+  color: var(--text) !important;
+  background-color: var(--background) !important;
 }
 
 @media (max-width: 991.98px) {

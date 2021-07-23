@@ -1,357 +1,390 @@
 {
-  "message": {
-    "onlygeneral": "Only General Commands are supported in DMs!",
-    "permissions": {
-      "bot": "I don't have enough permissions!\nRequired:\n",
-      "member": "You don't have enough permissions!\nRequired:\n"
-    },
-    "dym": "Did you mean `{command}`?"
-  },
-  "ready": {
-    "loggedin": "[API] Logged in as"
-  },
-  "index": {
-    "event": "Loading Event:",
-    "command": {
-      "music": "Loading Music Command:",
-      "general": "Loading General Command:"
-    },
-    "env": {
-      "missing": "These Environment Variables are missing:",
-      "add": "Add them to the Environment Variables!"
-    },
-    "token": {
-      "invalid": "An invalid token was provided.",
-      "env": "You specified a wrong Discord Bot Token! Check your Environment Variables"
-    }
-  },
-  "server": {
-    "ready": "Server is Ready!"
-  },
-  "music": {
-    "started": "Started Playing Music!",
-    "name": "Name",
-    "duration": "Duration",
-    "request": "Requested by",
-    "views": "Views:"
-  },
-  "error": {
-    "occurred": "An Error occurred:",
-    "possible": "An unexpected error has occurred.\nPossible type",
-    "something": "Something went wrong :(",
-    "needvc": "I'm sorry but you need to be in a voice channel to play music!",
-    "samevc": "I'm sorry but you need to be in the same voice channel as me!",
-    "noqueue": "There is nothing playing in this server.",
-    "nopause": "There is nothing paused in this server.",
-    "music": "The player has stopped and the queue has been cleared.",
-    "join": "I could not join the voice channel:",
-    "nodm": "This Command doesn't work in DMs"
-  },
-  "count": {
-    "description": "See how many Servers the Bot is in",
-    "embed": {
-      "description": "The Bot is currently in {servers} Servers",
-      "footer": "Use {prefix}invite to add/invite the Bot to your server"
-    }
-  },
-  "help": {
-    "description": "Show all commands",
-    "embed": {
-      "author": "Commands of",
-      "fields": {
-        "general": "General",
-        "music": "Music"
-      },
-      "footer": "To get info of each command you can do {prefix}help [command]"
-    },
-    "spec": {
-      "command": "Command:",
-      "name": "Name:",
-      "description": "Description:",
-      "usage": "Usage:",
-      "aliases": "Aliases:"
-    }
-  },
-  "invite": {
-    "description": "Add/invite the bot to your server",
-    "embed": {
-      "title": "Invite",
-      "description": "Want me in your server? Invite me today! \n\n [Invite Link]({url})"
-    }
-  },
-  "ping": {
-    "description": "Get Network Information",
-    "loading": "Loading data",
-    "embed": {
-      "description": "Pong! 🏓",
-      "latency": "Latency",
-      "footer": "Use {prefix}invite to add/invite the Bot to your server"
-    }
-  },
-  "serverstats": {
-    "description": "Get Server Stats",
-    "embed": {
-      "title": "Guild Information for",
-      "channels": {
-        "channels": "Channels",
-        "text": "Text",
-        "voice": "Voice",
-        "categories": "Categories",
-        "other": "Other"
-      },
-      "member": {
-        "member": "Member",
-        "owner": "Guild Owner:",
-        "total": "Total:"
-      },
-      "roles": "Roles",
-      "emojis": "Emojis",
-      "none": "None",
-      "other": {
-        "other": "Other",
-        "region": "Region:",
-        "created": "Created At:"
-      }
-    }
-  },
-  "stats": {
-    "description": "Get Bot Stats",
-    "embed": {
-      "title": "Statistics about",
-      "uptime": "Uptime",
-      "members": "Members",
-      "servers": "Servers",
-      "running": "Running Since",
-      "started": "Started",
-      "totalvcs": "VCs connected to"
-    }
-  },
-  "earrape": {
-    "description": "Toggle Earrape Mode",
-    "embed": {
-      "description": "I set the volume to: **{volume}**",
-      "author": "Server Volume Manager"
-    }
-  },
-  "leave": {
-    "notinvc": "I Am Not In Any Voice Channel!",
-    "trying": "Trying To Leave The Voice Channel...",
-    "embed": {
-      "author": "Leave Voice Channel",
-      "title": "Success",
-      "description": "🎶 Left The Voice Channel."
-    },
-    "left": "🎶 Left The Voice Channel :C",
-    "description": "Leave The Voice Channel!"
-  },
-  "loop": {
-    "description": "Toggle music loop",
-    "status": "🔂  **|**  Loop is **`{status}`**",
-    "enabled": "enabled",
-    "disabled": "disabled"
-  },
-  "lyrics": {
-    "description": "Get lyrics for the currently playing song",
-    "notfound": "No lyrics found for",
-    "embed": {
-      "author": "{song} — Lyrics",
-      "footer": "Page 1 of {pages}."
-    }
-  },
-  "nowplaying": {
-    "description": "Get music which is currently playing",
-    "live": "LIVE",
-    "embed": {
-      "author": "Now Playing",
-      "name": "Name",
-      "progress": "Progress",
-      "percentage": "Percentage",
-      "request": "Requested by",
-      "views": "Views:"
-    }
-  },
-  "pause": {
-    "description": "Pause the current music",
-    "embed": {
-      "description": "⏸ Paused the music for you!",
-      "title": "Music has been paused!"
-    }
-  },
-  "play": {
-    "description": "Play a Songs",
-    "usage": "<YouTube URL> | <Spotify Track URL> | <Song Name>",
-    "missingargs": "You didn't provide what to play",
-    "notfound": {
-      "youtube": "Looks like i was unable to find the song on YouTube",
-      "soundcloud": "Looks like i was unable to find the song on SoundCloud",
-      "spotify": "Looks like i was unable to find the song on Spotify"
-    },
-    "embed": {
-      "author": "Song has been added to queue",
-      "name": "Name",
-      "duration": "Duration",
-      "request": "Requested by",
-      "views": "Views:"
-    }
-  },
-  "playlist": {
-    "description": "Play a Playlist",
-    "usage": "<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>",
-    "missingargs": "Usage: `{prefix}playlist <YouTube Playlist URL | Playlist Name>`",
-    "notfound": {
-      "notfound": "Playlist not found",
-      "youtube": "Looks like i was unable to find the playlist on YouTube"
-    },
-    "added": "✅  **|**  Playlist: **`{playlist}`** has added `{videos}` videos to the queue",
-    "embed": {
-      "author": "Playlist has been added to queue"
-    }
-  },
-  "queue": {
-    "description": "Show the server queue",
-    "embed": {
-      "author": "Server Songs Queue",
-      "now": "Now Playing",
-      "text": "Text Channel",
-      "voice": "Voice Channel",
-      "description": "No songs to play next add songs by `{prefix}play <song_name>`",
-      "footer": "Currently Server Volume is {volume} Page 1 of {pages}."
-    }
-  },
-  "radio": {
-    "description": "**[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment",
-    "usage": "<Stream URL> | <Attachment>",
-    "missingargs": "You didn't provide what to play",
-    "embed": {
-      "author": "Song has been added to queue",
-      "name": "Name",
-      "duration": "Duration",
-      "request": "Requested by",
-      "views": "Views:"
-    }
-  },
-  "remove": {
-    "description": "Remove a song from the queue",
-    "usage": "<number>",
-    "missingargs": "Usage: `{prefix}remove <Queue Number>`",
-    "short": "The queue is only {songs} songs long!",
-    "embed": {
-      "description": "❌ **|** Removed: **`{song}`** from the queue."
-    }
-  },
-  "resume": {
-    "description": "Resume the paused music",
-    "embed": {
-      "description": "▶ Resumed the music for you!",
-      "author": "Music has been Resumed!"
-    }
-  },
-  "search": {
-    "description": "Search Songs",
-    "usage": "<song_name>",
-    "missingargs": "You didn't provide what to search",
-    "notfound": "Looks like i was unable to find the song on YouTube",
-    "result": {
-      "author": "Results for \"{args}\"",
-      "footer": "Type the number of the song to add it to the queue"
-    },
-    "selected": "Nothing has been selected within 20 seconds, the request has been canceled.",
-    "noresults": "🆘  **|**  I could not obtain any search results"
-  },
-  "shuffle": {
-    "description": "Shuffle queue"
-  },
-  "skip": {
-    "description": "Skip the current song",
-    "nothing": "There is nothing playing that I could skip for you."
-  },
-  "skipto": {
-    "description": "Skip to the selected queue number",
-    "usage": "<number>",
-    "missingargs": "**Usage**: `{prefix}skipto <number>`",
-    "short": "The queue is only {songs} songs long!",
-    "embed": {
-      "description": "{author} ⏭ skipped `{songs}` songs"
-    }
-  },
-  "stop": {
-    "description": "Stop the music and clear the queue",
-    "nothing": "There is nothing playing that I could stop for you."
-  },
-  "volume": {
-    "description": "Change the server queue volume",
-    "current": "The current volume is: **{volume}**",
-    "numbers": "Numbers only!",
-    "between": "You can't set the volume more than 150. or lower than 0",
-    "embed": {
-      "description": "I set the volume to: **{volume}/100**"
-    }
-  },
-  "pagination": "Page {page} of {pages}.",
-  "searching": "🔍 Searching...",
-  "web": {
-    "index": {
-      "nav1": "Discord Music Bot",
-      "nav2": "Dashboard",
-      "commands": {
-        "commands": "Commands",
-        "command": "Command",
-        "aliases": "Aliases",
-        "usage": "Usage",
-        "description": "Description"
-      }
-    },
-    "side": {
-      "dashboard": "Main dashboard",
-      "servers": "Manage Servers",
-      "logout": "Logout"
-    },
-    "dashboard": {
-      "nav": {
-        "dashboard": "Dashboard"
-      },
-      "details": {
-        "details": "Bot Details",
-        "users": "Users",
-        "servers": "Servers",
-        "uptime": "Uptime",
-        "avatar": "Avatar",
-        "totalvcs": "VCs connected to"
-      }
-    },
-    "server": {
-      "manage": "Manage Server",
-      "details": {
-        "manage": "Manage server",
-        "queue": "Song in queue",
-        "loop": "Song Loop",
-        "prefix": "Prefix"
-      },
-      "song": {
-        "info": "Song info",
-        "now": "Now playing:",
-        "duration": "Duration",
-        "nothing": "Nothing Playing",
-        "nothingrn": "Nothing is playing right now"
-      }
-    },
-    "servers": {
-      "servers": "Servers",
-      "select": "Select a server to manage"
-    }
-  },
-  "prefix": {
-    "description": "Change Guild Prefix",
-    "notenabled": "Guild Prefixes are not enabled",
-    "missingargs": "You didn't provide a new prefix",
-    "noargsembed": {
-      "description": "Current prefix is `{oldprefix}`",
-      "footer": "Usage: {oldprefix}prefix <prefix>"
-    },
-    "embed": {
-      "title": "Prefix",
-      "description": "Changed prefix from `{oldprefix}` to `{newprefix}`",
-      "footer": "Use {prefix}invite to add/invite the Bot to your server"
-    }
-  }
+	"message": {
+		"onlygeneral": "Only General Commands are supported in DMs!",
+		"permissions": {
+			"bot": "I don't have enough permissions!\nRequired:\n",
+			"member": "You don't have enough permissions!\nRequired:\n"
+		},
+		"dym": "Did you mean `{command}`?"
+	},
+	"ready": {
+		"loggedin": "[API] Logged in as"
+	},
+	"index": {
+		"event": "Loading Event:",
+		"command": {
+			"music": "Loading Music Command:",
+			"general": "Loading General Command:"
+		},
+		"env": {
+			"missing": "These Environment Variables are missing:",
+			"add": "Add them to the Environment Variables!"
+		},
+		"token": {
+			"invalid": "An invalid token was provided.",
+			"env": "You specified a wrong Discord Bot Token! Check your Environment Variables"
+		}
+	},
+	"server": {
+		"ready": "Server is Ready!"
+	},
+	"music": {
+		"started": "Started Playing Music!",
+		"name": "Name",
+		"duration": "Duration",
+		"request": "Requested by",
+		"views": "Views:"
+	},
+	"error": {
+		"occurred": "An Error occurred:",
+		"possible": "An unexpected error has occurred.\nPossible type",
+		"something": "Something went wrong :(",
+		"needvc": "I'm sorry but you need to be in a voice channel to play music!",
+		"samevc": "I'm sorry but you need to be in the same voice channel as me!",
+		"noqueue": "There is nothing playing in this server.",
+		"nopause": "There is nothing paused in this server.",
+		"music": "The player has stopped and the queue has been cleared.",
+		"join": "I could not join the voice channel:",
+		"nodm": "This Command doesn't work in DMs"
+	},
+	"count": {
+		"description": "See how many Servers the Bot is in",
+		"embed": {
+			"description": "The Bot is currently in {servers} Servers",
+			"footer": "Use {prefix}invite to add/invite the Bot to your server"
+		}
+	},
+	"help": {
+		"description": "Show all commands",
+		"embed": {
+			"author": "Commands of",
+			"fields": {
+				"general": "General",
+				"music": "Music"
+			},
+			"footer": "To get info of each command you can do {prefix}help [command]"
+		},
+		"spec": {
+			"command": "Command:",
+			"name": "Name:",
+			"description": "Description:",
+			"usage": "Usage:",
+			"aliases": "Aliases:"
+		}
+	},
+	"invite": {
+		"description": "Add/invite the bot to your server",
+		"embed": {
+			"title": "Invite",
+			"description": "Want me in your server? Invite me today! \n\n [Invite Link]({url})"
+		}
+	},
+	"ping": {
+		"description": "Get Network Information",
+		"loading": "Loading data",
+		"embed": {
+			"description": "Pong! 🏓",
+			"latency": "Latency",
+			"footer": "Use {prefix}invite to add/invite the Bot to your server"
+		}
+	},
+	"serverstats": {
+		"description": "Get Server Stats",
+		"embed": {
+			"title": "Guild Information for",
+			"channels": {
+				"channels": "Channels",
+				"text": "Text",
+				"voice": "Voice",
+				"categories": "Categories",
+				"other": "Other"
+			},
+			"member": {
+				"member": "Member",
+				"owner": "Guild Owner:",
+				"total": "Total:"
+			},
+			"roles": "Roles",
+			"emojis": "Emojis",
+			"none": "None",
+			"other": {
+				"other": "Other",
+				"region": "Region:",
+				"created": "Created At:"
+			}
+		}
+	},
+	"stats": {
+		"description": "Get Bot Stats",
+		"embed": {
+			"title": "Statistics about",
+			"uptime": "Uptime",
+			"members": "Members",
+			"servers": "Servers",
+			"running": "Running Since",
+			"started": "Started",
+			"totalvcs": "VCs connected to"
+		}
+	},
+	"earrape": {
+		"description": "Toggle Earrape Mode",
+		"embed": {
+			"description": "I set the volume to: **{volume}**",
+			"author": "Server Volume Manager"
+		}
+	},
+	"leave": {
+		"notinvc": "I Am Not In Any Voice Channel!",
+		"trying": "Trying To Leave The Voice Channel...",
+		"embed": {
+			"author": "Leave Voice Channel",
+			"title": "Success",
+			"description": "🎶 Left The Voice Channel."
+		},
+		"left": "🎶 Left The Voice Channel :C",
+		"description": "Leave The Voice Channel!"
+	},
+	"loop": {
+		"description": "Toggle music loop",
+		"status": "🔂  **|**  Loop is **`{status}`**",
+		"enabled": "enabled",
+		"disabled": "disabled"
+	},
+	"lyrics": {
+		"description": "Get lyrics for the currently playing song",
+		"notfound": "No lyrics found for",
+		"embed": {
+			"author": "{song} — Lyrics",
+			"footer": "Page 1 of {pages}."
+		}
+	},
+	"nowplaying": {
+		"description": "Get music which is currently playing",
+		"live": "LIVE",
+		"embed": {
+			"author": "Now Playing",
+			"name": "Name",
+			"progress": "Progress",
+			"percentage": "Percentage",
+			"request": "Requested by",
+			"views": "Views:"
+		}
+	},
+	"pause": {
+		"description": "Pause the current music",
+		"embed": {
+			"description": "⏸ Paused the music for you!",
+			"title": "Music has been paused!"
+		}
+	},
+	"play": {
+		"description": "Play a Songs",
+		"usage": "<YouTube URL> | <Spotify Track URL> | <Song Name>",
+		"missingargs": "You didn't provide what to play",
+		"notfound": {
+			"youtube": "Looks like i was unable to find the song on YouTube",
+			"soundcloud": "Looks like i was unable to find the song on SoundCloud",
+			"spotify": "Looks like i was unable to find the song on Spotify"
+		},
+		"embed": {
+			"author": "Song has been added to queue",
+			"name": "Name",
+			"duration": "Duration",
+			"request": "Requested by",
+			"views": "Views:"
+		}
+	},
+	"playlist": {
+		"description": "Play a Playlist",
+		"usage": "<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>",
+		"missingargs": "Usage: `{prefix}playlist <YouTube Playlist URL | Playlist Name>`",
+		"notfound": {
+			"notfound": "Playlist not found",
+			"youtube": "Looks like i was unable to find the playlist on YouTube"
+		},
+		"added": "✅  **|**  Playlist: **`{playlist}`** has added `{videos}` videos to the queue",
+		"embed": {
+			"author": "Playlist has been added to queue"
+		}
+	},
+	"queue": {
+		"description": "Show the server queue",
+		"embed": {
+			"author": "Server Songs Queue",
+			"now": "Now Playing",
+			"text": "Text Channel",
+			"voice": "Voice Channel",
+			"description": "No songs to play next add songs by `{prefix}play <song_name>`",
+			"footer": "Currently Server Volume is {volume} Page 1 of {pages}."
+		}
+	},
+	"radio": {
+		"description": "**[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment",
+		"usage": "<Stream URL> | <Attachment>",
+		"missingargs": "You didn't provide what to play",
+		"embed": {
+			"author": "Song has been added to queue",
+			"name": "Name",
+			"duration": "Duration",
+			"request": "Requested by",
+			"views": "Views:"
+		}
+	},
+	"remove": {
+		"description": "Remove a song from the queue",
+		"usage": "<number>",
+		"missingargs": "Usage: `{prefix}remove <Queue Number>`",
+		"short": "The queue is only {songs} songs long!",
+		"embed": {
+			"description": "❌ **|** Removed: **`{song}`** from the queue."
+		}
+	},
+	"resume": {
+		"description": "Resume the paused music",
+		"embed": {
+			"description": "▶ Resumed the music for you!",
+			"author": "Music has been Resumed!"
+		}
+	},
+	"search": {
+		"description": "Search Songs",
+		"usage": "<song_name>",
+		"missingargs": "You didn't provide what to search",
+		"notfound": "Looks like i was unable to find the song on YouTube",
+		"result": {
+			"author": "Results for \"{args}\"",
+			"footer": "Type the number of the song to add it to the queue"
+		},
+		"selected": "Nothing has been selected within 20 seconds, the request has been canceled.",
+		"noresults": "🆘  **|**  I could not obtain any search results"
+	},
+	"shuffle": {
+		"description": "Shuffle queue"
+	},
+	"skip": {
+		"description": "Skip the current song",
+		"nothing": "There is nothing playing that I could skip for you."
+	},
+	"skipto": {
+		"description": "Skip to the selected queue number",
+		"usage": "<number>",
+		"missingargs": "**Usage**: `{prefix}skipto <number>`",
+		"short": "The queue is only {songs} songs long!",
+		"embed": {
+			"description": "{author} ⏭ skipped `{songs}` songs"
+		}
+	},
+	"stop": {
+		"description": "Stop the music and clear the queue",
+		"nothing": "There is nothing playing that I could stop for you."
+	},
+	"volume": {
+		"description": "Change the server queue volume",
+		"current": "The current volume is: **{volume}**",
+		"numbers": "Numbers only!",
+		"between": "You can't set the volume more than 150. or lower than 0",
+		"embed": {
+			"description": "I set the volume to: **{volume}/100**"
+		}
+	},
+	"pagination": "Page {page} of {pages}.",
+	"searching": "🔍 Searching...",
+	"web": {
+		"index": {
+			"nav1": "Discord Music Bot",
+			"nav2": "Dashboard",
+			"commands": {
+				"commands": "Commands",
+				"command": "Command",
+				"aliases": "Aliases",
+				"usage": "Usage",
+				"description": "Description"
+			}
+		},
+		"side": {
+			"dashboard": "Main dashboard",
+			"servers": "Manage Servers",
+			"logout": "Logout"
+		},
+		"dashboard": {
+			"nav": {
+				"dashboard": "Dashboard"
+			},
+			"details": {
+				"details": "Bot Details",
+				"users": "Users",
+				"servers": "Servers",
+				"uptime": "Uptime",
+				"avatar": "Avatar",
+				"totalvcs": "VCs connected to",
+				"commandsran": "Commands executed",
+				"songsplayed": "Songs played"
+			}
+		},
+		"server": {
+			"manage": "Manage Server",
+			"details": {
+				"manage": "Manage server",
+				"queue": "Song in queue",
+				"loop": "Song Loop",
+				"prefix": "Prefix"
+			},
+			"song": {
+				"info": "Song info",
+				"now": "Now playing:",
+				"duration": "Duration",
+				"nothing": "Nothing Playing",
+				"nothingrn": "Nothing is playing right now"
+			},
+			"actions": {
+				"name": "Actions",
+				"changeprefix": "Change Prefix",
+				"add": "Add Song to Queue",
+				"play": "Play Song",
+				"skip": "Skip Song",
+				"modal": {
+					"changeprefix": {
+						"new": "New Prefix:",
+						"submit": "Change Prefix"
+					},
+					"add": {
+						"input": "Name or URL:",
+						"submit": "Add Song"
+					},
+					"play": {
+						"text": "Text Channel",
+						"voice": "Voice Channel",
+						"input": "Name or URL:", 
+						"submit": "Add Song"
+					},
+					"toast": {
+						"name": "Server Queue"
+					},
+					"cancel": "Cancel"
+				}
+			}
+		},
+		"servers": {
+			"servers": "Servers",
+			"select": "Select a server to manage"
+		}
+	},
+	"socket": {
+		"enabled": "Enabled",
+		"disabled": "Disabled"
+	},
+	"prefix": {
+		"description": "Change Guild Prefix",
+		"notenabled": "Guild Prefixes are not enabled",
+		"missingargs": "You didn't provide a new prefix",
+		"noargsembed": {
+			"description": "Current prefix is `{oldprefix}`",
+			"footer": "Usage: {oldprefix}prefix <prefix>"
+		},
+		"embed": {
+			"title": "Prefix",
+			"description": "Changed prefix from `{oldprefix}` to `{newprefix}`",
+			"footer": "Use {prefix}invite to add/invite the Bot to your server"
+		}
+	}
 }

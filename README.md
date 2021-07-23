@@ -158,12 +158,18 @@ Enable it by setting a Env Var `DIDYOUMEAN` with content/value `true`
 
 Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
 
-## <img src="https://cdn.icon-icons.com/icons2/1865/PNG/512/servers_119542.png" width="32" height="32" align="left"> Guild Prefix
+## <img src="https://static.thenounproject.com/png/644559-200.png" width="32" height="32" align="left"> Guild Prefix
 
 Be able to change Prefixes on per Guild basis
 
 <!-- Enable it by setting a Env Var `GUILDPREFIX` with content/value `true` -->
 Don't use in this state! Has many bugs and doesn't work e.g. in commands
+
+## <img src="https://static.thenounproject.com/png/333746-200.png" width="32" height="32" align="left"> Guild Actions
+
+Allow Users to change Settings in the Dashboard (Prefix, Queue, ...)
+
+Enable it by setting a Env Var `GUILDACTIONS` with content/value `true`
 
 ## ©️ Credits
 

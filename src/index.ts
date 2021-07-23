@@ -61,7 +61,13 @@ export const config: Config = {
   COOKIESECRET: process.env.COOKIESECRET || 'garbage-shampoo-surviving',
   DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
   DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
-  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false
+  GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false,
+  GUILDACTIONS: process.env.GUILDACTIONS ? /true/i.test(process.env.GUILDACTIONS) : false
+};
+
+export const Stats = {
+  commandsRan: 0,
+  songsPlayed: 0
 };
 
 // Configure i18n
@@ -107,7 +113,7 @@ readdir(__dirname + '/commands/music', (err, files) => {
     return console.error(err);
   }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) {
+    if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -124,7 +130,7 @@ readdir(__dirname + '/commands/general', (err, files) => {
     return console.error(err);
   }
   files.forEach((file) => {
-    if (!file.endsWith('.js')) {
+    if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -209,4 +215,12 @@ interface Config {
   DISABLEWEB: boolean;
   DIDYOUMEAN: boolean;
   GUILDPREFIX: boolean;
+  GUILDACTIONS: boolean;
+}
+
+/**
+ * support typescript files when using ts-node
+ * @author <https://stackoverflow.com/a/45069552/13707908> */
+function endsWithAny(suffixes: string[], string: string) {
+  return suffixes.some((suffix) => string.endsWith(suffix));
 }

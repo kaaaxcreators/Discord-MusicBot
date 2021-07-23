@@ -340,6 +340,10 @@
 			"select": "Wählen Sie einen zu verwaltenden Server aus"
 		}
 	},
+	"socket": {
+		"enabled": "Aktiviert",
+		"disabled": "Deaktiviert"
+	},
   "prefix": {
     "description": "Gildenpräfix ändern",
     "notenabled": "Gildenpräfixe sind nicht aktiviert",

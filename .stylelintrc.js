@@ -1,8 +1,6 @@
 module.exports = {
-  extends: [
-    'stylelint-config-standard'
-  ],
+  extends: ['stylelint-config-standard'],
   rules: {
     'no-descending-specificity': null
   }
-}
+};

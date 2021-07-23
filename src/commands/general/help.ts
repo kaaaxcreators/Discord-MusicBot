@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import i18n from 'i18n';
 
 import { Command, commands, config } from '../../index';
+import { getPrefix } from '../../util/database';
 import Util from '../../util/pagination';
 i18n.setLocale(config.LOCALE);
 
@@ -21,6 +22,7 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     let generalcmds = '';
     let musiccmds = '';
+    const prefix = await getPrefix(message);
 
     commands.forEach((cmd) => {
       const cmdinfo = cmd.info;
@@ -28,12 +30,10 @@ module.exports = {
       const usage = cmdinfo.usage ? ' ' + cmdinfo.usage : '';
       switch (cmdinfo.categorie) {
         case 'general':
-          generalcmds +=
-            '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          generalcmds += '`' + prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
           break;
         case 'music':
-          musiccmds +=
-            '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
+          musiccmds += '`' + prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n';
           break;
         default:
           break;
@@ -52,7 +52,7 @@ module.exports = {
       )
       .setColor('BLUE')
       .setDescription(splittedHelp[0])
-      .setFooter(i18n.__mf('help.embed.footer', { prefix: config.prefix }));
+      .setFooter(i18n.__mf('help.embed.footer', { prefix: prefix }));
 
     if (!args[0]) {
       const helpmsg = await message.channel.send(embed);
@@ -76,7 +76,7 @@ module.exports = {
         .setColor('YELLOW').setDescription(`
 ${i18n.__('help.spec.name')} ${command.info.name}
 ${i18n.__('help.spec.description')} ${command.info.description}
-${i18n.__('help.spec.usage')} \`\`${config.prefix}${command.info.name}${usage}\`\`
+${i18n.__('help.spec.usage')} \`\`${prefix}${command.info.name}${usage}\`\`
 ${i18n.__('help.spec.aliases')} ${command.info.aliases.join(', ')}
 `);
       message.channel.send(commandinfo);
