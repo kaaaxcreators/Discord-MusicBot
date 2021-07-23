@@ -6,18 +6,15 @@ import { config } from '../../index';
 i18n.setLocale(config.LOCALE);
 import ProgressBar from '../../util/ProgressBar';
 
-let dashboard: NodeJS.Timeout;
-let server: NodeJS.Timeout;
-
 function socket(io: Server): void {
   io.on('connection', (socket) => {
-    //Bot's Main Page
+    // Dashboard
     socket.on('dashboard', () => {
-      if (dashboard) {
-        clearInterval(dashboard);
+      if (socket.Dashboard) {
+        clearInterval(socket.Dashboard);
       }
-      dashboard = setInterval(async () => {
-        const { client } = await import('../../index');
+      socket.Dashboard = setInterval(async () => {
+        const { client, Stats } = await import('../../index');
         let totalvcs = 0;
         client.guilds.cache.array().forEach((guild) => {
           if (guild.voice?.connection) {
@@ -32,21 +29,23 @@ function socket(io: Server): void {
             ? client.user!.avatarURL()
             : 'https://i.imgur.com/fFReq20.png',
           username: client.user!.username,
-          totalvcs: totalvcs
+          totalvcs: totalvcs,
+          commandsRan: Stats.commandsRan,
+          songsPlayed: Stats.songsPlayed
         });
       }, 1000);
     });
 
+    // Get Information about specific Server
     socket.on('server', (ServerID) => {
-      if (server) {
-        clearInterval(server);
+      if (socket.Server) {
+        clearInterval(socket.Server);
       }
-      server = setInterval(async () => {
+      socket.Server = setInterval(async () => {
         const { client, queue } = await import('../../index');
-        const { getGuild } = await import('../../util/database');
+        const { getPrefix } = await import('../../util/database');
         const Guild = client.guilds.cache.get(ServerID);
-        const db = await getGuild(Guild!.id);
-        const prefix = (db && db.prefix) || config.prefix;
+        const prefix = await getPrefix(Guild!);
         if (!Guild) {
           return socket.emit('error', 'Unable to find that server');
         }
@@ -54,13 +53,13 @@ function socket(io: Server): void {
         if (!player) {
           socket.emit('server', {
             queue: 0,
-            songsLoop: 'Disabled',
+            songsLoop: i18n.__('socket.disabled'),
             prefix: prefix
           });
         } else {
           socket.emit('server', {
             queue: player.songs ? player.songs.length : 0,
-            songsLoop: player.loop ? 'Enabled' : 'Disabled',
+            songsLoop: player.loop ? i18n.__('socket.enabled') : i18n.__('socket.disabled'),
             prefix: prefix,
             bar:
               player.songs[0] && player.connection

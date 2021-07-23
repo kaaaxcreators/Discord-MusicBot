@@ -2,6 +2,7 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import i18n from 'i18n';
 
 import { Command, config } from '../../index';
+import { getPrefix } from '../../util/database';
 i18n.setLocale(config.LOCALE);
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setDescription(i18n.__mf('count.embed.description', { servers: client.guilds.cache.size }))
-      .setFooter(i18n.__mf('count.embed.footer', { prefix: config.prefix }));
+      .setFooter(i18n.__mf('count.embed.footer', { prefix: await getPrefix(message) }));
     return message.channel.send(embed);
   }
 } as Command;

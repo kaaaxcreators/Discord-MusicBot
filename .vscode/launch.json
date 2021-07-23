@@ -1,0 +1,22 @@
+{
+  // Credits: https://blog.logrocket.com/how-to-debug-node-js-apps-in-visual-studio-code/
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "pwa-node",
+          "request": "launch",
+          "outputCapture": "std",
+          "name": "Launch Discord Bot",
+          "skipFiles": [
+              "<node_internals>/**"
+          ],
+          "runtimeArgs": [
+              "-r",
+              "ts-node/register"
+          ],
+          "args": [
+              "${workspaceFolder}/src/index.ts"
+          ]
+      }
+  ]
+}

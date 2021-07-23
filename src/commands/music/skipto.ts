@@ -2,6 +2,7 @@ import { Client, Message } from 'discord.js';
 import i18n from 'i18n';
 
 import { Command, config, queue as Queue } from '../../index';
+import { getPrefix } from '../../util/database';
 i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import console from '../../util/logger';
@@ -31,7 +32,7 @@ module.exports = {
         .send({
           embed: {
             color: 'GREEN',
-            description: i18n.__mf('skipto.missingargs', { prefix: config.prefix })
+            description: i18n.__mf('skipto.missingargs', { prefix: await getPrefix(message) })
           }
         })
         .catch(console.error);

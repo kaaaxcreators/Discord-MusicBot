@@ -1,17 +1,29 @@
-import { Message, MessageEmbed, StreamType, User } from 'discord.js';
+import {
+  DMChannel,
+  Message,
+  MessageEmbed,
+  NewsChannel,
+  StreamType,
+  TextChannel,
+  User
+} from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import i18n from 'i18n';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
 
-import { config, queue as Queue } from '../index';
+import { config, queue as Queue, Stats } from '../index';
 i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 import play from './playing';
 
 export default {
-  async play(song: Song, message: Message, searchMessage?: Message): Promise<void> {
+  async play(
+    song: Song,
+    message: { guild: { id: string } | null; channel: TextChannel | NewsChannel | DMChannel },
+    searchMessage?: Message
+  ): Promise<void> {
     const queue = Queue.get(message.guild!.id);
     if (!song) {
       Queue.delete(message.guild!.id);
@@ -82,6 +94,7 @@ export default {
     const dispatcher = queue!
       .connection!.play(stream, { type: streamType! })
       .on('finish', () => {
+        Stats.songsPlayed++;
         const shifted = queue!.songs.shift();
         if (queue!.loop === true) {
           queue!.songs.push(shifted!);

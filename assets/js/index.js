@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // https://stackoverflow.com/a/12034334/13707908
 var entityMap = {
   '&': '&amp;',

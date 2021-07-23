@@ -5,6 +5,7 @@
   --text: #fff;
   --card-text: #000;
   --card-background: var(--bs-gray);
+  --text-secondary: #6c757d !important;
   --text-success: hsl(152, 69%, 50%) !important;
 }
 
@@ -14,6 +15,7 @@
     --text: #000;
     --card-background: var(--bs-light);
     --text-success: #198754 !important;
+    --text-secondary: var(--bs-light);
   }
 }
 
@@ -49,6 +51,23 @@ var {
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
   width: 240px;
   z-index: 600;
+}
+
+.column {
+  float: left;
+  padding-left: 5px;
+}
+
+#usermenu::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dropdown-item,
+.dropdown-menu {
+  background-color: var(--text-secondary);
+  color: var(--text);
 }
 
 @media (max-width: 991.98px) {

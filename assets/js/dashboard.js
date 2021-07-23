@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 function translate(json) {
   const varTags = Array.from(document.getElementsByTagName('var'));
   varTags.forEach((v, i) => {
@@ -25,6 +23,11 @@ $(document).ready(() => {
     document.documentElement.lang = locale;
     translate(translations);
   });
+  $.get('/api/user', ({ user }) => {
+    $('#usericon').attr('src', `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`);
+    $('#username').text(`${user.username}#${user.discriminator}`);
+  });
+  // eslint-disable-next-line no-undef
   const socket = io();
   socket.emit('dashboard');
   socket.on('dashboard', (data) => {
@@ -34,5 +37,7 @@ $(document).ready(() => {
     $('#avatar').prop('src', data.avatarURL);
     $('.server-name').text(data.username);
     $('#totalvcs').text(data.totalvcs);
+    $('#commandsRan').text(data.commandsRan);
+    $('#songsPlayed').text(data.songsPlayed);
   });
 });
