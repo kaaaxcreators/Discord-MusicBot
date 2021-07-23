@@ -54,20 +54,12 @@
     "tslog": "^3.2.0",
     "youtube-sr": "^4.1.7",
     "yt-search": "^2.9.0",
-<<<<<<< HEAD
     "ytdl-core": "^4.9.0",
-=======
-    "ytdl-core": "^4.8.3",
->>>>>>> 98173ef (update packages)
     "ytpl": "^2.2.1"
   },
   "devDependencies": {
     "@kaaaxcreators/config": "^1.1.1",
-<<<<<<< HEAD
-    "@types/connect-livereload": "^0.5.31",
-=======
     "@types/connect-livereload": "^0.5.32",
->>>>>>> 98173ef (update packages)
     "@types/dotenv-safe": "^8.1.2",
     "@types/express": "^4.17.13",
     "@types/express-rate-limit": "^5.1.3",
