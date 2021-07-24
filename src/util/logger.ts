@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'fs';
+import { appendFileSync } from 'fs';
 import moment from 'moment';
 import { ILogObject, Logger } from 'tslog';
 
@@ -12,30 +12,9 @@ const logFileName = process.env.LOG || 'logs.log';
  * @param  {ILogObject} logObject
  */
 function logToTransport(logObject: ILogObject): void {
-  if (!existsSync(logFileName) && logFileName.split('.')[1] == 'json') {
-    appendFileSync(logFileName, '[');
-  }
   appendFileSync(logFileName, formatLog(logObject) + ',\n');
 }
-/**
- * Modifies json on exit
- */
-function exit(): void {
-  try {
-    if (!existsSync(logFileName)) {
-      throw 'File does not exist';
-    }
-    // Remove Last 2 Characters from string
-    if (logFileName.split('.')[1] == 'json') {
-      let text = readFileSync(logFileName);
-      text = text.slice(0, text.length - 2);
-      writeFileSync(logFileName, text);
-      appendFileSync(logFileName, ']\n');
-    }
-  } finally {
-    process.exit();
-  }
-}
+
 /**
  * Formats Log as JSON
  * @param  {ILogObject} logObject
@@ -76,4 +55,3 @@ log.attachTransport(
 );
 
 export default log;
-export { exit, logFileName };

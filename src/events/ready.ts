@@ -5,7 +5,7 @@ import i18n from 'i18n';
 import { Server } from 'socket.io';
 
 import { config } from '../index';
-import console, { exit } from '../util/logger';
+import console from '../util/logger';
 i18n.setLocale(config.LOCALE);
 
 module.exports = async (client: Client) => {
@@ -28,7 +28,7 @@ module.exports = async (client: Client) => {
         console.info('Stopped Server');
       }
     } finally {
-      exit();
+      process.exit();
     }
   });
   console.info(`${i18n.__('ready.loggedin')} ${client.user!.username}`);
