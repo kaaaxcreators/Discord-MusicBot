@@ -12,12 +12,6 @@ import {
   VoiceConnection
 } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
-try {
-  dotenv.config();
-} catch (err) {
-  EnvError(err);
-}
-
 import { existsSync, mkdirSync, readdir } from 'fs';
 import i18n from 'i18n';
 import path from 'path';
@@ -25,6 +19,13 @@ import path from 'path';
 import docs from './docs';
 import console from './util/logger';
 import { Song } from './util/playing';
+
+// Load environment variables
+try {
+  dotenv.config();
+} catch (err) {
+  EnvError(err);
+}
 
 export const client = new Client();
 export const commands = new Collection<string, Command>();
