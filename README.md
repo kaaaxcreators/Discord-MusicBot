@@ -171,6 +171,8 @@ Allow Users to change Settings in the Dashboard (Prefix, Queue, ...)
 
 Enable it by setting a Env Var `GUILDACTIONS` with content/value `true`
 
+🔒 Security Warning: This feature is not secure! No [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) Protection! If you change permissions and that person doesn't log out of the dashboard, they can still e.g. change the prefix
+
 ## ©️ Credits
 
 This Bot / Repo is not a fork but heavily inspired from [SudhanPlayz/Discord-MusicBot](https://github.com/SudhanPlayz/Discord-MusicBot).
