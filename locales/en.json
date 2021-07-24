@@ -6,7 +6,7 @@
 				"bot": "I don't have enough permissions!\nRequired:\n",
 				"member": "You don't have enough permissions!\nRequired:\n"
 			},
-			"dym": "Did you mean `{command}`?"
+			"dym": "Did you mean `{{command}}`?"
 		},
 		"ready": {
 			"loggedin": "[API] Logged in as"
@@ -51,8 +51,8 @@
 		"count": {
 			"description": "See how many Servers the Bot is in",
 			"embed": {
-				"description": "The Bot is currently in {servers} Servers",
-				"footer": "Use {prefix}invite to add/invite the Bot to your server"
+				"description": "The Bot is currently in {{servers}} Servers",
+				"footer": "Use {{prefix}}invite to add/invite the Bot to your server"
 			}
 		},
 		"help": {
@@ -63,7 +63,7 @@
 					"general": "General",
 					"music": "Music"
 				},
-				"footer": "To get info of each command you can do {prefix}help [command]"
+				"footer": "To get info of each command you can do {{prefix}}help [command]"
 			},
 			"spec": {
 				"command": "Command:",
@@ -77,7 +77,7 @@
 			"description": "Add/invite the bot to your server",
 			"embed": {
 				"title": "Invite",
-				"description": "Want me in your server? Invite me today! \n\n [Invite Link]({url})"
+				"description": "Want me in your server? Invite me today! \n\n [Invite Link]({{url}})"
 			}
 		},
 		"ping": {
@@ -86,7 +86,7 @@
 			"embed": {
 				"description": "Pong! 🏓",
 				"latency": "Latency",
-				"footer": "Use {prefix}invite to add/invite the Bot to your server"
+				"footer": "Use {{prefix}}invite to add/invite the Bot to your server"
 			}
 		},
 		"serverstats": {
@@ -130,7 +130,7 @@
 		"earrape": {
 			"description": "Toggle Earrape Mode",
 			"embed": {
-				"description": "I set the volume to: **{volume}**",
+				"description": "I set the volume to: **{{volume}}**",
 				"author": "Server Volume Manager"
 			}
 		},
@@ -147,7 +147,7 @@
 		},
 		"loop": {
 			"description": "Toggle music loop",
-			"status": "🔂  **|**  Loop is **`{status}`**",
+			"status": "🔂  **|**  Loop is **`{{status}}`**",
 			"enabled": "enabled",
 			"disabled": "disabled"
 		},
@@ -155,8 +155,8 @@
 			"description": "Get lyrics for the currently playing song",
 			"notfound": "No lyrics found for",
 			"embed": {
-				"author": "{song} — Lyrics",
-				"footer": "Page 1 of {pages}."
+				"author": "{{song}} — Lyrics",
+				"footer": "Page 1 of {{pages}}."
 			}
 		},
 		"nowplaying": {
@@ -179,7 +179,7 @@
 			}
 		},
 		"play": {
-			"description": "Play a Songs",
+			"description": "Play a Song",
 			"usage": "<YouTube URL> | <Spotify Track URL> | <Song Name>",
 			"missingargs": "You didn't provide what to play",
 			"notfound": {
@@ -198,12 +198,12 @@
 		"playlist": {
 			"description": "Play a Playlist",
 			"usage": "<YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>",
-			"missingargs": "Usage: `{prefix}playlist <YouTube Playlist URL | Playlist Name>`",
+			"missingargs": "Usage: `{{prefix}}playlist <YouTube Playlist URL | Playlist Name>`",
 			"notfound": {
 				"notfound": "Playlist not found",
 				"youtube": "Looks like i was unable to find the playlist on YouTube"
 			},
-			"added": "✅  **|**  Playlist: **`{playlist}`** has added `{videos}` videos to the queue",
+			"added": "✅  **|**  Playlist: **`{{playlist}`** has added `{videos}}` videos to the queue",
 			"embed": {
 				"author": "Playlist has been added to queue"
 			}
@@ -215,8 +215,8 @@
 				"now": "Now Playing",
 				"text": "Text Channel",
 				"voice": "Voice Channel",
-				"description": "No songs to play next add songs by `{prefix}play <song_name>`",
-				"footer": "Currently Server Volume is {volume} Page 1 of {pages}."
+				"description": "No songs to play next add songs by `{{prefix}}play <song_name>`",
+				"footer": "Currently Server Volume is {{volume} Page 1 of {pages}}."
 			}
 		},
 		"radio": {
@@ -234,10 +234,10 @@
 		"remove": {
 			"description": "Remove a song from the queue",
 			"usage": "<number>",
-			"missingargs": "Usage: `{prefix}remove <Queue Number>`",
-			"short": "The queue is only {songs} songs long!",
+			"missingargs": "Usage: `{{prefix}}remove <Queue Number>`",
+			"short": "The queue is only {{songs}} songs long!",
 			"embed": {
-				"description": "❌ **|** Removed: **`{song}`** from the queue."
+				"description": "❌ **|** Removed: **`{{song}}`** from the queue."
 			}
 		},
 		"resume": {
@@ -253,7 +253,7 @@
 			"missingargs": "You didn't provide what to search",
 			"notfound": "Looks like i was unable to find the song on YouTube",
 			"result": {
-				"author": "Results for \"{args}\"",
+				"author": "Results for \"{{args}}\"",
 				"footer": "Type the number of the song to add it to the queue"
 			},
 			"selected": "Nothing has been selected within 20 seconds, the request has been canceled.",
@@ -269,10 +269,10 @@
 		"skipto": {
 			"description": "Skip to the selected queue number",
 			"usage": "<number>",
-			"missingargs": "**Usage**: `{prefix}skipto <number>`",
-			"short": "The queue is only {songs} songs long!",
+			"missingargs": "**Usage**: `{{prefix}}skipto <number>`",
+			"short": "The queue is only {{songs}} songs long!",
 			"embed": {
-				"description": "{author} ⏭ skipped `{songs}` songs"
+				"description": "{{author} ⏭ skipped `{songs}}` songs"
 			}
 		},
 		"stop": {
@@ -281,14 +281,14 @@
 		},
 		"volume": {
 			"description": "Change the server queue volume",
-			"current": "The current volume is: **{volume}**",
+			"current": "The current volume is: **{{volume}}**",
 			"numbers": "Numbers only!",
 			"between": "You can't set the volume more than 150. or lower than 0",
 			"embed": {
-				"description": "I set the volume to: **{volume}/100**"
+				"description": "I set the volume to: **{{volume}}/100**"
 			}
 		},
-		"pagination": "Page {page} of {pages}.",
+		"pagination": "Page {{page} of {pages}}.",
 		"searching": "🔍 Searching...",
 		"web": {
 			"index": {
@@ -379,13 +379,13 @@
 			"notenabled": "Guild Prefixes are not enabled",
 			"missingargs": "You didn't provide a new prefix",
 			"noargsembed": {
-				"description": "Current prefix is `{oldprefix}`",
-				"footer": "Usage: {oldprefix}prefix <prefix>"
+				"description": "Current prefix is `{{oldprefix}}`",
+				"footer": "Usage: {{oldprefix}}prefix <prefix>"
 			},
 			"embed": {
 				"title": "Prefix",
-				"description": "Changed prefix from `{oldprefix}` to `{newprefix}`",
-				"footer": "Use {prefix}invite to add/invite the Bot to your server"
+				"description": "Changed prefix from `{{oldprefix}` to `{newprefix}}`",
+				"footer": "Use {{prefix}}invite to add/invite the Bot to your server"
 			}
 		}
 	}

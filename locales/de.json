@@ -6,7 +6,7 @@
 				"bot": "Ich habe nicht genug Berechtigungen!\nErforderlich:\n",
 				"member": "Sie haben nicht genügend Berechtigungen!\nErforderlich:\n"
 			},
-	    "dym": "Meinten Sie `{command}`?"
+	    "dym": "Meinten Sie `{{{command}}}`?"
 		},
 		"ready": {
 			"loggedin": "[API] Eingeloggt als"
@@ -51,8 +51,8 @@
 		"count": {
 			"description": "Sehen Sie, auf wie vielen Servern sich der Bot befindet",
 			"embed": {
-				"description": "Der Bot befindet sich derzeit auf {servers} Servern",
-				"footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
+				"description": "Der Bot befindet sich derzeit auf {{servers}} Servern",
+				"footer": "Verwenden Sie {{prefix}}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
 			}
 		},
 		"help": {
@@ -63,7 +63,7 @@
 					"general": "Allgemeines",
 					"music": "Musik"
 				},
-				"footer": "Um Informationen zu jedem Befehl zu erhalten, können Sie {prefix}help [Befehl] ausführen."
+				"footer": "Um Informationen zu jedem Befehl zu erhalten, können Sie {{prefix}}help [Befehl] ausführen."
 			},
 			"spec": {
 				"command": "Befehl:",
@@ -77,7 +77,7 @@
 			"description": "Fügen Sie den Bot zu Ihrem Server hinzu bzw. laden Sie ihn ein",
 			"embed": {
 				"title": "Einladen",
-				"description": "Willst du mich auf deinem Server? Lade mich heute ein!\n\n [Link einladen]({url})"
+				"description": "Willst du mich auf deinem Server? Lade mich heute ein!\n\n [Link einladen]({{url}})"
 			}
 		},
 		"ping": {
@@ -86,7 +86,7 @@
 			"embed": {
 				"description": "Pong! 🏓",
 				"latency": "Latenz",
-				"footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
+				"footer": "Verwenden Sie {{prefix}}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
 			}
 		},
 		"serverstats": {
@@ -130,7 +130,7 @@
 		"earrape": {
 			"description": "Earrape-Modus umschalten",
 			"embed": {
-				"description": "Ich stelle die Lautstärke auf: **{volume}**",
+				"description": "Ich stelle die Lautstärke auf: **{{volume}}**",
 				"author": "Server Volume Manager"
 			}
 		},
@@ -147,7 +147,7 @@
 		},
 		"loop": {
 			"description": "Musikschleife umschalten",
-			"status": "🔂 ** | ** Schleife ist **`{status}`**",
+			"status": "🔂 ** | ** Schleife ist **`{{status}}`**",
 			"enabled": "aktiviert",
 			"disabled": "deaktiviert"
 		},
@@ -155,8 +155,8 @@
 			"description": "Holen Sie sich die Texte für das aktuell abgespielte Lied",
 			"notfound": "Keine Texte gefunden für",
 			"embed": {
-				"author": "{song} - Liedtext",
-				"footer": "Seite 1 von {pages}."
+				"author": "{{song}} - Liedtext",
+				"footer": "Seite 1 von {{pages}}."
 			}
 		},
 		"nowplaying": {
@@ -198,12 +198,12 @@
 		"playlist": {
 			"description": "Spielen Sie eine Wiedergabeliste",
 			"usage": "<URL der YouTube-Wiedergabeliste> | <Spotify Playlist URL> | <Name der Wiedergabeliste>",
-			"missingargs": "Verwendung: `{prefix}playlist <YouTube-Wiedergabelisten-URL | Name der Wiedergabeliste> `",
+			"missingargs": "Verwendung: `{{prefix}}playlist <YouTube-Wiedergabelisten-URL | Name der Wiedergabeliste> `",
 			"notfound": {
 				"notfound": "Wiedergabeliste nicht gefunden",
 				"youtube": "Anscheinend konnte ich die Wiedergabeliste auf YouTube nicht finden"
 			},
-			"added": "✅ ** | ** Wiedergabeliste: **`{playlist}`** hat `{videos}` Videos zur Warteschlange hinzugefügt",
+			"added": "✅ ** | ** Wiedergabeliste: **`{{playlist}`** hat `{videos}}` Videos zur Warteschlange hinzugefügt",
 			"embed": {
 				"author": "Die Wiedergabeliste wurde zur Warteschlange hinzugefügt"
 			}
@@ -215,8 +215,8 @@
 				"now": "Läuft gerade",
 				"text": "Textkanal",
 				"voice": "Sprachkanal",
-				"description": "Keine Songs zum Abspielen als nächstes Songs hinzufügen von `{prefix}play <song_name>`",
-				"footer": "Derzeit ist das Server-Volume {volume} Seite 1 von {pages}."
+				"description": "Keine Songs zum Abspielen als nächstes Songs hinzufügen von `{{prefix}}play <song_name>`",
+				"footer": "Derzeit ist das Server-Volume {{volume} Seite 1 von {pages}}."
 			}
 		},
 		"radio": {
@@ -234,10 +234,10 @@
 		"remove": {
 			"description": "Entfernen Sie ein Lied aus der Warteschlange",
 			"usage": "<Nummer>",
-			"missingargs": "Verwendung: `{prefix}remove <Warteschlangennummer>`",
-			"short": "Die Warteschlange ist nur {songs} Songs lang!",
+			"missingargs": "Verwendung: `{{prefix}}remove <Warteschlangennummer>`",
+			"short": "Die Warteschlange ist nur {{songs}} Songs lang!",
 			"embed": {
-				"description": "❌ **|** Entfernt: **`{song}`** aus der Warteschlange."
+				"description": "❌ **|** Entfernt: **`{{song}}`** aus der Warteschlange."
 			}
 		},
 		"resume": {
@@ -253,7 +253,7 @@
 			"missingargs": "Sie haben nicht angegeben, wonach gesucht werden soll",
 			"notfound": "Es sieht so aus, als ob ich das Lied auf YouTube nicht finden konnte",
 			"result": {
-				"author": "Ergebnisse für \"{args}\"",
+				"author": "Ergebnisse für \"{{args}}\"",
 				"footer": "Geben Sie die Nummer des Songs ein, um ihn der Warteschlange hinzuzufügen"
 			},
 			"selected": "Innerhalb von 20 Sekunden wurde nichts ausgewählt, die Anfrage wurde abgebrochen.",
@@ -269,10 +269,10 @@
 		"skipto": {
 			"description": "Springe zur ausgewählten Warteschlangennummer",
 			"usage": "<Nummer>",
-			"missingargs": "**Verwendung**: `{prefix}skipto <Nummer>`",
-			"short": "Die Warteschlange ist nur {songs} Songs lang!",
+			"missingargs": "**Verwendung**: `{{prefix}}skipto <Nummer>`",
+			"short": "Die Warteschlange ist nur {{songs}} Songs lang!",
 			"embed": {
-				"description": "{author} ⏭ übersprang `{songs}` songs"
+				"description": "{{author} ⏭ übersprang `{songs}}` songs"
 			}
 		},
 		"stop": {
@@ -281,14 +281,14 @@
 		},
 		"volume": {
 			"description": "Ändern Sie das Serverwarteschlangenvolumen",
-			"current": "Das aktuelle Volume ist: **{volume}**",
+			"current": "Das aktuelle Volume ist: **{{volume}}**",
 			"numbers": "Nur Zahlen!",
 			"between": "Sie können die Lautstärke nicht mehr als 150 oder weniger als 0 einstellen",
 			"embed": {
-				"description": "Ich stelle die Lautstärke auf: **{volume}/100**"
+				"description": "Ich stelle die Lautstärke auf: **{{volume}}/100**"
 			}
 		},
-		"pagination": "Seite {page} von {pages}.",
+		"pagination": "Seite {{page} von {pages}}.",
 		"searching": "🔍 Suche...",
 		"web": {
 			"index": {
@@ -350,13 +350,13 @@
 	    "notenabled": "Gildenpräfixe sind nicht aktiviert",
 	    "missingargs": "Sie haben kein neues Präfix angegeben",
 			"noargsembed": {
-	      "description": "Aktuelles Präfix ist `{oldprefix}`",
-	      "footer": "Verwendung: {oldprefix}prefix <Präfix>"
+	      "description": "Aktuelles Präfix ist `{{oldprefix}}`",
+	      "footer": "Verwendung: {{oldprefix}}prefix <Präfix>"
 	    },
 	    "embed": {
 	      "title": "Präfix",
-	      "description": "Präfix von `{oldprefix}` in `{newprefix}` geändert",
-	      "footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen/einzuladen"
+	      "description": "Präfix von `{{oldprefix}` in `{newprefix}}` geändert",
+	      "footer": "Verwenden Sie {{prefix}}invite, um den Bot zu Ihrem Server hinzuzufügen/einzuladen"
 	    }
 	  }
 	}
