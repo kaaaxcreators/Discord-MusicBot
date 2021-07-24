@@ -1,5 +1,9 @@
 {
   "files.eol": "\n",
   "editor.tabSize": 2,
-  "editor.useTabStops": false
+  "editor.useTabStops": false,
+  "i18n-ally.localesPaths": [
+    "locales"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

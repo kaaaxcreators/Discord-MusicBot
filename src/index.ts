@@ -77,8 +77,8 @@ const de = require('../locales/de.json');
 i18next.init({
   lng: config.LOCALE,
   resources: {
-    en,
-    de
+    en: { translation: en },
+    de: { translation: de }
   },
   compatibilityJSON: 'v3'
 });
