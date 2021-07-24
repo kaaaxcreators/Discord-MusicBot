@@ -1,3 +1,60 @@
+## [v2.4.0] - 2021-07-24
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.4.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.3.0...v2.4.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.4.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.4.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.4.0.tar.gz))
+
+### New features
+
+- [`d8727db`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d8727db)  Guildactions (#87)
+(Issues: [`#87`](https://github.com/kaaaxcreators/Discord-MusicBot/issues/87))
+
+### Security issues
+
+- [`e55bf1b`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/e55bf1b) ️ Security
+
+### Dependency updates
+
+- [`7aa55c7`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/7aa55c7)  Bump @typescript-eslint/parser from 4.26.1 to 4.27.0 (#46)
+(Issues: [`#46`](https://github.com/kaaaxcreators/Discord-MusicBot/issues/46))- [`6244f1e`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/6244f1e)  Bump @typescript-eslint/eslint-plugin from 4.26.1 to 4.27.0
+- [`b8a37d4`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b8a37d4)  Bump typescript from 4.3.2 to 4.3.3
+- [`878d511`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/878d511)  Bump typescript from 4.3.3 to 4.3.4
+- [`32b93b7`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/32b93b7)  Bump youtube-sr from 4.1.4 to 4.1.5
+- [`9616785`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/9616785)  Bump discord-ytdl-core from 5.0.3 to 5.0.4
+- [`7ce4efd`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/7ce4efd)  Bump yt-search from 2.8.0 to 2.9.0
+- [`b92fe98`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b92fe98)  Bump eslint from 7.28.0 to 7.29.0
+- [`daef7e3`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/daef7e3)  Bump ffmpeg-static from 4.3.0 to 4.4.0
+- [`ae08b91`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/ae08b91)  Bump @typescript-eslint/parser from 4.27.0 to 4.28.0
+- [`99169b3`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/99169b3)  Bump @typescript-eslint/eslint-plugin from 4.27.0 to 4.28.0
+- [`f7208bc`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/f7208bc)  Bump prettier from 2.3.1 to 2.3.2
+- [`b03d43a`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b03d43a)  Bump ytdl-core from 4.8.2 to 4.8.3
+- [`f820fe7`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/f820fe7)  Bump @typescript-eslint/parser from 4.28.0 to 4.28.1
+- [`e6ec953`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/e6ec953)  Bump @typescript-eslint/eslint-plugin from 4.28.0 to 4.28.1
+- [`3e5949d`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/3e5949d)  Bump jsoning from 0.11.21 to 0.11.22
+- [`4a18edf`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/4a18edf)  Bump youtube-sr from 4.1.5 to 4.1.6
+- [`74ae071`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/74ae071)  Bump typescript from 4.3.4 to 4.3.5
+- [`8af0c65`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/8af0c65)  Bump @types/yt-search from 2.3.0 to 2.3.1
+- [`8cb1076`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/8cb1076)  Bump youtube-sr from 4.1.6 to 4.1.7
+- [`ddd50bc`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/ddd50bc)  Bump eslint from 7.29.0 to 7.30.0
+- [`9ea4f80`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/9ea4f80)  Bump @typescript-eslint/eslint-plugin from 4.28.1 to 4.28.2
+- [`7cc3385`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/7cc3385)  Bump @typescript-eslint/parser from 4.28.1 to 4.28.2
+- [`3b0250f`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/3b0250f)  Bump @types/node-fetch from 2.5.10 to 2.5.11
+- [`27807c0`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/27807c0)  Bump @types/express-session from 1.17.3 to 1.17.4
+- [`52e5bc0`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/52e5bc0)  Bump @types/jquery from 3.5.5 to 3.5.6
+- [`d048fd2`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d048fd2)  Bump @types/i18n from 0.13.0 to 0.13.1
+- [`b45de3a`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b45de3a)  Bump express-rate-limit from 5.2.6 to 5.3.0
+- [`02190bd`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/02190bd)  Bump @types/passport from 1.0.6 to 1.0.7
+- [`eaae812`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/eaae812)  Bump @types/express-rate-limit from 5.1.2 to 5.1.3
+- [`115fc3e`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/115fc3e)  Bump @types/express from 4.17.12 to 4.17.13
+- [`42a84f6`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/42a84f6)  Bump @types/dotenv-safe from 8.1.1 to 8.1.2
+- [`37617a3`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/37617a3)  Bump @types/passport-discord from 0.1.3 to 0.1.4
+- [`cd71d3c`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/cd71d3c)  Bump @types/livereload from 0.9.0 to 0.9.1
+- [`a7e6815`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/a7e6815)  Bump socket.io from 4.1.2 to 4.1.3
+- [`9e93f50`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/9e93f50)  Bump @typescript-eslint/eslint-plugin from 4.28.2 to 4.28.3
+- [`1feeb11`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/1feeb11)  Bump @typescript-eslint/parser from 4.28.2 to 4.28.3
+- [`b65ab2a`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b65ab2a)  Bump eslint from 7.30.0 to 7.31.0
+- [`077730e`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/077730e)  Bump @typescript-eslint/parser from 4.28.3 to 4.28.4
+- [`1619634`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/1619634)  Bump @typescript-eslint/eslint-plugin from 4.28.3 to 4.28.4
+- [`d726c5a`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d726c5a)  Bump ytdl-core from 4.8.3 to 4.9.0
+
 ## [v2.3.0] - 2021-06-14
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.3.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.2.0...v2.3.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.3.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.3.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.3.0.tar.gz))
