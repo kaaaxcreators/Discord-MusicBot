@@ -84,7 +84,10 @@ api.get('/api/commands', (req, res) => {
 });
 
 api.get('/api/translations', (req, res) => {
-  res.send({ translations: i18next.getDataByLanguage(config.LOCALE), locale: config.LOCALE });
+  res.send({
+    translations: i18next.getDataByLanguage(config.LOCALE)?.translation,
+    locale: config.LOCALE
+  });
 });
 
 api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
