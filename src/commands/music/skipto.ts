@@ -1,17 +1,16 @@
 import { Client, Message } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config, queue as Queue } from '../../index';
+import { Command, queue as Queue } from '../../index';
 import { getPrefix } from '../../util/database';
-i18n.setLocale(config.LOCALE);
 import sendError from '../../util/error';
 import console from '../../util/logger';
 
 module.exports = {
   info: {
     name: 'skipto',
-    description: i18n.__('skipto.description'),
-    usage: i18n.__('skipto.usage'),
+    description: i18next.t('skipto.description'),
+    usage: i18next.t('skipto.usage'),
     aliases: ['st'],
     categorie: 'music',
     permissions: {
@@ -25,14 +24,14 @@ module.exports = {
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
     ) {
-      return sendError(i18n.__('error.samevc'), message.channel);
+      return sendError(i18next.t('error.samevc'), message.channel);
     }
     if (!args.length || isNaN(Number(args[0]))) {
       return message.channel
         .send({
           embed: {
             color: 'GREEN',
-            description: i18n.__mf('skipto.missingargs', { prefix: await getPrefix(message) })
+            description: i18next.t('skipto.missingargs', { prefix: await getPrefix(message) })!
           }
         })
         .catch(console.error);
@@ -40,11 +39,11 @@ module.exports = {
 
     const queue = Queue.get(message.guild!.id);
     if (!queue) {
-      return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
+      return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
     if (Number(args[0]) > queue.songs.length) {
       return sendError(
-        i18n.__mf('skipto.short', { songs: queue.songs.length }),
+        i18next.t('skipto.short', { songs: queue.songs.length }),
         message.channel
       ).catch(console.error);
     }
@@ -63,17 +62,17 @@ module.exports = {
     } catch (error) {
       queue.voiceChannel.leave();
       Queue.delete(message.guild!.id);
-      return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
+      return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
 
     queue.textChannel
       .send({
         embed: {
           color: 'GREEN',
-          description: i18n.__mf('skipto.embed.description', {
+          description: i18next.t('skipto.embed.description', {
             author: '<@' + message.author + '>',
             songs: Number(args[0]) - 1
-          })
+          })!
         }
       })
       .catch(console.error);

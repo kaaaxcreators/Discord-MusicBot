@@ -1,9 +1,7 @@
-import i18n from 'i18n';
+import i18next from 'i18next';
 import pMS from 'pretty-ms';
 import { Server } from 'socket.io';
 
-import { config } from '../../index';
-i18n.setLocale(config.LOCALE);
 import ProgressBar from '../../util/ProgressBar';
 
 function socket(io: Server): void {
@@ -53,13 +51,13 @@ function socket(io: Server): void {
         if (!player) {
           socket.emit('server', {
             queue: 0,
-            songsLoop: i18n.__('socket.disabled'),
+            songsLoop: i18next.t('socket.disabled'),
             prefix: prefix
           });
         } else {
           socket.emit('server', {
             queue: player.songs ? player.songs.length : 0,
-            songsLoop: player.loop ? i18n.__('socket.enabled') : i18n.__('socket.disabled'),
+            songsLoop: player.loop ? i18next.t('socket.enabled') : i18next.t('socket.disabled'),
             prefix: prefix,
             bar:
               player.songs[0] && player.connection
@@ -74,7 +72,7 @@ function socket(io: Server): void {
             maxDuration:
               player.songs[0] && player.connection
                 ? player.songs[0].live
-                  ? i18n.__('nowplaying.live')
+                  ? i18next.t('nowplaying.live')
                   : pMS(player.songs[0].duration, {
                       colonNotation: true,
                       secondsDecimalDigits: 0

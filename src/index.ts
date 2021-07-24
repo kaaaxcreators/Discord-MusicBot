@@ -19,8 +19,7 @@ try {
 }
 
 import { existsSync, mkdirSync, readdir } from 'fs';
-import i18n from 'i18n';
-import path from 'path';
+import i18next from 'i18next';
 
 import docs from './docs';
 import console from './util/logger';
@@ -70,23 +69,19 @@ export const Stats = {
   songsPlayed: 0
 };
 
-// Configure i18n
-i18n.configure({
-  locales: locales,
-  directory: path.join(__dirname, '/../locales'),
-  defaultLocale: 'en',
-  objectNotation: true,
-  register: global,
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const en = require('../locales/en.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const de = require('../locales/de.json');
 
-  logWarnFn: function (msg) {
-    console.info(msg);
+i18next.init({
+  lng: config.LOCALE,
+  resources: {
+    en,
+    de
   },
-
-  logErrorFn: function (msg) {
-    console.info(msg);
-  }
+  compatibilityJSON: 'v3'
 });
-i18n.setLocale(config.LOCALE);
 
 // Generate Docs if Env is set
 if (process.env.DOCS == 'true') {
@@ -103,7 +98,7 @@ readdir(__dirname + '/events/', (err, files) => {
     const event = require(__dirname + `/events/${file}`);
     const eventName = file.split('.')[0];
     client.on(eventName, event.bind(null, client));
-    console.info(i18n.__('index.event') + ' ' + eventName);
+    console.info(i18next.t('index.event') + ' ' + eventName);
   });
 });
 
@@ -120,7 +115,7 @@ readdir(__dirname + '/commands/music', (err, files) => {
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.info(i18n.__('index.command.music') + ' ' + commandName);
+    console.info(i18next.t('index.command.music') + ' ' + commandName);
   });
 });
 
@@ -137,7 +132,7 @@ readdir(__dirname + '/commands/general', (err, files) => {
     const props = require(__dirname + `/commands/general/${file}`);
     const commandName = file.split('.')[0];
     commands.set(commandName, props);
-    console.info(i18n.__('index.command.general') + ' ' + commandName);
+    console.info(i18next.t('index.command.general') + ' ' + commandName);
   });
 });
 
@@ -156,9 +151,9 @@ try {
 // Custom Bad Token Error Handling
 function LoginError(err: Error) {
   console.info(
-    i18n.__('error.occurred') + ' ' + err.message
-      ? err.message == i18n.__('index.token.invalid')
-        ? i18n.__('index.token.env')
+    i18next.t('error.occurred') + ' ' + err.message
+      ? err.message == i18next.t('index.token.invalid')
+        ? i18next.t('index.token.env')
         : err.message
       : err
   );
@@ -168,10 +163,10 @@ function LoginError(err: Error) {
 // Custom Missing Env Vars Error Handling
 function EnvError(err: MissingEnvVarsError) {
   console.info(
-    i18n.__('error.occurred') + ' ' + err.missing
-      ? `${i18n.__('index.env.missing')} ${err.missing
+    i18next.t('error.occurred') + ' ' + err.missing
+      ? `${i18next.t('index.env.missing')} ${err.missing
           .map((err) => `"${err}"`)
-          .join(', ')}\n${i18n.__('index.env.add')}`
+          .join(', ')}\n${i18next.t('index.env.add')}`
       : err.message
       ? err.message
       : err

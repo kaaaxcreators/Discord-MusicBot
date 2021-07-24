@@ -1,5 +1,5 @@
 import { Client, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import millify from 'millify';
 import moment from 'moment';
 import pMS from 'pretty-ms';
@@ -8,17 +8,16 @@ import spdl from 'spdl-core';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
 
-import { Command, config, IQueue, queue } from '../../index';
-import console from '../../util/logger';
-i18n.setLocale(config.LOCALE);
+import { Command, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
+import console from '../../util/logger';
 import play, { Song } from '../../util/playing';
 
 module.exports = {
   info: {
     name: 'play',
-    description: i18n.__('play.description'),
-    usage: i18n.__('play.usage'),
+    description: i18next.t('play.description'),
+    usage: i18next.t('play.usage'),
     aliases: ['p'],
     categorie: 'music',
     permissions: {
@@ -37,12 +36,12 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
     if (!channel) {
-      return sendError(i18n.__('error.needvc'), message.channel);
+      return sendError(i18next.t('error.needvc'), message.channel);
     }
 
     const searchString = args.join(' ');
     if (!searchString) {
-      return sendError(i18n.__('play.missingargs'), message.channel);
+      return sendError(i18next.t('play.missingargs'), message.channel);
     }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const serverQueue = queue.get(message.guild!.id);
@@ -50,13 +49,13 @@ module.exports = {
     let songInfo;
     let song: Song;
     const searchtext = await message.channel.send({
-      embed: { description: i18n.__('searching') } as MessageEmbedOptions
+      embed: { description: i18next.t('searching') } as MessageEmbedOptions
     });
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
         songInfo = await ytdl.getInfo(url);
         if (!songInfo) {
-          return sendError(i18n.__('play.notfound.youtube'), message.channel);
+          return sendError(i18next.t('play.notfound.youtube'), message.channel);
         }
         song = {
           id: songInfo.videoDetails.videoId,
@@ -74,7 +73,7 @@ module.exports = {
           searchtext.delete();
         }
         return sendError(
-          i18n.__('error.occurred') + ' ' + error.message || error,
+          i18next.t('error.occurred') + ' ' + error.message || error,
           message.channel
         ).catch(console.error);
       }
@@ -82,7 +81,7 @@ module.exports = {
       try {
         songInfo = await scdl.getInfo(url);
         if (!songInfo) {
-          return sendError(i18n.__('play.notfound.soundcloud'), message.channel);
+          return sendError(i18next.t('play.notfound.soundcloud'), message.channel);
         }
         song = {
           id: songInfo.permalink!,
@@ -99,7 +98,7 @@ module.exports = {
           searchtext.delete();
         }
         return sendError(
-          i18n.__('error.occurred') + ' ' + error.message || error,
+          i18next.t('error.occurred') + ' ' + error.message || error,
           message.channel
         ).catch(console.error);
       }
@@ -107,7 +106,7 @@ module.exports = {
       try {
         songInfo = await spdl.getInfo(url);
         if (!songInfo) {
-          return sendError(i18n.__('play.notfound.spotify'), message.channel);
+          return sendError(i18next.t('play.notfound.spotify'), message.channel);
         }
         song = {
           id: songInfo.id,
@@ -124,7 +123,7 @@ module.exports = {
           searchtext.delete();
         }
         return sendError(
-          i18n.__('error.occurred') + ' ' + error.message || error,
+          i18next.t('error.occurred') + ' ' + error.message || error,
           message.channel
         ).catch(console.error);
       }
@@ -132,7 +131,7 @@ module.exports = {
       try {
         const searched = await yts.search(searchString);
         if (searched.videos.length === 0) {
-          return sendError(i18n.__('play.notfound.youtube'), message.channel);
+          return sendError(i18next.t('play.notfound.youtube'), message.channel);
         }
 
         songInfo = searched.videos[0];
@@ -151,7 +150,7 @@ module.exports = {
           searchtext.delete();
         }
         return sendError(
-          i18n.__('error.occurred') + ' ' + error.message || error,
+          i18next.t('error.occurred') + ' ' + error.message || error,
           message.channel
         ).catch(console.error);
       }
@@ -161,19 +160,21 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          i18n.__('play.embed.author'),
+          i18next.t('play.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img!)
         .setColor('YELLOW')
-        .addField(i18n.__('play.embed.name'), `[${song.title}](${song.url})`, true)
+        .addField(i18next.t('play.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(
-          i18n.__('play.embed.duration'),
-          song.live ? i18n.__('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
+          i18next.t('play.embed.duration'),
+          song.live
+            ? i18next.t('nowplaying.live')
+            : pMS(song.duration, { secondsDecimalDigits: 0 }),
           true
         )
-        .addField(i18n.__('play.embed.request'), song.req.tag, true)
-        .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
+        .addField(i18next.t('play.embed.request'), song.req.tag, true)
+        .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
       return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
     }
 
@@ -195,10 +196,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message, searchtext);
     } catch (error) {
-      console.error(`${i18n.__('error.join')} ${error}`);
+      console.error(`${i18next.t('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
+      return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;

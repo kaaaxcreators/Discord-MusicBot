@@ -8,13 +8,12 @@ import {
   User
 } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import pMS from 'pretty-ms';
 import scdl from 'soundcloud-downloader/dist/index';
 import spdl from 'spdl-core';
 
-import { config, queue as Queue, Stats } from '../index';
-i18n.setLocale(config.LOCALE);
+import { queue as Queue, Stats } from '../index';
 import sendError from '../util/error';
 import play from './playing';
 
@@ -61,7 +60,7 @@ export default {
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
-            return sendError(`${i18n.__('error.possible')} \`${err}\``, message.channel);
+            return sendError(`${i18next.t('error.possible')} \`${err}\``, message.channel);
           }
         });
       } else if (song.url.includes('spotify.com')) {
@@ -75,7 +74,7 @@ export default {
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
-            return sendError(`${i18n.__('error.possible')} \`${err}\``, message.channel);
+            return sendError(`${i18next.t('error.possible')} \`${err}\``, message.channel);
           }
         });
       } else if (song.id == 'radio') {
@@ -111,19 +110,19 @@ export default {
 
     const embed = new MessageEmbed()
       .setAuthor(
-        i18n.__('music.started'),
+        i18next.t('music.started'),
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setThumbnail(song.img)
       .setColor('BLUE')
-      .addField(i18n.__('music.name'), `[${song.title}](${song.url})`, true)
+      .addField(i18next.t('music.name'), `[${song.title}](${song.url})`, true)
       .addField(
-        i18n.__('music.duration'),
-        song.live ? i18n.__('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
+        i18next.t('music.duration'),
+        song.live ? i18next.t('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
         true
       )
-      .addField(i18n.__('music.request'), song.req.tag, true)
-      .setFooter(`${i18n.__('music.views')} ${song.views} | ${song.ago}`);
+      .addField(i18next.t('music.request'), song.req.tag, true)
+      .setFooter(`${i18next.t('music.views')} ${song.views} | ${song.ago}`);
     if (searchMessage && searchMessage.editable) {
       searchMessage.edit(embed);
     } else {

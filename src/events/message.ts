@@ -1,11 +1,10 @@
 import didYouMean from 'didyoumean2';
 import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 import events from 'events';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
 import { commands, config, Stats } from '../index';
 import { getGuild } from '../util/database';
-i18n.setLocale(config.LOCALE);
 import sendError from '../util/error';
 
 module.exports = async (client: Client, message: Message) => {
@@ -58,7 +57,7 @@ module.exports = async (client: Client, message: Message) => {
   if (cmd && cmd.run) {
     // Only run General Commands in DM
     if (cmd.info.categorie != 'general' && message.channel.type == 'dm') {
-      return sendError(i18n.__('message.onlygeneral'), message.channel);
+      return sendError(i18next.t('message.onlygeneral'), message.channel);
     }
     // Check for Bot Permissions only on Servers
     if (cmd.info.permissions && message.channel.type != 'dm') {
@@ -68,7 +67,7 @@ module.exports = async (client: Client, message: Message) => {
         !message.channel.permissionsFor(client.user!)?.has(cmd.info.permissions.channel)
       ) {
         return sendError(
-          i18n.__('message.permissions.member') +
+          i18next.t('message.permissions.member') +
             cmd.info.permissions.channel.map((perm) => `• ${perm}`).join('\n'),
           message.channel
         );
@@ -79,7 +78,7 @@ module.exports = async (client: Client, message: Message) => {
         !message.channel.permissionsFor(message.member!)?.has(cmd.info.permissions.member)
       ) {
         return sendError(
-          i18n.__('message.permissions.member') +
+          i18next.t('message.permissions.member') +
             cmd.info.permissions.member.map((perm) => `• ${perm}`).join('\n'),
           message.channel
         );
@@ -97,10 +96,10 @@ module.exports = async (client: Client, message: Message) => {
         const embed = new MessageEmbed()
           .setTitle('🤔 didyoumean')
           .setTimestamp()
-          .setDescription(i18n.__mf('message.dym', { command: result }))
+          .setDescription(i18next.t('message.dym', { command: result }))
           .addField(
-            i18n.__('help.spec.description'),
-            commands.get(result)?.info.description || i18n.__('error.something')
+            i18next.t('help.spec.description'),
+            commands.get(result)?.info.description || i18next.t('error.something')
           )
           .setColor('DARK_VIVID_PINK')
           .setFooter(message.author.username, message.author.avatarURL()!);

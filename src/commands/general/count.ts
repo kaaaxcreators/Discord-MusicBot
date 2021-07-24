@@ -1,14 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config } from '../../index';
+import { Command } from '../../index';
 import { getPrefix } from '../../util/database';
-i18n.setLocale(config.LOCALE);
 
 module.exports = {
   info: {
     name: 'count',
-    description: i18n.__('count.description'),
+    description: i18next.t('count.description'),
     usage: '',
     aliases: ['servercount'],
     categorie: 'general',
@@ -20,8 +19,8 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
-      .setDescription(i18n.__mf('count.embed.description', { servers: client.guilds.cache.size }))
-      .setFooter(i18n.__mf('count.embed.footer', { prefix: await getPrefix(message) }));
+      .setDescription(i18next.t('count.embed.description', { servers: client.guilds.cache.size }))
+      .setFooter(i18next.t('count.embed.footer', { prefix: await getPrefix(message) }));
     return message.channel.send(embed);
   }
 } as Command;

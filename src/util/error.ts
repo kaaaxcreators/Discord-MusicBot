@@ -1,8 +1,5 @@
 import { DMChannel, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
-import i18n from 'i18n';
-
-import { config } from '../index';
-i18n.setLocale(config.LOCALE);
+import i18next from 'i18next';
 
 /**
  * Easier to send errors instead of doing it over and over
@@ -16,6 +13,6 @@ export default async (
   const embed = new MessageEmbed()
     .setColor('RED')
     .setDescription(text)
-    .setFooter(i18n.__('error.something'));
+    .setFooter(i18next.t('error.something'));
   await channel.send(embed);
 };

@@ -1,14 +1,13 @@
 import { Client, Message } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config, queue } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'stop',
-    description: i18n.__('stop.description'),
+    description: i18next.t('stop.description'),
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -23,11 +22,11 @@ module.exports = {
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
     ) {
-      return sendError(i18n.__('error.samevc'), message.channel);
+      return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) {
-      return sendError(i18n.__('stop.nothing'), message.channel);
+      return sendError(i18next.t('stop.nothing'), message.channel);
     }
     if (!serverQueue.connection) {
       return;
@@ -40,7 +39,7 @@ module.exports = {
     } catch (error) {
       message.guild!.me!.voice.channel!.leave();
       queue.delete(message.guild!.id);
-      return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
+      return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
     queue.delete(message.guild!.id);
     serverQueue.songs = [];

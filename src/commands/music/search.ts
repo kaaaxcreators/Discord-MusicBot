@@ -1,19 +1,18 @@
 import { Client, Collection, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import millify from 'millify';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
-import { Command, config, IQueue, queue } from '../../index';
-import console from '../../util/logger';
-i18n.setLocale(config.LOCALE);
+import { Command, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
+import console from '../../util/logger';
 import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'search',
-    description: i18n.__('search.description'),
-    usage: i18n.__('search.usage'),
+    description: i18next.t('search.description'),
+    usage: i18next.t('search.usage'),
     aliases: ['sc'],
     categorie: 'music',
     permissions: {
@@ -25,12 +24,12 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
     if (!channel) {
-      return sendError(i18n.__('error.needvc'), message.channel);
+      return sendError(i18next.t('error.needvc'), message.channel);
     }
 
     const searchString = args.join(' ');
     if (!searchString) {
-      return sendError(i18n.__('search.missingargs'), message.channel);
+      return sendError(i18next.t('search.missingargs'), message.channel);
     }
 
     const serverQueue = queue.get(message.guild!.id);
@@ -38,17 +37,17 @@ module.exports = {
     let video: Video;
     try {
       const searchtext = await message.channel.send({
-        embed: { description: i18n.__('searching') } as MessageEmbedOptions
+        embed: { description: i18next.t('searching') } as MessageEmbedOptions
       });
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
       if (searched[0] == undefined) {
-        return sendError(i18n.__('search.notfound'), message.channel);
+        return sendError(i18next.t('search.notfound'), message.channel);
       }
       let index = 0;
       const embed = new MessageEmbed()
         .setColor('BLUE')
         .setAuthor(
-          i18n.__mf('search.result.author', { args: args.join(' ') }),
+          i18next.t('search.result.author', { args: args.join(' ') }),
           message.author.displayAvatarURL()
         )
         .setDescription(
@@ -61,7 +60,7 @@ module.exports = {
             )
             .join('\n')}`
         )
-        .setFooter(i18n.__('search.result.footer'));
+        .setFooter(i18next.t('search.result.footer'));
       (searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed)).then((m) =>
         m.delete({ timeout: 15000 })
       );
@@ -79,7 +78,7 @@ module.exports = {
         return message.channel.send({
           embed: {
             color: 'RED',
-            description: i18n.__('search.selected')
+            description: i18next.t('search.selected')!
           }
         });
       }
@@ -90,7 +89,7 @@ module.exports = {
       return message.channel.send({
         embed: {
           color: 'RED',
-          description: i18n.__('search.noresults')
+          description: i18next.t('search.noresults')!
         }
       });
     }
@@ -112,19 +111,19 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          i18n.__('play.embed.author'),
+          i18next.t('play.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img)
         .setColor('YELLOW')
-        .addField(i18n.__('play.embed.name'), `[${song.title}](${song.url})`, true)
+        .addField(i18next.t('play.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(
-          i18n.__('play.embed.duration'),
+          i18next.t('play.embed.duration'),
           pMS(song.duration, { secondsDecimalDigits: 0 }),
           true
         )
-        .addField(i18n.__('play.embed.request'), song.req.tag, true)
-        .setFooter(`${i18n.__('play.embed.views')} ${song.views} | ${song.ago}`);
+        .addField(i18next.t('play.embed.request'), song.req.tag, true)
+        .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
     }
 
@@ -145,10 +144,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(`${i18n.__('error.join')} ${error}`);
+      console.error(`${i18next.t('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
+      return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;

@@ -1,8 +1,5 @@
 import { Message, User } from 'discord.js';
-import i18n from 'i18n';
-
-import { config } from '../index';
-i18n.setLocale(config.LOCALE);
+import i18next from 'i18next';
 
 export default class Util {
   static chunk(arr: string[], size: number): string[][] {
@@ -58,7 +55,7 @@ export default class Util {
 
         const embed = msg.embeds[0]
           .setDescription(contents[currPage])
-          .setFooter(i18n.__mf('pagination', { page: currPage + 1, pages: contents.length }));
+          .setFooter(i18next.t('pagination', { page: currPage + 1, pages: contents.length }));
 
         msg.edit(embed);
 

@@ -2,7 +2,7 @@ import connectLivereload from 'connect-livereload';
 import { MessageEmbed, Permissions, TextChannel, Util, VoiceChannel } from 'discord.js';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import livereload from 'livereload';
 import millify from 'millify';
 import moment from 'moment';
@@ -16,8 +16,6 @@ import ytdl from 'ytdl-core';
 import { client, commands, config, IQueue } from '../index';
 import database, { getGuild } from '../util/database';
 import play, { Song } from '../util/playing';
-i18n.setLocale(config.LOCALE);
-
 import Auth from './Middlewares/Auth';
 import GuildActions from './Middlewares/GuildActions';
 
@@ -86,7 +84,7 @@ api.get('/api/commands', (req, res) => {
 });
 
 api.get('/api/translations', (req, res) => {
-  res.send({ translations: i18n.getCatalog(config.LOCALE), locale: config.LOCALE });
+  res.send({ translations: i18next.getDataByLanguage(config.LOCALE), locale: config.LOCALE });
 });
 
 api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
@@ -245,14 +243,16 @@ api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
         )
         .setThumbnail(Song.img!)
         .setColor('YELLOW')
-        .addField(i18n.__('play.embed.name'), `[${Song.title}](${Song.url})`, true)
+        .addField(i18next.t('play.embed.name'), `[${Song.title}](${Song.url})`, true)
         .addField(
-          i18n.__('play.embed.duration'),
-          Song.live ? i18n.__('nowplaying.live') : pMS(Song.duration, { secondsDecimalDigits: 0 }),
+          i18next.t('play.embed.duration'),
+          Song.live
+            ? i18next.t('nowplaying.live')
+            : pMS(Song.duration, { secondsDecimalDigits: 0 }),
           true
         )
-        .addField(i18n.__('play.embed.request'), Song.req.tag, true)
-        .setFooter(`${i18n.__('play.embed.views')} ${Song.views} | ${Song.ago}`);
+        .addField(i18next.t('play.embed.request'), Song.req.tag, true)
+        .setFooter(`${i18next.t('play.embed.views')} ${Song.views} | ${Song.ago}`);
       serverQueue.textChannel.send(embed);
       return res.json(Song);
     } else {
@@ -298,10 +298,10 @@ api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
             };
             play.play(queueConstruct.songs[0], message);
           } catch (error) {
-            console.error(`${i18n.__('error.join')} ${error}`);
+            console.error(`${i18next.t('error.join')} ${error}`);
             (await import('../index')).queue.delete(id);
             voiceChannel.leave();
-            return res.status(500).json({ status: i18n.__('error.join') });
+            return res.status(500).json({ status: i18next.t('error.join') });
           }
           return res.json({ status: 200 });
         } else {

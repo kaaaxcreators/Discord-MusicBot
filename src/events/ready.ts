@@ -1,12 +1,11 @@
 import { Client } from 'discord.js';
 import Express from 'express';
 import http from 'http';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import { Server } from 'socket.io';
 
 import { config } from '../index';
 import console, { exit } from '../util/logger';
-i18n.setLocale(config.LOCALE);
 
 module.exports = async (client: Client) => {
   let server: http.Server;
@@ -14,7 +13,7 @@ module.exports = async (client: Client) => {
     // Create API
     server = Express()
       .use('/', (await import('../api/index')).default)
-      .listen(process.env.PORT || 8080, () => console.info(i18n.__('server.ready')));
+      .listen(process.env.PORT || 8080, () => console.info(i18next.t('server.ready')));
     (await import('../api/socket/index')).default(new Server(server));
   }
   // Handle SigInt (Strg + c)
@@ -31,7 +30,7 @@ module.exports = async (client: Client) => {
       exit();
     }
   });
-  console.info(`${i18n.__('ready.loggedin')} ${client.user!.username}`);
+  console.info(`${i18next.t('ready.loggedin')} ${client.user!.username}`);
   client.user!.setPresence({
     status: 'online', // You can show online, idle, and dnd
     activity: {

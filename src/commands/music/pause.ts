@@ -1,14 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config, queue } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'pause',
-    description: i18n.__('pause.description'),
+    description: i18next.t('pause.description'),
     usage: '',
     aliases: [],
     categorie: 'music',
@@ -23,7 +22,7 @@ module.exports = {
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
     ) {
-      return sendError(i18n.__('error.samevc'), message.channel);
+      return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
     if (serverQueue && serverQueue.playing) {
@@ -32,14 +31,14 @@ module.exports = {
         serverQueue.connection!.dispatcher.pause();
       } catch (error) {
         queue.delete(message.guild!.id);
-        return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
+        return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
       }
       const embed = new MessageEmbed()
-        .setDescription(i18n.__('pause.embed.description'))
+        .setDescription(i18next.t('pause.embed.description'))
         .setColor('YELLOW')
-        .setTitle(i18n.__('pause.embed.title'));
+        .setTitle(i18next.t('pause.embed.title'));
       return message.channel.send(embed);
     }
-    return sendError(i18n.__('error.noqueue'), message.channel);
+    return sendError(i18next.t('error.noqueue'), message.channel);
   }
 } as Command;
