@@ -217,7 +217,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
       }
     } else {
       try {
-        const searched = await yts.search(song);
+        const searched = await yts.search(escapeRegExp(song));
         if (searched.videos.length === 0) {
           return res.status(404).json({ status: 404 });
         }
@@ -434,5 +434,33 @@ api.get('/logout', (req, res) => {
   }
   res.redirect('/');
 });
+
+// 404 Error Handling at the End
+api.all('*', (req, res) => {
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.sendFile(join(__dirname, '../../views/404.html'));
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.json({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
+
+/**
+ * Escape Regex String
+ * @author <https://stackoverflow.com/a/3561711> - Modified
+ */
+function escapeRegExp(string: string) {
+  return string.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
 
 export default api;
