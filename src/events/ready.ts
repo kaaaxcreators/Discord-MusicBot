@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import { Server } from 'socket.io';
 
 import { config } from '../index';
-import console, { exit } from '../util/logger';
+import console from '../util/logger';
 
 module.exports = async (client: Client) => {
   let server: http.Server;
@@ -27,7 +27,7 @@ module.exports = async (client: Client) => {
         console.info('Stopped Server');
       }
     } finally {
-      exit();
+      process.exit();
     }
   });
   console.info(`${i18next.t('ready.loggedin')} ${client.user!.username}`);

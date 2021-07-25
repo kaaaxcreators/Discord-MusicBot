@@ -53,13 +53,15 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 - `DISABLE_WEB`: Check [here](#-disabling-dashboard)
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
+- `GUILDPREFIX`: Check [here](#-guild-prefix)
+- `GUILDACTIONS`: Check [here](#-guild-actions)
 <!-- - `GUILDPREFIX`: Check [here](#-guild-prefix) -->
 
 ## 📑 Commands
 
 A List of all available commands is available [here](COMMANDS.md)
 
-## 💨 Run Projects
+## 💨 Run Project
 
 ### 🐳 Docker
 
@@ -119,6 +121,20 @@ Enter [Environment Variables](#-environment-variables)
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
 
+### Directly
+
+Install NodeJS v14.0.0 or higher
+
+Run `npm i` to install required packages
+
+Run `npm run deploy` to compile and start the Bot
+
+#### System Requirements
+
+You'll need 1 Core and 200MB of RAM to run this Bot on multiple servers
+
+Connected to 2 VC playing music draws 100MB and 20% CPU (3,3 GHz)
+
 ## 🌐 Localization
 
 You can add and contribute to Languages [here](https://poeditor.com/join/project?hash=vC5ESOmMLK)
@@ -162,14 +178,15 @@ Uses [didyoumean2](https://www.npmjs.com/package/didyoumean2)
 
 Be able to change Prefixes on per Guild basis
 
-<!-- Enable it by setting a Env Var `GUILDPREFIX` with content/value `true` -->
-Don't use in this state! Has many bugs and doesn't work e.g. in commands
+Enable it by setting a Env Var `GUILDPREFIX` with content/value `true`
 
 ## <img src="https://static.thenounproject.com/png/333746-200.png" width="32" height="32" align="left"> Guild Actions
 
 Allow Users to change Settings in the Dashboard (Prefix, Queue, ...)
 
 Enable it by setting a Env Var `GUILDACTIONS` with content/value `true`
+
+🔒 Security Warning: This feature is not secure! No [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) Protection! If you change permissions and that person doesn't log out of the dashboard, they can still e.g. change the prefix
 
 ## ©️ Credits
 
