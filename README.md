@@ -61,7 +61,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 
 A List of all available commands is available [here](COMMANDS.md)
 
-## 💨 Run Projects
+## 💨 Run Project
 
 ### 🐳 Docker
 
@@ -120,6 +120,20 @@ Rename `.env.example` to `.env`
 Enter [Environment Variables](#-environment-variables)
 
 💤24/7: [Glitch doesn't support 24/7 in Free Plans](https://support.glitch.com/t/ping-service-block-june-13-7-56-a-m-to-present/26443)
+
+### Directly
+
+Install NodeJS v14.0.0 or higher
+
+Run `npm i` to install required packages
+
+Run `npm run deploy` to compile and start the Bot
+
+#### System Requirements
+
+You'll need 1 Core and 200MB of RAM to run this Bot on multiple servers
+
+Connected to 2 VC playing music draws 100MB and 20% CPU (3,3 GHz)
 
 ## 🌐 Localization
 
