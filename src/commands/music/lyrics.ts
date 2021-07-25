@@ -1,17 +1,16 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import lyricsFinder from 'lyrics-finder';
 
-import { Command, config, queue as Queue } from '../../index';
-import console from '../../util/logger';
-i18n.setLocale(config.LOCALE);
+import { Command, queue as Queue } from '../../index';
 import sendError from '../../util/error';
+import console from '../../util/logger';
 import Util from '../../util/pagination';
 
 module.exports = {
   info: {
     name: 'lyrics',
-    description: i18n.__('lyrics.description'),
+    description: i18next.t('lyrics.description'),
     usage: '',
     aliases: ['ly'],
     categorie: 'music',
@@ -24,7 +23,7 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     const queue = Queue.get(message.guild!.id);
     if (!queue) {
-      return sendError(i18n.__('error.noqueue'), message.channel).catch(console.error);
+      return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
 
     let lyrics: string[] = [];
@@ -32,22 +31,22 @@ module.exports = {
     try {
       lyrics = await lyricsFinder(queue.songs[0].title);
       if (!lyrics) {
-        lyrics = [`${i18n.__('lyrics.notfound')} ${queue.songs[0].title}.`];
+        lyrics = [`${i18next.t('lyrics.notfound')} ${queue.songs[0].title}.`];
       }
     } catch (error) {
-      lyrics = [`${i18n.__('lyrics.notfound')} ${queue.songs[0].title}.`];
+      lyrics = [`${i18next.t('lyrics.notfound')} ${queue.songs[0].title}.`];
     }
     const splittedLyrics = Util.chunk(lyrics, 1024);
 
     const embed = new MessageEmbed()
       .setAuthor(
-        i18n.__mf('lyrics.embed.author', { song: queue.songs[0].title }),
+        i18next.t('lyrics.embed.author', { song: queue.songs[0].title }),
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setThumbnail(queue.songs[0].img)
       .setColor('YELLOW')
       .setDescription(splittedLyrics[0])
-      .setFooter(i18n.__mf('lyrics.embed.footer', { pages: splittedLyrics.length }))
+      .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))
       .setTimestamp();
 
     const lyricsMsg = await message.channel.send(embed);

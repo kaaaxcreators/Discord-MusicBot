@@ -1,16 +1,15 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import moment from 'moment';
 import pMS from 'pretty-ms';
 
-import { Command, config } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'stats',
-    description: i18n.__('stats.description'),
+    description: i18next.t('stats.description'),
     usage: '',
     aliases: ['uptime', 'statistics'],
     categorie: 'general',
@@ -36,20 +35,20 @@ module.exports = {
       }
       const uptime = new Date(Date.now() - client.uptime!);
       const embed = new MessageEmbed()
-        .setTitle(`📊 ${i18n.__('stats.embed.title')} ${client.user?.username}`)
+        .setTitle(`📊 ${i18next.t('stats.embed.title')} ${client.user?.username}`)
         .setThumbnail(client.user!.avatarURL()!)
         .setColor('RANDOM')
-        .addField(i18n.__('stats.embed.uptime'), pMS(client.uptime!), true)
-        .addField(i18n.__('stats.embed.members'), totalmembers, true)
-        .addField(i18n.__('stats.embed.servers'), guilds.length, true)
-        .addField(i18n.__('stats.embed.running'), uptime.toLocaleString(), true)
-        .addField(i18n.__('stats.embed.started'), moment(uptime).fromNow(), true)
-        .addField(i18n.__('stats.embed.totalvcs'), totalvcs, true)
+        .addField(i18next.t('stats.embed.uptime'), pMS(client.uptime!), true)
+        .addField(i18next.t('stats.embed.members'), totalmembers, true)
+        .addField(i18next.t('stats.embed.servers'), guilds.length, true)
+        .addField(i18next.t('stats.embed.running'), uptime.toLocaleString(), true)
+        .addField(i18next.t('stats.embed.started'), moment(uptime).fromNow(), true)
+        .addField(i18next.t('stats.embed.totalvcs'), totalvcs, true)
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
       return message.channel.send(embed);
     } catch {
-      return sendError(i18n.__('error.something'), message.channel);
+      return sendError(i18next.t('error.something'), message.channel);
     }
   }
 } as Command;

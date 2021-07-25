@@ -1,15 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, commands, config } from '../../index';
+import { Command, commands } from '../../index';
 import { getPrefix } from '../../util/database';
 import Util from '../../util/pagination';
-i18n.setLocale(config.LOCALE);
 
 module.exports = {
   info: {
     name: 'help',
-    description: i18n.__('help.description'),
+    description: i18next.t('help.description'),
     usage: '[command]',
     aliases: ['commands'],
     categorie: 'general',
@@ -40,19 +39,19 @@ module.exports = {
       }
     });
     const helptext = [
-      `**:information_source: ${i18n.__(
+      `**:information_source: ${i18next.t(
         'help.embed.fields.general'
-      )}**\n${generalcmds}\n**:notes: ${i18n.__('help.embed.fields.music')}**\n${musiccmds}`
+      )}**\n${generalcmds}\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`
     ];
     const splittedHelp = Util.chunk(helptext, 1024);
     const embed = new MessageEmbed()
       .setAuthor(
-        i18n.__('help.embed.author') + ' ' + client.user!.username,
+        i18next.t('help.embed.author') + ' ' + client.user!.username,
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE')
       .setDescription(splittedHelp[0])
-      .setFooter(i18n.__mf('help.embed.footer', { prefix: prefix }));
+      .setFooter(i18next.t('help.embed.footer', { prefix: prefix }));
 
     if (!args[0]) {
       const helpmsg = await message.channel.send(embed);
@@ -72,12 +71,12 @@ module.exports = {
       }
       const usage = command.info.usage ? ` ${command.info.usage}` : '';
       const commandinfo = new MessageEmbed()
-        .setTitle(i18n.__('help.spec.command') + ' ' + command.info.name)
+        .setTitle(i18next.t('help.spec.command') + ' ' + command.info.name)
         .setColor('YELLOW').setDescription(`
-${i18n.__('help.spec.name')} ${command.info.name}
-${i18n.__('help.spec.description')} ${command.info.description}
-${i18n.__('help.spec.usage')} \`\`${prefix}${command.info.name}${usage}\`\`
-${i18n.__('help.spec.aliases')} ${command.info.aliases.join(', ')}
+${i18next.t('help.spec.name')} ${command.info.name}
+${i18next.t('help.spec.description')} ${command.info.description}
+${i18next.t('help.spec.usage')} \`\`${prefix}${command.info.name}${usage}\`\`
+${i18next.t('help.spec.aliases')} ${command.info.aliases.join(', ')}
 `);
       message.channel.send(commandinfo);
     }

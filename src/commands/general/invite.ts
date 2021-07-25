@@ -1,13 +1,12 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
 import { Command, config } from '../../index';
-i18n.setLocale(config.LOCALE);
 
 module.exports = {
   info: {
     name: 'invite',
-    description: i18n.__('invite.description'),
+    description: i18next.t('invite.description'),
     usage: '',
     aliases: ['inv'],
     categorie: 'general',
@@ -31,8 +30,8 @@ module.exports = {
       }&response_type=code`;
     }
     const embed = new MessageEmbed()
-      .setTitle(`${i18n.__('invite.embed.title')} ${client.user!.username}`)
-      .setDescription(i18n.__mf('invite.embed.description', { url: url }))
+      .setTitle(`${i18next.t('invite.embed.title')} ${client.user!.username}`)
+      .setDescription(i18next.t('invite.embed.description', { url: url }))
       .setURL(url)
       .setColor('BLUE');
     return message.channel.send(embed);

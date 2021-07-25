@@ -1,14 +1,13 @@
 import { Client, Message, MessageEmbedOptions } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config, queue } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'loop',
-    description: i18n.__('loop.description'),
+    description: i18next.t('loop.description'),
     usage: '',
     aliases: ['l'],
     categorie: 'music',
@@ -23,7 +22,7 @@ module.exports = {
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
     ) {
-      return sendError(i18n.__('error.samevc'), message.channel);
+      return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
     if (serverQueue) {
@@ -31,12 +30,13 @@ module.exports = {
       return message.channel.send({
         embed: {
           color: 'GREEN',
-          description: i18n.__mf('loop.status', {
-            status: serverQueue.loop === true ? i18n.__('loop.enabled') : i18n.__('loop.disabled')
+          description: i18next.t('loop.status', {
+            status:
+              serverQueue.loop === true ? i18next.t('loop.enabled') : i18next.t('loop.disabled')
           })
         } as MessageEmbedOptions
       });
     }
-    return sendError(i18n.__('error.noqueue'), message.channel);
+    return sendError(i18next.t('error.noqueue'), message.channel);
   }
 } as Command;

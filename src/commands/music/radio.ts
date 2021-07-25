@@ -1,10 +1,9 @@
 import { Client, Collection, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import fetch, { Response } from 'node-fetch';
 import pMS from 'pretty-ms';
 
-import { Command, config, IQueue, queue } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command, IQueue, queue } from '../../index';
 import sendError from '../../util/error';
 import console from '../../util/logger';
 import play, { Song } from '../../util/playing';
@@ -12,8 +11,8 @@ import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'radio',
-    description: i18n.__('radio.description'),
-    usage: i18n.__('radio.usage'),
+    description: i18next.t('radio.description'),
+    usage: i18next.t('radio.usage'),
     aliases: [],
     categorie: 'music',
     permissions: {
@@ -25,7 +24,7 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel;
     if (!channel) {
-      return sendError(i18n.__('error.needvc'), message.channel);
+      return sendError(i18next.t('error.needvc'), message.channel);
     }
     const searchString = args.join(' ');
     const attachment = message.attachments
@@ -36,7 +35,7 @@ module.exports = {
         : undefined
       : undefined;
     if ((searchString || attachment) == null) {
-      return sendError(i18n.__('radio.missingargs'), message.channel);
+      return sendError(i18next.t('radio.missingargs'), message.channel);
     }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment : '';
     const serverQueue = queue.get(message.guild!.id);
@@ -49,7 +48,7 @@ module.exports = {
         throw new Error('Not Okay!');
       }
     } catch (err) {
-      return sendError(i18n.__('error.something'), message.channel);
+      return sendError(i18next.t('error.something'), message.channel);
     }
     data.headers.forEach((value, key) => songInfo.set(key, value));
     const song: Song = {
@@ -67,19 +66,21 @@ module.exports = {
       serverQueue.songs.push(song);
       const embed = new MessageEmbed()
         .setAuthor(
-          i18n.__('radio.embed.author'),
+          i18next.t('radio.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         )
         .setThumbnail(song.img!)
         .setColor('YELLOW')
-        .addField(i18n.__('radio.embed.name'), `[${song.title}](${song.url})`, true)
+        .addField(i18next.t('radio.embed.name'), `[${song.title}](${song.url})`, true)
         .addField(
-          i18n.__('radio.embed.duration'),
-          song.live ? i18n.__('nowplaying.live') : pMS(song.duration, { secondsDecimalDigits: 0 }),
+          i18next.t('radio.embed.duration'),
+          song.live
+            ? i18next.t('nowplaying.live')
+            : pMS(song.duration, { secondsDecimalDigits: 0 }),
           true
         )
-        .addField(i18n.__('radio.embed.request'), song.req.tag, true)
-        .setFooter(`${i18n.__('radio.embed.views')} ${song.views} | ${song.ago}`);
+        .addField(i18next.t('radio.embed.request'), song.req.tag, true)
+        .setFooter(`${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}`);
       return message.channel.send(embed);
     }
 
@@ -101,10 +102,10 @@ module.exports = {
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
-      console.error(`${i18n.__('error.join')} ${error}`);
+      console.error(`${i18next.t('error.join')} ${error}`);
       queue.delete(message.guild!.id);
       await channel.leave();
-      return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
+      return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
     }
   }
 } as Command;

@@ -1,15 +1,14 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import moment from 'moment';
 
-import { Command, config } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'serverstats',
-    description: 'Get Server Stats',
+    description: i18next.t('serverstats.description'),
     usage: '',
     aliases: ['guildstats'],
     categorie: 'general',
@@ -21,7 +20,7 @@ module.exports = {
   run: async function (client: Client, message: Message) {
     try {
       if (message.channel.type == 'dm') {
-        return sendError(i18n.__('error.nodm'), message.channel);
+        return sendError(i18next.t('error.nodm'), message.channel);
       }
       const guild = message.guild!;
       const textchannels = guild.channels.cache.filter((channel) => channel.type == 'text');
@@ -34,35 +33,35 @@ module.exports = {
       const roles = guild.roles.cache.map((role) => role).join(' ');
       const emojis = guild.emojis.cache.map((emoji) => emoji).join(' ');
       const embed = new MessageEmbed()
-        .setTitle(`📈 ${i18n.__('serverstats.embed.title')} ${guild.name}`)
+        .setTitle(`📈 ${i18next.t('serverstats.embed.title')} ${guild.name}`)
         .setDescription(`ID: ${guild.id}`)
         .setThumbnail(guild.iconURL()!)
         .setColor('RANDOM')
         .addField(
-          '❯ ' + i18n.__('serverstats.embed.channels.channels'),
-          `• ${textchannels.size} ${i18n.__('serverstats.embed.channels.text')}\n• ${
+          '❯ ' + i18next.t('serverstats.embed.channels.channels'),
+          `• ${textchannels.size} ${i18next.t('serverstats.embed.channels.text')}\n• ${
             voicechannels.size
-          } ${i18n.__('serverstats.embed.channels.voice')}\n• ${categories.size} ${i18n.__(
+          } ${i18next.t('serverstats.embed.channels.voice')}\n• ${categories.size} ${i18next.t(
             'serverstats.embed.channels.categories'
-          )}\n• ${otherchannels.size} ${i18n.__('serverstats.embed.channels.other')}`
+          )}\n• ${otherchannels.size} ${i18next.t('serverstats.embed.channels.other')}`
         )
         .addField(
-          '❯ ' + i18n.__('serverstats.embed.member.member'),
-          `• ${i18n.__('serverstats.embed.member.owner')} ${guildowner}\n• ${i18n.__(
+          '❯ ' + i18next.t('serverstats.embed.member.member'),
+          `• ${i18next.t('serverstats.embed.member.owner')} ${guildowner}\n• ${i18next.t(
             'serverstats.embed.member.total'
           )} ${guild.members.cache.size}`
         )
         .addField(
-          '❯ ' + i18n.__('serverstats.embed.roles'),
-          roles ? roles : i18n.__('serverstats.embed.none')
+          '❯ ' + i18next.t('serverstats.embed.roles'),
+          roles ? roles : i18next.t('serverstats.embed.none')
         )
         .addField(
-          '❯ ' + i18n.__('serverstats.embed.emojis'),
-          emojis ? emojis : i18n.__('serverstats.embed.none')
+          '❯ ' + i18next.t('serverstats.embed.emojis'),
+          emojis ? emojis : i18next.t('serverstats.embed.none')
         )
         .addField(
-          '❯ ' + i18n.__('serverstats.embed.other.other'),
-          `• ${i18n.__('serverstats.embed.other.region')} ${guild.region}\n• ${i18n.__(
+          '❯ ' + i18next.t('serverstats.embed.other.other'),
+          `• ${i18next.t('serverstats.embed.other.region')} ${guild.region}\n• ${i18next.t(
             'serverstats.embed.other.created'
           )} ${guild.createdAt.toLocaleDateString()}, ${moment(guild.createdAt).fromNow()}`
         )
@@ -70,7 +69,7 @@ module.exports = {
         .setTimestamp();
       return message.channel.send(embed);
     } catch {
-      return sendError(i18n.__('error.something'), message.channel);
+      return sendError(i18next.t('error.something'), message.channel);
     }
   }
 } as Command;

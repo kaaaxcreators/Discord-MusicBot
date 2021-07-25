@@ -1,21 +1,20 @@
 import { Client, Message, MessageEmbed, MessageEmbedOptions, Util, VoiceChannel } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 import spdl from 'spdl-core';
 import { getTracks } from 'spotify-url-info';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
-import { Command, config, IQueue, queue } from '../../index';
-import console from '../../util/logger';
-i18n.setLocale(config.LOCALE);
+import { Command, IQueue, queue } from '../../index';
 import { getPrefix } from '../../util/database';
 import sendError from '../../util/error';
+import console from '../../util/logger';
 import play, { Song } from '../../util/playing';
 module.exports = {
   info: {
     name: 'playlist',
-    description: i18n.__('playlist.description'),
-    usage: i18n.__('playlist.usage'),
+    description: i18next.t('playlist.description'),
+    usage: i18next.t('playlist.usage'),
     aliases: ['pl'],
     categorie: 'music',
     permissions: {
@@ -34,25 +33,25 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     const channel = message.member!.voice.channel!;
     if (!channel) {
-      return sendError(i18n.__('error.needvc'), message.channel);
+      return sendError(i18next.t('error.needvc'), message.channel);
     }
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
 
     if (!searchString || !url) {
       return sendError(
-        i18n.__mf('playlist.missingargs', { prefix: await getPrefix(message) }),
+        i18next.t('playlist.missingargs', { prefix: await getPrefix(message) }),
         message.channel
       );
     }
     const searchtext = await message.channel.send({
-      embed: { description: i18n.__('searching') } as MessageEmbedOptions
+      embed: { description: i18next.t('searching') } as MessageEmbedOptions
     });
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       try {
         const playlist = await ytpl(url);
         if (!playlist) {
-          return sendError(i18n.__('playlist.notfound.notfound'), message.channel);
+          return sendError(i18next.t('playlist.notfound.notfound'), message.channel);
         }
         const videos = await playlist.items;
         for (const video of videos) {
@@ -60,20 +59,20 @@ module.exports = {
         }
         const embed = new MessageEmbed()
           .setAuthor(
-            i18n.__('playlist.embed.author'),
+            i18next.t('playlist.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(playlist.bestThumbnail.url!)
           .setColor('GREEN')
           .setDescription(
-            i18n.__mf('playlist.added', { playlist: playlist.title, videos: videos.length })
+            i18next.t('playlist.added', { playlist: playlist.title, videos: videos.length })
           );
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
         }
-        return sendError(i18n.__('playlist.notfound.notfound'), message.channel).catch(
+        return sendError(i18next.t('playlist.notfound.notfound'), message.channel).catch(
           console.error
         );
       }
@@ -87,27 +86,27 @@ module.exports = {
         }
         const embed = new MessageEmbed()
           .setAuthor(
-            i18n.__('playlist.embed.author'),
+            i18next.t('playlist.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(
-            i18n.__mf('playlist.added', { playlist: songInfo.title, videos: playlist.length })
+            i18next.t('playlist.added', { playlist: songInfo.title, videos: playlist.length })
           );
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
         }
-        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
+        return sendError(i18next.t('error.occurred'), message.channel).catch(console.error);
       }
     } else {
       try {
         const searched = await yts.search(searchString);
 
         if (searched.playlists.length === 0) {
-          return sendError(i18n.__('playlist.notfound.youtube'), message.channel);
+          return sendError(i18next.t('playlist.notfound.youtube'), message.channel);
         }
         const songInfo = searched.playlists[0];
         const listurl = songInfo.listId;
@@ -118,18 +117,18 @@ module.exports = {
         }
         const embed = new MessageEmbed()
           .setAuthor(
-            i18n.__('playlist.embed.author'),
+            i18next.t('playlist.embed.author'),
             'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
           )
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
-          .setDescription(i18n.__mf('paylist.added', { playlist: songInfo.title, videos: length }));
+          .setDescription(i18next.t('paylist.added', { playlist: songInfo.title, videos: length }));
         return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
         }
-        return sendError(i18n.__('error.occurred'), message.channel).catch(console.error);
+        return sendError(i18next.t('error.occurred'), message.channel).catch(console.error);
       }
     }
 
@@ -163,9 +162,9 @@ module.exports = {
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {
-          console.error(`${i18n.__('error.join')} ${error}`);
+          console.error(`${i18next.t('error.join')} ${error}`);
           queue.delete(message.guild!.id);
-          return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
+          return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
         }
       } else {
         return serverQueue.songs.push(song);
@@ -203,9 +202,9 @@ module.exports = {
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {
-          console.error(`${i18n.__('error.join')} ${error}`);
+          console.error(`${i18next.t('error.join')} ${error}`);
           queue.delete(message.guild!.id);
-          return sendError(`${i18n.__('error.join')} ${error}`, message.channel);
+          return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
         }
       } else {
         return serverQueue.songs.push(song);

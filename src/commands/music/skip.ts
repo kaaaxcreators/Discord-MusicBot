@@ -1,14 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
-import i18n from 'i18n';
+import i18next from 'i18next';
 
-import { Command, config, queue } from '../../index';
-i18n.setLocale(config.LOCALE);
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
   info: {
     name: 'skip',
-    description: i18n.__('skip.description'),
+    description: i18next.t('skip.description'),
     usage: '',
     aliases: ['s'],
     categorie: 'music',
@@ -23,11 +22,11 @@ module.exports = {
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
     ) {
-      return sendError(i18n.__('error.samevc'), message.channel);
+      return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
     if (!serverQueue) {
-      return sendError(i18n.__('skip.nothing'), message.channel);
+      return sendError(i18next.t('skip.nothing'), message.channel);
     }
     if (!serverQueue.connection) {
       return;
@@ -39,9 +38,9 @@ module.exports = {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();
       const embed = new MessageEmbed()
-        .setDescription(i18n.__('resume.embed.description'))
+        .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')
-        .setTitle(i18n.__('resume.embed.author'));
+        .setTitle(i18next.t('resume.embed.author'));
 
       return message.channel.send(embed).catch();
     }
@@ -51,7 +50,7 @@ module.exports = {
     } catch (error) {
       serverQueue.voiceChannel.leave();
       queue.delete(message.guild!.id);
-      return sendError(`:notes: ${i18n.__('error.music')}: ${error}`, message.channel);
+      return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
     message.react('✅');
   }
