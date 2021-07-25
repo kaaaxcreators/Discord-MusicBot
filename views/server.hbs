@@ -1,0 +1,217 @@
+<section class="main">
+  <header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+          onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">
+          <img src="/Music.gif" height="40" alt="" loading="lazy" />
+          <var>WEB.SERVER.MANAGE</var>
+        </a>
+        <div>
+          <h1 class="server-name"></h1>
+        </div>
+        <div id="usermenu" class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="usermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="column">
+              <img id="usericon" src="" width="25"></img>
+            </div>
+            <div class="column">
+              <h4 id="username"></h4>
+            </div>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="usermenuButton1">
+            <li><a class="dropdown-item" href="/logout"><var>WEB.SIDE.LOGOUT</var></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span><var>WEB.SIDE.DASHBOARD</var></span>
+          </a>
+          <div id="servermenu" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="servermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="column">
+                <img id="servericon" src="" width="25"></img>
+              </div>
+              <div class="column">
+                <h4 id="servername"></h4>
+              </div>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="servermenuButton1" id="serverdropdownmenu">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  </header>
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <section>
+        <h1><var>WEB.SERVER.DETAILS.MANAGE</var></h1>
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-danger" id="songInQueue">0</h3>
+                    <p class="mb-0"><var>WEB.SERVER.DETAILS.QUEUE</var></p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-music text-danger fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-success" id="songLoop"></h3>
+                    <p class="mb-0"><var>WEB.SERVER.DETAILS.LOOP</var></p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-redo text-success fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info" id="prefix">&gt;</h3>
+                    <p class="mb-0"><var>WEB.SERVER.DETAILS.PREFIX</var></p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="fas fa-robot text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container text-center" id="song-info">
+          <h1><var>WEB.SERVER.SONG.INFO</var></h1>
+          <p><var>WEB.SERVER.SONG.NOW</var> <span id="now-playing"></span></p>
+          <br />
+          <p><var>WEB.SERVER.SONG.DURATION</var></p>
+          <p id="duration"></p>
+        </div>
+      </section>
+      <section id="actions">
+        <h3><var>WEB.SERVER.ACTIONS.NAME</var></h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePrefix"><var>WEB.SERVER.ACTIONS.CHANGEPREFIX</var></button>
+        <button type="button" class="btn btn-primary needsqueue" data-bs-toggle="modal" data-bs-target="#addSong"><var>WEB.SERVER.ACTIONS.ADD</var></button>
+        <button type="button" class="btn btn-primary hatesqueue" id="openaddsongstoqueuemodal"><var>WEB.SERVER.ACTIONS.PLAY</var></button>
+        <button type="button" class="btn btn-primary needsqueue" id="skipsong"><var>WEB.SERVER.ACTIONS.SKIP</var></button>
+        </section>
+      </section>
+    </div>
+    <div class="modal fade" id="changePrefix" tabindex="-1" aria-labelledby="changePrefix" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><var>WEB.SERVER.ACTIONS.CHANGEPREFIX</var></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="newprefix" class="col-form-label"><var>WEB.SERVER.ACTIONS.MODAL.CHANGEPREFIX.NEW</var></label>
+                <input type="text" class="form-control" id="newprefix" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="prefixmodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><var>WEB.SERVER.ACTIONS.MODAL.CANCEL</var></button>
+            <button type="button" class="btn btn-primary" id="changeprefixsubmit"><var>WEB.SERVER.ACTIONS.MODAL.CHANGEPREFIX.SUBMIT</var></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addSong" tabindex="-1" aria-labelledby="addSong" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><var>WEB.SERVER.ACTIONS.ADD</var></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="addSong" class="col-form-label"><var>WEB.SERVER.ACTIONS.MODAL.ADD.INPUT</var></label>
+                <input type="text" class="form-control" id="addSongSong" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="songmodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">WEB.SERVER.ACTIONS.MODAL.CANCEL</button>
+            <button type="button" class="btn btn-primary" id="addsongsubmit">WEB.SERVER.ACTIONS.MODAL.ADD.SUBMIT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addSongWithoutQueue" tabindex="-1" aria-labelledby="addSongWithoutQueue" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><var>WEB.SERVER.ACTIONS.PLAY</var></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="selectmchannel" class="col-form-label"><var>WEB.SERVER.ACTIONS.MODAL.PLAY.TEXT</var></label>
+                <select class="form-select" id="selectmchannel"></select>
+                <label for="selectvchannel" class="col-form-label"><var>WEB.SERVER.ACTIONS.MODAL.PLAY.VOICE</var></label>
+                <select class="form-select" id="selectvchannel"></select>
+                <label for="addSongWithoutQueue" class="col-form-label"><var>WEB.SERVER.ACTIONS.MODAL.PLAY.INPUT</var></label>
+                <input type="text" class="form-control" id="addSongSongWithoutQueue" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="songqueuemodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><var>WEB.SERVER.ACTIONS.MODAL.CANCEL</var></button>
+            <button type="button" class="btn btn-primary" id="addsongwithoutqueuesubmit"><var>WEB.SERVER.ACTIONS.MODAL.PLAY.SUBMIT</var></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5;">
+      <div id="customToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto"><var>WEB.SERVER.ACTIONS.MODAL.TOAST.NAME</var></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="customToastBody">
+          
+        </div>
+      </div>
+    </div>
+  </main>
+</section>

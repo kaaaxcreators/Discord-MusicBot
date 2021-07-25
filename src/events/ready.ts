@@ -1,10 +1,13 @@
 import { Client } from 'discord.js';
 import Express from 'express';
+import handlebars from 'express-handlebars';
 import http from 'http';
 import i18next from 'i18next';
+import { join } from 'path';
 import { Server } from 'socket.io';
 
 import { config } from '../index';
+import helpers from '../util/helpers';
 import console from '../util/logger';
 
 module.exports = async (client: Client) => {
@@ -13,6 +16,17 @@ module.exports = async (client: Client) => {
     // Create API
     server = Express()
       .use('/', (await import('../api/index')).default)
+      .set('view engine', 'hbs')
+      .set('views', join(__dirname, '../../views/'))
+      .engine(
+        'hbs',
+        handlebars({
+          layoutsDir: join(__dirname + '../../../views/layout/'),
+          defaultLayout: 'index',
+          extname: 'hbs',
+          helpers: helpers
+        })
+      )
       .listen(process.env.PORT || 8080, () => console.info(i18next.t('server.ready')));
     (await import('../api/socket/index')).default(new Server(server));
   }

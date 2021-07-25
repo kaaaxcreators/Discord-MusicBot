@@ -38,7 +38,7 @@ if (process.env.LIVERELOAD == 'true') {
 }
 
 api.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '../../views/index.html'));
+  res.render('main', { lang: config.LOCALE, filename: 'main', title: 'Discord Music Bot' });
 });
 
 api.get('/api/info', (req, res) => {
@@ -53,18 +53,32 @@ api.get('/api/info', (req, res) => {
 });
 
 api.get('/dashboard', Auth, (req, res) => {
-  res.sendFile(join(__dirname, '../../views/dashboard.html'));
+  res.render('dashboard', {
+    lang: config.LOCALE,
+    filename: 'dashboard',
+    title: 'Dashboard | Discord Music Bot',
+    socket: true
+  });
 });
 
 api.get('/servers', Auth, (req, res) => {
-  res.sendFile(join(__dirname, '../../views/servers.html'));
+  res.render('servers', {
+    locale: config.LOCALE,
+    filename: 'servers',
+    title: 'Servers | Discord Music Bot'
+  });
 });
 
 api.get('/servers/:id', Auth, (req, res) => {
   if (!req.user!.guilds!.find((x) => x.id == req.params.id)) {
     return res.redirect('/servers');
   }
-  res.sendFile(join(__dirname, '../../views/server.html'));
+  res.render('server', {
+    locale: config.LOCALE,
+    filename: 'server',
+    title: 'Server | Discord Music Bot',
+    socket: true
+  });
 });
 
 api.get('/api/user', async (req, res) => {
@@ -444,7 +458,7 @@ api.all('*', (req, res) => {
 
   // respond with html page
   if (req.accepts('html')) {
-    res.sendFile(join(__dirname, '../../views/404.html'));
+    res.render('404', { layout: false, lang: config.LOCALE, title: '404' });
     return;
   }
 
