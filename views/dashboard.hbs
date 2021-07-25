@@ -14,7 +14,7 @@
         <!-- Brand -->
         <a class="navbar-brand" href="/">
           <img src="/Music.gif" height="40" alt="" loading="lazy" />
-          <var>WEB.DASHBOARD.NAV.DASHBOARD</var>
+          {{i18next 'WEB.DASHBOARD.NAV.DASHBOARD'}}
         </a>
         <!-- Brand -->
         <div>
@@ -30,7 +30,7 @@
             </div>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/logout"><var>WEB.SIDE.LOGOUT</var></a></li>
+            <li><a class="dropdown-item" href="/logout">{{i18next 'WEB.SIDE.LOGOUT'}}</a></li>
           </ul>
         </div>
       </div>
@@ -42,10 +42,10 @@
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
           <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span><var>WEB.SIDE.DASHBOARD</var></span>
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
           </a>
           <a href="/servers" class="list-group-item list-group-item-action py-2 ripple">
-            <i class="fas fa-server fa-fw me-3"></i><span><var>WEB.SIDE.SERVERS</var></span>
+            <i class="fas fa-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
           </a>
         </div>
       </div>
@@ -56,7 +56,7 @@
   <main style="margin-top: 58px;">
     <div class="container pt-4">
       <section>
-        <h1><var>WEB.DASHBOARD.DETAILS.DETAILS</var></h1>
+        <h1>{{i18next 'WEB.DASHBOARD.DETAILS.DETAILS'}}</h1>
         <div class="row">
           <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
@@ -64,7 +64,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-success" id="users">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.USERS</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.USERS'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="far fa-user text-success fa-3x"></i>
@@ -79,7 +79,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-warning" id="guilds">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.SERVERS</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.SERVERS'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="fas fa-server text-warning fa-3x"></i>
@@ -94,7 +94,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-warning" id="uptime">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.UPTIME</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.UPTIME'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="fas fa-clock text-warning fa-3x"></i>
@@ -109,7 +109,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-warning server-name">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.AVATAR</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.AVATAR'}}</p>
                   </div>
                   <div class="align-self-center">
                     <img id="avatar" style="height: 3em;"></img>
@@ -124,7 +124,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-warning" id="totalvcs">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.TOTALVCS</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.TOTALVCS'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="fas fa-microphone text-warning fa-3x"></i>
@@ -139,7 +139,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-info" id="commandsRan">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.COMMANDSRAN</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.COMMANDSRAN'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="fas fa-rocket text-info fa-3x"></i>
@@ -154,7 +154,7 @@
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
                     <h3 class="text-info" id="songsPlayed">-</h3>
-                    <p class="mb-0"><var>WEB.DASHBOARD.DETAILS.SONGSPLAYED</var></p>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.SONGSPLAYED'}}</p>
                   </div>
                   <div class="align-self-center">
                     <i class="fas fa-music text-info fa-3x"></i>

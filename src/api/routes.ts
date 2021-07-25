@@ -99,8 +99,7 @@ api.get('/api/commands', (req, res) => {
 
 api.get('/api/translations', (req, res) => {
   res.send({
-    translations: i18next.getDataByLanguage(config.LOCALE)?.translation,
-    locale: config.LOCALE
+    translations: i18next.getDataByLanguage(config.LOCALE)?.translation
   });
 });
 

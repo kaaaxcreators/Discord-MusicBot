@@ -14,7 +14,7 @@
         <!-- Brand -->
         <a class="navbar-brand" href="/">
           <img src="/Music.gif" height="40" alt="" loading="lazy" />
-          <var>WEB.SERVERS.SERVERS</var>
+          {{i18next 'WEB.SERVERS.SERVERS'}}
         </a>
         <div>
           <h1 class="server-name"></h1>
@@ -29,7 +29,7 @@
             </div>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/logout"><var>WEB.SIDE.LOGOUT</var></a></li>
+            <li><a class="dropdown-item" href="/logout">{{i18next 'WEB.SIDE.LOGOUT'}}</a></li>
           </ul>
         </div>
       </div>
@@ -41,10 +41,10 @@
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
           <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span><var>WEB.SIDE.DASHBOARD</var></span>
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
           </a>
           <a href="/servers" class="list-group-item list-group-item-action py-2 ripple active">
-            <i class="fas fa-server fa-fw me-3"></i><span><var>WEB.SIDE.SERVERS</var></span>
+            <i class="fas fa-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
           </a>
         </div>
       </div>
@@ -54,7 +54,7 @@
   <main style="margin-top: 58px;">
     <div class="container pt-4">
       <section>
-        <h1><var>WEB.SERVERS.SELECT</var></h1>
+        <h1>{{i18next 'WEB.SERVERS.SELECT'}}</h1>
         <div id="servers" class="row"></div>
       </section>
     </div>
