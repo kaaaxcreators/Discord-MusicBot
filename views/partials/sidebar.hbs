@@ -1,0 +1,14 @@
+<!-- Sidebar -->
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
+  <div class="position-sticky">
+    <div class="list-group list-group-flush mx-3 mt-4">
+      <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple{{#if dashboard}} active" aria-current="true"{{else}}"{{/if}}>
+        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
+      </a>
+      <a href="/servers" class="list-group-item list-group-item-action py-2 ripple{{#if servers}} active" aria-current="true"{{else}}"{{/if}}>
+        <i class="fas fa-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- Sidebar -->

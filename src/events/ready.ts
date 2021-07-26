@@ -24,7 +24,8 @@ module.exports = async (client: Client) => {
           layoutsDir: join(__dirname + '../../../views/layout/'),
           defaultLayout: 'index',
           extname: 'hbs',
-          helpers: helpers
+          helpers: helpers,
+          partialsDir: join(__dirname + '../../../views/partials/')
         })
       )
       .listen(process.env.PORT || 8080, () => console.info(i18next.t('server.ready')));
