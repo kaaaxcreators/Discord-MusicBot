@@ -38,7 +38,18 @@ if (process.env.LIVERELOAD == 'true') {
 }
 
 api.get('/', (req, res) => {
-  res.render('main', { lang: config.LOCALE, filename: 'main', title: 'Discord Music Bot' });
+  const url = `https://discord.com/oauth2/authorize?client_id=${client.user?.id}&permissions=${
+    config.PERMISSION
+  }&scope=${config.SCOPES.join('%20')}&redirect_uri=${config.WEBSITE}${
+    config.CALLBACK
+  }&response_type=code`;
+  res.render('main', {
+    lang: config.LOCALE,
+    filename: 'main',
+    title: 'Discord Music Bot',
+    url: url,
+    commands: Commands
+  });
 });
 
 api.get('/api/info', (req, res) => {
@@ -91,10 +102,6 @@ api.get('/api/user', async (req, res) => {
     return g;
   });
   res.send({ user: req.user });
-});
-
-api.get('/api/commands', (req, res) => {
-  res.send({ commands: Commands });
 });
 
 api.get('/api/translations', (req, res) => {

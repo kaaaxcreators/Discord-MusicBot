@@ -19,6 +19,8 @@
   <div class="hero">
     <div id="hero" class="text-center">
       <h1>{{title}}</h1>
+      <a href="{{url}}" class="btn btn-primary" type="button">Invite</a>
+      <a href="/dashboard" class="btn btn-outline-primary" type="button">Dashboard</a>
     </div>
   </div>
   <!-- Hero -->
@@ -36,7 +38,16 @@
             <th scope="col">{{i18next 'WEB.INDEX.COMMANDS.DESCRIPTION'}}</th>
           </tr>
         </thead>
-        <tbody id="commands-body"></tbody>
+        <tbody id="commands-body">
+          {{#each commands}}
+          <tr>
+            <th scope="row">{{this.name}}</th>
+            <td>{{join this.aliases}}</td>
+            <td>{{this.usage}}</td>
+            <td>{{this.description}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
       </table>
     </div>
   </div>

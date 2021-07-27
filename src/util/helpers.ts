@@ -11,5 +11,8 @@ export = {
   },
   i18next: function (arg1: string) {
     return i18next.t(arg1.trim().toLowerCase());
+  },
+  join: function (arg1: any[]): string {
+    return arg1.join(', ');
   }
 };
