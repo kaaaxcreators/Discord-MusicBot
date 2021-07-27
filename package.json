@@ -72,7 +72,7 @@
     "@types/passport-discord": "^0.1.4",
     "@types/passport-oauth2-refresh": "^1.1.1",
     "@types/yt-search": "^2.3.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.4",
     "connect-livereload": "^0.6.1",
     "cross-env": "^7.0.3",
