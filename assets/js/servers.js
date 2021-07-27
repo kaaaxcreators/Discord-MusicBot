@@ -1,9 +1,10 @@
 $(document).ready(() => {
-  $.get('/api/user', ({ user }) => {
-    $('#usericon').attr('src', `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`);
-    $('#username').text(`${user.username}#${user.discriminator}`);
-  });
   $.get('/api/user', (data) => {
+    $('#usericon').attr(
+      'src',
+      `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}`
+    );
+    $('#username').text(`${data.user.username}#${data.user.discriminator}`);
     data.user.guilds.forEach((Guild) => {
       if (!Guild.hasPerms) {
         return;
