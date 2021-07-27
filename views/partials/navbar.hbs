@@ -5,7 +5,7 @@
     <!-- Toggle button (only on small displays) -->
     <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
       aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
-      onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
+      onclick="function re(){let e=document.querySelector("#sidebarMenu");e.classList.contains("collapse")?e.classList.remove("collapse"):e.classList.add("collapse")}re();">
       <i class="fas fa-bars"></i>
     </button>
 

@@ -24,7 +24,7 @@ function addSongToQueue(song, mchannel, vchannel) {
   }
 }
 
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
   $('#changeprefixsubmit').on('click', null, null, () => {
     fetch(`/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}`, {
       method: 'POST'
