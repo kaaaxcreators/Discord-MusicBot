@@ -5,9 +5,24 @@
       <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple{{#if dashboard}} active" aria-current="true"{{else}}"{{/if}}>
         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
       </a>
+      {{#if server}}
+      <div id="servermenu" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="servermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="column">
+            <img id="servericon" src="" width="25"></img>
+          </div>
+          <div class="column">
+            <h4 id="servername"></h4>
+          </div>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="servermenuButton1" id="serverdropdownmenu">
+        </ul>
+      </div>
+      {{else}}
       <a href="/servers" class="list-group-item list-group-item-action py-2 ripple{{#if servers}} active" aria-current="true"{{else}}"{{/if}}>
         <i class="fas fa-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
       </a>
+      {{/if}}
     </div>
   </div>
 </nav>

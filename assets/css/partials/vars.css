@@ -1,0 +1,22 @@
+:root {
+  --background: var(--bs-gray-dark);
+  --text: #fff;
+  --card-text: #000;
+  --card-background: var(--bs-gray);
+  --text-secondary: #6c757d !important;
+  --text-success: hsl(152, 69%, 50%) !important;
+  --text-danger: hsl(354, 70%, 60%) !important;
+  --list-item: var(--bs-gray);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--bs-white);
+    --text: #000;
+    --card-background: var(--bs-light);
+    --text-success: #198754 !important;
+    --text-secondary: var(--bs-light);
+    --text-danger: #dc3545 !important;
+    --list-item: var(--bs-light);
+  }
+}

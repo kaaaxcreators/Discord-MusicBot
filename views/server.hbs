@@ -1,64 +1,7 @@
 <section class="main">
   <header>
-    <!-- Navbar -->
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
-      <!-- Container wrapper -->
-      <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
-          onclick="function re(){ let r = $('#sidebarMenu'); if(r.hasClass('collapse'))r.removeClass('collapse');else r.addClass('collapse')}re()">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Brand -->
-        <a class="navbar-brand" href="/">
-          <img src="/Music.gif" height="40" alt="" loading="lazy" />
-          {{i18next 'WEB.SERVER.MANAGE'}}
-        </a>
-        <div>
-          <h1 class="server-name"></h1>
-        </div>
-        <div id="usermenu" class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="usermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="column">
-              <img id="usericon" src="" width="25"></img>
-            </div>
-            <div class="column">
-              <h4 id="username"></h4>
-            </div>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="usermenuButton1">
-            <li><a class="dropdown-item" href="/logout">{{i18next 'WEB.SIDE.LOGOUT'}}</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Navbar -->
-    
-    <!-- Sidebar -->
-    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
-      <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
-          </a>
-          <div id="servermenu" class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="servermenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <div class="column">
-                <img id="servericon" src="" width="25"></img>
-              </div>
-              <div class="column">
-                <h4 id="servername"></h4>
-              </div>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="servermenuButton1" id="serverdropdownmenu">
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- Sidebar -->
+   {{> navbar }}
+   {{> sidebar server=true}}
   </header>
   <main style="margin-top: 58px;">
     <div class="container pt-4">
