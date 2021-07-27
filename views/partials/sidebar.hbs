@@ -3,7 +3,7 @@
   <div class="position-sticky">
     <div class="list-group list-group-flush mx-3 mt-4">
       <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple{{#if dashboard}} active" aria-current="true"{{else}}"{{/if}}>
-        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
+        <i class="icon-tachometer fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.DASHBOARD'}}</span>
       </a>
       {{#if server}}
       <div id="servermenu" class="dropdown">
@@ -20,7 +20,7 @@
       </div>
       {{else}}
       <a href="/servers" class="list-group-item list-group-item-action py-2 ripple{{#if servers}} active" aria-current="true"{{else}}"{{/if}}>
-        <i class="fas fa-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
+        <i class="icon-server fa-fw me-3"></i><span>{{i18next 'WEB.SIDE.SERVERS'}}</span>
       </a>
       {{/if}}
     </div>

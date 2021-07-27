@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('#users').textContent = data.users;
     document.querySelector('#guilds').textContent = data.guilds;
     document.querySelector('#uptime').textContent = data.uptime;
-    document.querySelector('#avatar').textContent = data.avatarURL;
+    document.querySelector('#avatar').src = data.avatarURL;
     document
       .querySelectorAll('.server-name')
       .forEach((element) => (element.textContent = data.username));
