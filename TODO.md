@@ -4,4 +4,4 @@
 
 - [ ] Guild Actions CSRF Token
 - [ ] Improve Page Speed Insights/Lighthouse
-- [ ] Only include Font Awesome that is actually used
+- [x] Only include Font Awesome that is actually used
