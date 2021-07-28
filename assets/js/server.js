@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
   $('#skipsong').on('click', null, null, () => {
-    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip=csrf=${csrf}`, {
+    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip?csrf=${csrf}`, {
       method: 'POST'
     })
       .then((res) => {
