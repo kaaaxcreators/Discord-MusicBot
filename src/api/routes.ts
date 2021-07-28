@@ -17,6 +17,7 @@ import { client, commands, config, IQueue } from '../index';
 import database, { getGuild } from '../util/database';
 import play, { Song } from '../util/playing';
 import Auth from './Middlewares/Auth';
+import CSRF from './Middlewares/CSRF';
 import GuildActions from './Middlewares/GuildActions';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
@@ -30,6 +31,8 @@ const limiter = rateLimit({
 });
 
 api.use(limiter);
+
+api.use(CSRF);
 
 if (process.env.LIVERELOAD == 'true') {
   const server = livereload.createServer();
@@ -88,7 +91,8 @@ api.get('/servers/:id', Auth, (req, res) => {
     locale: config.LOCALE,
     filename: 'server',
     title: 'Server | Discord Music Bot',
-    socket: true
+    socket: true,
+    csrf: req.session.csrf
   });
 });
 
