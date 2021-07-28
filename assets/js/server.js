@@ -1,3 +1,5 @@
+const csrf = encodeURIComponent($('meta[name="csrf-token"]').attr('content'));
+
 /**
  * Add Song to Queue
  * @param {string} song Song Name
@@ -9,14 +11,16 @@ function addSongToQueue(song, mchannel, vchannel) {
     return fetch(
       `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(
         song
-      )}?mchannel=${mchannel}&vchannel=${vchannel}`,
+      )}?mchannel=${mchannel}&vchannel=${vchannel}&csrf=${csrf}`,
       {
         method: 'POST'
       }
     );
   } else {
     return fetch(
-      `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(song)}`,
+      `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(
+        song
+      )}?csrf=${csrf}`,
       {
         method: 'POST'
       }
@@ -26,9 +30,12 @@ function addSongToQueue(song, mchannel, vchannel) {
 
 document.addEventListener('DOMContentLoaded', () => {
   $('#changeprefixsubmit').on('click', null, null, () => {
-    fetch(`/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}`, {
-      method: 'POST'
-    })
+    fetch(
+      `/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}?csrf=${csrf}`,
+      {
+        method: 'POST'
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`${res.statusText}`);
@@ -43,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   $('#openaddsongstoqueuemodal').on('click', null, null, async () => {
     const GuildID = window.location.pathname.split('/')[2];
-    const channels = await (await fetch(`/api/channels/${GuildID}`)).json();
+    const channels = await (await fetch(`/api/channels/${GuildID}?csrf=${csrf}`)).json();
     $('#selectmchannel').empty();
     $('#selectvchannel').empty();
     $.each(channels.textChannels, (i, v) => {
@@ -107,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
   $('#skipsong').on('click', null, null, () => {
-    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip`, {
+    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip=csrf=${csrf}`, {
       method: 'POST'
     })
       .then((res) => {

@@ -17,7 +17,7 @@ import { client, commands, config, IQueue } from '../index';
 import database, { getGuild } from '../util/database';
 import play, { Song } from '../util/playing';
 import Auth from './Middlewares/Auth';
-import CSRF from './Middlewares/CSRF';
+import * as CSRF from './Middlewares/CSRF';
 import GuildActions from './Middlewares/GuildActions';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
@@ -32,7 +32,7 @@ const limiter = rateLimit({
 
 api.use(limiter);
 
-api.use(CSRF);
+api.use(CSRF.Generate);
 
 if (process.env.LIVERELOAD == 'true') {
   const server = livereload.createServer();
@@ -114,7 +114,7 @@ api.get('/api/translations', (req, res) => {
   });
 });
 
-api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
+api.post('/api/prefix/:id/:prefix', GuildActions, CSRF.Verify, async (req, res) => {
   const { prefix, id } = req.params;
   const guildDB = await getGuild(id);
   const { config } = await import('../index');
@@ -154,7 +154,7 @@ api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
+api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res) => {
   const { id, song } = req.params;
   const vchannel = <string>req.query.vchannel;
   const mchannel = <string>req.query.mchannel;
@@ -341,7 +341,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/skip', GuildActions, async (req, res) => {
+api.post('/api/queue/:id/skip', GuildActions, CSRF.Verify, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
@@ -383,7 +383,7 @@ api.post('/api/queue/:id/skip', GuildActions, async (req, res) => {
   }
 });
 
-api.get('/api/channels/:id', GuildActions, async (req, res) => {
+api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
