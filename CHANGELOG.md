@@ -1,3 +1,28 @@
+## [v2.5.0] - 2021-08-04
+
+[Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.5.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.4.0...v2.5.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.5.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.5.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.5.0.tar.gz))
+
+### New features
+
+- [`1ae5eec`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/1ae5eec)  Handlebars (#94)
+(Issues: [`#94`](https://github.com/kaaaxcreators/Discord-MusicBot/issues/94))
+
+### Security issues
+
+- [`d48b3be`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d48b3be) ️ Keep updating the Discord guild data (#98)
+(Issues: [`#98`](https://github.com/kaaaxcreators/Discord-MusicBot/issues/98))
+
+### Dependency updates
+
+- [`f8e37fc`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/f8e37fc)  Bump yt-search from 2.9.0 to 2.10.0
+- [`c23b61f`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/c23b61f)  Bump i18next from 20.3.4 to 20.3.5
+- [`f989021`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/f989021)  Bump @typescript-eslint/eslint-plugin from 4.28.4 to 4.28.5
+- [`d982a03`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/d982a03)  Bump @typescript-eslint/parser from 4.28.4 to 4.28.5
+- [`b142b2d`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/b142b2d)  Bump @types/yt-search from 2.3.1 to 2.3.2
+- [`ce8fd67`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/ce8fd67)  Bump eslint from 7.31.0 to 7.32.0
+- [`80535b9`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/80535b9)  Bump @typescript-eslint/eslint-plugin from 4.28.5 to 4.29.0
+- [`8e23920`](https://github.com/kaaaxcreators/Discord-MusicBot/commit/8e23920)  Bump @typescript-eslint/parser from 4.28.5 to 4.29.0
+
 ## [v2.4.0] - 2021-07-24
 
 [Release notes](https://github.com/kaaaxcreators/Discord-MusicBot/releases/tag/v2.4.0) · [Compare](https://github.com/kaaaxcreators/Discord-MusicBot/compare/v2.3.0...v2.4.0) · [Tag](https://github.com/kaaaxcreators/Discord-MusicBot/tree/v2.4.0) · Archive ([zip](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.4.0.zip) · [tar.gz](https://github.com/kaaaxcreators/Discord-MusicBot/archive/v2.4.0.tar.gz))
