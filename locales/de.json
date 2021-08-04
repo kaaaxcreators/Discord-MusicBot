@@ -50,8 +50,8 @@
     "count": {
         "description": "Sehen Sie, auf wie vielen Servern sich der Bot befindet",
         "embed": {
-            "description": "Der Bot befindet sich derzeit auf {servers} Servern",
-            "footer": "Verwenden Sie {prefix}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
+            "description": "Der Bot befindet sich derzeit auf {{servers}} Servern",
+            "footer": "Verwenden Sie {{prefix}}invite, um den Bot zu Ihrem Server hinzuzufügen / einzuladen"
         }
     },
     "help": {
@@ -367,6 +367,9 @@
         "servers": {
             "servers": "Server",
             "select": "Wählen Sie einen zu verwaltenden Server aus"
+        },
+        "404": {
+            "subheading": "Anscheinend ist die gesuchte Seite nicht mehr hier."
         }
     },
     "prefix": {
