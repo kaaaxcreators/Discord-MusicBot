@@ -55,7 +55,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
 - `GUILDPREFIX`: Check [here](#-guild-prefix)
 - `GUILDACTIONS`: Check [here](#-guild-actions)
-<!-- - `GUILDPREFIX`: Check [here](#-guild-prefix) -->
+- `UPDATEDIFF`: How often Data should be updated in minutes. Defaults to `5`
 
 ## 📑 Commands
 

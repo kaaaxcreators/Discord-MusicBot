@@ -1,7 +1,7 @@
+import { Profile, Strategy, VerifyCallback } from '@oauth-everything/passport-discord';
 import { Router, static as Static } from 'express';
 import session from 'express-session';
 import passport from 'passport';
-import passportDiscord from 'passport-discord';
 import passportOAuth2Refresh from 'passport-oauth2-refresh';
 import { join } from 'path';
 
@@ -10,14 +10,19 @@ import routes from './routes';
 
 const api = Router();
 
-const discordStrategy = new passportDiscord.Strategy(
+const discordStrategy = new Strategy(
   {
     clientID: client.user!.id,
     clientSecret: config.SECRET,
     callbackURL: config.WEBSITE + config.CALLBACK,
     scope: 'identify guilds'
   },
-  (accessToken, refreshToken, profile, done) => {
+  (
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: VerifyCallback<Express.User>
+  ) => {
     // User logged in
     profile.refreshToken = refreshToken;
     profile.accessToken = accessToken;
