@@ -1,0 +1,40 @@
+<!-- Navbar -->
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button (only on small displays) -->
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+      aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+      onclick="function re(){let e=document.querySelector("#sidebarMenu");e.classList.contains("collapse")?e.classList.remove("collapse"):e.classList.add("collapse")}re();">
+      <i class="icon-bars"></i>
+    </button>
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <img src="/Music.gif" height="40" alt="" loading="lazy" />
+      {{#if dashboard}}
+      {{i18next 'WEB.DASHBOARD.NAV.DASHBOARD'}}
+      {{else if servers }}
+      {{i18next 'WEB.SERVERS.SERVERS'}}
+      {{/if}}
+    </a>
+    <!-- Brand -->
+    <div>
+      <h1 class="server-name"></h1>
+    </div>
+    <div id="usermenu" class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="column">
+          <img id="usericon" src="" width="25"></img>
+        </div>
+        <div class="column">
+          <h4 id="username"></h4>
+        </div>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/logout">{{i18next 'WEB.SIDE.LOGOUT'}}</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->

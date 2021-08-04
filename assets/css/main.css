@@ -1,0 +1,43 @@
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+.hero {
+  margin-top: 5%;
+}
+
+.commands {
+  margin-top: 100px;
+}
+
+.commands .title {
+  position: relative;
+  margin-bottom: 40px;
+  padding-bottom: 25px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.commands .title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 1px;
+  background-color: #0d6efd;
+}
+
+.commands .title::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 3px;
+  background-color: #0d6efd;
+}

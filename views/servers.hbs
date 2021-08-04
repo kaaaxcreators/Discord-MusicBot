@@ -1,0 +1,14 @@
+<section class="main">
+  <header>
+    {{> navbar servers=true }}
+    {{> sidebar servers=true }}
+  </header>
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <section>
+        <h1>{{i18next 'WEB.SERVERS.SELECT'}}</h1>
+        <div id="servers" class="row"></div>
+      </section>
+    </div>
+  </main>
+</section>

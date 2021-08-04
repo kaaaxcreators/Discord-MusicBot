@@ -17,6 +17,7 @@ import { client, commands, config, IQueue } from '../index';
 import database, { getGuild } from '../util/database';
 import play, { Song } from '../util/playing';
 import Auth from './Middlewares/Auth';
+import * as CSRF from './Middlewares/CSRF';
 import GuildActions from './Middlewares/GuildActions';
 
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
@@ -31,6 +32,8 @@ const limiter = rateLimit({
 
 api.use(limiter);
 
+api.use(CSRF.Generate);
+
 if (process.env.LIVERELOAD == 'true') {
   const server = livereload.createServer();
   server.watch([join(__dirname + '../../../views'), join(__dirname + '../../../assets')]);
@@ -38,7 +41,18 @@ if (process.env.LIVERELOAD == 'true') {
 }
 
 api.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '../../views/index.html'));
+  const url = `https://discord.com/oauth2/authorize?client_id=${client.user?.id}&permissions=${
+    config.PERMISSION
+  }&scope=${config.SCOPES.join('%20')}&redirect_uri=${config.WEBSITE}${
+    config.CALLBACK
+  }&response_type=code`;
+  res.render('main', {
+    lang: config.LOCALE,
+    filename: 'main',
+    title: 'Discord Music Bot',
+    url: url,
+    commands: Commands
+  });
 });
 
 api.get('/api/info', (req, res) => {
@@ -53,18 +67,33 @@ api.get('/api/info', (req, res) => {
 });
 
 api.get('/dashboard', Auth, (req, res) => {
-  res.sendFile(join(__dirname, '../../views/dashboard.html'));
+  res.render('dashboard', {
+    lang: config.LOCALE,
+    filename: 'dashboard',
+    title: 'Dashboard | Discord Music Bot',
+    socket: true
+  });
 });
 
 api.get('/servers', Auth, (req, res) => {
-  res.sendFile(join(__dirname, '../../views/servers.html'));
+  res.render('servers', {
+    locale: config.LOCALE,
+    filename: 'servers',
+    title: 'Servers | Discord Music Bot'
+  });
 });
 
 api.get('/servers/:id', Auth, (req, res) => {
   if (!req.user!.guilds!.find((x) => x.id == req.params.id)) {
     return res.redirect('/servers');
   }
-  res.sendFile(join(__dirname, '../../views/server.html'));
+  res.render('server', {
+    locale: config.LOCALE,
+    filename: 'server',
+    title: 'Server | Discord Music Bot',
+    socket: true,
+    csrf: req.session.csrf
+  });
 });
 
 api.get('/api/user', async (req, res) => {
@@ -79,18 +108,13 @@ api.get('/api/user', async (req, res) => {
   res.send({ user: req.user });
 });
 
-api.get('/api/commands', (req, res) => {
-  res.send({ commands: Commands });
-});
-
 api.get('/api/translations', (req, res) => {
   res.send({
-    translations: i18next.getDataByLanguage(config.LOCALE)?.translation,
-    locale: config.LOCALE
+    translations: i18next.getDataByLanguage(config.LOCALE)?.translation
   });
 });
 
-api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
+api.post('/api/prefix/:id/:prefix', GuildActions, CSRF.Verify, async (req, res) => {
   const { prefix, id } = req.params;
   const guildDB = await getGuild(id);
   const { config } = await import('../index');
@@ -130,7 +154,7 @@ api.post('/api/prefix/:id/:prefix', GuildActions, async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
+api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res) => {
   const { id, song } = req.params;
   const vchannel = <string>req.query.vchannel;
   const mchannel = <string>req.query.mchannel;
@@ -317,7 +341,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, async (req, res) => {
   }
 });
 
-api.post('/api/queue/:id/skip', GuildActions, async (req, res) => {
+api.post('/api/queue/:id/skip', GuildActions, CSRF.Verify, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
@@ -359,7 +383,7 @@ api.post('/api/queue/:id/skip', GuildActions, async (req, res) => {
   }
 });
 
-api.get('/api/channels/:id', GuildActions, async (req, res) => {
+api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
   const { id } = req.params;
   if (
     typeof id !== 'string' ||
@@ -444,7 +468,7 @@ api.all('*', (req, res) => {
 
   // respond with html page
   if (req.accepts('html')) {
-    res.sendFile(join(__dirname, '../../views/404.html'));
+    res.render('404', { layout: false, lang: config.LOCALE, title: '404' });
     return;
   }
 

@@ -367,7 +367,10 @@
     "servers": {
       "servers": "Servers",
       "select": "Select a server to manage"
-    }
+    },
+    "404": {
+      "subheading": "Looks like the page you were looking for is no longer here."
+    }    
   },
   "socket": {
     "enabled": "Enabled",

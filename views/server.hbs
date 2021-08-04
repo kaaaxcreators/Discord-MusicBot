@@ -1,0 +1,160 @@
+<section class="main">
+  <header>
+   {{> navbar }}
+   {{> sidebar server=true}}
+  </header>
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <section>
+        <h1>{{i18next 'WEB.SERVER.DETAILS.MANAGE'}}</h1>
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-danger" id="songInQueue">0</h3>
+                    <p class="mb-0">{{i18next 'WEB.SERVER.DETAILS.QUEUE'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-music text-danger fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-success" id="songLoop"></h3>
+                    <p class="mb-0">{{i18next 'WEB.SERVER.DETAILS.LOOP'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-redo text-success fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info" id="prefix">&gt;</h3>
+                    <p class="mb-0">{{i18next 'WEB.SERVER.DETAILS.PREFIX'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-robot text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container text-center" id="song-info">
+          <h1>{{i18next 'WEB.SERVER.SONG.INFO'}}</h1>
+          <p>{{i18next 'WEB.SERVER.SONG.NOW'}} <span id="now-playing"></span></p>
+          <br />
+          <p>{{i18next 'WEB.SERVER.SONG.DURATION'}}</p>
+          <p id="duration"></p>
+        </div>
+      </section>
+      <section id="actions">
+        <h3>{{i18next 'WEB.SERVER.ACTIONS.NAME'}}</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePrefix">{{i18next 'WEB.SERVER.ACTIONS.CHANGEPREFIX'}}</button>
+        <button type="button" class="btn btn-primary needsqueue" data-bs-toggle="modal" data-bs-target="#addSong">{{i18next 'WEB.SERVER.ACTIONS.ADD'}}</button>
+        <button type="button" class="btn btn-primary hatesqueue" id="openaddsongstoqueuemodal">{{i18next 'WEB.SERVER.ACTIONS.PLAY'}}</button>
+        <button type="button" class="btn btn-primary needsqueue" id="skipsong">{{i18next 'WEB.SERVER.ACTIONS.SKIP'}}</button>
+        </section>
+      </section>
+    </div>
+    <div class="modal fade" id="changePrefix" tabindex="-1" aria-labelledby="changePrefix" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{i18next 'WEB.SERVER.ACTIONS.CHANGEPREFIX'}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="newprefix" class="col-form-label">{{i18next 'WEB.SERVER.ACTIONS.MODAL.CHANGEPREFIX.NEW'}}</label>
+                <input type="text" class="form-control" id="newprefix" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="prefixmodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{i18next 'WEB.SERVER.ACTIONS.MODAL.CANCEL'}}</button>
+            <button type="button" class="btn btn-primary" id="changeprefixsubmit">{{i18next 'WEB.SERVER.ACTIONS.MODAL.CHANGEPREFIX.SUBMIT'}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addSong" tabindex="-1" aria-labelledby="addSong" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{i18next 'WEB.SERVER.ACTIONS.ADD'}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="addSong" class="col-form-label">{{i18next 'WEB.SERVER.ACTIONS.MODAL.ADD.INPUT'}}</label>
+                <input type="text" class="form-control" id="addSongSong" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="songmodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">WEB.SERVER.ACTIONS.MODAL.CANCEL</button>
+            <button type="button" class="btn btn-primary" id="addsongsubmit">WEB.SERVER.ACTIONS.MODAL.ADD.SUBMIT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addSongWithoutQueue" tabindex="-1" aria-labelledby="addSongWithoutQueue" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{i18next 'WEB.SERVER.ACTIONS.PLAY'}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" >
+              <div class="mb-3">
+                <label for="selectmchannel" class="col-form-label">{{i18next 'WEB.SERVER.ACTIONS.MODAL.PLAY.TEXT'}}</label>
+                <select class="form-select" id="selectmchannel"></select>
+                <label for="selectvchannel" class="col-form-label">{{i18next 'WEB.SERVER.ACTIONS.MODAL.PLAY.VOICE'}}</label>
+                <select class="form-select" id="selectvchannel"></select>
+                <label for="addSongWithoutQueue" class="col-form-label">{{i18next 'WEB.SERVER.ACTIONS.MODAL.PLAY.INPUT'}}</label>
+                <input type="text" class="form-control" id="addSongSongWithoutQueue" autocomplete="off">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span id="songqueuemodalerror"></span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{i18next 'WEB.SERVER.ACTIONS.MODAL.CANCEL'}}</button>
+            <button type="button" class="btn btn-primary" id="addsongwithoutqueuesubmit">{{i18next 'WEB.SERVER.ACTIONS.MODAL.PLAY.SUBMIT'}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5;">
+      <div id="customToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">{{i18next 'WEB.SERVER.ACTIONS.MODAL.TOAST.NAME'}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="customToastBody">
+          
+        </div>
+      </div>
+    </div>
+  </main>
+</section>

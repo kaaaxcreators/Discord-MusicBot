@@ -1,0 +1,56 @@
+<section class="main">
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/Music.gif" alt="Music Bot Logo" width="30" height="30" class="d-inline-block align-text-top" />
+        {{i18next 'WEB.INDEX.NAV1'}}
+      </a>
+      <div class="d-flex nav-links">
+        <a href="/dashboard" class="btn btn-outline-success me-2" type="button">
+          {{i18next 'WEB.INDEX.NAV2'}}
+        </a>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Hero -->
+  <div class="hero">
+    <div id="hero" class="text-center">
+      <h1>{{title}}</h1>
+      <a href="{{url}}" class="btn btn-primary" type="button">Invite</a>
+      <a href="/dashboard" class="btn btn-outline-primary" type="button">Dashboard</a>
+    </div>
+  </div>
+  <!-- Hero -->
+
+  <!-- Commands -->
+  <div class="commands" id="commands">
+    <div class="container">
+      <h2 class="title text-center">{{i18next 'WEB.INDEX.COMMANDS.COMMANDS'}}</var></h2>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">{{i18next 'WEB.INDEX.COMMANDS.COMMAND'}}</th>
+            <th scope="col">{{i18next 'WEB.INDEX.COMMANDS.ALIASES'}}</th>
+            <th scope="col">{{i18next 'WEB.INDEX.COMMANDS.USAGE'}}</th>
+            <th scope="col">{{i18next 'WEB.INDEX.COMMANDS.DESCRIPTION'}}</th>
+          </tr>
+        </thead>
+        <tbody id="commands-body">
+          {{#each commands}}
+          <tr>
+            <th scope="row">{{this.name}}</th>
+            <td>{{join this.aliases}}</td>
+            <td>{{this.usage}}</td>
+            <td>{{this.description}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Commands -->
+</section>
+{{> footer }}

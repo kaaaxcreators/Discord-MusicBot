@@ -133,7 +133,8 @@ Run `npm run deploy` to compile and start the Bot
 
 You'll need 1 Core and 200MB of RAM to run this Bot on multiple servers
 
-Connected to 2 VC playing music draws 100MB and 20% CPU (3,3 GHz)
+Connected to 2 VC playing music draws 100MB of RAM and 25% CPU (3,3 GHz)
+With Dashboard enabled it uses 150MB of RAM and 30% CPU (3,3 GHz)
 
 ## 🌐 Localization
 
