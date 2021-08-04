@@ -202,7 +202,7 @@
             "notfound": "Playlist not found",
             "youtube": "Looks like i was unable to find the playlist on YouTube"
         },
-        "added": "✅  **|**  Playlist: **`{{playlist}`** has added `{videos}}` videos to the queue",
+        "added": "✅  **|**  Playlist: **`{{playlist}}`** has added `{{videos}}` videos to the queue",
         "embed": {
             "author": "Playlist has been added to queue"
         }
@@ -215,7 +215,7 @@
             "text": "Text Channel",
             "voice": "Voice Channel",
             "description": "No songs to play next add songs by `{{prefix}}play <song_name>`",
-            "footer": "Currently Server Volume is {{volume} Page 1 of {pages}}."
+            "footer": "Currently Server Volume is {{volume}} Page 1 of {{pages}}."
         }
     },
     "radio": {
@@ -271,7 +271,7 @@
         "missingargs": "**Usage**: `{{prefix}}skipto <number>`",
         "short": "The queue is only {{songs}} songs long!",
         "embed": {
-            "description": "{{author} ⏭ skipped `{songs}}` songs"
+            "description": "{{author}} ⏭ skipped `{{songs}}` songs"
         }
     },
     "stop": {
@@ -287,7 +287,7 @@
             "description": "I set the volume to: **{{volume}}/100**"
         }
     },
-    "pagination": "Page {{page} of {pages}}.",
+    "pagination": "Page {{page}} of {{pages}}.",
     "searching": "🔍 Searching...",
     "web": {
         "index": {
@@ -382,7 +382,7 @@
         },
         "embed": {
             "title": "Prefix",
-            "description": "Changed prefix from `{{oldprefix}` to `{newprefix}}`",
+            "description": "Changed prefix from `{{oldprefix}}` to `{{newprefix}}`",
             "footer": "Use {{prefix}}invite to add/invite the Bot to your server"
         }
     },
