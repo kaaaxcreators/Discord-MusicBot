@@ -1,8 +1,9 @@
+import { User as ApiData } from '@oauth-everything/passport-discord/dist/ApiData';
 import { Profile } from '@oauth-everything/profile';
 
 declare global {
   namespace Express {
-    interface User extends Profile {
+    interface User extends Profile<ApiData> {
       guilds?: GuildInfo[];
     }
     interface Request {
