@@ -55,7 +55,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
 - `GUILDPREFIX`: Check [here](#-guild-prefix)
 - `GUILDACTIONS`: Check [here](#-guild-actions)
-<!-- - `GUILDPREFIX`: Check [here](#-guild-prefix) -->
+- `UPDATEDIFF`: How often Data should be updated in minutes. Defaults to `5`
 
 ## 📑 Commands
 
@@ -187,7 +187,7 @@ Allow Users to change Settings in the Dashboard (Prefix, Queue, ...)
 
 Enable it by setting a Env Var `GUILDACTIONS` with content/value `true`
 
-🔒 Security Warning: This feature is not secure! No [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) Protection! If you change permissions and that person doesn't log out of the dashboard, they can still e.g. change the prefix
+🔒 Security Warning: This feature is not fully secure! If somebody gets demoted/removed/etc they can still use dashboard actions for up to 5 minutes
 
 ## ©️ Credits
 

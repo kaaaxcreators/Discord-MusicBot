@@ -1,5 +1,7 @@
+import { User } from '@oauth-everything/passport-discord/dist/ApiData';
 import connectLivereload from 'connect-livereload';
 import { MessageEmbed, Permissions, TextChannel, Util, VoiceChannel } from 'discord.js';
+import DiscordOauth2 from 'discord-oauth2';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import i18next from 'i18next';
@@ -23,6 +25,8 @@ import GuildActions from './Middlewares/GuildActions';
 const Commands = Array.from(commands.mapValues((value) => value.info).values());
 
 const api = Router();
+
+const oauth = new DiscordOauth2();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -100,12 +104,22 @@ api.get('/api/user', async (req, res) => {
   if (!req.user) {
     return res.send({});
   }
-  req.user!.guilds!.map((g) => {
-    g.hasPerms = new Permissions(g.permissions).has('MANAGE_GUILD', true);
-    g.inGuild = client.guilds.cache.has(g.id);
-    return g;
-  });
-  res.send({ user: req.user });
+  // Update every 5 Minutes or if lastUpdated doesnt exist
+  if (
+    !req.user.lastUpdated ||
+    diff_minutes(new Date().toUTCString(), req.user.lastUpdated) >= config.UPDATEDIFF
+  ) {
+    const userGuilds = await oauth.getUserGuilds(req.user.accessToken!);
+    req.user.guilds = userGuilds;
+    req.user.lastUpdated = new Date().toUTCString();
+    req.user!.guilds!.map((g) => {
+      g.hasPerms = new Permissions(g.permissions).has('MANAGE_GUILD', true);
+      g.inGuild = client.guilds.cache.has(g.id);
+      return g;
+    });
+  }
+  const merged = { ...req.user, ...(<User>req.user._json) };
+  res.send({ user: merged });
 });
 
 api.get('/api/translations', (req, res) => {
@@ -488,6 +502,16 @@ api.all('*', (req, res) => {
  */
 function escapeRegExp(string: string) {
   return string.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
+/**
+ * Calculate Difference in Minutes of two UTC Strings
+ * @author <https://www.w3resource.com/javascript-exercises/javascript-date-exercise-44.php> - Modified
+ */
+function diff_minutes(dt2: string, dt1: string) {
+  let diff = (Date.parse(dt2) - Date.parse(dt1)) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
 }
 
 export default api;

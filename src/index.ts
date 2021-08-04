@@ -62,7 +62,8 @@ export const config: Config = {
   DISABLEWEB: process.env.DISABLE_WEB ? /true/i.test(process.env.DISABLE_WEB) : false,
   DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
   GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false,
-  GUILDACTIONS: process.env.GUILDACTIONS ? /true/i.test(process.env.GUILDACTIONS) : false
+  GUILDACTIONS: process.env.GUILDACTIONS ? /true/i.test(process.env.GUILDACTIONS) : false,
+  UPDATEDIFF: Number.isNaN(process.env.UPDATEDIFF!) ? 5 : Number.parseInt(process.env.UPDATEDIFF!)
 };
 
 export const Stats = {
@@ -212,6 +213,7 @@ interface Config {
   DIDYOUMEAN: boolean;
   GUILDPREFIX: boolean;
   GUILDACTIONS: boolean;
+  UPDATEDIFF: number;
 }
 
 /**
