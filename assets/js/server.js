@@ -1,22 +1,4 @@
-function translate(json) {
-  const varTags = Array.from(document.getElementsByTagName('var'));
-  varTags.forEach((v, i) => {
-    try {
-      if (varTags[i].parentElement.childElementCount > 1) {
-        varTags[i].textContent = new Function(
-          'return this.' + varTags[i].textContent.toLowerCase() + ';'
-        ).call(json);
-      } else {
-        varTags[i].parentElement.textContent = new Function(
-          'return this.' + varTags[i].textContent.toLowerCase() + ';'
-        ).call(json);
-      }
-    } catch (e) {
-      varTags[i].textContent = '';
-      console.warn('Error in <var/> Tag: ' + e.message);
-    }
-  });
-}
+const csrf = encodeURIComponent($('meta[name="csrf-token"]').attr('content'));
 
 /**
  * Add Song to Queue
@@ -29,14 +11,16 @@ function addSongToQueue(song, mchannel, vchannel) {
     return fetch(
       `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(
         song
-      )}?mchannel=${mchannel}&vchannel=${vchannel}`,
+      )}?mchannel=${mchannel}&vchannel=${vchannel}&csrf=${csrf}`,
       {
         method: 'POST'
       }
     );
   } else {
     return fetch(
-      `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(song)}`,
+      `/api/queue/${window.location.pathname.split('/')[2]}/add/${encodeURIComponent(
+        song
+      )}?csrf=${csrf}`,
       {
         method: 'POST'
       }
@@ -44,11 +28,14 @@ function addSongToQueue(song, mchannel, vchannel) {
   }
 }
 
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
   $('#changeprefixsubmit').on('click', null, null, () => {
-    fetch(`/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}`, {
-      method: 'POST'
-    })
+    fetch(
+      `/api/prefix/${window.location.pathname.split('/')[2]}/${$('#newprefix').val()}?csrf=${csrf}`,
+      {
+        method: 'POST'
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(`${res.statusText}`);
@@ -63,7 +50,7 @@ $(document).ready(() => {
   });
   $('#openaddsongstoqueuemodal').on('click', null, null, async () => {
     const GuildID = window.location.pathname.split('/')[2];
-    const channels = await (await fetch(`/api/channels/${GuildID}`)).json();
+    const channels = await (await fetch(`/api/channels/${GuildID}?csrf=${csrf}`)).json();
     $('#selectmchannel').empty();
     $('#selectvchannel').empty();
     $.each(channels.textChannels, (i, v) => {
@@ -127,7 +114,7 @@ $(document).ready(() => {
       });
   });
   $('#skipsong').on('click', null, null, () => {
-    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip`, {
+    fetch(`/api/queue/${window.location.pathname.split('/')[2]}/skip?csrf=${csrf}`, {
       method: 'POST'
     })
       .then((res) => {
@@ -145,10 +132,8 @@ $(document).ready(() => {
       });
   });
   let translation = {};
-  $.get('/api/translations', ({ translations, locale }) => {
-    document.documentElement.lang = locale;
+  $.get('/api/translations', ({ translations }) => {
     translation = translations;
-    translate(translations);
   });
   $.get('/api/user', (data) => {
     // User Menu

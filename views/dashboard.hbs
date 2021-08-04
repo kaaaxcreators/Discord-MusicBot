@@ -1,0 +1,122 @@
+<section class="main">
+  <header>
+    {{> navbar dashboard=true }}
+    {{> sidebar dashboard=true }}
+  </header>
+  <!-- Main Content-->
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <section>
+        <h1>{{i18next 'WEB.DASHBOARD.DETAILS.DETAILS'}}</h1>
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-success" id="users">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.USERS'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-user text-success fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-warning" id="guilds">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.SERVERS'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-server text-warning fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-warning" id="uptime">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.UPTIME'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-clock text-warning fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-warning server-name">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.AVATAR'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <img id="avatar" style="height: 3em;"></img>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-warning" id="totalvcs">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.TOTALVCS'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-microphone text-warning fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info" id="commandsRan">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.COMMANDSRAN'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-rocket text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div>
+                    <h3 class="text-info" id="songsPlayed">-</h3>
+                    <p class="mb-0">{{i18next 'WEB.DASHBOARD.DETAILS.SONGSPLAYED'}}</p>
+                  </div>
+                  <div class="align-self-center">
+                    <i class="icon-music text-info fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- Main Content-->
+</section>
