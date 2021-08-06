@@ -50,10 +50,12 @@ module.exports = {
       const song = queue.songs.splice(Number(args[0]) - 1, 1);
       queue.textChannel
         .send({
-          embed: {
-            color: 'RED',
-            description: i18next.t('remove.embed.description', { song: song[0].title })
-          } as MessageEmbedOptions
+          embeds: [
+            {
+              color: 'RED',
+              description: i18next.t('remove.embed.description', { song: song[0].title })
+            } as MessageEmbedOptions
+          ]
         })
         .catch(console.error);
       message.react('✅');

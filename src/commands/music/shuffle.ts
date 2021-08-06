@@ -39,7 +39,7 @@ module.exports = {
       queue.set(message.guild!.id, serverQueue);
       message.react('✅');
     } catch (error) {
-      message.guild!.me!.voice.channel!.leave();
+      message.guild!.me!.voice.disconnect();
       queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: \`${error}\``, message.channel);
     }

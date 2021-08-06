@@ -1,3 +1,4 @@
+import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 import { Client, Collection, Message, MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import fetch, { Response } from 'node-fetch';
@@ -28,9 +29,9 @@ module.exports = {
     }
     const searchString = args.join(' ');
     const attachment = message.attachments
-      ? message.attachments.array()
-        ? message.attachments.array()[0]
-          ? message.attachments.array()[0].url
+      ? Array.from(message.attachments)
+        ? Array.from(message.attachments)[0]
+          ? Array.from(message.attachments)[0][1].url
           : undefined
         : undefined
       : undefined;
@@ -81,7 +82,7 @@ module.exports = {
         )
         .addField(i18next.t('radio.embed.request'), song.req.tag, true)
         .setFooter(`${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}`);
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     }
 
     // If Queue doesn't exist create one
@@ -98,13 +99,17 @@ module.exports = {
     queue.set(message.guild!.id, queueConstruct);
 
     try {
-      const connection = await channel.join();
+      const connection = joinVoiceChannel({
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: <DiscordGatewayAdapterCreator>channel.guild.voiceAdapterCreator
+      });
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(`${i18next.t('error.join')} ${error}`);
       queue.delete(message.guild!.id);
-      await channel.leave();
+      await channel.guild.me?.voice.disconnect();
       return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
     }
   }

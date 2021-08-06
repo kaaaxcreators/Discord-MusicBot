@@ -29,10 +29,12 @@ module.exports = {
     if (!args.length || isNaN(Number(args[0]))) {
       return message.channel
         .send({
-          embed: {
-            color: 'GREEN',
-            description: i18next.t('skipto.missingargs', { prefix: await getPrefix(message) })!
-          }
+          embeds: [
+            {
+              color: 'GREEN',
+              description: i18next.t('skipto.missingargs', { prefix: await getPrefix(message) })!
+            }
+          ]
         })
         .catch(console.error);
     }
@@ -58,22 +60,24 @@ module.exports = {
       queue.songs = queue.songs.slice(Number(args[0]) - 2);
     }
     try {
-      queue.connection!.dispatcher.end();
+      queue.audioPlayer?.stop();
     } catch (error) {
-      queue.voiceChannel.leave();
+      queue.voiceChannel.guild.me?.voice.disconnect();
       Queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
 
     queue.textChannel
       .send({
-        embed: {
-          color: 'GREEN',
-          description: i18next.t('skipto.embed.description', {
-            author: '<@' + message.author + '>',
-            songs: Number(args[0]) - 1
-          })!
-        }
+        embeds: [
+          {
+            color: 'GREEN',
+            description: i18next.t('skipto.embed.description', {
+              author: '<@' + message.author + '>',
+              songs: Number(args[0]) - 1
+            })!
+          }
+        ]
       })
       .catch(console.error);
     message.react('✅');

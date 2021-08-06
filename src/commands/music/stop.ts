@@ -31,13 +31,13 @@ module.exports = {
     if (!serverQueue.connection) {
       return;
     }
-    if (!serverQueue.connection.dispatcher) {
+    if (!serverQueue.audioPlayer) {
       return;
     }
     try {
-      serverQueue.connection.dispatcher.end();
+      serverQueue.audioPlayer.stop();
     } catch (error) {
-      message.guild!.me!.voice.channel!.leave();
+      message.guild!.me!.voice.disconnect();
       queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }

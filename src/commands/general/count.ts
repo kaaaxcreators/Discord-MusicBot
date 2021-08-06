@@ -21,6 +21,6 @@ module.exports = {
       .setColor('YELLOW')
       .setDescription(i18next.t('count.embed.description', { servers: client.guilds.cache.size }))
       .setFooter(i18next.t('count.embed.footer', { prefix: await getPrefix(message) }));
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;

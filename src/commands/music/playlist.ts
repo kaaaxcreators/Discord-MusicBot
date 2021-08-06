@@ -1,4 +1,13 @@
-import { Client, Message, MessageEmbed, MessageEmbedOptions, Util, VoiceChannel } from 'discord.js';
+import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
+import {
+  Client,
+  Message,
+  MessageEmbed,
+  MessageEmbedOptions,
+  StageChannel,
+  Util,
+  VoiceChannel
+} from 'discord.js';
 import i18next from 'i18next';
 import spdl from 'spdl-core';
 import { getTracks } from 'spotify-url-info';
@@ -45,7 +54,7 @@ module.exports = {
       );
     }
     const searchtext = await message.channel.send({
-      embed: { description: i18next.t('searching') } as MessageEmbedOptions
+      embeds: [{ description: i18next.t('searching') } as MessageEmbedOptions]
     });
     if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       try {
@@ -67,7 +76,9 @@ module.exports = {
           .setDescription(
             i18next.t('playlist.added', { playlist: playlist.title, videos: videos.length })
           );
-        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
+        return searchtext.editable
+          ? searchtext.edit({ embeds: [embed] })
+          : message.channel.send({ embeds: [embed] });
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -94,7 +105,9 @@ module.exports = {
           .setDescription(
             i18next.t('playlist.added', { playlist: songInfo.title, videos: playlist.length })
           );
-        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
+        return searchtext.editable
+          ? searchtext.edit({ embeds: [embed] })
+          : message.channel.send({ embeds: [embed] });
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -123,7 +136,9 @@ module.exports = {
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(i18next.t('paylist.added', { playlist: songInfo.title, videos: length }));
-        return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
+        return searchtext.editable
+          ? searchtext.edit({ embeds: [embed] })
+          : message.channel.send({ embeds: [embed] });
       } catch (error) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -132,7 +147,11 @@ module.exports = {
       }
     }
 
-    async function handleVideo(video: ytpl.Item, message: Message, channel: VoiceChannel) {
+    async function handleVideo(
+      video: ytpl.Item,
+      message: Message,
+      channel: VoiceChannel | StageChannel
+    ) {
       const serverQueue = queue.get(message.guild!.id);
       const song: Song = {
         id: video.id,
@@ -158,7 +177,11 @@ module.exports = {
         queueConstruct.songs.push(song);
 
         try {
-          const connection = await channel.join();
+          const connection = joinVoiceChannel({
+            channelId: channel.id,
+            guildId: channel.guild.id,
+            adapterCreator: <DiscordGatewayAdapterCreator>channel.guild.voiceAdapterCreator
+          });
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {
@@ -172,7 +195,11 @@ module.exports = {
       return;
     }
 
-    async function handleSpotify(video: spdl.trackInfo, message: Message, channel: VoiceChannel) {
+    async function handleSpotify(
+      video: spdl.trackInfo,
+      message: Message,
+      channel: VoiceChannel | StageChannel
+    ) {
       const serverQueue = queue.get(message.guild!.id);
       const song: Song = {
         id: video.id,
@@ -198,7 +225,11 @@ module.exports = {
         queueConstruct.songs.push(song);
 
         try {
-          const connection = await channel.join();
+          const connection = joinVoiceChannel({
+            channelId: channel.id,
+            guildId: channel.guild.id,
+            adapterCreator: <DiscordGatewayAdapterCreator>channel.guild.voiceAdapterCreator
+          });
           queueConstruct.connection = connection;
           play.play(queueConstruct.songs[0], message);
         } catch (error) {

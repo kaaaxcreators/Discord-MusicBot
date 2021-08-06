@@ -14,8 +14,8 @@ function socket(io: Server): void {
       socket.Dashboard = setInterval(async () => {
         const { client, Stats } = await import('../../index');
         let totalvcs = 0;
-        client.guilds.cache.array().forEach((guild) => {
-          if (guild.voice?.connection) {
+        Array.from(client.guilds.cache).forEach((guild) => {
+          if (guild[1].voiceStates.cache.size) {
             totalvcs += 1;
           }
         });

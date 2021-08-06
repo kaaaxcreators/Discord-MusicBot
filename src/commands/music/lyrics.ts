@@ -45,11 +45,11 @@ module.exports = {
       )
       .setThumbnail(queue.songs[0].img)
       .setColor('YELLOW')
-      .setDescription(splittedLyrics[0])
+      .setDescription(splittedLyrics[0].join(''))
       .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))
       .setTimestamp();
 
-    const lyricsMsg = await message.channel.send(embed);
+    const lyricsMsg = await message.channel.send({ embeds: [embed] });
     if (splittedLyrics.length > 1) {
       await Util.pagination(lyricsMsg, message.author, splittedLyrics);
     }

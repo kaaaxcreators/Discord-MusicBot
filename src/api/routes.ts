@@ -1,3 +1,4 @@
+import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 import { User } from '@oauth-everything/passport-discord/dist/ApiData';
 import connectLivereload from 'connect-livereload';
 import { MessageEmbed, Permissions, TextChannel, Util, VoiceChannel } from 'discord.js';
@@ -312,8 +313,8 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
         }
         if (
           // check if channels are valid and if user has perms
-          textChannel?.type === 'text' &&
-          voiceChannel?.type === 'voice' &&
+          textChannel?.type === 'GUILD_TEXT' &&
+          voiceChannel?.type === 'GUILD_VOICE' &&
           textChannel.permissionsFor(guildMember)?.has('SEND_MESSAGES') &&
           voiceChannel.permissionsFor(guildMember)?.has('SPEAK')
         ) {
@@ -329,7 +330,11 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           queueConstruct.songs.push(Song);
           (await import('../index')).queue.set(id, queueConstruct);
           try {
-            const connection = await voiceChannel.join();
+            const connection = joinVoiceChannel({
+              channelId: voiceChannel.id,
+              guildId: voiceChannel.guild.id,
+              adapterCreator: <DiscordGatewayAdapterCreator>voiceChannel.guild.voiceAdapterCreator
+            });
             queueConstruct.connection = connection;
             const message = {
               guild: {
@@ -341,7 +346,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           } catch (error) {
             console.error(`${i18next.t('error.join')} ${error}`);
             (await import('../index')).queue.delete(id);
-            voiceChannel.leave();
+            voiceChannel.guild.me?.voice.disconnect();
             return res.status(500).json({ status: i18next.t('error.join') });
           }
           return res.json({ status: 200 });
@@ -377,18 +382,18 @@ api.post('/api/queue/:id/skip', GuildActions, CSRF.Verify, async (req, res) => {
     res.status(403).json({ status: 403 });
   } else {
     const serverQueue = (await import('../index')).queue.get(id);
-    if (serverQueue && serverQueue.connection && serverQueue.connection.dispatcher) {
+    if (serverQueue && serverQueue.connection && serverQueue.audioPlayer) {
       try {
         if (serverQueue.playing) {
-          serverQueue.connection.dispatcher.end();
+          serverQueue.audioPlayer.stop();
           return res.json({ status: 'Skipped' });
         } else {
           serverQueue.playing = true;
-          serverQueue.connection.dispatcher.resume();
+          serverQueue.audioPlayer.unpause();
           return res.json({ status: 'Resumed' });
         }
       } catch {
-        serverQueue.voiceChannel.leave();
+        serverQueue.voiceChannel.guild.me?.voice.disconnect();
         (await import('../index')).queue.delete(id);
       }
     } else {
@@ -426,7 +431,7 @@ api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
     const textChannels = channels
       ?.filter(
         (channel) =>
-          channel.type == 'text' &&
+          channel.type == 'GUILD_TEXT' &&
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SEND_MESSAGES')
       )
@@ -434,7 +439,7 @@ api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
     const voiceChannels = channels
       ?.filter(
         (channel) =>
-          channel.type == 'voice' &&
+          channel.type == 'GUILD_VOICE' &&
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SPEAK')
       )

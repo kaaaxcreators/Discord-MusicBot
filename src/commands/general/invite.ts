@@ -34,6 +34,6 @@ module.exports = {
       .setDescription(i18next.t('invite.embed.description', { url: url }))
       .setURL(url)
       .setColor('BLUE');
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;

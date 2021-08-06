@@ -41,7 +41,7 @@ module.exports = {
       return sendError(i18next.t('volume.between'), message.channel).catch();
     }
     serverQueue.volume = Number(args[0]);
-    serverQueue.connection.dispatcher.setVolumeLogarithmic(Number(args[0]) / 100);
+    serverQueue.resource?.volume?.setVolumeLogarithmic(Number(args[0]) / 100);
     const embed = new MessageEmbed()
       .setDescription(i18next.t('volume.embed.description', { volume: Number(args[0]) / 1 }))
       .setAuthor(
@@ -49,6 +49,6 @@ module.exports = {
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE');
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;

@@ -18,7 +18,7 @@ module.exports = {
     }
   },
   run: async function (client: Client, message: Message, args: string[]) {
-    if (message.channel.type == 'dm') {
+    if (message.channel.type == 'DM') {
       return sendError(i18next.t('error.nodm'), message.channel);
     }
     if (!config.GUILDPREFIX) {
@@ -31,12 +31,14 @@ module.exports = {
     const oldprefix = guildDB.prefix;
     const newprefix = args.join(' ');
     if (!newprefix) {
-      return message.channel.send(
-        new MessageEmbed()
-          .setTitle(i18next.t('prefix.embed.title'))
-          .setDescription(i18next.t('prefix.noargsembed.description', { oldprefix: oldprefix }))
-          .setFooter(i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }))
-      );
+      return message.channel.send({
+        embeds: [
+          new MessageEmbed()
+            .setTitle(i18next.t('prefix.embed.title'))
+            .setDescription(i18next.t('prefix.noargsembed.description', { oldprefix: oldprefix }))
+            .setFooter(i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }))
+        ]
+      });
     }
     database.set(message.guild!.id, { prefix: newprefix });
     const embed = new MessageEmbed()
@@ -46,6 +48,6 @@ module.exports = {
         i18next.t('prefix.embed.description', { oldprefix: oldprefix, newprefix: newprefix })
       )
       .setFooter(i18next.t('prefix.embed.footer', { prefix: newprefix }));
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;

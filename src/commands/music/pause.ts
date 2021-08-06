@@ -28,7 +28,7 @@ module.exports = {
     if (serverQueue && serverQueue.playing) {
       serverQueue.playing = false;
       try {
-        serverQueue.connection!.dispatcher.pause();
+        serverQueue.audioPlayer?.pause();
       } catch (error) {
         queue.delete(message.guild!.id);
         return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
@@ -37,7 +37,7 @@ module.exports = {
         .setDescription(i18next.t('pause.embed.description'))
         .setColor('YELLOW')
         .setTitle(i18next.t('pause.embed.title'));
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     }
     return sendError(i18next.t('error.noqueue'), message.channel);
   }

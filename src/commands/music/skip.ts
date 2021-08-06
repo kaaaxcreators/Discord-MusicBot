@@ -31,24 +31,24 @@ module.exports = {
     if (!serverQueue.connection) {
       return;
     }
-    if (!serverQueue.connection.dispatcher) {
+    if (!serverQueue.audioPlayer) {
       return;
     }
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
-      serverQueue.connection.dispatcher.resume();
+      serverQueue.audioPlayer.unpause();
       const embed = new MessageEmbed()
         .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')
         .setTitle(i18next.t('resume.embed.author'));
 
-      return message.channel.send(embed).catch();
+      return message.channel.send({ embeds: [embed] }).catch();
     }
 
     try {
-      serverQueue.connection.dispatcher.end();
+      serverQueue.audioPlayer.stop();
     } catch (error) {
-      serverQueue.voiceChannel.leave();
+      serverQueue.voiceChannel.guild.me?.voice.disconnect();
       queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }

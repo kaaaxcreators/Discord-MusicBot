@@ -24,10 +24,12 @@
     "dev": "ts-node src/index.ts"
   },
   "engines": {
-    "node": ">=14.x"
+    "node": ">=16.6.0",
+    "npm": ">=7.x"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.6.0",
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.5.5",
     "@oauth-everything/passport-discord": "^1.0.2",
     "didyoumean2": "^5.0.0",
     "discord-oauth2": "^2.7.1",
@@ -42,6 +44,7 @@
     "ffmpeg-static": "^4.4.0",
     "i18next": "^20.4.0",
     "jsoning": "^0.11.22",
+    "libsodium-wrappers": "^0.7.9",
     "lyrics-finder": "^21.7.0",
     "millify": "^4.0.0",
     "moment": "^2.29.1",

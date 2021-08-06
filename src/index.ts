@@ -1,15 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+import { AudioPlayer, AudioResource, VoiceConnection } from '@discordjs/voice';
 import {
   ActivityType,
   Client,
   Collection,
-  DMChannel,
   Message,
-  NewsChannel,
   PermissionResolvable,
-  TextChannel,
-  VoiceChannel,
-  VoiceConnection
+  StageChannel,
+  TextBasedChannels,
+  VoiceChannel
 } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { existsSync, mkdirSync, readdir } from 'fs';
@@ -26,15 +25,27 @@ try {
   EnvError(err);
 }
 
-export const client = new Client();
+export const client = new Client({
+  intents: [
+    'DIRECT_MESSAGES',
+    'GUILDS',
+    'GUILD_EMOJIS_AND_STICKERS',
+    'GUILD_MESSAGES',
+    'GUILD_VOICE_STATES',
+    'DIRECT_MESSAGE_REACTIONS',
+    'GUILD_MESSAGE_REACTIONS'
+  ]
+});
 export const commands = new Collection<string, Command>();
 export const queue = new Map<string, IQueue>();
 
 /** Represents the Queue */
 export interface IQueue {
-  textChannel: TextChannel | DMChannel | NewsChannel;
-  voiceChannel: VoiceChannel;
+  textChannel: TextBasedChannels;
+  voiceChannel: VoiceChannel | StageChannel;
   connection: VoiceConnection | null;
+  audioPlayer?: AudioPlayer;
+  resource?: AudioResource;
   songs: Song[];
   volume: number;
   playing: boolean;

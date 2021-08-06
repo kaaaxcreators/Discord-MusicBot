@@ -27,7 +27,7 @@ module.exports = {
     const serverQueue = queue.get(message.guild!.id);
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
-      serverQueue.connection!.dispatcher.resume();
+      serverQueue.audioPlayer!.unpause();
       const embed = new MessageEmbed()
         .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')
@@ -35,7 +35,7 @@ module.exports = {
           i18next.t('resume.embed.author'),
           'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
         );
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     }
     return sendError(i18next.t('error.nopause'), message.channel);
   }

@@ -1,3 +1,4 @@
+import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 import { Client, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18next from 'i18next';
 import millify from 'millify';
@@ -49,7 +50,7 @@ module.exports = {
     let songInfo;
     let song: Song;
     const searchtext = await message.channel.send({
-      embed: { description: i18next.t('searching') } as MessageEmbedOptions
+      embeds: [{ description: i18next.t('searching') } as MessageEmbedOptions]
     });
     if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
       try {
@@ -175,7 +176,9 @@ module.exports = {
         )
         .addField(i18next.t('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
-      return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
+      return searchtext.editable
+        ? searchtext.edit({ embeds: [embed] })
+        : message.channel.send({ embeds: [embed] });
     }
 
     // If Queue doesn't exist create one
@@ -192,13 +195,17 @@ module.exports = {
     queue.set(message.guild!.id, queueConstruct);
 
     try {
-      const connection = await channel.join();
+      const connection = joinVoiceChannel({
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: <DiscordGatewayAdapterCreator>channel.guild.voiceAdapterCreator
+      });
       queueConstruct.connection = connection;
       play.play(queueConstruct.songs[0], message, searchtext);
     } catch (error) {
       console.error(`${i18next.t('error.join')} ${error}`);
       queue.delete(message.guild!.id);
-      await channel.leave();
+      await channel.guild.me?.voice.disconnect();
       return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
     }
   }

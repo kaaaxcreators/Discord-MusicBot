@@ -32,7 +32,7 @@ module.exports = {
         percentageText: i18next.t('nowplaying.live')
       };
     } else {
-      Progress = ProgressBar(serverQueue.connection!.dispatcher.streamTime, song.duration, 10);
+      Progress = ProgressBar(serverQueue.connection?., song.duration, 10);
     }
     const embed = new MessageEmbed()
       .setAuthor(
@@ -46,7 +46,7 @@ module.exports = {
       .addField(i18next.t('nowplaying.embed.percentage'), Progress.percentageText, true)
       .addField(i18next.t('nowplaying.embed.request'), song.req.tag, true)
       .setFooter(`${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}`);
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;
 

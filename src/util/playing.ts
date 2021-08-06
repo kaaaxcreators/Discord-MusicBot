@@ -1,12 +1,11 @@
 import {
-  DMChannel,
-  Message,
-  MessageEmbed,
-  NewsChannel,
+  AudioPlayerStatus,
+  createAudioPlayer,
+  createAudioResource,
   StreamType,
-  TextChannel,
-  User
-} from 'discord.js';
+  VoiceConnectionStatus
+} from '@discordjs/voice';
+import { Message, MessageEmbed, TextBasedChannels, User } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import i18next from 'i18next';
 import pMS from 'pretty-ms';
@@ -20,7 +19,7 @@ import play from './playing';
 export default {
   async play(
     song: Song,
-    message: { guild: { id: string } | null; channel: TextChannel | NewsChannel | DMChannel },
+    message: { guild: { id: string } | null; channel: TextBasedChannels },
     searchMessage?: Message
   ): Promise<void> {
     const queue = Queue.get(message.guild!.id);
@@ -29,16 +28,16 @@ export default {
       return;
     }
     let stream;
-    let streamType: StreamType;
+    let streamType = StreamType.Arbitrary;
 
     try {
       if (song.url.includes('soundcloud.com')) {
         try {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS);
-          streamType = 'ogg/opus';
+          streamType = StreamType.OggOpus;
         } catch (error) {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3);
-          streamType = 'unknown';
+          streamType = StreamType.Arbitrary;
         }
       } else if (song.url.includes('youtube.com')) {
         // Don't filter audioonly when live
@@ -56,7 +55,7 @@ export default {
             opusEncoded: true
           });
         }
-        streamType = 'opus';
+        streamType = StreamType.Opus;
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
@@ -70,7 +69,7 @@ export default {
           highWaterMark: 1 << 25,
           opusEncoded: true
         });
-        streamType = 'opus';
+        streamType = StreamType.Opus;
         stream.on('error', function (err: Error) {
           if (err && queue) {
             play.play(queue.songs[0], message);
@@ -79,7 +78,7 @@ export default {
         });
       } else if (song.id == 'radio') {
         stream = song.url;
-        streamType = 'unknown';
+        streamType = StreamType.Arbitrary;
       }
     } catch (error) {
       if (queue) {
@@ -88,25 +87,33 @@ export default {
       }
     }
 
-    queue!.connection!.on('disconnect', () => Queue.delete(message.guild!.id));
-
-    const dispatcher = queue!
-      .connection!.play(stream, { type: streamType! })
-      .on('finish', () => {
-        Stats.songsPlayed++;
-        const shifted = queue!.songs.shift();
-        if (queue!.loop === true) {
-          queue!.songs.push(shifted!);
+    queue!.connection!.on(VoiceConnectionStatus.Disconnected, () => {
+      Queue.delete(message.guild!.id);
+    });
+    const audioPlayer = createAudioPlayer();
+    const resource = createAudioResource(stream, { inputType: streamType, inlineVolume: true });
+    audioPlayer.play(resource);
+    queue?.connection
+      ?.subscribe(audioPlayer)
+      ?.player.on('stateChange', (o, n) => {
+        if (o.status == AudioPlayerStatus.Playing && n.status == AudioPlayerStatus.Idle) {
+          // on finish
+          Stats.songsPlayed++;
+          const shifted = queue!.songs.shift();
+          if (queue!.loop === true) {
+            queue!.songs.push(shifted!);
+          }
         }
-        play.play(queue!.songs[0], message);
       })
-      .on('error', (err: Error) => {
+      .on('error', (err) => {
         console.error(err);
         queue!.songs.shift();
         play.play(queue!.songs[0], message);
       });
+    resource.volume?.setVolumeLogarithmic(queue!.volume / 100);
 
-    dispatcher.setVolumeLogarithmic(queue!.volume / 100);
+    queue!.audioPlayer = audioPlayer;
+    queue!.resource = resource;
 
     const embed = new MessageEmbed()
       .setAuthor(
@@ -124,9 +131,9 @@ export default {
       .addField(i18next.t('music.request'), song.req.tag, true)
       .setFooter(`${i18next.t('music.views')} ${song.views} | ${song.ago}`);
     if (searchMessage && searchMessage.editable) {
-      searchMessage.edit(embed);
+      searchMessage.edit({ embeds: [embed] });
     } else {
-      queue!.textChannel.send(embed);
+      queue!.textChannel.send({ embeds: [embed] });
     }
   }
 };
