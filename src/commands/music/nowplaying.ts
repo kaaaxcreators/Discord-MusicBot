@@ -32,7 +32,7 @@ module.exports = {
         percentageText: i18next.t('nowplaying.live')
       };
     } else {
-      Progress = ProgressBar(serverQueue.connection?., song.duration, 10);
+      Progress = ProgressBar(serverQueue.resource!.playbackDuration, song.duration, 10);
     }
     const embed = new MessageEmbed()
       .setAuthor(
