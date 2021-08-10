@@ -74,7 +74,7 @@
     "@types/passport": "^1.0.7",
     "@types/passport-oauth2-refresh": "^1.1.1",
     "@types/yt-search": "^2.3.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "connect-livereload": "^0.6.1",
     "cross-env": "^7.0.3",
