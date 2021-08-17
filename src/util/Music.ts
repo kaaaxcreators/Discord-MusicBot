@@ -42,7 +42,11 @@ export class MusicSubscription {
   public queueLock = false;
   public readyLock = false;
 
-  public constructor(voiceConnection: VoiceConnection, voiceChannel: VoiceChannel | StageChannel, textChannel: TextBasedChannels) {
+  public constructor(
+    voiceConnection: VoiceConnection,
+    voiceChannel: VoiceChannel | StageChannel,
+    textChannel: TextBasedChannels
+  ) {
     this.voiceConnection = voiceConnection;
     this.voiceChannel = voiceChannel;
     this.textChannel = textChannel;
@@ -92,13 +96,13 @@ export class MusicSubscription {
           newState.status === VoiceConnectionStatus.Signalling)
       ) {
         /*
-					In the Signalling or Connecting states, we set a 20 second time limit for the connection to become ready
+					In the Signalling or Connecting states, we set a 10 second time limit for the connection to become ready
 					before destroying the voice connection. This stops the voice connection permanently existing in one of these
 					states.
 				*/
         this.readyLock = true;
         try {
-          await entersState(this.voiceConnection, VoiceConnectionStatus.Ready, 20_000);
+          await entersState(this.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
         } catch {
           if (this.voiceConnection.state.status !== VoiceConnectionStatus.Destroyed) {
             this.voiceConnection.destroy();
@@ -121,7 +125,9 @@ export class MusicSubscription {
         void this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
         // If the Playing state has been entered, then a new track has started playback.
-        (newState.resource as AudioResource<Track>).metadata.onStart((newState.resource as AudioResource<Track>).metadata);
+        (newState.resource as AudioResource<Track>).metadata.onStart(
+          (newState.resource as AudioResource<Track>).metadata
+        );
       }
     });
 
@@ -190,6 +196,7 @@ export class MusicSubscription {
     try {
       // Attempt to convert the Track into an AudioResource (i.e. start streaming the video)
       const resource = await nextTrack.createAudioResource();
+      resource.volume?.setVolumeLogarithmic(this.volume);
       this.audioPlayer.play(resource);
       this.queueLock = false;
     } catch (error) {
@@ -379,7 +386,7 @@ export class Track implements TrackData {
       } else {
         const ytsResult = await yts.search(searchString);
         if (ytsResult.videos.length === 0) {
-         throw new Error(i18next.t('play.notfound.youtube'));
+          throw new Error(i18next.t('play.notfound.youtube'));
         }
         const ytsInfo = ytsResult.videos[0];
         info = {

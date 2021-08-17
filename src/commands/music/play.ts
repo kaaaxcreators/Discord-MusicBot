@@ -34,7 +34,7 @@ module.exports = {
       return sendError(i18next.t('error.needvc'), message.channel);
     }
 
-    if (!args) {
+    if (!args.join(' ')) {
       return sendError(i18next.t('play.missingargs'), message.channel);
     }
     let subscription = queue.get(message.guild!.id);
@@ -58,8 +58,9 @@ module.exports = {
       );
     }
     try {
-      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
-    } catch {
+      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 20e3);
+    } catch (error) {
+      console.error(error);
       return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
     }
     try {

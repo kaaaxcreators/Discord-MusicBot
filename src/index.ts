@@ -1,15 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import { AudioPlayer, AudioResource, VoiceConnection } from '@discordjs/voice';
-import {
-  ActivityType,
-  Client,
-  Collection,
-  Message,
-  PermissionResolvable,
-  StageChannel,
-  TextBasedChannels,
-  VoiceChannel
-} from 'discord.js';
+import { ActivityType, Client, Collection, Message, PermissionResolvable } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
@@ -17,7 +7,6 @@ import i18next from 'i18next';
 import docs from './docs';
 import console from './util/logger';
 import { MusicSubscription } from './util/Music';
-import { Song } from './util/playing';
 
 // Load environment variables
 try {
@@ -110,6 +99,9 @@ readdir(__dirname + '/commands/music', (err, files) => {
   }
   files.forEach((file) => {
     if (!endsWithAny(['.ts', '.js'], file)) {
+      return;
+    }
+    if (!file.startsWith('play') || file.startsWith('playlist')) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
