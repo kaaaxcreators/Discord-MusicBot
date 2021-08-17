@@ -435,7 +435,7 @@ api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SEND_MESSAGES')
       )
-      .array();
+      .map((v) => ({ id: v.id, name: v.name }));
     const voiceChannels = channels
       ?.filter(
         (channel) =>
@@ -443,7 +443,7 @@ api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SPEAK')
       )
-      .array();
+      .map((v) => ({ id: v.id, name: v.name }));
     res.json({
       status: 200,
       channels: textChannels?.concat(voiceChannels),
