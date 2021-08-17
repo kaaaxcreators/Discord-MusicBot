@@ -16,6 +16,7 @@ import i18next from 'i18next';
 
 import docs from './docs';
 import console from './util/logger';
+import { MusicSubscription } from './util/Music';
 import { Song } from './util/playing';
 
 // Load environment variables
@@ -37,20 +38,7 @@ export const client = new Client({
   ]
 });
 export const commands = new Collection<string, Command>();
-export const queue = new Map<string, IQueue>();
-
-/** Represents the Queue */
-export interface IQueue {
-  textChannel: TextBasedChannels;
-  voiceChannel: VoiceChannel | StageChannel;
-  connection: VoiceConnection | null;
-  audioPlayer?: AudioPlayer;
-  resource?: AudioResource;
-  songs: Song[];
-  volume: number;
-  playing: boolean;
-  loop: boolean;
-}
+export const queue = new Map<string, MusicSubscription>();
 
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';
