@@ -27,8 +27,8 @@ module.exports = {
     }
 
     try {
-      await message.guild!.me!.voice.disconnect();
       queue.delete(message.guild!.id);
+      await message.guild!.me!.voice.disconnect();
     } catch (error) {
       return sendError(i18next.t('leave.trying'), message.channel);
     }
