@@ -49,16 +49,20 @@ module.exports = {
       newQueue = true;
       subscription = new MusicSubscription(
         joinVoiceChannel({
-          channelId: message.channel.id,
-          guildId: message.guild!.id,
-          adapterCreator: channel.guild!.voiceAdapterCreator
+          channelId: channel.id,
+          guildId: channel.guild.id,
+          adapterCreator: channel.guild.voiceAdapterCreator
         }),
         channel,
         message.channel
       );
+      subscription.voiceConnection.on('error', (error) => {
+        console.warn(error);
+      });
+      queue.set(message.guild!.id, subscription);
     }
     try {
-      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 20e3);
+      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
     } catch (error) {
       console.error(error);
       return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
@@ -96,7 +100,7 @@ module.exports = {
         }
       });
       subscription.enqueue(track);
-      if (newQueue) {
+      if (!newQueue) {
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('play.embed.author'),

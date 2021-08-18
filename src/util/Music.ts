@@ -196,7 +196,7 @@ export class MusicSubscription {
     try {
       // Attempt to convert the Track into an AudioResource (i.e. start streaming the video)
       const resource = await nextTrack.createAudioResource();
-      resource.volume?.setVolumeLogarithmic(this.volume);
+      // resource.volume?.setVolumeLogarithmic(this.volume);
       this.audioPlayer.play(resource);
       this.queueLock = false;
     } catch (error) {

@@ -1,5 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import { ActivityType, Client, Collection, Message, PermissionResolvable } from 'discord.js';
+import {
+  ActivityType,
+  Client,
+  Collection,
+  Message,
+  PermissionResolvable,
+  Snowflake
+} from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
@@ -27,7 +34,7 @@ export const client = new Client({
   ]
 });
 export const commands = new Collection<string, Command>();
-export const queue = new Map<string, MusicSubscription>();
+export const queue = new Map<Snowflake, MusicSubscription>();
 
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';

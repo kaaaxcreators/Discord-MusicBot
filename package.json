@@ -49,7 +49,6 @@
     "millify": "^4.0.0",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
-    "opusscript": "^0.0.8",
     "passport": "^0.4.1",
     "passport-oauth2-refresh": "^2.1.0",
     "pretty-ms": "^7.0.1",
