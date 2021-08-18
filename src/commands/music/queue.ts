@@ -24,7 +24,7 @@ module.exports = {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
 
-    const que = queue.songs.map(
+    const que = queue.queue.map(
       (t, i) => `\`${++i}.\` | [\`${t.title}\`](${t.url}) - [<@${t.req.id}>]`
     );
 
@@ -40,13 +40,13 @@ module.exports = {
       .setDescription(chunked[0])
       .addField(
         i18next.t('queue.embed.now'),
-        `[${queue.songs[0].title}](${queue.songs[0].url})`,
+        `[${queue.queue[0].title}](${queue.queue[0].url})`,
         true
       )
       .addField(i18next.t('queue.embed.text'), queue.textChannel.toString(), true)
       .addField(i18next.t('queue.embed.voice'), queue.voiceChannel.toString(), true)
       .setFooter(i18next.t('queue.embed.footer', { volume: queue.volume, pages: chunked.length }));
-    if (queue.songs.length === 1) {
+    if (queue.queue.length === 1) {
       embed.setDescription(
         i18next.t('queue.embed.description', { prefix: await getPrefix(message) })
       );

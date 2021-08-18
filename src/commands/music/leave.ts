@@ -1,7 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -28,6 +28,7 @@ module.exports = {
 
     try {
       await message.guild!.me!.voice.disconnect();
+      queue.delete(message.guild!.id);
     } catch (error) {
       return sendError(i18next.t('leave.trying'), message.channel);
     }

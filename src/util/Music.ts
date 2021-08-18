@@ -41,6 +41,7 @@ export class MusicSubscription {
   public paused = false;
   public queueLock = false;
   public readyLock = false;
+  public currentResource: null | AudioResource<Track> = null;
 
   public constructor(
     voiceConnection: VoiceConnection,
@@ -165,6 +166,11 @@ export class MusicSubscription {
     this.audioPlayer.pause();
   }
 
+  public setVolume(volume: number): void {
+    this.volume = volume;
+    this.currentResource?.volume?.setVolumeLogarithmic(volume / 100);
+  }
+
   public resume(): void {
     if (!this.paused) {
       return;
@@ -196,7 +202,8 @@ export class MusicSubscription {
     try {
       // Attempt to convert the Track into an AudioResource (i.e. start streaming the video)
       const resource = await nextTrack.createAudioResource();
-      // resource.volume?.setVolumeLogarithmic(this.volume);
+      resource.volume?.setVolumeLogarithmic(this.volume / 100);
+      this.currentResource = resource;
       this.audioPlayer.play(resource);
       this.queueLock = false;
     } catch (error) {

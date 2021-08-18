@@ -43,24 +43,25 @@ module.exports = {
     if (!queue) {
       return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
-    if (Number(args[0]) > queue.songs.length) {
+    if (Number(args[0]) > queue.queue.length) {
       return sendError(
-        i18next.t('skipto.short', { songs: queue.songs.length }),
+        i18next.t('skipto.short', { songs: queue.queue.length }),
         message.channel
       ).catch(console.error);
     }
 
-    queue.playing = true;
-
     if (queue.loop) {
       for (let i = 0; i < Number(args[0]) - 2; i++) {
-        queue.songs.push(queue.songs.shift()!);
+        queue.queue.push(queue.queue.shift()!);
       }
     } else {
-      queue.songs = queue.songs.slice(Number(args[0]) - 2);
+      queue.queue = queue.queue.slice(Number(args[0]) - 2);
     }
+
+    queue.resume();
+
     try {
-      queue.audioPlayer?.stop();
+      queue.stop();
     } catch (error) {
       queue.voiceChannel.guild.me?.voice.disconnect();
       Queue.delete(message.guild!.id);

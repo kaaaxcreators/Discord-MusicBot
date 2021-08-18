@@ -37,17 +37,17 @@ module.exports = {
     if (isNaN(Number(args[0]))) {
       return sendError(i18next.t('remove.missingargs', { prefix: prefix }), message.channel);
     }
-    if (queue.songs.length == 1) {
+    if (queue.queue.length == 1) {
       return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
-    if (Number(args[0]) > queue.songs.length) {
+    if (Number(args[0]) > queue.queue.length) {
       return sendError(
-        i18next.t('remove.short', { songs: queue.songs.length }),
+        i18next.t('remove.short', { songs: queue.queue.length }),
         message.channel
       ).catch(console.error);
     }
     try {
-      const song = queue.songs.splice(Number(args[0]) - 1, 1);
+      const song = queue.queue.splice(Number(args[0]) - 1, 1);
       queue.textChannel
         .send({
           embeds: [

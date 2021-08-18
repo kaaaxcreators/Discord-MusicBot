@@ -28,15 +28,14 @@ module.exports = {
     if (!serverQueue) {
       return sendError(i18next.t('skip.nothing'), message.channel);
     }
-    if (!serverQueue.connection) {
+    if (!serverQueue.voiceConnection) {
       return;
     }
     if (!serverQueue.audioPlayer) {
       return;
     }
-    if (serverQueue && !serverQueue.playing) {
-      serverQueue.playing = true;
-      serverQueue.audioPlayer.unpause();
+    if (serverQueue && serverQueue.paused) {
+      serverQueue.resume();
       const embed = new MessageEmbed()
         .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')
@@ -46,7 +45,7 @@ module.exports = {
     }
 
     try {
-      serverQueue.audioPlayer.stop();
+      serverQueue.stop();
     } catch (error) {
       serverQueue.voiceChannel.guild.me?.voice.disconnect();
       queue.delete(message.guild!.id);

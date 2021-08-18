@@ -25,10 +25,9 @@ module.exports = {
       return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
-    if (serverQueue && serverQueue.playing) {
-      serverQueue.playing = false;
+    if (serverQueue && !serverQueue.paused) {
       try {
-        serverQueue.audioPlayer?.pause();
+        serverQueue.pause();
       } catch (error) {
         queue.delete(message.guild!.id);
         return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);

@@ -25,9 +25,8 @@ module.exports = {
       return sendError(i18next.t('error.samevc'), message.channel);
     }
     const serverQueue = queue.get(message.guild!.id);
-    if (serverQueue && !serverQueue.playing) {
-      serverQueue.playing = true;
-      serverQueue.audioPlayer!.unpause();
+    if (serverQueue && serverQueue.paused) {
+      serverQueue.resume();
       const embed = new MessageEmbed()
         .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')

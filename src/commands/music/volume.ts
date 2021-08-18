@@ -28,7 +28,7 @@ module.exports = {
     if (!serverQueue) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
-    if (!serverQueue.connection) {
+    if (!serverQueue.voiceConnection) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
     if (!args[0]) {
@@ -40,8 +40,7 @@ module.exports = {
     if (parseInt(args[0]) > 150 || Number(args[0]) < 0) {
       return sendError(i18next.t('volume.between'), message.channel).catch();
     }
-    serverQueue.volume = Number(args[0]);
-    serverQueue.resource?.volume?.setVolumeLogarithmic(Number(args[0]) / 100);
+    serverQueue.setVolume(parseInt(args[0]));
     const embed = new MessageEmbed()
       .setDescription(i18next.t('volume.embed.description', { volume: Number(args[0]) / 1 }))
       .setAuthor(

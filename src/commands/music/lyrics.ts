@@ -29,21 +29,21 @@ module.exports = {
     let lyrics: string[] = [];
 
     try {
-      lyrics = await lyricsFinder(queue.songs[0].title);
+      lyrics = await lyricsFinder(queue.queue[0].title);
       if (!lyrics) {
-        lyrics = [`${i18next.t('lyrics.notfound')} ${queue.songs[0].title}.`];
+        lyrics = [`${i18next.t('lyrics.notfound')} ${queue.queue[0].title}.`];
       }
     } catch (error) {
-      lyrics = [`${i18next.t('lyrics.notfound')} ${queue.songs[0].title}.`];
+      lyrics = [`${i18next.t('lyrics.notfound')} ${queue.queue[0].title}.`];
     }
     const splittedLyrics = Util.chunk(lyrics, 1024);
 
     const embed = new MessageEmbed()
       .setAuthor(
-        i18next.t('lyrics.embed.author', { song: queue.songs[0].title }),
+        i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
-      .setThumbnail(queue.songs[0].img)
+      .setThumbnail(queue.queue[0].img)
       .setColor('YELLOW')
       .setDescription(splittedLyrics[0].join(''))
       .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))

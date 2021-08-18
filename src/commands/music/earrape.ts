@@ -28,13 +28,13 @@ module.exports = {
     if (!serverQueue) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
-    if (!serverQueue.connection) {
+    if (!serverQueue.voiceConnection) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
     // Detect if earrape Mode is toggled with fixed volume (probably bad, but otherwise I would need persistence (e.g. db))
     const volume = serverQueue.volume == 696 ? 80 : 696;
     serverQueue.volume = volume;
-    serverQueue.resource?.volume?.setVolumeLogarithmic(volume / 100);
+    serverQueue.setVolume(volume);
     const embed = new MessageEmbed()
       .setDescription(i18next.t('earrape.embed.description', { volume: volume / 1 }))
       .setAuthor(
