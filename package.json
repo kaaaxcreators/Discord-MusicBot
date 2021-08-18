@@ -27,7 +27,7 @@
     "node": ">=14.x"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.5.3",
+    "@discordjs/opus": "^0.6.0",
     "@oauth-everything/passport-discord": "^1.0.2",
     "didyoumean2": "^5.0.0",
     "discord-oauth2": "^2.7.1",
