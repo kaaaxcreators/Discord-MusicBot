@@ -108,9 +108,6 @@ readdir(__dirname + '/commands/music', (err, files) => {
     if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
-    if (file.startsWith('search')) {
-      return;
-    }
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const props = require(__dirname + `/commands/music/${file}`);
     const commandName = file.split('.')[0];
