@@ -10,7 +10,7 @@ import {
   VoiceConnectionDisconnectReason,
   VoiceConnectionStatus
 } from '@discordjs/voice';
-import { Message, StageChannel, TextBasedChannels, User, Util, VoiceChannel } from 'discord.js';
+import { StageChannel, TextBasedChannels, User, Util, VoiceChannel } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import i18next from 'i18next';
 import millify from 'millify';
@@ -360,7 +360,7 @@ export class Track implements TrackData {
    */
   public static async from(
     args: string[],
-    message: Message,
+    message: { author: User },
     methods: Pick<Track, 'onStart' | 'onFinish' | 'onError'>
   ): Promise<Track> {
     let info: Omit<TrackData, 'onStart' | 'onFinish' | 'onError'>;

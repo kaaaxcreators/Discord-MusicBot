@@ -15,7 +15,7 @@ function socket(io: Server): void {
         const { client, Stats } = await import('../../index');
         let totalvcs = 0;
         Array.from(client.guilds.cache).forEach((guild) => {
-          if (guild[1].voiceStates.cache.size) {
+          if (guild[1].me?.voice.channel) {
             totalvcs += 1;
           }
         });
@@ -56,35 +56,35 @@ function socket(io: Server): void {
           });
         } else {
           socket.emit('server', {
-            queue: player.songs ? player.songs.length : 0,
+            queue: player.queue ? player.queue.length : 0,
             songsLoop: player.loop ? i18next.t('socket.enabled') : i18next.t('socket.disabled'),
             prefix: prefix,
             bar:
-              player.songs[0] && player.connection
-                ? player.songs[0].live
+              player.queue[0] && player.currentResource
+                ? player.queue[0].live
                   ? '▇—▇—▇—▇—▇—▇—▇—▇—▇—▇—'
                   : ProgressBar(
-                      player.connection.dispatcher.streamTime,
-                      player.songs[0].duration,
+                      player.currentResource.playbackDuration,
+                      player.queue[0].duration,
                       20
                     ).Bar
                 : false,
             maxDuration:
-              player.songs[0] && player.connection
-                ? player.songs[0].live
+              player.queue[0] && player.currentResource
+                ? player.queue[0].live
                   ? i18next.t('nowplaying.live')
-                  : pMS(player.songs[0].duration, {
+                  : pMS(player.queue[0].duration, {
                       colonNotation: true,
                       secondsDecimalDigits: 0
                     })
                 : false,
-            position: player.connection
-              ? pMS(player.connection.dispatcher.streamTime, {
+            position: player.currentResource
+              ? pMS(player.currentResource.playbackDuration, {
                   colonNotation: true,
                   secondsDecimalDigits: 0
                 })
               : false,
-            nowPlaying: player.songs[0] ? player.songs[0] : false
+            nowPlaying: player.queue[0] ? player.queue[0] : false
           });
         }
       }, 1000);
