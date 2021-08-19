@@ -367,7 +367,12 @@ export class Track implements TrackData {
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
     try {
-      if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
+      if (
+        url.match(
+          /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/i
+        )
+      ) {
+        // youtube video
         const ytdlInfo = await ytdl.getInfo(url);
         if (!ytdlInfo) {
           throw new Error(i18next.t('play.notfound.youtube'));
@@ -384,6 +389,7 @@ export class Track implements TrackData {
           req: message.author
         };
       } else if (scdl.isValidUrl(url)) {
+        // soundcloud song
         const scdlInfo = await scdl.getInfo(url);
         if (!scdlInfo) {
           throw new Error(i18next.t('play.notfound.soundcloud'));
@@ -396,21 +402,6 @@ export class Track implements TrackData {
           ago: moment(scdlInfo.last_modified!).fromNow(),
           views: millify(scdlInfo.playback_count!),
           duration: Math.ceil(scdlInfo.duration!),
-          req: message.author
-        };
-      } else if (spdl.validateURL(url)) {
-        const spdlInfo = await spdl.getInfo(url);
-        if (!spdlInfo) {
-          throw new Error(i18next.t('play.notfound.spotify'));
-        }
-        info = {
-          id: spdlInfo.id,
-          title: spdlInfo.title,
-          url: spdlInfo.url,
-          img: spdlInfo.thumbnail,
-          ago: '-',
-          views: '-',
-          duration: spdlInfo.duration!,
           req: message.author
         };
       } else {
