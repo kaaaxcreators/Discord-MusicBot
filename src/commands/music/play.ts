@@ -1,17 +1,12 @@
-import { Client, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
+import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
+import { Client, Message, MessageEmbed, MessageEmbedOptions } from 'discord.js';
 import i18next from 'i18next';
-import millify from 'millify';
-import moment from 'moment';
 import pMS from 'pretty-ms';
-import scdl from 'soundcloud-downloader/dist/index';
-import spdl from 'spdl-core';
-import yts from 'yt-search';
-import ytdl from 'ytdl-core';
 
-import { Command, IQueue, queue } from '../../index';
+import { Command, queue, Stats } from '../../index';
 import sendError from '../../util/error';
 import console from '../../util/logger';
-import play, { Song } from '../../util/playing';
+import { MusicSubscription, Track } from '../../util/Music';
 
 module.exports = {
   info: {
@@ -39,167 +34,98 @@ module.exports = {
       return sendError(i18next.t('error.needvc'), message.channel);
     }
 
-    const searchString = args.join(' ');
-    if (!searchString) {
+    if (!args.join(' ')) {
       return sendError(i18next.t('play.missingargs'), message.channel);
     }
-    const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
-    const serverQueue = queue.get(message.guild!.id);
+    let subscription = queue.get(message.guild!.id);
 
-    let songInfo;
-    let song: Song;
     const searchtext = await message.channel.send({
-      embed: { description: i18next.t('searching') } as MessageEmbedOptions
+      embeds: [{ description: i18next.t('searching') } as MessageEmbedOptions]
     });
-    if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
-      try {
-        songInfo = await ytdl.getInfo(url);
-        if (!songInfo) {
-          return sendError(i18next.t('play.notfound.youtube'), message.channel);
-        }
-        song = {
-          id: songInfo.videoDetails.videoId,
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          img: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
-          duration: Number(songInfo.videoDetails.lengthSeconds) * 1000,
-          ago: moment(songInfo.videoDetails.publishDate).fromNow(),
-          views: millify(Number(songInfo.videoDetails.viewCount)),
-          live: songInfo.videoDetails.isLiveContent,
-          req: message.author
-        };
-      } catch (error) {
-        if (searchtext.deletable) {
-          searchtext.delete();
-        }
-        return sendError(
-          i18next.t('error.occurred') + ' ' + error.message || error,
-          message.channel
-        ).catch(console.error);
-      }
-    } else if (scdl.isValidUrl(url)) {
-      try {
-        songInfo = await scdl.getInfo(url);
-        if (!songInfo) {
-          return sendError(i18next.t('play.notfound.soundcloud'), message.channel);
-        }
-        song = {
-          id: songInfo.permalink!,
-          title: songInfo.title!,
-          url: songInfo.permalink_url!,
-          img: songInfo.artwork_url!,
-          ago: moment(songInfo.last_modified!).fromNow(),
-          views: millify(songInfo.playback_count!),
-          duration: Math.ceil(songInfo.duration!),
-          req: message.author
-        };
-      } catch (error) {
-        if (searchtext.deletable) {
-          searchtext.delete();
-        }
-        return sendError(
-          i18next.t('error.occurred') + ' ' + error.message || error,
-          message.channel
-        ).catch(console.error);
-      }
-    } else if (spdl.validateURL(url)) {
-      try {
-        songInfo = await spdl.getInfo(url);
-        if (!songInfo) {
-          return sendError(i18next.t('play.notfound.spotify'), message.channel);
-        }
-        song = {
-          id: songInfo.id,
-          title: songInfo.title,
-          url: songInfo.url,
-          img: songInfo.thumbnail,
-          ago: '-',
-          views: '-',
-          duration: songInfo.duration!,
-          req: message.author
-        };
-      } catch (error) {
-        if (searchtext.deletable) {
-          searchtext.delete();
-        }
-        return sendError(
-          i18next.t('error.occurred') + ' ' + error.message || error,
-          message.channel
-        ).catch(console.error);
-      }
-    } else {
-      try {
-        const searched = await yts.search(searchString);
-        if (searched.videos.length === 0) {
-          return sendError(i18next.t('play.notfound.youtube'), message.channel);
-        }
 
-        songInfo = searched.videos[0];
-        song = {
-          id: songInfo.videoId,
-          title: Util.escapeMarkdown(songInfo.title),
-          views: millify(songInfo.views),
-          url: songInfo.url,
-          ago: songInfo.ago,
-          duration: songInfo.duration.seconds * 1000,
-          img: songInfo.image,
-          req: message.author
-        };
-      } catch (error) {
-        if (searchtext.deletable) {
-          searchtext.delete();
-        }
-        return sendError(
-          i18next.t('error.occurred') + ' ' + error.message || error,
-          message.channel
-        ).catch(console.error);
-      }
+    /** if queue existed before the play request */
+    const oldQueue = !!subscription;
+
+    if (!subscription) {
+      subscription = new MusicSubscription(
+        joinVoiceChannel({
+          channelId: channel.id,
+          guildId: channel.guild.id,
+          adapterCreator: channel.guild.voiceAdapterCreator
+        }),
+        channel,
+        message.channel
+      );
+      subscription.voiceConnection.on('error', (error) => {
+        console.warn(error);
+      });
+      queue.set(message.guild!.id, subscription);
     }
-
-    if (serverQueue) {
-      serverQueue.songs.push(song);
-      const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('play.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
-        .setThumbnail(song.img!)
-        .setColor('YELLOW')
-        .addField(i18next.t('play.embed.name'), `[${song.title}](${song.url})`, true)
-        .addField(
-          i18next.t('play.embed.duration'),
-          song.live
-            ? i18next.t('nowplaying.live')
-            : pMS(song.duration, { secondsDecimalDigits: 0 }),
-          true
-        )
-        .addField(i18next.t('play.embed.request'), song.req.tag, true)
-        .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
-      return searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed);
-    }
-
-    // If Queue doesn't exist create one
-    const queueConstruct: IQueue = {
-      textChannel: message.channel,
-      voiceChannel: channel,
-      connection: null,
-      songs: [],
-      volume: 80,
-      playing: true,
-      loop: false
-    };
-    queueConstruct.songs.push(song);
-    queue.set(message.guild!.id, queueConstruct);
-
     try {
-      const connection = await channel.join();
-      queueConstruct.connection = connection;
-      play.play(queueConstruct.songs[0], message, searchtext);
+      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
     } catch (error) {
-      console.error(`${i18next.t('error.join')} ${error}`);
-      queue.delete(message.guild!.id);
-      await channel.leave();
-      return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
+      console.error(error);
+      return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
+    }
+    try {
+      const track = await Track.from(args, message, {
+        onStart(info) {
+          const embed = new MessageEmbed()
+            .setAuthor(
+              i18next.t('music.started'),
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            )
+            .setThumbnail(info.img)
+            .setColor('BLUE')
+            .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
+            .addField(
+              i18next.t('music.duration'),
+              info.live
+                ? i18next.t('nowplaying.live')
+                : pMS(info.duration, { secondsDecimalDigits: 0 }),
+              true
+            )
+            .addField(i18next.t('music.request'), info.req.tag, true)
+            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+          // if oldQueue then don't edit message
+          searchtext.editable && !oldQueue
+            ? searchtext.edit({ embeds: [embed] })
+            : message.channel.send({ embeds: [embed] });
+        },
+        onFinish() {
+          Stats.songsPlayed++;
+        },
+        onError(error) {
+          console.error(error);
+          return sendError(error.message, message.channel);
+        }
+      });
+      subscription.enqueue(track);
+      if (oldQueue) {
+        const embed = new MessageEmbed()
+          .setAuthor(
+            i18next.t('play.embed.author'),
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          )
+          .setThumbnail(track.img!)
+          .setColor('YELLOW')
+          .addField(i18next.t('play.embed.name'), `[${track.title}](${track.url})`, true)
+          .addField(
+            i18next.t('play.embed.duration'),
+            track.live
+              ? i18next.t('nowplaying.live')
+              : pMS(track.duration, { secondsDecimalDigits: 0 }),
+            true
+          )
+          .addField(i18next.t('play.embed.request'), track.req.tag, true)
+          .setFooter(`${i18next.t('play.embed.views')} ${track.views} | ${track.ago}`);
+        searchtext.editable
+          ? searchtext.edit({ embeds: [embed] })
+          : message.channel.send({ embeds: [embed] });
+      }
+    } catch (error) {
+      console.error(error);
+      return sendError(error.message, message.channel);
     }
   }
 } as Command;

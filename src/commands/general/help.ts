@@ -21,6 +21,7 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     let generalcmds = '';
     let musiccmds = '';
+    const DM = message.channel.type === 'DM';
     const prefix = await getPrefix(message);
 
     commands.forEach((cmd) => {
@@ -39,10 +40,11 @@ module.exports = {
       }
     });
     const helptext = [
-      `**:information_source: ${i18next.t(
-        'help.embed.fields.general'
-      )}**\n${generalcmds}\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`
+      `**:information_source: ${i18next.t('help.embed.fields.general')}**\n${generalcmds}`
     ];
+    if (!DM) {
+      helptext[0] += `\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`;
+    }
     const splittedHelp = Util.chunk(helptext, 1024);
     const embed = new MessageEmbed()
       .setAuthor(
@@ -50,17 +52,18 @@ module.exports = {
         'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
       )
       .setColor('BLUE')
-      .setDescription(splittedHelp[0])
+      .setDescription(splittedHelp[0].join(''))
       .setFooter(i18next.t('help.embed.footer', { prefix: prefix }));
 
     if (!args[0]) {
-      const helpmsg = await message.channel.send(embed);
+      const helpmsg = await message.channel.send({ embeds: [embed] });
       if (splittedHelp.length > 1) {
         await Util.pagination(helpmsg, message.author, splittedHelp);
       }
     }
     // If Argument supplied get details of specific command
     else {
+      console.log(args[0]);
       const cmd = args[0];
       let command = commands.get(cmd);
       if (!command) {
@@ -78,7 +81,7 @@ ${i18next.t('help.spec.description')} ${command.info.description}
 ${i18next.t('help.spec.usage')} \`\`${prefix}${command.info.name}${usage}\`\`
 ${i18next.t('help.spec.aliases')} ${command.info.aliases.join(', ')}
 `);
-      message.channel.send(commandinfo);
+      message.channel.send({ embeds: [commandinfo] });
     }
   }
 } as Command;

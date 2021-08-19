@@ -29,7 +29,7 @@ module.exports = {
       // Get Voice Channel Count Bot is currently connected to
       let totalvcs = 0;
       for (const guild of client.guilds.cache.map((guilds) => guilds)) {
-        if (guild.voice?.connection) {
+        if (guild.me?.voice.channel) {
           totalvcs += 1;
         }
       }
@@ -39,14 +39,14 @@ module.exports = {
         .setThumbnail(client.user!.avatarURL()!)
         .setColor('RANDOM')
         .addField(i18next.t('stats.embed.uptime'), pMS(client.uptime!), true)
-        .addField(i18next.t('stats.embed.members'), totalmembers, true)
-        .addField(i18next.t('stats.embed.servers'), guilds.length, true)
+        .addField(i18next.t('stats.embed.members'), totalmembers.toString(), true)
+        .addField(i18next.t('stats.embed.servers'), guilds.length.toString(), true)
         .addField(i18next.t('stats.embed.running'), uptime.toLocaleString(), true)
         .addField(i18next.t('stats.embed.started'), moment(uptime).fromNow(), true)
-        .addField(i18next.t('stats.embed.totalvcs'), totalvcs, true)
+        .addField(i18next.t('stats.embed.totalvcs'), totalvcs.toString(), true)
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     } catch {
       return sendError(i18next.t('error.something'), message.channel);
     }

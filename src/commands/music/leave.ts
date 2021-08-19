@@ -1,7 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command } from '../../index';
+import { Command, queue } from '../../index';
 import sendError from '../../util/error';
 
 module.exports = {
@@ -27,9 +27,9 @@ module.exports = {
     }
 
     try {
-      await message.guild!.me!.voice.channel.leave();
+      queue.delete(message.guild!.id);
+      await message.guild!.me!.voice.disconnect();
     } catch (error) {
-      await message.guild!.me!.voice.kick(message.guild!.me!.id);
       return sendError(i18next.t('leave.trying'), message.channel);
     }
 
@@ -43,6 +43,8 @@ module.exports = {
       .setDescription(i18next.t('leave.embed.description'))
       .setTimestamp();
 
-    return message.channel.send(embed).catch(() => message.channel.send(i18next.t('leave.left')!));
+    return message.channel
+      .send({ embeds: [embed] })
+      .catch(() => message.channel.send(i18next.t('leave.left')!));
   }
 } as Command;

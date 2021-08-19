@@ -27,15 +27,13 @@ export default class Util {
       }
     }
 
-    const collector = msg.createReactionCollector(
-      (reaction, user) => {
-        return this.paginationEmojis.includes(reaction.emoji.name) && user.id === author.id;
-      },
-      {
-        max: 1,
-        time: 30000
+    const collector = msg.createReactionCollector({
+      max: 1,
+      time: 30000,
+      filter: (reaction, user) => {
+        return this.paginationEmojis.includes(reaction.emoji.name!) && user.id === author.id;
       }
-    );
+    });
 
     collector
       .on('collect', (reaction) => {
@@ -54,10 +52,14 @@ export default class Util {
         currPage = ((currPage % contents.length) + contents.length) % contents.length;
 
         const embed = msg.embeds[0]
-          .setDescription(contents[currPage])
+          .setDescription(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            Array.isArray(contents[currPage]) ? contents[currPage].join('') : contents[currPage]
+          )
           .setFooter(i18next.t('pagination', { page: currPage + 1, pages: contents.length }));
 
-        msg.edit(embed);
+        msg.edit({ embeds: [embed] });
 
         this.pagination(msg, author, contents, false, currPage);
       })

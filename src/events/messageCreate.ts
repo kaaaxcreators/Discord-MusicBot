@@ -1,5 +1,5 @@
 import didYouMean from 'didyoumean2';
-import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 import events from 'events';
 import i18next from 'i18next';
 
@@ -11,11 +11,10 @@ module.exports = async (client: Client, message: Message) => {
   if (message.author.bot) {
     return;
   }
-
   let botprefix = config.prefix;
 
   // prefix from db if server
-  if (message.channel.type != 'dm' && config.GUILDPREFIX) {
+  if (message.channel.type != 'DM' && config.GUILDPREFIX) {
     const guildDB = await getGuild(message.guild!.id);
     if (guildDB && guildDB.prefix) {
       botprefix = guildDB.prefix;
@@ -56,12 +55,11 @@ module.exports = async (client: Client, message: Message) => {
   // Executing the command with Context and Arguments
   if (cmd && cmd.run) {
     // Only run General Commands in DM
-    if (cmd.info.categorie != 'general' && message.channel.type == 'dm') {
+    if (cmd.info.categorie != 'general' && message.channel.type == 'DM') {
       return sendError(i18next.t('message.onlygeneral'), message.channel);
     }
     // Check for Bot Permissions only on Servers
-    if (cmd.info.permissions && message.channel.type != 'dm') {
-      message.channel = <TextChannel | NewsChannel>message.channel;
+    if (cmd.info.permissions && message.channel.type != 'DM') {
       if (
         cmd.info.permissions.channel &&
         !message.channel.permissionsFor(client.user!)?.has(cmd.info.permissions.channel)
@@ -103,7 +101,7 @@ module.exports = async (client: Client, message: Message) => {
           )
           .setColor('DARK_VIVID_PINK')
           .setFooter(message.author.username, message.author.avatarURL()!);
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
       } else {
         return;
       }

@@ -46,11 +46,8 @@ module.exports = async (client: Client) => {
     }
   });
   console.info(`${i18next.t('ready.loggedin')} ${client.user!.username}`);
-  client.user!.setPresence({
-    status: 'online', // You can show online, idle, and dnd
-    activity: {
-      name: `${config.PRESENCE} | ${config.prefix}help`, // The Activity shown
-      type: config.PRESENCETYPE
-    }
+  client.user?.setPresence({
+    status: 'online',
+    activities: [{ name: `${config.PRESENCE} | ${config.prefix}help`, type: config.PRESENCETYPE }]
   });
 };

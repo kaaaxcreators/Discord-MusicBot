@@ -1,23 +1,19 @@
+import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
 import { User } from '@oauth-everything/passport-discord/dist/ApiData';
 import connectLivereload from 'connect-livereload';
-import { MessageEmbed, Permissions, TextChannel, Util, VoiceChannel } from 'discord.js';
+import { MessageEmbed, Permissions, TextChannel, VoiceChannel } from 'discord.js';
 import DiscordOauth2 from 'discord-oauth2';
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import i18next from 'i18next';
 import livereload from 'livereload';
-import millify from 'millify';
-import moment from 'moment';
 import { join } from 'path';
 import pMS from 'pretty-ms';
-import scdl from 'soundcloud-downloader/dist/index';
-import spdl from 'spdl-core';
-import yts from 'yt-search';
-import ytdl from 'ytdl-core';
 
-import { client, commands, config, IQueue } from '../index';
+import { client, commands, config } from '../index';
 import database, { getGuild } from '../util/database';
-import play, { Song } from '../util/playing';
+import sendError from '../util/error';
+import { MusicSubscription, Track } from '../util/Music';
 import Auth from './Middlewares/Auth';
 import * as CSRF from './Middlewares/CSRF';
 import GuildActions from './Middlewares/GuildActions';
@@ -113,7 +109,9 @@ api.get('/api/user', async (req, res) => {
     req.user.guilds = userGuilds;
     req.user.lastUpdated = new Date().toUTCString();
     req.user!.guilds!.map((g) => {
-      g.hasPerms = new Permissions(g.permissions).has('MANAGE_GUILD', true);
+      g.hasPerms = !!(
+        g.permissions && new Permissions(BigInt(g.permissions)).has('MANAGE_GUILD', true)
+      );
       g.inGuild = client.guilds.cache.has(g.id);
       return g;
     });
@@ -191,92 +189,45 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
   ) {
     res.status(403).json({ status: 403 });
   } else {
-    const serverQueue = (await import('../index')).queue.get(id);
+    let subscription = (await import('../index')).queue.get(id);
+    const Stats = (await import('../index')).Stats;
     const client = (await import('../index')).client;
     const user = await client.users.fetch(req.user.id);
-    let Song: Song;
-    let songInfo;
-    if (song.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
-      try {
-        songInfo = await ytdl.getInfo(song);
-        if (!songInfo) {
-          return res.status(404).json({ status: 404 });
+    const Song = await Track.from(
+      [escapeRegExp(song)],
+      { author: user },
+      {
+        onStart(info) {
+          const embed = new MessageEmbed()
+            .setAuthor(
+              i18next.t('music.started'),
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            )
+            .setThumbnail(info.img)
+            .setColor('BLUE')
+            .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
+            .addField(
+              i18next.t('music.duration'),
+              info.live
+                ? i18next.t('nowplaying.live')
+                : pMS(info.duration, { secondsDecimalDigits: 0 }),
+              true
+            )
+            .addField(i18next.t('music.request'), info.req.tag, true)
+            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+          subscription!.textChannel.send({ embeds: [embed] });
+        },
+        onFinish() {
+          Stats.songsPlayed++;
+        },
+        onError(error) {
+          console.error(error);
+          return sendError(error.message, subscription!.textChannel);
         }
-        Song = {
-          id: songInfo.videoDetails.videoId,
-          title: songInfo.videoDetails.title,
-          url: songInfo.videoDetails.video_url,
-          img: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
-          duration: Number(songInfo.videoDetails.lengthSeconds) * 1000,
-          ago: moment(songInfo.videoDetails.publishDate).fromNow(),
-          views: millify(Number(songInfo.videoDetails.viewCount)),
-          live: songInfo.videoDetails.isLiveContent,
-          req: user
-        };
-      } catch (error) {
-        return res.status(500).json({ status: 500, error: error.message || error });
       }
-    } else if (scdl.isValidUrl(song)) {
-      try {
-        songInfo = await scdl.getInfo(song);
-        if (!songInfo) {
-          return res.status(404).json({ status: 404 });
-        }
-        Song = {
-          id: songInfo.permalink!,
-          title: songInfo.title!,
-          url: songInfo.permalink_url!,
-          img: songInfo.artwork_url!,
-          ago: moment(songInfo.last_modified!).fromNow(),
-          views: millify(songInfo.playback_count!),
-          duration: Math.ceil(songInfo.duration!),
-          req: user
-        };
-      } catch (error) {
-        return res.status(500).json({ status: 500, error: error.message || error });
-      }
-    } else if (spdl.validateURL(song)) {
-      try {
-        songInfo = await spdl.getInfo(song);
-        if (!songInfo) {
-          return res.status(404).json({ status: 404 });
-        }
-        Song = {
-          id: songInfo.id,
-          title: songInfo.title,
-          url: songInfo.url,
-          img: songInfo.thumbnail,
-          ago: '-',
-          views: '-',
-          duration: songInfo.duration!,
-          req: user
-        };
-      } catch (error) {
-        return res.status(500).json({ status: 500, error: error.message || error });
-      }
-    } else {
-      try {
-        const searched = await yts.search(escapeRegExp(song));
-        if (searched.videos.length === 0) {
-          return res.status(404).json({ status: 404 });
-        }
-        songInfo = searched.videos[0];
-        Song = {
-          id: songInfo.videoId,
-          title: Util.escapeMarkdown(songInfo.title),
-          views: millify(songInfo.views),
-          url: songInfo.url,
-          ago: songInfo.ago,
-          duration: songInfo.duration.seconds * 1000,
-          img: songInfo.image,
-          req: user
-        };
-      } catch (error) {
-        return res.json({ status: 500, error: error.message || error });
-      }
-    }
-    if (serverQueue) {
-      serverQueue.songs.push(Song);
+    );
+    if (subscription) {
+      subscription.enqueue(Song);
       const embed = new MessageEmbed()
         .setAuthor(
           'Song has been added to queue from Dashboard',
@@ -294,7 +245,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
         )
         .addField(i18next.t('play.embed.request'), Song.req.tag, true)
         .setFooter(`${i18next.t('play.embed.views')} ${Song.views} | ${Song.ago}`);
-      serverQueue.textChannel.send(embed);
+      subscription.textChannel.send({ embeds: [embed] });
       return res.json(Song);
     } else {
       if (mchannel && vchannel) {
@@ -312,37 +263,32 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
         }
         if (
           // check if channels are valid and if user has perms
-          textChannel?.type === 'text' &&
-          voiceChannel?.type === 'voice' &&
+          textChannel?.type === 'GUILD_TEXT' &&
+          voiceChannel?.type === 'GUILD_VOICE' &&
           textChannel.permissionsFor(guildMember)?.has('SEND_MESSAGES') &&
           voiceChannel.permissionsFor(guildMember)?.has('SPEAK')
         ) {
-          const queueConstruct: IQueue = {
-            textChannel: textChannel,
-            voiceChannel: voiceChannel,
-            connection: null,
-            songs: [],
-            volume: 80,
-            playing: true,
-            loop: false
-          };
-          queueConstruct.songs.push(Song);
-          (await import('../index')).queue.set(id, queueConstruct);
+          subscription = new MusicSubscription(
+            joinVoiceChannel({
+              channelId: voiceChannel.id,
+              guildId: id,
+              adapterCreator: guildMember.guild.voiceAdapterCreator
+            }),
+            voiceChannel,
+            textChannel
+          );
+          subscription.voiceConnection.on('error', (error) => {
+            console.warn(error);
+          });
+          (await import('../index')).queue.set(id, subscription);
+          subscription.enqueue(Song);
           try {
-            const connection = await voiceChannel.join();
-            queueConstruct.connection = connection;
-            const message = {
-              guild: {
-                id: id
-              },
-              channel: textChannel
-            };
-            play.play(queueConstruct.songs[0], message);
+            await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
           } catch (error) {
-            console.error(`${i18next.t('error.join')} ${error}`);
-            (await import('../index')).queue.delete(id);
-            voiceChannel.leave();
-            return res.status(500).json({ status: i18next.t('error.join') });
+            console.error(error);
+            return res
+              .status(500)
+              .json({ status: 'Failed to Join the Voice Channel within 10 seconds' });
           }
           return res.json({ status: 200 });
         } else {
@@ -377,18 +323,11 @@ api.post('/api/queue/:id/skip', GuildActions, CSRF.Verify, async (req, res) => {
     res.status(403).json({ status: 403 });
   } else {
     const serverQueue = (await import('../index')).queue.get(id);
-    if (serverQueue && serverQueue.connection && serverQueue.connection.dispatcher) {
+    if (serverQueue && serverQueue.voiceConnection && serverQueue.audioPlayer) {
       try {
-        if (serverQueue.playing) {
-          serverQueue.connection.dispatcher.end();
-          return res.json({ status: 'Skipped' });
-        } else {
-          serverQueue.playing = true;
-          serverQueue.connection.dispatcher.resume();
-          return res.json({ status: 'Resumed' });
-        }
+        serverQueue.skip();
       } catch {
-        serverQueue.voiceChannel.leave();
+        serverQueue.voiceChannel.guild.me?.voice.disconnect();
         (await import('../index')).queue.delete(id);
       }
     } else {
@@ -426,19 +365,19 @@ api.get('/api/channels/:id', GuildActions, CSRF.Verify, async (req, res) => {
     const textChannels = channels
       ?.filter(
         (channel) =>
-          channel.type == 'text' &&
+          channel.type == 'GUILD_TEXT' &&
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SEND_MESSAGES')
       )
-      .array();
+      .map((v) => ({ id: v.id, name: v.name }));
     const voiceChannels = channels
       ?.filter(
         (channel) =>
-          channel.type == 'voice' &&
+          channel.type == 'GUILD_VOICE' &&
           !!channel.permissionsFor(user) &&
           channel.permissionsFor(user)!.has('SPEAK')
       )
-      .array();
+      .map((v) => ({ id: v.id, name: v.name }));
     res.json({
       status: 200,
       channels: textChannels?.concat(voiceChannels),

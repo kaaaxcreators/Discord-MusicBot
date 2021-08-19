@@ -29,10 +29,12 @@ module.exports = {
     if (!args.length || isNaN(Number(args[0]))) {
       return message.channel
         .send({
-          embed: {
-            color: 'GREEN',
-            description: i18next.t('skipto.missingargs', { prefix: await getPrefix(message) })!
-          }
+          embeds: [
+            {
+              color: 'GREEN',
+              description: i18next.t('skipto.missingargs', { prefix: await getPrefix(message) })!
+            }
+          ]
         })
         .catch(console.error);
     }
@@ -41,39 +43,47 @@ module.exports = {
     if (!queue) {
       return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
-    if (Number(args[0]) > queue.songs.length) {
+    // Cant skip to the current or not existing song
+    if (!Number(args[0]) || Number(args[0]) === 1) {
+      return sendError('Bad Value', message.channel);
+    }
+    if (Number(args[0]) > queue.queue.length) {
       return sendError(
-        i18next.t('skipto.short', { songs: queue.songs.length }),
+        i18next.t('skipto.short', { songs: queue.queue.length }),
         message.channel
       ).catch(console.error);
     }
 
-    queue.playing = true;
-
     if (queue.loop) {
       for (let i = 0; i < Number(args[0]) - 2; i++) {
-        queue.songs.push(queue.songs.shift()!);
+        queue.queue.push(queue.queue.shift()!);
       }
     } else {
-      queue.songs = queue.songs.slice(Number(args[0]) - 2);
+      queue.queue = queue.queue.slice(Number(args[0]) - 2);
     }
+
+    queue.resume();
+
     try {
-      queue.connection!.dispatcher.end();
+      queue.audioPlayer.stop(true);
     } catch (error) {
-      queue.voiceChannel.leave();
+      queue.voiceChannel.guild.me?.voice.disconnect();
       Queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
 
     queue.textChannel
       .send({
-        embed: {
-          color: 'GREEN',
-          description: i18next.t('skipto.embed.description', {
-            author: '<@' + message.author + '>',
-            songs: Number(args[0]) - 1
-          })!
-        }
+        embeds: [
+          {
+            color: 'GREEN',
+            description: i18next.t('skipto.embed.description', {
+              author: '<@' + message.author + '>',
+              songs: Number(args[0]) - 1,
+              interpolation: { escapeValue: false }
+            })!
+          }
+        ]
       })
       .catch(console.error);
     message.react('✅');

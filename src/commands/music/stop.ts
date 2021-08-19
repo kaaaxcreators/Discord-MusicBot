@@ -28,21 +28,21 @@ module.exports = {
     if (!serverQueue) {
       return sendError(i18next.t('stop.nothing'), message.channel);
     }
-    if (!serverQueue.connection) {
+    if (!serverQueue.voiceConnection) {
       return;
     }
-    if (!serverQueue.connection.dispatcher) {
+    if (!serverQueue.audioPlayer) {
       return;
     }
     try {
-      serverQueue.connection.dispatcher.end();
+      serverQueue.stop();
     } catch (error) {
-      message.guild!.me!.voice.channel!.leave();
+      message.guild!.me!.voice.disconnect();
       queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: ${error}`, message.channel);
     }
     queue.delete(message.guild!.id);
-    serverQueue.songs = [];
+    serverQueue.queue = [];
     message.react('✅');
   }
 } as Command;

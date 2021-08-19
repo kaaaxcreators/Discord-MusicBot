@@ -3,13 +3,9 @@ import {
   ActivityType,
   Client,
   Collection,
-  DMChannel,
   Message,
-  NewsChannel,
   PermissionResolvable,
-  TextChannel,
-  VoiceChannel,
-  VoiceConnection
+  Snowflake
 } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { existsSync, mkdirSync, readdir } from 'fs';
@@ -17,7 +13,7 @@ import i18next from 'i18next';
 
 import docs from './docs';
 import console from './util/logger';
-import { Song } from './util/playing';
+import { MusicSubscription } from './util/Music';
 
 // Load environment variables
 try {
@@ -26,20 +22,20 @@ try {
   EnvError(err);
 }
 
-export const client = new Client();
+export const client = new Client({
+  intents: [
+    'DIRECT_MESSAGES',
+    'GUILDS',
+    'GUILD_EMOJIS_AND_STICKERS',
+    'GUILD_MESSAGES',
+    'GUILD_VOICE_STATES',
+    'DIRECT_MESSAGE_REACTIONS',
+    'GUILD_MESSAGE_REACTIONS'
+  ],
+  partials: ['CHANNEL']
+});
 export const commands = new Collection<string, Command>();
-export const queue = new Map<string, IQueue>();
-
-/** Represents the Queue */
-export interface IQueue {
-  textChannel: TextChannel | DMChannel | NewsChannel;
-  voiceChannel: VoiceChannel;
-  connection: VoiceConnection | null;
-  songs: Song[];
-  volume: number;
-  playing: boolean;
-  loop: boolean;
-}
+export const queue = new Map<Snowflake, MusicSubscription>();
 
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';

@@ -24,7 +24,7 @@ export async function getGuild(guildID: string): Promise<Database | false> {
  */
 export async function getPrefix(reference: Message | Guild): Promise<string> {
   if (reference instanceof Message) {
-    if (reference.channel.type == 'dm') {
+    if (reference.channel.type == 'DM') {
       return config.prefix;
     } else {
       const guildDB = await getGuild(reference.channel.guild.id);

@@ -19,17 +19,17 @@ module.exports = {
   },
   run: async function (client: Client, message: Message) {
     try {
-      if (message.channel.type == 'dm') {
+      if (message.channel.type == 'DM') {
         return sendError(i18next.t('error.nodm'), message.channel);
       }
       const guild = message.guild!;
-      const textchannels = guild.channels.cache.filter((channel) => channel.type == 'text');
-      const voicechannels = guild.channels.cache.filter((channel) => channel.type == 'voice');
-      const categories = guild.channels.cache.filter((channel) => channel.type == 'category');
+      const textchannels = guild.channels.cache.filter((channel) => channel.type == 'GUILD_TEXT');
+      const voicechannels = guild.channels.cache.filter((channel) => channel.type == 'GUILD_VOICE');
+      const categories = guild.channels.cache.filter((channel) => channel.type == 'GUILD_CATEGORY');
       const otherchannels = guild.channels.cache.filter(
-        (channel) => channel.type == 'news' || channel.type == 'store'
+        (channel) => channel.type == 'GUILD_NEWS' || channel.type == 'GUILD_STORE'
       );
-      const guildowner = guild.owner!;
+      const guildowner = guild.ownerId;
       const roles = guild.roles.cache.map((role) => role).join(' ');
       const emojis = guild.emojis.cache.map((emoji) => emoji).join(' ');
       const embed = new MessageEmbed()
@@ -47,7 +47,7 @@ module.exports = {
         )
         .addField(
           '❯ ' + i18next.t('serverstats.embed.member.member'),
-          `• ${i18next.t('serverstats.embed.member.owner')} ${guildowner}\n• ${i18next.t(
+          `• ${i18next.t('serverstats.embed.member.owner')} <@${guildowner}>\n• ${i18next.t(
             'serverstats.embed.member.total'
           )} ${guild.members.cache.size}`
         )
@@ -61,13 +61,13 @@ module.exports = {
         )
         .addField(
           '❯ ' + i18next.t('serverstats.embed.other.other'),
-          `• ${i18next.t('serverstats.embed.other.region')} ${guild.region}\n• ${i18next.t(
+          `• ${i18next.t(
             'serverstats.embed.other.created'
           )} ${guild.createdAt.toLocaleDateString()}, ${moment(guild.createdAt).fromNow()}`
         )
         .setFooter(message.author.username, message.author.avatarURL()!)
         .setTimestamp();
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     } catch {
       return sendError(i18next.t('error.something'), message.channel);
     }

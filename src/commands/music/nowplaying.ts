@@ -3,7 +3,6 @@ import i18next from 'i18next';
 
 import { Command, queue } from '../../index';
 import sendError from '../../util/error';
-import { Song } from '../../util/playing';
 import ProgressBar from '../../util/ProgressBar';
 
 module.exports = {
@@ -21,10 +20,10 @@ module.exports = {
 
   run: async function (client: Client, message: Message) {
     const serverQueue = queue.get(message.guild!.id);
-    if (!serverQueue) {
+    if (!serverQueue || !serverQueue.currentResource) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
-    const song: Song = serverQueue.songs[0];
+    const song = serverQueue.queue[0];
     let Progress: Progress;
     if (song.live) {
       Progress = {
@@ -32,7 +31,7 @@ module.exports = {
         percentageText: i18next.t('nowplaying.live')
       };
     } else {
-      Progress = ProgressBar(serverQueue.connection!.dispatcher.streamTime, song.duration, 10);
+      Progress = ProgressBar(serverQueue.currentResource.playbackDuration, song.duration, 10);
     }
     const embed = new MessageEmbed()
       .setAuthor(
@@ -46,7 +45,7 @@ module.exports = {
       .addField(i18next.t('nowplaying.embed.percentage'), Progress.percentageText, true)
       .addField(i18next.t('nowplaying.embed.request'), song.req.tag, true)
       .setFooter(`${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}`);
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] });
   }
 } as Command;
 

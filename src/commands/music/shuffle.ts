@@ -30,16 +30,16 @@ module.exports = {
       return sendError('There is no queue.', message.channel).catch(console.error);
     }
     try {
-      const songs = serverQueue.songs;
+      const songs = serverQueue.queue;
       for (let i = songs.length - 1; i > 1; i--) {
         const j = 1 + Math.floor(Math.random() * i);
         [songs[i], songs[j]] = [songs[j], songs[i]];
       }
-      serverQueue.songs = songs;
+      serverQueue.queue = songs;
       queue.set(message.guild!.id, serverQueue);
       message.react('✅');
     } catch (error) {
-      message.guild!.me!.voice.channel!.leave();
+      message.guild!.me!.voice.disconnect();
       queue.delete(message.guild!.id);
       return sendError(`:notes: ${i18next.t('error.music')}: \`${error}\``, message.channel);
     }

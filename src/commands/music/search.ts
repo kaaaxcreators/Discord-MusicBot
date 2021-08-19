@@ -1,13 +1,14 @@
+import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
 import { Client, Collection, Message, MessageEmbed, MessageEmbedOptions, Util } from 'discord.js';
 import i18next from 'i18next';
 import millify from 'millify';
 import pMS from 'pretty-ms';
 import YouTube, { Video } from 'youtube-sr';
 
-import { Command, IQueue, queue } from '../../index';
+import { Command, queue, Stats } from '../../index';
 import sendError from '../../util/error';
 import console from '../../util/logger';
-import play, { Song } from '../../util/playing';
+import { MusicSubscription, Track } from '../../util/Music';
 module.exports = {
   info: {
     name: 'search',
@@ -32,12 +33,12 @@ module.exports = {
       return sendError(i18next.t('search.missingargs'), message.channel);
     }
 
-    const serverQueue = queue.get(message.guild!.id);
+    let subscription = queue.get(message.guild!.id);
     let response: Collection<string, Message> = new Collection<string, Message>();
     let video: Video;
     try {
       const searchtext = await message.channel.send({
-        embed: { description: i18next.t('searching') } as MessageEmbedOptions
+        embeds: [{ description: i18next.t('searching') } as MessageEmbedOptions]
       });
       const searched = await YouTube.search(searchString, { limit: 10, type: 'video' });
       if (searched[0] == undefined) {
@@ -61,25 +62,26 @@ module.exports = {
             .join('\n')}`
         )
         .setFooter(i18next.t('search.result.footer'));
-      (searchtext.editable ? searchtext.edit(embed) : message.channel.send(embed)).then((m) =>
-        m.delete({ timeout: 15000 })
-      );
+      (searchtext.editable
+        ? searchtext.edit({ embeds: [embed] })
+        : message.channel.send({ embeds: [embed] })
+      ).then((m) => setTimeout(() => m.delete(), 15000));
       try {
-        response = await message.channel.awaitMessages(
-          (message) => message.content > 0 && message.content < 11,
-          {
-            max: 1,
-            time: 20000,
-            errors: ['time']
-          }
-        );
+        response = await message.channel.awaitMessages({
+          max: 1,
+          time: 20000,
+          errors: ['time'],
+          filter: (message) => message.content.length > 0 && message.content.length < 11
+        });
       } catch (err) {
         // console.error(err); spams console when user doesn't select anything
         return message.channel.send({
-          embed: {
-            color: 'RED',
-            description: i18next.t('search.selected')!
-          }
+          embeds: [
+            {
+              color: 'RED',
+              description: i18next.t('search.selected')!
+            }
+          ]
         });
       }
       const videoIndex = parseInt(response.first()!.content);
@@ -87,16 +89,20 @@ module.exports = {
     } catch (err) {
       console.error(err);
       return message.channel.send({
-        embed: {
-          color: 'RED',
-          description: i18next.t('search.noresults')!
-        }
+        embeds: [
+          {
+            color: 'RED',
+            description: i18next.t('search.noresults')!
+          }
+        ]
       });
     }
 
     const songInfo = video;
 
-    const song: Song = {
+    const oldQueue = !!subscription;
+
+    const song = new Track({
       id: songInfo.id!,
       title: Util.escapeMarkdown(songInfo.title!),
       views: millify(songInfo.views),
@@ -104,11 +110,62 @@ module.exports = {
       duration: songInfo.duration,
       url: `https://www.youtube.com/watch?v=${songInfo.id}`,
       img: songInfo.thumbnail!.url!,
-      req: message.author
-    };
+      req: message.author,
+      onStart(info) {
+        const embed = new MessageEmbed()
+          .setAuthor(
+            i18next.t('music.started'),
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          )
+          .setThumbnail(info.img)
+          .setColor('BLUE')
+          .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
+          .addField(
+            i18next.t('music.duration'),
+            info.live
+              ? i18next.t('nowplaying.live')
+              : pMS(info.duration, { secondsDecimalDigits: 0 }),
+            true
+          )
+          .addField(i18next.t('music.request'), info.req.tag, true)
+          .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+        message.channel.send({ embeds: [embed] });
+      },
+      onFinish() {
+        Stats.songsPlayed++;
+      },
+      onError(error) {
+        console.error(error);
+        return sendError(error.message, message.channel);
+      }
+    });
 
-    if (serverQueue) {
-      serverQueue.songs.push(song);
+    if (!subscription) {
+      subscription = new MusicSubscription(
+        joinVoiceChannel({
+          channelId: channel.id,
+          guildId: channel.guild.id,
+          adapterCreator: channel.guild.voiceAdapterCreator
+        }),
+        channel,
+        message.channel
+      );
+      subscription.voiceConnection.on('error', (error) => {
+        console.warn(error);
+      });
+      queue.set(message.guild!.id, subscription);
+    }
+
+    try {
+      await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
+    } catch (error) {
+      console.error(error);
+      return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
+    }
+
+    subscription.enqueue(song);
+
+    if (oldQueue) {
       const embed = new MessageEmbed()
         .setAuthor(
           i18next.t('play.embed.author'),
@@ -124,30 +181,7 @@ module.exports = {
         )
         .addField(i18next.t('play.embed.request'), song.req.tag, true)
         .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
-      return message.channel.send(embed);
-    }
-
-    const queueConstruct: IQueue = {
-      textChannel: message.channel,
-      voiceChannel: channel,
-      connection: null,
-      songs: [],
-      volume: 80,
-      playing: true,
-      loop: false
-    };
-    queue.set(message.guild!.id, queueConstruct);
-    queueConstruct.songs.push(song);
-
-    try {
-      const connection = await channel.join();
-      queueConstruct.connection = connection;
-      play.play(queueConstruct.songs[0], message);
-    } catch (error) {
-      console.error(`${i18next.t('error.join')} ${error}`);
-      queue.delete(message.guild!.id);
-      await channel.leave();
-      return sendError(`${i18next.t('error.join')} ${error}`, message.channel);
+      return message.channel.send({ embeds: [embed] });
     }
   }
 } as Command;

@@ -28,13 +28,15 @@ module.exports = {
     if (serverQueue) {
       serverQueue.loop = !serverQueue.loop;
       return message.channel.send({
-        embed: {
-          color: 'GREEN',
-          description: i18next.t('loop.status', {
-            status:
-              serverQueue.loop === true ? i18next.t('loop.enabled') : i18next.t('loop.disabled')
-          })
-        } as MessageEmbedOptions
+        embeds: [
+          {
+            color: 'GREEN',
+            description: i18next.t('loop.status', {
+              status:
+                serverQueue.loop === true ? i18next.t('loop.enabled') : i18next.t('loop.disabled')
+            })
+          } as MessageEmbedOptions
+        ]
       });
     }
     return sendError(i18next.t('error.noqueue'), message.channel);
