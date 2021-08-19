@@ -108,7 +108,7 @@ readdir(__dirname + '/commands/music', (err, files) => {
     if (!endsWithAny(['.ts', '.js'], file)) {
       return;
     }
-    if (file.startsWith('radio') || file.startsWith('search')) {
+    if (file.startsWith('search')) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-var-requires

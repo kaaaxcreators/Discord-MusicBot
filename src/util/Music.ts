@@ -271,7 +271,7 @@ export class Track implements TrackData {
   public readonly onFinish: () => void;
   public readonly onError: (error: Error) => void;
 
-  private constructor({
+  public constructor({
     id,
     url,
     title,
