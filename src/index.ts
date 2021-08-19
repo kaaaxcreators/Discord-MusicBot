@@ -31,7 +31,8 @@ export const client = new Client({
     'GUILD_VOICE_STATES',
     'DIRECT_MESSAGE_REACTIONS',
     'GUILD_MESSAGE_REACTIONS'
-  ]
+  ],
+  partials: ['CHANNEL']
 });
 export const commands = new Collection<string, Command>();
 export const queue = new Map<Snowflake, MusicSubscription>();

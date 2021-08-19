@@ -21,6 +21,7 @@ module.exports = {
   run: async function (client: Client, message: Message, args: string[]) {
     let generalcmds = '';
     let musiccmds = '';
+    const DM = message.channel.type === 'DM';
     const prefix = await getPrefix(message);
 
     commands.forEach((cmd) => {
@@ -39,10 +40,11 @@ module.exports = {
       }
     });
     const helptext = [
-      `**:information_source: ${i18next.t(
-        'help.embed.fields.general'
-      )}**\n${generalcmds}\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`
+      `**:information_source: ${i18next.t('help.embed.fields.general')}**\n${generalcmds}`
     ];
+    if (!DM) {
+      helptext[0] += `\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`;
+    }
     const splittedHelp = Util.chunk(helptext, 1024);
     const embed = new MessageEmbed()
       .setAuthor(
