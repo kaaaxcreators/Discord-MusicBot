@@ -62,7 +62,15 @@ module.exports = {
         if (!playlist) {
           return sendError(i18next.t('playlist.notfound.notfound'), message.channel);
         }
+<<<<<<< HEAD
         await handleVideo(playlist.items, message, channel);
+=======
+        await handleVideo(
+          playlist.items.map((v) => v.url),
+          message,
+          channel
+        );
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('playlist.embed.author'),
@@ -86,8 +94,15 @@ module.exports = {
       }
     } else if (spdl.validateURL(url, 'playlist')) {
       try {
+<<<<<<< HEAD
         const playlist = await getTracks(url);
         const songInfo = await spdl.getInfo(playlist[0].external_urls.spotify);
+=======
+        const playlist: string[] = (await getTracks(url)).map(
+          (value) => value.external_urls.spotify
+        );
+        const songInfo = await spdl.getInfo(playlist[0]);
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
         handleVideo(playlist, message, channel);
         const embed = new MessageEmbed()
           .setAuthor(
@@ -118,7 +133,15 @@ module.exports = {
         const songInfo = searched.playlists[0];
         const listurl = songInfo.listId;
         const playlist = await ytpl(listurl);
+<<<<<<< HEAD
         await handleVideo(playlist.items, message, channel);
+=======
+        await handleVideo(
+          playlist.items.map((v) => v.url),
+          message,
+          channel
+        );
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('playlist.embed.author'),
@@ -137,9 +160,16 @@ module.exports = {
         return sendError(i18next.t('error.occurred'), message.channel).catch(console.error);
       }
     }
+<<<<<<< HEAD
     async function handleVideo(
       /** Array of Items */
       items: ytpl.Item[] | Tracks[],
+=======
+
+    async function handleVideo(
+      /** Array of URL */
+      urls: string[],
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
       message: Message,
       channel: VoiceChannel | StageChannel
     ) {
@@ -166,6 +196,7 @@ module.exports = {
         console.error(error);
         return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
       }
+<<<<<<< HEAD
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       function instanceOfytplItem(object: any): object is ytpl.Item {
@@ -196,6 +227,12 @@ module.exports = {
           const track = new Track({
             ...partial,
             req: message.author,
+=======
+
+      for (const url of urls) {
+        try {
+          const track = await Track.from([url], message, {
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
             onStart(info) {
               const embed = new MessageEmbed()
                 .setAuthor(

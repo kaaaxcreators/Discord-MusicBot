@@ -7,7 +7,10 @@ import pMS from 'pretty-ms';
 import { promisify } from 'util';
 const resolveSrv = promisify(resolveSrvCb);
 
+<<<<<<< HEAD
 // import { RadioBrowserApi } from 'radio-browser-api';
+=======
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
 import { Command, queue, Stats } from '../../index';
 import sendError from '../../util/error';
 import console from '../../util/logger';
@@ -42,6 +45,7 @@ module.exports = {
     if ((searchString || attachment) == null) {
       return sendError(i18next.t('radio.missingargs'), message.channel);
     }
+<<<<<<< HEAD
     let url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
     const name = attachment ? (attachment.name ? attachment.name : attachment.url) : url;
     let subscription = queue.get(message.guild!.id);
@@ -82,6 +86,11 @@ module.exports = {
         );
       }
     }
+=======
+    const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
+    const name = attachment ? (attachment.name ? attachment.name : attachment.url) : url;
+    let subscription = queue.get(message.guild!.id);
+>>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
 
     const songInfo = new Collection<string, string>();
     let data: Response;
