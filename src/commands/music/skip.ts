@@ -45,7 +45,7 @@ module.exports = {
     }
 
     try {
-      serverQueue.stop();
+      serverQueue.skip();
     } catch (error) {
       serverQueue.voiceChannel.guild.me?.voice.disconnect();
       queue.delete(message.guild!.id);

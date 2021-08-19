@@ -43,6 +43,10 @@ module.exports = {
     if (!queue) {
       return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
     }
+    // Cant skip to the current or not existing song
+    if (!Number(args[0]) || Number(args[0]) === 1) {
+      return sendError('Bad Value', message.channel);
+    }
     if (Number(args[0]) > queue.queue.length) {
       return sendError(
         i18next.t('skipto.short', { songs: queue.queue.length }),
@@ -61,7 +65,7 @@ module.exports = {
     queue.resume();
 
     try {
-      queue.stop();
+      queue.audioPlayer.stop(true);
     } catch (error) {
       queue.voiceChannel.guild.me?.voice.disconnect();
       Queue.delete(message.guild!.id);
@@ -75,7 +79,8 @@ module.exports = {
             color: 'GREEN',
             description: i18next.t('skipto.embed.description', {
               author: '<@' + message.author + '>',
-              songs: Number(args[0]) - 1
+              songs: Number(args[0]) - 1,
+              interpolation: { escapeValue: false }
             })!
           }
         ]

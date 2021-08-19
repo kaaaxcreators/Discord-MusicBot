@@ -37,9 +37,13 @@ export class MusicSubscription {
   public readonly audioPlayer: AudioPlayer;
   public queue: Track[];
   public volume = 80;
+  /** If Song Loop is turned on */
   public loop = false;
+  /** If Music is paused */
   public paused = false;
+  /** If Queue is being edited */
   public queueLock = false;
+  /** If currently waiting to be Ready */
   public readyLock = false;
   public currentResource: null | AudioResource<Track> = null;
 
@@ -122,6 +126,13 @@ export class MusicSubscription {
       ) {
         // If the Idle state is entered from a non-Idle state, it means that an audio resource has finished playing.
         // The queue is then processed to start playing the next track, if one is available.
+
+        // Remove Item from Queue when done playing
+        this.currentResource = null;
+        const nextTrack = this.queue.shift();
+        if (this.loop && nextTrack) {
+          this.queue.push(nextTrack);
+        }
         (oldState.resource as AudioResource<Track>).metadata.onFinish();
         void this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
@@ -156,6 +167,7 @@ export class MusicSubscription {
     this.queueLock = true;
     this.queue = [];
     this.audioPlayer.stop(true);
+    this.queueLock = false;
   }
 
   public pause(): void {
@@ -179,6 +191,20 @@ export class MusicSubscription {
     this.audioPlayer.unpause();
   }
 
+  public skip(): void {
+    if (this.paused) {
+      this.resume();
+    }
+    this.audioPlayer.stop(true);
+  }
+
+  public skipTo(): void {
+    if (this.paused) {
+      this.resume();
+    }
+    this.audioPlayer.stop(true);
+  }
+
   /**
    * Attempts to play a Track from the queue
    */
@@ -195,10 +221,7 @@ export class MusicSubscription {
     this.queueLock = true;
 
     // Take the first item from the queue. This is guaranteed to exist due to the non-empty check above.
-    const nextTrack = this.queue.shift()!;
-    if (this.loop) {
-      this.queue.push(nextTrack);
-    }
+    const nextTrack = this.queue[0];
     try {
       // Attempt to convert the Track into an AudioResource (i.e. start streaming the video)
       const resource = await nextTrack.createAudioResource();

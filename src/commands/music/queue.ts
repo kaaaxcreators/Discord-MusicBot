@@ -20,7 +20,7 @@ module.exports = {
   },
   run: async function (client: Client, message: Message) {
     const queue = Queue.get(message.guild!.id);
-    if (!queue) {
+    if (!queue || !queue.currentResource) {
       return sendError(i18next.t('error.noqueue'), message.channel);
     }
 

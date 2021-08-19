@@ -47,7 +47,7 @@ module.exports = {
         )
         .addField(
           '❯ ' + i18next.t('serverstats.embed.member.member'),
-          `• ${i18next.t('serverstats.embed.member.owner')} ${guildowner}\n• ${i18next.t(
+          `• ${i18next.t('serverstats.embed.member.owner')} <@${guildowner}>\n• ${i18next.t(
             'serverstats.embed.member.total'
           )} ${guild.members.cache.size}`
         )

@@ -43,10 +43,10 @@ module.exports = {
       embeds: [{ description: i18next.t('searching') } as MessageEmbedOptions]
     });
 
-    let newQueue = false;
+    /** if queue existed before the play request */
+    const oldQueue = !!subscription;
 
     if (!subscription) {
-      newQueue = true;
       subscription = new MusicSubscription(
         joinVoiceChannel({
           channelId: channel.id,
@@ -87,7 +87,8 @@ module.exports = {
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
             .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
-          searchtext.editable
+          // if oldQueue then don't edit message
+          searchtext.editable && !oldQueue
             ? searchtext.edit({ embeds: [embed] })
             : message.channel.send({ embeds: [embed] });
         },
@@ -100,7 +101,7 @@ module.exports = {
         }
       });
       subscription.enqueue(track);
-      if (!newQueue) {
+      if (oldQueue) {
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('play.embed.author'),

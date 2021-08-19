@@ -29,7 +29,7 @@ module.exports = {
       // Get Voice Channel Count Bot is currently connected to
       let totalvcs = 0;
       for (const guild of client.guilds.cache.map((guilds) => guilds)) {
-        if (guild.voiceStates.cache.size) {
+        if (guild.me?.voice.channel) {
           totalvcs += 1;
         }
       }

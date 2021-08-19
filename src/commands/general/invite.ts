@@ -31,7 +31,9 @@ module.exports = {
     }
     const embed = new MessageEmbed()
       .setTitle(`${i18next.t('invite.embed.title')} ${client.user!.username}`)
-      .setDescription(i18next.t('invite.embed.description', { url: url }))
+      .setDescription(
+        i18next.t('invite.embed.description', { url: url, interpolation: { escapeValue: false } })
+      )
       .setURL(url)
       .setColor('BLUE');
     return message.channel.send({ embeds: [embed] });
