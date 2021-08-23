@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 
-import { config } from '../../index';
-
-export default function serverController(req: Request, res: Response): void {
+export default async function serverController(req: Request, res: Response): Promise<void> {
   if (!req.user!.guilds!.find((x) => x.id == req.params.id)) {
     return res.redirect('/servers');
   }
+  const { config } = await import('../../index');
   res.render('server', {
     locale: config.LOCALE,
     filename: 'server',

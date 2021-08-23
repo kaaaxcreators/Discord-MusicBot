@@ -7,7 +7,7 @@ import pMS from 'pretty-ms';
 import sendError from '../../util/error';
 import { MusicSubscription, Track } from '../../util/Music';
 
-export default async function songController(req: Request, res: Response): Promise<unknown> {
+export default async function songController(req: Request, res: Response): Promise<void> {
   const { id, song } = req.params;
   const vchannel = <string>req.query.vchannel;
   const mchannel = <string>req.query.mchannel;
@@ -16,7 +16,7 @@ export default async function songController(req: Request, res: Response): Promi
     typeof Number.parseInt(id) !== 'number' ||
     isNaN(Number.parseInt(id))
   ) {
-    return res.status(400).json({ status: 400 });
+    res.status(400).json({ status: 400 });
   } else if (!req.user || req.isUnauthenticated() || !req.user.guilds) {
     res.status(401).json({ status: 401 });
   } else if (
@@ -87,7 +87,7 @@ export default async function songController(req: Request, res: Response): Promi
         .addField(i18next.t('play.embed.request'), Song.req.tag, true)
         .setFooter(`${i18next.t('play.embed.views')} ${Song.views} | ${Song.ago}`);
       subscription.textChannel.send({ embeds: [embed] });
-      return res.json(Song);
+      res.json(Song);
     } else {
       if (mchannel && vchannel) {
         const textChannel =
@@ -100,7 +100,7 @@ export default async function songController(req: Request, res: Response): Promi
           client.guilds.cache.get(id)?.members.cache.get(user.id) ||
           (await (await client.guilds.fetch(id)).members.fetch(user.id));
         if (!guildMember) {
-          return res.status(401).json({ status: 401 });
+          return void res.status(401).json({ status: 401 });
         }
         if (
           // check if channels are valid and if user has perms
@@ -127,16 +127,16 @@ export default async function songController(req: Request, res: Response): Promi
             await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
           } catch (error) {
             console.error(error);
-            return res
+            return void res
               .status(500)
               .json({ status: 'Failed to Join the Voice Channel within 10 seconds' });
           }
-          return res.json({ status: 200 });
+          res.json({ status: 200 });
         } else {
-          return res.status(400).json({ status: 400 });
+          res.status(400).json({ status: 400 });
         }
       } else {
-        return res.status(400).json({ status: 400 });
+        res.status(400).json({ status: 400 });
       }
     }
   }

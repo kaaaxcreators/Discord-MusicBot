@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 
-import { client, commands, config } from '../../index';
-
-export default function MainController(req: Request, res: Response): void {
+export default async function MainController(req: Request, res: Response): Promise<void> {
+  const { client, commands, config } = await import('../../index');
   const Commands = Array.from(commands.mapValues((value) => value.info).values());
 
   const url = `https://discord.com/oauth2/authorize?client_id=${client.user?.id}&permissions=${

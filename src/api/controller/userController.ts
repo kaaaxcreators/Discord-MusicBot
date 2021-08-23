@@ -3,11 +3,9 @@ import { Permissions } from 'discord.js';
 import DiscordOauth2 from 'discord-oauth2';
 import { Request, Response } from 'express';
 
-import { client, config } from '../../index';
-
-const oauth = new DiscordOauth2();
-
 export default async function userController(req: Request, res: Response): Promise<unknown> {
+  const { client, config } = await import('../../index');
+  const oauth = new DiscordOauth2();
   if (!req.user) {
     return res.send({});
   }

@@ -1,18 +1,17 @@
 import { Request, Response } from 'express';
 
-import { config } from '../../index';
-import database, { getGuild } from '../../util/database';
-
-export default async function prefixController(req: Request, res: Response): Promise<unknown> {
+export default async function prefixController(req: Request, res: Response): Promise<void> {
   const { prefix, id } = req.params;
+  const { default: database, getGuild } = await import('../../util/database');
   const guildDB = await getGuild(id);
+  const { config } = await import('../../index');
   // Check if valid request
   if (
     typeof prefix !== 'string' ||
     typeof Number.parseInt(id) !== 'number' ||
     isNaN(Number.parseInt(id))
   ) {
-    return res.status(400).json({ status: 400 });
+    res.status(400).json({ status: 400 });
   } else if (!req.user || req.isUnauthenticated() || !req.user.guilds) {
     res.status(401).json({ status: 401 });
   } else if (
@@ -38,6 +37,6 @@ export default async function prefixController(req: Request, res: Response): Pro
     res.status(304).json({ status: 304 });
   } else {
     database.set(id, { prefix: prefix });
-    return res.json({ prefix: prefix });
+    res.json({ prefix: prefix });
   }
 }

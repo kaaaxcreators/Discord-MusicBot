@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 
-import { client, config } from '../../index';
-
-export default function infoController(req: Request, res: Response): void {
+export default async function infoController(req: Request, res: Response): Promise<void> {
+  const { client, config } = await import('../../index');
   res.send({
     ClientID: client.user?.id,
     Permissions: config.PERMISSION,
