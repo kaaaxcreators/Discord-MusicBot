@@ -10,7 +10,7 @@ import {
 import i18next from 'i18next';
 import pMS from 'pretty-ms';
 import spdl from 'spdl-core';
-import { getTracks } from 'spotify-url-info';
+import { getTracks, Tracks } from 'spotify-url-info';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
@@ -62,11 +62,7 @@ module.exports = {
         if (!playlist) {
           return sendError(i18next.t('playlist.notfound.notfound'), message.channel);
         }
-        await handleVideo(
-          playlist.items.map((v) => v.url),
-          message,
-          channel
-        );
+        await handleVideo(playlist.items, message, channel);
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('playlist.embed.author'),
@@ -90,10 +86,8 @@ module.exports = {
       }
     } else if (spdl.validateURL(url, 'playlist')) {
       try {
-        const playlist: string[] = (await getTracks(url)).map(
-          (value) => value.external_urls.spotify
-        );
-        const songInfo = await spdl.getInfo(playlist[0]);
+        const playlist = await getTracks(url);
+        const songInfo = await spdl.getInfo(playlist[0].external_urls.spotify);
         handleVideo(playlist, message, channel);
         const embed = new MessageEmbed()
           .setAuthor(
@@ -124,11 +118,7 @@ module.exports = {
         const songInfo = searched.playlists[0];
         const listurl = songInfo.listId;
         const playlist = await ytpl(listurl);
-        await handleVideo(
-          playlist.items.map((v) => v.url),
-          message,
-          channel
-        );
+        await handleVideo(playlist.items, message, channel);
         const embed = new MessageEmbed()
           .setAuthor(
             i18next.t('playlist.embed.author'),
@@ -147,10 +137,9 @@ module.exports = {
         return sendError(i18next.t('error.occurred'), message.channel).catch(console.error);
       }
     }
-
     async function handleVideo(
-      /** Array of URL */
-      urls: string[],
+      /** Array of Items */
+      items: ytpl.Item[] | Tracks[],
       message: Message,
       channel: VoiceChannel | StageChannel
     ) {
@@ -178,9 +167,35 @@ module.exports = {
         return sendError('Failed to Join the Voice Channel within 10 seconds', message.channel);
       }
 
-      for (const url of urls) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function instanceOfytplItem(object: any): object is ytpl.Item {
+        return 'index' in object;
+      }
+
+      for (const item of items) {
         try {
-          const track = await Track.from([url], message, {
+          const partial = instanceOfytplItem(item)
+            ? {
+                id: item.id,
+                title: item.title,
+                url: item.url,
+                img: item.bestThumbnail.url || '',
+                duration: (item.durationSec || 0) * 1000,
+                ago: '-',
+                views: '-'
+              }
+            : {
+                id: item.id,
+                title: item.name,
+                url: item.external_urls.spotify,
+                img: item.preview_url,
+                duration: item.duration_ms,
+                ago: '-',
+                views: '-'
+              };
+          const track = new Track({
+            ...partial,
+            req: message.author,
             onStart(info) {
               const embed = new MessageEmbed()
                 .setAuthor(
