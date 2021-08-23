@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import pMS from 'pretty-ms';
 import { Server } from 'socket.io';
 
-import ProgressBar from '../../util/ProgressBar';
+import ProgressBar from '../util/ProgressBar';
 
 function socket(io: Server): void {
   io.on('connection', (socket) => {
@@ -12,7 +12,7 @@ function socket(io: Server): void {
         clearInterval(socket.Dashboard);
       }
       socket.Dashboard = setInterval(async () => {
-        const { client, Stats } = await import('../../index');
+        const { client, Stats } = await import('../index');
         let totalvcs = 0;
         Array.from(client.guilds.cache).forEach((guild) => {
           if (guild[1].me?.voice.channel) {
@@ -40,8 +40,8 @@ function socket(io: Server): void {
         clearInterval(socket.Server);
       }
       socket.Server = setInterval(async () => {
-        const { client, queue } = await import('../../index');
-        const { getPrefix } = await import('../../util/database');
+        const { client, queue } = await import('../index');
+        const { getPrefix } = await import('../util/database');
         const Guild = client.guilds.cache.get(ServerID);
         const prefix = await getPrefix(Guild!);
         if (!Guild) {

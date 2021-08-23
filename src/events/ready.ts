@@ -29,7 +29,7 @@ module.exports = async (client: Client) => {
         })
       )
       .listen(process.env.PORT || 8080, () => console.info(i18next.t('server.ready')));
-    (await import('../api/socket/index')).default(new Server(server));
+    (await import('../api/socket')).default(new Server(server));
   }
   // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {
