@@ -1,9 +1,13 @@
 import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
 import { Client, Collection, Message, MessageEmbed } from 'discord.js';
+import { resolveSrv as resolveSrvCb } from 'dns';
 import i18next from 'i18next';
 import fetch, { Response } from 'node-fetch';
 import pMS from 'pretty-ms';
+import { promisify } from 'util';
+const resolveSrv = promisify(resolveSrvCb);
 
+// import { RadioBrowserApi } from 'radio-browser-api';
 import { Command, queue, Stats } from '../../index';
 import sendError from '../../util/error';
 import console from '../../util/logger';
@@ -38,9 +42,45 @@ module.exports = {
     if ((searchString || attachment) == null) {
       return sendError(i18next.t('radio.missingargs'), message.channel);
     }
-    const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
+    let url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
     const name = attachment ? (attachment.name ? attachment.name : attachment.url) : url;
     let subscription = queue.get(message.guild!.id);
+
+    // check if url is a valid url
+    if (
+      !url ||
+      !url.match(
+        /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/
+      )
+    ) {
+      try {
+        const endpoints = await resolveSrv('_api._tcp.radio-browser.info');
+        const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];
+        const fetchResult = await fetch(
+          `https://${endpoint.name}/json/stations/search?name=${encodeURIComponent(searchString)}`,
+          {
+            headers: {
+              'User-Agent': 'github/kaaaxcreators/Discord-MusicBot'
+            }
+          }
+        );
+        const result = await fetchResult.json();
+        if (!result || !result.length) {
+          throw new Error('No results');
+        }
+        if (result[0] && result[0].url_resolved) {
+          url = result[0].url_resolved;
+        } else {
+          throw new Error('Bad result');
+        }
+      } catch (err) {
+        console.warn(err);
+        return sendError(
+          'Looks like i was unable to find the station on radio-browser',
+          message.channel
+        );
+      }
+    }
 
     const songInfo = new Collection<string, string>();
     let data: Response;
