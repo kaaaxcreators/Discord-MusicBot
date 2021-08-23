@@ -6,13 +6,17 @@
 
 `mcount` ~ See how many Servers the Bot is in
 
-`mhelp [command]` ~ To show all commands
+`mhelp [command]` ~ Show all commands
 
-`mping` ~ Pong!
+`minvite` ~ Add/invite the bot to your server
+
+`mping` ~ Get Network Information
+
+`mprefix <prefix>` ~ Change Guild Prefix
+
+`mremoveslash` ~ Removes slash command in current guild- **hidden**
 
 `mserverstats` ~ Get Server Stats
-
-`mstats` ~ Get Bot Stats
 
 `mstats` ~ Get Bot Stats
 
@@ -20,38 +24,36 @@
 
 `mearrape` ~ Toggle Earrape Mode
 
-`minvite` ~ To add/invite the bot to your server
-
 `mleave` ~ Leave The Voice Channel!
 
 `mloop` ~ Toggle music loop
 
 `mlyrics` ~ Get lyrics for the currently playing song
 
-`mnowplaying` ~ To show the music which is currently playing in this server
+`mnowplaying` ~ Get music which is currently playing
 
-`mpause` ~ To pause the current music in the server
+`mpause` ~ Pause the current music
 
-`mplay <YouTube URL> | <Spotify Track URL> | <Song Name>` ~ To play songs :D
+`mplay <YouTube URL> | <Spotify Track URL> | <Song Name>` ~ Play a Song
 
-`mplaylist <YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>` ~ To play songs :D
+`mplaylist <YouTube Playlist URL> | <Spotify Playlist URL> | <Playlist Name>` ~ Play a Playlist
 
-`mqueue` ~ To show the server songs queue
+`mqueue` ~ Show the server queue
 
 `mradio <Stream URL> | <Attachment>` ~ **[EXPERIMENTAL]** Play any arbitrary stream from URL or Attachment
 
-`mremove <number>` ~ Remove song from the queue
+`mremove <number>` ~ Remove a song from the queue
 
-`mresume` ~ To resume the paused music
+`mresume` ~ Resume the paused music
 
-`msearch <song_name>` ~ To search songs :D
+`msearch <song_name>` ~ Search Songs
 
 `mshuffle` ~ Shuffle queue
 
-`mskip` ~ To skip the current music
+`mskip` ~ Skip the current song
 
 `mskipto <number>` ~ Skip to the selected queue number
 
-`mstop` ~ To stop the music and clearing the queue
+`mstop` ~ Stop the music and clear the queue
 
-`mvolume [volume]` ~ To change the server song queue volume
+`mvolume [volume]` ~ Change the server queue volume
