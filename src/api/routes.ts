@@ -51,7 +51,7 @@ api.get('/', (req, res) => {
     filename: 'main',
     title: 'Discord Music Bot',
     url: url,
-    commands: Commands
+    commands: Commands.filter((v) => !v.hidden)
   });
 });
 

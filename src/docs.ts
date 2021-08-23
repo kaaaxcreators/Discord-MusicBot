@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-import { config } from './index';
+import { Command, config } from './index';
 
-const commands = new Map();
+const commands = new Map<string, Command>();
 /**
  * Synchronous Doc Generation
  */
@@ -46,11 +46,25 @@ export default function docs(): void {
     switch (cmdinfo.categorie) {
       case 'general':
         generalcmds +=
-          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n\n';
+          '`' +
+          config.prefix +
+          cmdinfo.name +
+          usage +
+          '` ~ ' +
+          cmdinfo.description +
+          (cmdinfo.hidden ? ' - **hidden**' : '') +
+          '\n\n';
         break;
       case 'music':
         musiccmds +=
-          '`' + config.prefix + cmdinfo.name + usage + '` ~ ' + cmdinfo.description + '\n\n';
+          '`' +
+          config.prefix +
+          cmdinfo.name +
+          usage +
+          '` ~ ' +
+          cmdinfo.description +
+          (cmdinfo.hidden ? ' - **hidden**' : '') +
+          '\n\n';
         break;
       default:
         break;

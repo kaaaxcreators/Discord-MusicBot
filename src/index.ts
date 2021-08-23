@@ -175,12 +175,16 @@ function EnvError(err: MissingEnvVarsError) {
 /** Represents a Command */
 export interface Command {
   info: {
+    /** Name of the Command (filename) */
     name: string;
     description: string;
+    /** Parameters / Arguments */
     usage: string;
     aliases: string[];
     categorie: 'general' | 'music';
     permissions: Permissions;
+    /** Only show command in Docs not on Website or help */
+    hidden?: boolean;
   };
 
   run: (client: Client, message: Message, args: string[]) => unknown;

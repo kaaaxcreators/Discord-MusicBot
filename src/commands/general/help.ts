@@ -26,6 +26,9 @@ module.exports = {
 
     commands.forEach((cmd) => {
       const cmdinfo = cmd.info;
+      if (cmdinfo.hidden) {
+        return;
+      }
       // Remove unnecessary space
       const usage = cmdinfo.usage ? ' ' + cmdinfo.usage : '';
       switch (cmdinfo.categorie) {
