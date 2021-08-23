@@ -8,8 +8,8 @@ import channelsController from './controller/channelsController';
 import dashboardController from './controller/dashboardController';
 import infoController from './controller/infoController';
 import logoutController from './controller/logoutController';
-import MainController from './controller/mainController';
-import NotFoundController from './controller/NotFoundController';
+import mainController from './controller/mainController';
+import notFoundController from './controller/notFoundController';
 import prefixController from './controller/prefixController';
 import serverController from './controller/serverController';
 import serversController from './controller/serversController';
@@ -40,7 +40,7 @@ if (process.env.LIVERELOAD == 'true') {
   api.use(connectLivereload());
 }
 
-api.get('/', MainController);
+api.get('/', mainController);
 
 api.get('/api/info', infoController);
 
@@ -67,6 +67,6 @@ api.get('/api/update', GuildActions, updateController);
 api.get('/logout', logoutController);
 
 // 404 Error Handling at the End
-api.all('*', NotFoundController);
+api.all('*', notFoundController);
 
 export default api;
