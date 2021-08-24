@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import { ApplicationCommandData, Client } from 'discord.js';
 import Express from 'express';
 import handlebars from 'express-handlebars';
 import http from 'http';
@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import { join } from 'path';
 import { Server } from 'socket.io';
 
-import { config } from '../index';
+import { commands, config } from '../index';
 import helpers from '../util/helpers';
 import console from '../util/logger';
 
@@ -50,4 +50,22 @@ module.exports = async (client: Client) => {
     status: 'online',
     activities: [{ name: `${config.PRESENCE} | ${config.prefix}help`, type: config.PRESENCETYPE }]
   });
+  // Set Slash Commands
+  // Setup Interactions
+  const interactions = commands
+    .filter((v) => !!v.interaction?.run && !v.info.hidden)
+    .map(
+      (v) =>
+        ({
+          name: v.info.name,
+          description: v.info.description,
+          options: v.interaction?.options
+        } as ApplicationCommandData)
+    );
+  // If Slash Commands are enabled and Debug GUILD Id is not present
+  if (config.SLASHCOMMANDS && !process.env.GUILDID) {
+    client.application?.commands.set(interactions);
+  } else {
+    client.guilds.cache.get(process.env.GUILDID!)?.commands.set(interactions);
+  }
 };
