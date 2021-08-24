@@ -31,5 +31,33 @@ module.exports = {
         .setFooter(i18next.t('ping.embed.footer', { prefix: await getPrefix(message) }));
       message.channel.send({ embeds: [embed] });
     });
+  },
+  interaction: {
+    options: [],
+    run: async function (client, interaction) {
+      const reply = await interaction.reply({
+        content: i18next.t('ping.loading'),
+        fetchReply: true
+      });
+      if (!isMessage(reply)) {
+        return;
+      }
+      const embed = new MessageEmbed()
+        .setColor('RANDOM')
+        .setDescription(i18next.t('ping.embed.description'))
+        .addField(
+          i18next.t('ping.embed.latency'),
+          reply.createdTimestamp - interaction.createdTimestamp + 'ms',
+          true
+        )
+        .addField('WebSocket', Math.round(client.ws.ping) + 'ms', true)
+        .setFooter(i18next.t('ping.embed.footer', { prefix: await getPrefix(interaction) }));
+      interaction.editReply({ content: null, embeds: [embed] });
+    }
   }
 } as Command;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isMessage(a: any): a is Message {
+  return 'applicationId' in a;
+}

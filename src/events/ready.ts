@@ -62,10 +62,51 @@ module.exports = async (client: Client) => {
           options: v.interaction?.options
         } as ApplicationCommandData)
     );
-  // If Slash Commands are enabled and Debug GUILD Id is not present
-  if (config.SLASHCOMMANDS && !process.env.GUILDID) {
-    client.application?.commands.set(interactions);
-  } else {
-    client.guilds.cache.get(process.env.GUILDID!)?.commands.set(interactions);
+  try {
+    // If Slash Commands are enabled and Debug GUILD Id is not present
+    if (config.SLASHCOMMANDS && !process.env.GUILDID) {
+      const currentCommands = await client.application?.commands.fetch();
+      // Only add global commands if the existing commands are not equal to the new commands
+      const currentCommandNames = currentCommands?.map((v) => v.name).sort();
+      const currentInteractionNames = interactions.map((v) => v.name).sort();
+      if (!arraysEqual(currentCommandNames, currentInteractionNames)) {
+        await client.application?.commands.set(interactions);
+      }
+    } else {
+      if (process.env.GUILDID) {
+        // in debug envrionment, only add commands to specific guild
+        await client.guilds.cache.get(process.env.GUILDID)?.commands.set(interactions);
+      }
+    }
+    console.info('[API] Interactions initialized');
+  } catch (e) {
+    console.warn(e.message || e);
+    console.info(
+      '[API] Interactions initialization failed. Invite the Bot with Scope: "applications.commands"'
+    );
   }
 };
+
+/**
+ * check if two arrays are equal
+ * @author <https://stackoverflow.com/a/16436975/13707908> - Modified
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function arraysEqual(a?: any[], b?: any[]): boolean {
+  if (a === b) {
+    return true;
+  }
+  if (a == null || b == null) {
+    return false;
+  }
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}

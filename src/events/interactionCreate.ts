@@ -11,6 +11,9 @@ module.exports = async (client: Client, interaction: Interaction) => {
     !interaction.channel ||
     interaction.channel.type === 'DM'
   ) {
+    if (interaction.isCommand()) {
+      return interaction.reply("Interactions don't support DMs currently");
+    }
     return;
   }
   // Get Command by Name
