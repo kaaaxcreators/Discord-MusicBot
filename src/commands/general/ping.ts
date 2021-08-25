@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command } from '../../index';
@@ -16,7 +16,7 @@ module.exports = {
       member: []
     }
   },
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     return message.channel.send(i18next.t('ping.loading')!).then(async (msg) => {
       msg.deletable ? msg.delete() : null;
       const embed = new MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
   },
   interaction: {
     options: [],
-    run: async function (client, interaction) {
+    run: async function (client, interaction, { isMessage }) {
       const reply = await interaction.reply({
         content: i18next.t('ping.loading'),
         fetchReply: true
@@ -56,8 +56,3 @@ module.exports = {
     }
   }
 } as Command;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isMessage(a: any): a is Message {
-  return 'applicationId' in a;
-}

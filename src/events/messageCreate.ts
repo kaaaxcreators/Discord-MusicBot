@@ -83,7 +83,10 @@ module.exports = async (client: Client, message: Message) => {
       }
     }
     Stats.commandsRan++;
-    cmd.run(client, message, args);
+    cmd.run(client, message, args).catch((err) => {
+      console.error(err);
+      sendError(err.message, message.channel);
+    });
   } else if (config.DIDYOUMEAN) {
     try {
       const result = didYouMean(

@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ module.exports = {
       member: []
     }
   },
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     try {
       if (message.channel.type == 'DM') {
         return sendError(i18next.t('error.nodm'), message.channel);

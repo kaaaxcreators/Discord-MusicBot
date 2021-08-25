@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command } from '../../index';
@@ -16,7 +16,7 @@ module.exports = {
       member: []
     }
   },
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setDescription(i18next.t('count.embed.description', { servers: client.guilds.cache.size }))

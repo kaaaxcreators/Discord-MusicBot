@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command, config } from '../../index';
@@ -17,7 +17,7 @@ module.exports = {
       member: ['MANAGE_GUILD']
     }
   },
-  run: async function (client: Client, message: Message, args: string[]) {
+  run: async function (client, message, args) {
     if (message.channel.type == 'DM') {
       return sendError(i18next.t('error.nodm'), message.channel);
     }

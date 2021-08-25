@@ -1,4 +1,5 @@
-import { Client, GuildMember, Interaction } from 'discord.js';
+import { Client, GuildMember, Interaction, Message } from 'discord.js';
+import { APIInteractionGuildMember, APIMessage } from 'discord-api-types';
 import i18next from 'i18next';
 
 import { commands, Stats } from '../index';
@@ -40,10 +41,37 @@ module.exports = async (client: Client, interaction: Interaction) => {
   }
   Stats.commandsRan++;
   // Execute Command
-  command.interaction.run(client, interaction);
+  command.interaction.run(client, interaction, helpers).catch((err) => {
+    console.error(err);
+    interaction.reply('Something went wrong');
+  });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isGuildMember(obj: any): obj is GuildMember {
-  return 'bannable' in obj;
+/**
+ * Checks if Input is a GuildMember
+ */
+export function isGuildMember(
+  obj: GuildMember | APIInteractionGuildMember | null
+): obj is GuildMember {
+  if (obj == null) {
+    return false;
+  }
+  if (obj instanceof GuildMember) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Checks if Input is a Message
+ */
+export function isMessage(a: Message | APIMessage): a is Message {
+  return 'applicationId' in a;
+}
+
+const helpers: Helpers = { isGuildMember, isMessage };
+
+export interface Helpers {
+  isGuildMember: (obj: GuildMember | APIInteractionGuildMember | null) => obj is GuildMember;
+  isMessage: (a: Message | APIMessage) => a is Message;
 }

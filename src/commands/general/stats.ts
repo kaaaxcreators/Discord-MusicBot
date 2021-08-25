@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import moment from 'moment';
 import pMS from 'pretty-ms';
@@ -18,7 +18,7 @@ module.exports = {
       member: []
     }
   },
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     try {
       const guilds = client.guilds.cache.map((guilds) => guilds);
       let totalmembers = 0;

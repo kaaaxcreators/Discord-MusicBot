@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command, commands } from '../../index';
@@ -17,8 +17,7 @@ module.exports = {
       member: []
     }
   },
-
-  run: async function (client: Client, message: Message, args: string[]) {
+  run: async function (client, message, args: string[]) {
     const DM = message.channel.type === 'DM';
     const prefix = await getPrefix(message);
     const { generalcmds, musiccmds } = generateHelpText(prefix);

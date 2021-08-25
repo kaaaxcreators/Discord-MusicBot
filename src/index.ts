@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
 
 import docs from './docs';
+import { Helpers } from './events/interactionCreate';
 import console from './util/logger';
 import { MusicSubscription } from './util/Music';
 
@@ -199,11 +200,11 @@ export interface Command {
     hidden?: boolean;
   };
 
-  run: (client: Client, message: Message, args: string[]) => unknown;
+  run: (client: Client, message: Message, args: string[]) => Promise<unknown>;
 
   interaction?: {
     options: ApplicationCommandOptionData[];
-    run: (client: Client, interaction: CommandInteraction) => unknown;
+    run: (client: Client, interaction: CommandInteraction, helpers: Helpers) => Promise<unknown>;
   };
 }
 

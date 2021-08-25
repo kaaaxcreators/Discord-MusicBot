@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import lyricsFinder from 'lyrics-finder';
 
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
 
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     const queue = Queue.get(message.guild!.id);
     if (!queue) {
       return sendError(i18next.t('error.noqueue'), message.channel).catch(console.error);
@@ -52,6 +52,46 @@ module.exports = {
     const lyricsMsg = await message.channel.send({ embeds: [embed] });
     if (splittedLyrics.length > 1) {
       await Util.pagination(lyricsMsg, message.author, splittedLyrics);
+    }
+  },
+  interaction: {
+    options: [],
+    run: async function (client, interaction, { isMessage }) {
+      const queue = Queue.get(interaction.guild!.id);
+      if (!queue) {
+        return sendError(i18next.t('error.noqueue'), interaction).catch(console.error);
+      }
+
+      let lyrics: string[] = [];
+
+      try {
+        lyrics = await lyricsFinder(queue.queue[0].title);
+        if (!lyrics) {
+          lyrics = [`${i18next.t('lyrics.notfound')} ${queue.queue[0].title}.`];
+        }
+      } catch (error) {
+        lyrics = [`${i18next.t('lyrics.notfound')} ${queue.queue[0].title}.`];
+      }
+      const splittedLyrics = Util.chunk(lyrics, 1024);
+
+      const embed = new MessageEmbed()
+        .setAuthor(
+          i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
+          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        )
+        .setThumbnail(queue.queue[0].img)
+        .setColor('YELLOW')
+        .setDescription(splittedLyrics[0].join(''))
+        .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))
+        .setTimestamp();
+
+      const lyricsMsg = await interaction.reply({ embeds: [embed], fetchReply: true });
+      if (!isMessage(lyricsMsg)) {
+        return;
+      }
+      if (splittedLyrics.length > 1) {
+        await Util.pagination(lyricsMsg, interaction.user, splittedLyrics);
+      }
     }
   }
 } as Command;

@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command, queue } from '../../index';
@@ -17,7 +17,7 @@ module.exports = {
     }
   },
 
-  run: async function (client: Client, message: Message, args: string[]) {
+  run: async function (client, message, args) {
     if (
       !message.member?.voice.channel ||
       message.member?.voice.channel != message.guild?.me?.voice.channel
@@ -49,5 +49,49 @@ module.exports = {
       )
       .setColor('BLUE');
     return message.channel.send({ embeds: [embed] });
+  },
+  interaction: {
+    options: [
+      {
+        name: 'volume',
+        description: 'Volume to change to',
+        type: 'NUMBER',
+        required: false
+      }
+    ],
+    run: async function (client, interaction, { isGuildMember }) {
+      if (!isGuildMember(interaction.member)) {
+        return;
+      }
+      if (
+        !interaction.member?.voice.channel ||
+        interaction.member?.voice.channel != interaction.guild?.me?.voice.channel
+      ) {
+        return sendError(i18next.t('error.samevc'), interaction);
+      }
+      const serverQueue = queue.get(interaction.guild!.id);
+      if (!serverQueue) {
+        return sendError(i18next.t('error.noqueue'), interaction);
+      }
+      if (!serverQueue.voiceConnection) {
+        return sendError(i18next.t('error.noqueue'), interaction);
+      }
+      const volume = interaction.options.getNumber('volume', false);
+      if (!volume) {
+        return interaction.reply(i18next.t('volume.current', { volume: serverQueue.volume })!);
+      }
+      if (volume > 150 || volume < 0) {
+        return sendError(i18next.t('volume.between'), interaction).catch();
+      }
+      serverQueue.setVolume(volume);
+      const embed = new MessageEmbed()
+        .setDescription(i18next.t('volume.embed.description', { volume: volume / 1 }))
+        .setAuthor(
+          'Server Volume Manager',
+          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        )
+        .setColor('BLUE');
+      return interaction.reply({ embeds: [embed] });
+    }
   }
 } as Command;

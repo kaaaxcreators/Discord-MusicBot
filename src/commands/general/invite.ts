@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command, config } from '../../index';
@@ -15,8 +15,7 @@ module.exports = {
       member: []
     }
   },
-
-  run: async function (client: Client, message: Message) {
+  run: async function (client, message) {
     const url = generateURL(client.user!.id);
     const embed = new MessageEmbed()
       .setTitle(`${i18next.t('invite.embed.title')} ${client.user!.username}`)
