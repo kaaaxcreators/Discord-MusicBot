@@ -63,9 +63,9 @@ module.exports = async (client: Client) => {
         } as ApplicationCommandData)
     );
   try {
+    const currentCommands = await client.application?.commands.fetch();
     // If Slash Commands are enabled and Debug GUILD Id is not present
     if (config.SLASHCOMMANDS && !process.env.GUILDID) {
-      const currentCommands = await client.application?.commands.fetch();
       // Only add global commands if the existing commands are not equal to the new commands
       const currentCommandNames = currentCommands?.map((v) => v.name).sort();
       const currentInteractionNames = interactions.map((v) => v.name).sort();
@@ -74,8 +74,14 @@ module.exports = async (client: Client) => {
       }
     } else {
       if (process.env.GUILDID) {
-        // in debug envrionment, only add commands to specific guild
+        // in debug environment, only add commands to specific guild
         await client.guilds.cache.get(process.env.GUILDID)?.commands.set(interactions);
+      }
+      if (currentCommands) {
+        currentCommands.forEach(async (v) => {
+          console.silly(v.name);
+          await client.application?.commands.delete(v);
+        });
       }
     }
     console.info('[API] Interactions initialized');
