@@ -76,6 +76,9 @@ module.exports = {
     options: [],
     run: async function (client, interaction) {
       try {
+        if (interaction.channel!.type === 'DM') {
+          return sendError(i18next.t('error.nodm'), interaction);
+        }
         const guild = interaction.guild!;
         const textchannels = guild.channels.cache.filter((channel) => channel.type == 'GUILD_TEXT');
         const voicechannels = guild.channels.cache.filter(

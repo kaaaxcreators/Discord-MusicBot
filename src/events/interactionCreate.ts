@@ -6,15 +6,7 @@ import { commands, Stats } from '../index';
 
 module.exports = async (client: Client, interaction: Interaction) => {
   // Only Support Guild Slash Commands
-  if (
-    !interaction.isCommand() ||
-    !interaction.guildId ||
-    !interaction.channel ||
-    interaction.channel.type === 'DM'
-  ) {
-    if (interaction.isCommand()) {
-      return interaction.reply("Interactions don't support DMs currently");
-    }
+  if (!interaction.isCommand() || !interaction.channel) {
     return;
   }
   // Get Command by Name
@@ -23,21 +15,29 @@ module.exports = async (client: Client, interaction: Interaction) => {
   if (!command?.interaction) {
     return interaction.reply("Command doesn't support Interactions");
   }
-  // Check If Bot has Permissions or Channel is DM
-  if (!interaction.channel.permissionsFor(client.user!)?.has(command.info.permissions.channel)) {
-    return interaction.reply(
-      i18next.t('message.permissions.bot') +
-        command.info.permissions.channel.map((v) => `• ${v}`).join('\n')
-    );
-  }
   if (
-    !isGuildMember(interaction.member) ||
-    !interaction.channel.permissionsFor(interaction.member!)?.has(command.info.permissions.member)
+    (interaction.channel.type === 'DM' || !interaction.guildId) &&
+    command.info.categorie === 'music'
   ) {
-    return interaction.reply(
-      i18next.t('message.permissions.member') +
-        command.info.permissions.member.map((v) => `• ${v}`).join('\n')
-    );
+    return interaction.reply('This command can only be used in a guild');
+  }
+  if (interaction.channel.type !== 'DM') {
+    // Check If Bot has Permissions
+    if (!interaction.channel.permissionsFor(client.user!)?.has(command.info.permissions.channel)) {
+      return interaction.reply(
+        i18next.t('message.permissions.bot') +
+          command.info.permissions.channel.map((v) => `• ${v}`).join('\n')
+      );
+    }
+    if (
+      !isGuildMember(interaction.member) ||
+      !interaction.channel.permissionsFor(interaction.member!)?.has(command.info.permissions.member)
+    ) {
+      return interaction.reply(
+        i18next.t('message.permissions.member') +
+          command.info.permissions.member.map((v) => `• ${v}`).join('\n')
+      );
+    }
   }
   Stats.commandsRan++;
   // Execute Command
@@ -50,9 +50,7 @@ module.exports = async (client: Client, interaction: Interaction) => {
 /**
  * Checks if Input is a GuildMember
  */
-export function isGuildMember(
-  obj: GuildMember | APIInteractionGuildMember | null
-): obj is GuildMember {
+function isGuildMember(obj: GuildMember | APIInteractionGuildMember | null): obj is GuildMember {
   if (obj == null) {
     return false;
   }
@@ -65,11 +63,11 @@ export function isGuildMember(
 /**
  * Checks if Input is a Message
  */
-export function isMessage(a: Message | APIMessage): a is Message {
+function isMessage(a: Message | APIMessage): a is Message {
   return 'applicationId' in a;
 }
 
-const helpers: Helpers = { isGuildMember, isMessage };
+export const helpers: Helpers = { isGuildMember, isMessage };
 
 export interface Helpers {
   isGuildMember: (obj: GuildMember | APIInteractionGuildMember | null) => obj is GuildMember;
