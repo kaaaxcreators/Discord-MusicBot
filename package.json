@@ -60,7 +60,7 @@
     "ytpl": "^2.2.3"
   },
   "devDependencies": {
-    "@kaaaxcreators/config": "^1.1.1",
+    "@kaaaxcreators/config": "^1.1.2",
     "@types/connect-livereload": "^0.5.32",
     "@types/dotenv-safe": "^8.1.2",
     "@types/express": "^4.17.13",
