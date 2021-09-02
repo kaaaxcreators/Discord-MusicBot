@@ -53,7 +53,7 @@
     "soundcloud-downloader": "^1.0.0",
     "spdl-core": "^2.0.2",
     "spotify-url-info": "^2.2.3",
-    "tslog": "^3.2.1",
+    "tslog": "^3.2.2",
     "youtube-sr": "^4.1.7",
     "yt-search": "^2.10.1",
     "ytdl-core": "^4.9.1",
