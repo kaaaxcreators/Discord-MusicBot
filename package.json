@@ -70,7 +70,7 @@
     "@types/i18n": "^0.13.1",
     "@types/jquery": "^3.5.6",
     "@types/livereload": "^0.9.1",
-    "@types/node-fetch": "^2.5.12",
+    "@types/node-fetch": "^3.0.3",
     "@types/passport": "^1.0.7",
     "@types/passport-oauth2-refresh": "^1.1.1",
     "@types/yt-search": "^2.3.2",
