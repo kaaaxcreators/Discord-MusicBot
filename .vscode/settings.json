@@ -8,5 +8,6 @@
   "i18n-ally.keystyle": "nested",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "i18n-ally.extract.autoDetect": true
 }
