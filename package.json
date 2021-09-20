@@ -40,7 +40,7 @@
     "express-session": "^1.17.2",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.4.0",
-    "i18next": "^20.6.1",
+    "i18next": "^21.0.0",
     "jsoning": "^0.11.22",
     "lyrics-finder": "^21.7.0",
     "millify": "^4.0.0",
