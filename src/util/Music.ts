@@ -164,6 +164,9 @@ export class MusicSubscription {
    * Stops audio playback and empties the queue
    */
   public stop(): void {
+    if (this.queueLock) {
+      return;
+    }
     this.queueLock = true;
     this.queue = [];
     this.audioPlayer.stop(true);
@@ -171,6 +174,9 @@ export class MusicSubscription {
   }
 
   public pause(): void {
+    if (this.queueLock) {
+      return;
+    }
     if (this.paused) {
       return;
     }
@@ -179,11 +185,17 @@ export class MusicSubscription {
   }
 
   public setVolume(volume: number): void {
+    if (this.queueLock) {
+      return;
+    }
     this.volume = volume;
     this.currentResource?.volume?.setVolumeLogarithmic(volume / 100);
   }
 
   public resume(): void {
+    if (this.queueLock) {
+      return;
+    }
     if (!this.paused) {
       return;
     }
@@ -192,6 +204,9 @@ export class MusicSubscription {
   }
 
   public skip(): void {
+    if (this.queueLock) {
+      return;
+    }
     if (this.paused) {
       this.resume();
     }
@@ -199,6 +214,9 @@ export class MusicSubscription {
   }
 
   public skipTo(): void {
+    if (this.queueLock) {
+      return;
+    }
     if (this.paused) {
       this.resume();
     }
