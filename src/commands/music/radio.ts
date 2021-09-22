@@ -1,5 +1,5 @@
 import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
-import { Client, Collection, Message, MessageEmbed } from 'discord.js';
+import { Collection, MessageEmbed } from 'discord.js';
 import { resolveSrv as resolveSrvCb } from 'dns';
 import i18next from 'i18next';
 import fetch, { Response } from 'node-fetch';
@@ -41,7 +41,6 @@ module.exports = {
     if ((searchString || attachment) == null) {
       return sendError(i18next.t('radio.missingargs'), message.channel);
     }
-<<<<<<< HEAD
     let url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
     const name = attachment ? (attachment.name ? attachment.name : attachment.url) : url;
     let subscription = queue.get(message.guild!.id);
@@ -54,30 +53,7 @@ module.exports = {
       )
     ) {
       try {
-<<<<<<< HEAD
-        const endpoints = await resolveSrv('_api._tcp.radio-browser.info');
-        const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];
-        const fetchResult = await fetch(
-          `https://${endpoint.name}/json/stations/search?name=${encodeURIComponent(searchString)}`,
-          {
-            headers: {
-              'User-Agent': 'github/kaaaxcreators/Discord-MusicBot'
-            }
-          }
-        );
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const result: any = await fetchResult.json();
-        if (!result || !result.length) {
-          throw new Error('No results');
-        }
-        if (result[0] && result[0].url_resolved) {
-          url = result[0].url_resolved;
-        } else {
-          throw new Error('Bad result');
-        }
-=======
         url = await stationToURL(searchString);
->>>>>>> 66712cc (Play/Playlist/Radio/Search Slash Commands, Support Slash Commands in General Commands)
       } catch (err) {
         console.warn(err);
         return sendError(
@@ -86,11 +62,6 @@ module.exports = {
         );
       }
     }
-=======
-    const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : attachment ? attachment.url : '';
-    const name = attachment ? (attachment.name ? attachment.name : attachment.url) : url;
-    let subscription = queue.get(message.guild!.id);
->>>>>>> 6d4ac7e (Update DiscordJS to v13 (#115))
 
     const songInfo = new Collection<string, string>();
     let data: Response;
@@ -320,7 +291,8 @@ async function stationToURL(station: string): Promise<string> {
       }
     }
   );
-  const result = await fetchResult.json();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = await fetchResult.json();
   if (!result || !result.length) {
     throw new Error('No results');
   }
