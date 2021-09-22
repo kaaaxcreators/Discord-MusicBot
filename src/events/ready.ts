@@ -79,7 +79,6 @@ module.exports = async (client: Client) => {
       }
       if (currentCommands) {
         currentCommands.forEach(async (v) => {
-          console.silly(v.name);
           await client.application?.commands.delete(v);
         });
       }

@@ -24,8 +24,8 @@
     "dev": "ts-node src/index.ts"
   },
   "engines": {
-    "node": ">=16.6.0",
-    "npm": ">=7.x"
+    "node": ">=16.7.0",
+    "npm": ">=7.20.0"
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
@@ -48,7 +48,7 @@
     "lyrics-finder": "^21.7.0",
     "millify": "^4.0.0",
     "moment": "^2.29.1",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^2.6.2",
     "passport": "^0.4.1",
     "passport-oauth2-refresh": "^2.1.0",
     "pretty-ms": "^7.0.1",
