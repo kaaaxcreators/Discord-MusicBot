@@ -15,11 +15,18 @@ import docs from './docs';
 import console from './util/logger';
 import { MusicSubscription } from './util/Music';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isMissingEnvVarsError(a: any): a is MissingEnvVarsError {
+  return 'missing' in a;
+}
+
 // Load environment variables
 try {
   dotenv.config();
 } catch (err) {
-  EnvError(err);
+  if (isMissingEnvVarsError(err)) {
+    EnvError(err);
+  }
 }
 
 export const client = new Client({
@@ -143,7 +150,9 @@ if (!existsSync('db')) {
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {
-  LoginError(err);
+  if (err instanceof Error) {
+    LoginError(err);
+  }
 }
 
 // Custom Bad Token Error Handling

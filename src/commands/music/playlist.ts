@@ -249,8 +249,10 @@ module.exports = {
             ? searchtext.edit({ embeds: [embed] })
             : message.channel.send({ embeds: [embed] });
         } catch (error) {
-          console.error(error);
-          sendError(error.message, message.channel);
+          if (error instanceof Error) {
+            console.error(error);
+            sendError(error.message, message.channel);
+          }
           continue;
         }
       }

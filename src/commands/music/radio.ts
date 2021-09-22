@@ -64,7 +64,8 @@ module.exports = {
             }
           }
         );
-        const result = await fetchResult.json();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result: any = await fetchResult.json();
         if (!result || !result.length) {
           throw new Error('No results');
         }

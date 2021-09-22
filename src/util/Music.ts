@@ -366,63 +366,59 @@ export class Track implements TrackData {
     let info: Omit<TrackData, 'onStart' | 'onFinish' | 'onError'>;
     const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
     const searchString = args.join(' ');
-    try {
-      if (
-        url.match(
-          /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/i
-        )
-      ) {
-        // youtube video
-        const ytdlInfo = await ytdl.getInfo(url);
-        if (!ytdlInfo) {
-          throw new Error(i18next.t('play.notfound.youtube'));
-        }
-        info = {
-          id: ytdlInfo.videoDetails.videoId,
-          title: ytdlInfo.videoDetails.title,
-          url: ytdlInfo.videoDetails.video_url,
-          img: ytdlInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
-          duration: Number(ytdlInfo.videoDetails.lengthSeconds) * 1000,
-          ago: moment(ytdlInfo.videoDetails.publishDate).fromNow(),
-          views: millify(Number(ytdlInfo.videoDetails.viewCount)),
-          live: ytdlInfo.videoDetails.isLiveContent,
-          req: message.author
-        };
-      } else if (scdl.isValidUrl(url)) {
-        // soundcloud song
-        const scdlInfo = await scdl.getInfo(url);
-        if (!scdlInfo) {
-          throw new Error(i18next.t('play.notfound.soundcloud'));
-        }
-        info = {
-          id: scdlInfo.permalink!,
-          title: scdlInfo.title!,
-          url: scdlInfo.permalink_url!,
-          img: scdlInfo.artwork_url!,
-          ago: moment(scdlInfo.last_modified!).fromNow(),
-          views: millify(scdlInfo.playback_count!),
-          duration: Math.ceil(scdlInfo.duration!),
-          req: message.author
-        };
-      } else {
-        const ytsResult = await yts.search(searchString);
-        if (ytsResult.videos.length === 0) {
-          throw new Error(i18next.t('play.notfound.youtube'));
-        }
-        const ytsInfo = ytsResult.videos[0];
-        info = {
-          id: ytsInfo.videoId,
-          title: Util.escapeMarkdown(ytsInfo.title),
-          views: millify(ytsInfo.views),
-          url: ytsInfo.url,
-          ago: ytsInfo.ago,
-          duration: ytsInfo.duration.seconds * 1000,
-          img: ytsInfo.image,
-          req: message.author
-        };
+    if (
+      url.match(
+        /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/i
+      )
+    ) {
+      // youtube video
+      const ytdlInfo = await ytdl.getInfo(url);
+      if (!ytdlInfo) {
+        throw new Error(i18next.t('play.notfound.youtube'));
       }
-    } catch (error) {
-      throw new Error(error);
+      info = {
+        id: ytdlInfo.videoDetails.videoId,
+        title: ytdlInfo.videoDetails.title,
+        url: ytdlInfo.videoDetails.video_url,
+        img: ytdlInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
+        duration: Number(ytdlInfo.videoDetails.lengthSeconds) * 1000,
+        ago: moment(ytdlInfo.videoDetails.publishDate).fromNow(),
+        views: millify(Number(ytdlInfo.videoDetails.viewCount)),
+        live: ytdlInfo.videoDetails.isLiveContent,
+        req: message.author
+      };
+    } else if (scdl.isValidUrl(url)) {
+      // soundcloud song
+      const scdlInfo = await scdl.getInfo(url);
+      if (!scdlInfo) {
+        throw new Error(i18next.t('play.notfound.soundcloud'));
+      }
+      info = {
+        id: scdlInfo.permalink!,
+        title: scdlInfo.title!,
+        url: scdlInfo.permalink_url!,
+        img: scdlInfo.artwork_url!,
+        ago: moment(scdlInfo.last_modified!).fromNow(),
+        views: millify(scdlInfo.playback_count!),
+        duration: Math.ceil(scdlInfo.duration!),
+        req: message.author
+      };
+    } else {
+      const ytsResult = await yts.search(searchString);
+      if (ytsResult.videos.length === 0) {
+        throw new Error(i18next.t('play.notfound.youtube'));
+      }
+      const ytsInfo = ytsResult.videos[0];
+      info = {
+        id: ytsInfo.videoId,
+        title: Util.escapeMarkdown(ytsInfo.title),
+        views: millify(ytsInfo.views),
+        url: ytsInfo.url,
+        ago: ytsInfo.ago,
+        duration: ytsInfo.duration.seconds * 1000,
+        img: ytsInfo.image,
+        req: message.author
+      };
     }
 
     // The methods are wrapped so that we can ensure that they are only called once.

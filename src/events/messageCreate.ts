@@ -106,7 +106,9 @@ module.exports = async (client: Client, message: Message) => {
         return;
       }
     } catch (err) {
-      console.error(err.message || err);
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
     }
   } else {
     return;

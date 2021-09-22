@@ -15,7 +15,9 @@ export async function getGuild(guildID: string): Promise<Database | false> {
     }
     return db;
   } catch (err) {
-    console.error(err.message || err);
+    if (err instanceof Error) {
+      console.error(err.message);
+    }
     return false;
   }
 }

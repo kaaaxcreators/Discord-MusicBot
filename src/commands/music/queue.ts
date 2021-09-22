@@ -58,7 +58,9 @@ module.exports = {
         await Util.pagination(queueMsg, message.author, chunked);
       }
     } catch (e) {
-      message.channel.send(`An error occurred: ${e.message}.`);
+      if (e instanceof Error) {
+        message.channel.send(`An error occurred: ${e.message}.`);
+      }
     }
   }
 } as Command;

@@ -124,8 +124,10 @@ module.exports = {
           : message.channel.send({ embeds: [embed] });
       }
     } catch (error) {
-      console.error(error);
-      return sendError(error.message, message.channel);
+      if (error instanceof Error) {
+        console.error(error);
+        return sendError(error.message, message.channel);
+      }
     }
   }
 } as Command;
