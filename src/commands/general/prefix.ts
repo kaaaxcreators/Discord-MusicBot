@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
 import { Command, config } from '../../index';
@@ -17,7 +17,7 @@ module.exports = {
       member: ['MANAGE_GUILD']
     }
   },
-  run: async function (client: Client, message: Message, args: string[]) {
+  run: async function (client, message, args) {
     if (message.channel.type == 'DM') {
       return sendError(i18next.t('error.nodm'), message.channel);
     }
@@ -26,7 +26,7 @@ module.exports = {
     }
     const guildDB = await getGuild(message.guild!.id);
     if (!guildDB) {
-      return sendError('error.something', message.channel);
+      return sendError(i18next.t('error.something'), message.channel);
     }
     const oldprefix = guildDB.prefix;
     const newprefix = args.join(' ');
@@ -49,5 +49,46 @@ module.exports = {
       )
       .setFooter(i18next.t('prefix.embed.footer', { prefix: newprefix }));
     return message.channel.send({ embeds: [embed] });
+  },
+  interaction: {
+    options: [
+      {
+        name: 'prefix',
+        description: 'New Prefix',
+        type: 'STRING',
+        required: false
+      }
+    ],
+    run: async function (client, interaction) {
+      if (!config.GUILDPREFIX) {
+        return sendError(i18next.t('prefix.notenabled'), interaction);
+      }
+      const newprefix = interaction.options.getString('prefix', false);
+      const guildDB = await getGuild(interaction.guildId!);
+      if (!guildDB) {
+        return sendError(i18next.t('error.something'), interaction);
+      }
+      const oldprefix = guildDB.prefix;
+      if (!newprefix) {
+        interaction.reply({
+          embeds: [
+            new MessageEmbed()
+              .setTitle(i18next.t('prefix.embed.title'))
+              .setDescription(i18next.t('prefix.noargsembed.description', { oldprefix: oldprefix }))
+              .setFooter(i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }))
+          ]
+        });
+      } else {
+        database.set(interaction.guildId!, { prefix: newprefix });
+        const embed = new MessageEmbed()
+          .setColor('YELLOW')
+          .setTitle(i18next.t('prefix.embed.title'))
+          .setDescription(
+            i18next.t('prefix.embed.description', { oldprefix: oldprefix, newprefix: newprefix })
+          )
+          .setFooter(i18next.t('prefix.embed.footer', { prefix: newprefix }));
+        interaction.reply({ embeds: [embed] });
+      }
+    }
   }
 } as Command;

@@ -1,8 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import {
   ActivityType,
+  ApplicationCommandOptionData,
   Client,
   Collection,
+  CommandInteraction,
   Message,
   PermissionResolvable,
   Snowflake
@@ -12,6 +14,7 @@ import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
 
 import docs from './docs';
+import { Helpers } from './events/interactionCreate';
 import console from './util/logger';
 import { MusicSubscription } from './util/Music';
 
@@ -66,7 +69,8 @@ export const config: Config = {
   DIDYOUMEAN: process.env.DIDYOUMEAN ? /true/i.test(process.env.DIDYOUMEAN) : false,
   GUILDPREFIX: process.env.GUILDPREFIX ? /true/i.test(process.env.GUILDPREFIX) : false,
   GUILDACTIONS: process.env.GUILDACTIONS ? /true/i.test(process.env.GUILDACTIONS) : false,
-  UPDATEDIFF: Number.isNaN(process.env.UPDATEDIFF!) ? 5 : Number.parseInt(process.env.UPDATEDIFF!)
+  UPDATEDIFF: Number.isNaN(process.env.UPDATEDIFF!) ? 5 : Number.parseInt(process.env.UPDATEDIFF!),
+  SLASHCOMMANDS: process.env.SLASHCOMMANDS ? /true/i.test(process.env.SLASHCOMMANDS) : true
 };
 
 export const Stats = {
@@ -196,7 +200,12 @@ export interface Command {
     hidden?: boolean;
   };
 
-  run: (client: Client, message: Message, args: string[]) => unknown;
+  run: (client: Client, message: Message, args: string[]) => Promise<unknown>;
+
+  interaction?: {
+    options: ApplicationCommandOptionData[];
+    run: (client: Client, interaction: CommandInteraction, helpers: Helpers) => Promise<unknown>;
+  };
 }
 
 interface Permissions {
@@ -211,7 +220,7 @@ interface Config {
   prefix: string;
   PRESENCE: string;
   PRESENCETYPE: ActivityType;
-  LOCALE: string;
+  LOCALE: typeof locales[number];
   PERMISSION: string;
   WEBSITE: string;
   SCOPES: string[];
@@ -223,6 +232,7 @@ interface Config {
   GUILDPREFIX: boolean;
   GUILDACTIONS: boolean;
   UPDATEDIFF: number;
+  SLASHCOMMANDS: boolean;
 }
 
 /**

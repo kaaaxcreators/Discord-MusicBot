@@ -65,7 +65,7 @@ module.exports = async (client: Client, message: Message) => {
         !message.channel.permissionsFor(client.user!)?.has(cmd.info.permissions.channel)
       ) {
         return sendError(
-          i18next.t('message.permissions.member') +
+          i18next.t('message.permissions.bot') +
             cmd.info.permissions.channel.map((perm) => `• ${perm}`).join('\n'),
           message.channel
         );
@@ -83,7 +83,10 @@ module.exports = async (client: Client, message: Message) => {
       }
     }
     Stats.commandsRan++;
-    cmd.run(client, message, args);
+    cmd.run(client, message, args).catch((err) => {
+      console.error(err);
+      sendError(err.message, message.channel);
+    });
   } else if (config.DIDYOUMEAN) {
     try {
       const result = didYouMean(

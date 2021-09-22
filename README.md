@@ -56,6 +56,7 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `GUILDPREFIX`: Check [here](#-guild-prefix)
 - `GUILDACTIONS`: Check [here](#-guild-actions)
 - `UPDATEDIFF`: How often Data should be updated in minutes. Defaults to `5`
+- `SLASHCOMMANDS`: If Bot should add Slash Commands to all Servers. Defaults to `true`
 
 ## 📑 Commands
 

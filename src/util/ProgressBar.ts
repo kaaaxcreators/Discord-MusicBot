@@ -3,13 +3,9 @@
  * @param {Number} value - The value to fill the bar
  * @param {Number} maxValue - The max value of the bar
  * @param {Number} size - The bar size (in letters)
- * @return {{Bar: string, percentageText: string}} - The bar
+ * @return {Progress} - The bar
  */
-export default (
-  value: number,
-  maxValue: number,
-  size: number
-): { Bar: string; percentageText: string } => {
+export default (value: number, maxValue: number, size: number): Progress => {
   const percentage = value / maxValue; // Calculate the percentage of the bar
   const progress = Math.round(size * percentage); // Calculate the number of square caracters to fill the progress side.
   const emptyProgress = size - progress; // Calculate the number of dash caracters to fill the empty progress side.
@@ -21,3 +17,8 @@ export default (
   const Bar = progressText + emptyProgressText; // Creating the bar
   return { Bar, percentageText };
 };
+
+export interface Progress {
+  Bar: string;
+  percentageText: string;
+}

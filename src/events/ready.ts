@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import { ApplicationCommandData, Client } from 'discord.js';
 import Express from 'express';
 import handlebars from 'express-handlebars';
 import http from 'http';
@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import { join } from 'path';
 import { Server } from 'socket.io';
 
-import { config } from '../index';
+import { commands, config } from '../index';
 import helpers from '../util/helpers';
 import console from '../util/logger';
 
@@ -50,4 +50,71 @@ module.exports = async (client: Client) => {
     status: 'online',
     activities: [{ name: `${config.PRESENCE} | ${config.prefix}help`, type: config.PRESENCETYPE }]
   });
+  // Set Slash Commands
+  // Setup Interactions
+  const interactions = commands
+    .filter((v) => !!v.interaction?.run && !v.info.hidden)
+    .map(
+      (v) =>
+        ({
+          name: v.info.name,
+          description: v.info.description,
+          options: v.interaction?.options
+        } as ApplicationCommandData)
+    );
+  try {
+    const currentCommands = await client.application?.commands.fetch();
+    // If Slash Commands are enabled and Debug GUILD Id is not present
+    if (config.SLASHCOMMANDS && !process.env.GUILDID) {
+      // Only add global commands if the existing commands are not equal to the new commands
+      const currentCommandNames = currentCommands?.map((v) => v.name).sort();
+      const currentInteractionNames = interactions.map((v) => v.name).sort();
+      if (!arraysEqual(currentCommandNames, currentInteractionNames)) {
+        await client.application?.commands.set(interactions);
+      }
+    } else {
+      if (process.env.GUILDID) {
+        // in debug environment, only add commands to specific guild
+        await client.guilds.cache.get(process.env.GUILDID)?.commands.set(interactions);
+      }
+      if (currentCommands) {
+        currentCommands.forEach(async (v) => {
+          console.silly(v.name);
+          await client.application?.commands.delete(v);
+        });
+      }
+    }
+    console.info('[API] Interactions initialized');
+  } catch (e) {
+    if (e instanceof Error) {
+      console.warn(e.message);
+    }
+    console.info(
+      '[API] Interactions initialization failed. Invite the Bot with Scope: "applications.commands"'
+    );
+  }
 };
+
+/**
+ * check if two arrays are equal
+ * @author <https://stackoverflow.com/a/16436975/13707908> - Modified
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function arraysEqual(a?: any[], b?: any[]): boolean {
+  if (a === b) {
+    return true;
+  }
+  if (a == null || b == null) {
+    return false;
+  }
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
