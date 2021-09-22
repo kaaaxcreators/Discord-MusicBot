@@ -110,7 +110,9 @@ module.exports = {
           await Util.pagination(queueMsg, interaction.user, chunked);
         }
       } catch (e) {
-        interaction.reply(`An error occurred: ${e.message}.`);
+        if (e instanceof Error) {
+          interaction.reply(`An error occurred: ${e.message}.`);
+        }
       }
     }
   }

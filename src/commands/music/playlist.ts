@@ -375,8 +375,10 @@ async function handleVideo(
         ? message.followUp({ embeds: [embed] })
         : message.channel.send({ embeds: [embed] });
     } catch (error) {
-      console.error(error);
-      sendError(error.message, isCommandInteraction(message) ? message : message.channel);
+      if (error instanceof Error) {
+        console.error(error);
+        sendError(error.message, isCommandInteraction(message) ? message : message.channel);
+      }
       continue;
     }
   }

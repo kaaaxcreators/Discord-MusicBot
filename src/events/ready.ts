@@ -86,7 +86,9 @@ module.exports = async (client: Client) => {
     }
     console.info('[API] Interactions initialized');
   } catch (e) {
-    console.warn(e.message || e);
+    if (e instanceof Error) {
+      console.warn(e.message);
+    }
     console.info(
       '[API] Interactions initialization failed. Invite the Bot with Scope: "applications.commands"'
     );
