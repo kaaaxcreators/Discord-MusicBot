@@ -41,7 +41,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.4.0",
     "i18next": "^20.6.1",
-    "jsoning": "^0.11.22",
+    "jsoning": "^0.12.22",
     "lyrics-finder": "^21.7.0",
     "millify": "^4.0.0",
     "moment": "^2.29.1",
