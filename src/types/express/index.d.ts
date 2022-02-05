@@ -1,5 +1,6 @@
 import { User as ApiData } from '@oauth-everything/passport-discord/dist/ApiData';
 import { Profile } from '@oauth-everything/profile';
+import { PartialGuild } from 'discord-oauth2'
 
 declare global {
   namespace Express {
@@ -17,14 +18,4 @@ interface GuildInfo extends PartialGuild {
   hasPerms?: boolean;
   /** Bot is in Server */
   inGuild?: boolean;
-}
-
-interface PartialGuild {
-  id: string;
-  name: string;
-  icon: string | null | undefined;
-  owner?: boolean;
-  permissions?: number;
-  features: string[];
-  permissions_new?: string;
 }
