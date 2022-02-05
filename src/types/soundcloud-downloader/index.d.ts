@@ -6,7 +6,7 @@
 // Custom Typing because of this:
 // https://github.com/zackradisic/node-soundcloud-downloader/issues/76
 
-declare module 'soundcloud-downloader/dist/index' {
+declare module 'soundcloud-downloader/dist/index.js' {
   import { Transcoding, TrackInfo, User } from 'soundcloud-downloader/dist/info';
   import { FilterPredicateObject } from 'soundcloud-downloader/dist/filter-media';
   import STREAMING_PROTOCOLS from 'soundcloud-downloader/dist/protocols';

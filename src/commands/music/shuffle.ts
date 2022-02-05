@@ -4,7 +4,7 @@ import { Command, queue } from '../../index.js';
 import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 
-module.exports = {
+export default {
   info: {
     name: 'shuffle',
     description: i18next.t('shuffle.description'),

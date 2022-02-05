@@ -12,7 +12,7 @@ import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 import { MusicSubscription, Track } from '../../util/Music.js';
 
-module.exports = {
+export default {
   info: {
     name: 'radio',
     description: i18next.t('radio.description'),

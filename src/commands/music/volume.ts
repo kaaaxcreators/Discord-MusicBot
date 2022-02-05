@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import { Command, queue } from '../../index.js';
 import sendError from '../../util/error.js';
 
-module.exports = {
+export default {
   info: {
     name: 'volume',
     description: i18next.t('volume.description'),

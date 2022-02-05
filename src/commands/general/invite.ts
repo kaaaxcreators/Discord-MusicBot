@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 import { Command, config } from '../../index.js';
 
-module.exports = {
+export default {
   info: {
     name: 'invite',
     description: i18next.t('invite.description'),

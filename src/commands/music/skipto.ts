@@ -5,7 +5,7 @@ import { getPrefix } from '../../util/database.js';
 import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 
-module.exports = {
+export default {
   info: {
     name: 'skipto',
     description: i18next.t('skipto.description'),

@@ -5,7 +5,7 @@ import { Command, commands } from '../../index.js';
 import { getPrefix } from '../../util/database.js';
 import Util from '../../util/pagination.js';
 
-module.exports = {
+export default {
   info: {
     name: 'help',
     description: i18next.t('help.description'),

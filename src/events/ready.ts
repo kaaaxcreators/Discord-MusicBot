@@ -10,7 +10,7 @@ import { commands, config } from '../index.js';
 import helpers from '../util/helpers.js';
 import console from '../util/logger.js';
 
-module.exports = async (client: Client) => {
+export default async (client: Client) => {
   let server: http.Server;
   if (!config.DISABLEWEB) {
     // Create API

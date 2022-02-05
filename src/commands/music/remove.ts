@@ -6,7 +6,7 @@ import { getPrefix } from '../../util/database.js';
 import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 
-module.exports = {
+export default {
   info: {
     name: 'remove',
     description: i18next.t('remove.description'),
