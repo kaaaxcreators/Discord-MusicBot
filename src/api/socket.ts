@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import pMS from 'pretty-ms';
 import { Server } from 'socket.io';
 
-import ProgressBar from '../util/ProgressBar';
+import ProgressBar from '../util/ProgressBar.js';
 
 function socket(io: Server): void {
   io.on('connection', (socket) => {

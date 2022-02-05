@@ -3,9 +3,9 @@ import { Client, Message, MessageEmbed } from 'discord.js';
 import events from 'events';
 import i18next from 'i18next';
 
-import { commands, config, Stats } from '../index';
-import { getGuild } from '../util/database';
-import sendError from '../util/error';
+import { commands, config, Stats } from '../index.js';
+import { getGuild } from '../util/database.js';
+import sendError from '../util/error.js';
 
 module.exports = async (client: Client, message: Message) => {
   if (message.author.bot) {

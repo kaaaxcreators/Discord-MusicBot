@@ -4,8 +4,8 @@ import { Request, Response } from 'express';
 import i18next from 'i18next';
 import pMS from 'pretty-ms';
 
-import sendError from '../../util/error';
-import { MusicSubscription, Track } from '../../util/Music';
+import sendError from '../../util/error.js';
+import { MusicSubscription, Track } from '../../util/Music.js';
 
 export default async function songController(req: Request, res: Response): Promise<void> {
   const { id, song } = req.params;

@@ -2,7 +2,7 @@ import { Client, GuildMember, Interaction, Message } from 'discord.js';
 import { APIInteractionGuildMember, APIMessage } from 'discord-api-types';
 import i18next from 'i18next';
 
-import { commands, Stats } from '../index';
+import { commands, Stats } from '../index.js';
 
 module.exports = async (client: Client, interaction: Interaction) => {
   // Only Support Guild Slash Commands

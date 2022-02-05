@@ -1,8 +1,8 @@
 import { CommandInteraction, Guild, Message } from 'discord.js';
 import jsoning from 'jsoning';
 
-import { config } from '../index';
-import console from './logger';
+import { config } from '../index.js';
+import console from './logger.js';
 
 const database = <Customjsoning>new jsoning('db/guild.json');
 

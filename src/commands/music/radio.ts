@@ -7,10 +7,10 @@ import pMS from 'pretty-ms';
 import { promisify } from 'util';
 const resolveSrv = promisify(resolveSrvCb);
 
-import { Command, queue, Stats } from '../../index';
-import sendError from '../../util/error';
-import console from '../../util/logger';
-import { MusicSubscription, Track } from '../../util/Music';
+import { Command, queue, Stats } from '../../index.js';
+import sendError from '../../util/error.js';
+import console from '../../util/logger.js';
+import { MusicSubscription, Track } from '../../util/Music.js';
 
 module.exports = {
   info: {

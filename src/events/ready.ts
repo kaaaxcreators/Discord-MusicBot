@@ -6,9 +6,9 @@ import i18next from 'i18next';
 import { join } from 'path';
 import { Server } from 'socket.io';
 
-import { commands, config } from '../index';
-import helpers from '../util/helpers';
-import console from '../util/logger';
+import { commands, config } from '../index.js';
+import helpers from '../util/helpers.js';
+import console from '../util/logger.js';
 
 module.exports = async (client: Client) => {
   let server: http.Server;

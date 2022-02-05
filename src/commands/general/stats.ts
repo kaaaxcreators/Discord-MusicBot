@@ -3,8 +3,8 @@ import i18next from 'i18next';
 import moment from 'moment';
 import pMS from 'pretty-ms';
 
-import { Command } from '../../index';
-import sendError from '../../util/error';
+import { Command } from '../../index.js';
+import sendError from '../../util/error.js';
 
 module.exports = {
   info: {

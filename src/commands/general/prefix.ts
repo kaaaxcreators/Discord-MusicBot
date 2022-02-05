@@ -1,9 +1,9 @@
 import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command, config } from '../../index';
-import database, { getGuild } from '../../util/database';
-import sendError from '../../util/error';
+import { Command, config } from '../../index.js';
+import database, { getGuild } from '../../util/database.js';
+import sendError from '../../util/error.js';
 
 module.exports = {
   info: {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { config } from '../../index';
+import { config } from '../../index.js';
 
 export default function dashboardController(req: Request, res: Response): void {
   res.render('dashboard', {

@@ -5,8 +5,8 @@ import passport from 'passport';
 import passportOAuth2Refresh from 'passport-oauth2-refresh';
 import { join } from 'path';
 
-import { client, config } from '../index';
-import routes from './routes';
+import { client, config } from '../index.js';
+import routes from './routes.js';
 
 const api = Router();
 

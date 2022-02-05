@@ -12,7 +12,9 @@
           ],
           "runtimeArgs": [
               "-r",
-              "ts-node/register"
+              "ts-node/register",
+              "--loader",
+              "ts-node/esm"
           ],
           "args": [
               "${workspaceFolder}/src/index.ts"

@@ -12,11 +12,18 @@ import {
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
+import { dirname as PathDirname } from 'path';
+import { fileURLToPath } from 'url';
 
-import docs from './docs';
-import { Helpers } from './events/interactionCreate';
-import console from './util/logger';
-import { MusicSubscription } from './util/Music';
+import docs from './docs.js';
+import { Helpers } from './events/interactionCreate.js';
+import console from './util/logger.js';
+import { MusicSubscription } from './util/Music.js';
+
+const dirname = PathDirname(fileURLToPath(import.meta.url));
+
+// TODO: Remove __dirname
+// TODO: Replace require
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isMissingEnvVarsError(a: any): a is MissingEnvVarsError {
@@ -78,10 +85,12 @@ export const Stats = {
   songsPlayed: 0
 };
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const en = require('../locales/en.json');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const de = require('../locales/de.json');
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import de from '../locales/de.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import en from '../locales/en.json';
 
 i18next.init({
   lng: config.LOCALE,

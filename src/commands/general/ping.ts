@@ -1,8 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command } from '../../index';
-import { getPrefix } from '../../util/database';
+import { Command } from '../../index.js';
+import { getPrefix } from '../../util/database.js';
 
 module.exports = {
   info: {

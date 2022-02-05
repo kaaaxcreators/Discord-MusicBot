@@ -2,10 +2,10 @@ import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import lyricsFinder from 'lyrics-finder';
 
-import { Command, queue as Queue } from '../../index';
-import sendError from '../../util/error';
-import console from '../../util/logger';
-import Util from '../../util/pagination';
+import { Command, queue as Queue } from '../../index.js';
+import sendError from '../../util/error.js';
+import console from '../../util/logger.js';
+import Util from '../../util/pagination.js';
 
 module.exports = {
   info: {

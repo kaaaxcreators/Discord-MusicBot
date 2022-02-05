@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Command, config } from './index';
+import { Command, config } from './index.js';
 
 const commands = new Map<string, Command>();
 /**
