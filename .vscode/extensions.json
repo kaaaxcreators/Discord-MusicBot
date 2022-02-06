@@ -1,4 +1,4 @@
 {
-  "recommendations": ["dbaeumer.vscode-eslint", "stylelint.vscode-stylelint", "coenraads.bracket-pair-colorizer-2", "irongeek.vscode-env", "visualstudioexptteam.vscodeintellicode", "lokalise.i18n-ally", "andrejunges.handlebars"]
+  "recommendations": ["dbaeumer.vscode-eslint", "stylelint.vscode-stylelint", "irongeek.vscode-env", "visualstudioexptteam.vscodeintellicode", "lokalise.i18n-ally", "andrejunges.handlebars"]
   
 }
