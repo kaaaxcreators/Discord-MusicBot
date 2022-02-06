@@ -40,7 +40,7 @@ export default {
         ]
       });
     }
-    database.set(message.guild!.id, { prefix: newprefix });
+    await database.set(message.guild!.id, { prefix: newprefix });
     const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setTitle(i18next.t('prefix.embed.title'))
@@ -79,7 +79,7 @@ export default {
           ]
         });
       } else {
-        database.set(interaction.guildId!, { prefix: newprefix });
+        await database.set(interaction.guildId!, { prefix: newprefix });
         const embed = new MessageEmbed()
           .setColor('YELLOW')
           .setTitle(i18next.t('prefix.embed.title'))

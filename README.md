@@ -50,7 +50,6 @@ Available Languages are `de`, `en`. Defaults to `en`
 - `SCOPES`: Discord OAuth2 Scopes separated with a space. Defaults to `identify guilds applications.commands`
 - `CALLBACK`: Discord OAuth2 Callback URL. Defaults to `/api/callback`
 - `LIVERELOAD`: Enable Livereload. Set to `true` to enable it. (needs browser extension),
-- `PRESENCETYPE`: Discord Presence/Activity Type. Can be `STREAMING, WATCHING, PLAYING, LISTENING`. Defaults to 'LISTENING'
 - `DISABLE_WEB`: Check [here](#-disabling-dashboard)
 - `DIDYOUMEAN`: Check [here](#-didyoumean)
 - `GUILDPREFIX`: Check [here](#-guild-prefix)

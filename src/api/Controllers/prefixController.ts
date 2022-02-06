@@ -36,7 +36,7 @@ export default async function prefixController(req: Request, res: Response): Pro
   } else if (prefix == guildDB.prefix) {
     res.status(304).json({ status: 304 });
   } else {
-    database.set(id, { prefix: prefix });
+    await database.set(id, { prefix: prefix });
     res.json({ prefix: prefix });
   }
 }

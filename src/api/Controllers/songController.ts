@@ -43,7 +43,7 @@ export default async function songController(req: Request, res: Response): Promi
             .setAuthor(
               i18next.t('music.started'),
               'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+        )
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -55,7 +55,8 @@ export default async function songController(req: Request, res: Response): Promi
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`
+            );
           subscription!.textChannel.send({ embeds: [embed] });
         },
         onFinish() {

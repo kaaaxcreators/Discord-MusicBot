@@ -1,6 +1,6 @@
 import { ApplicationCommandData, Client } from 'discord.js';
 import Express from 'express';
-import handlebars from 'express-handlebars';
+import * as handlebars from 'express-handlebars';
 import http from 'http';
 import i18next from 'i18next';
 import { join } from 'path';
@@ -20,7 +20,7 @@ export default async (client: Client) => {
       .set('views', join(__dirname, '../../views/'))
       .engine(
         'hbs',
-        handlebars({
+        handlebars.engine({
           layoutsDir: join(__dirname + '../../../views/layout/'),
           defaultLayout: 'index',
           extname: 'hbs',
@@ -48,7 +48,7 @@ export default async (client: Client) => {
   console.info(`${i18next.t('ready.loggedin')} ${client.user!.username}`);
   client.user?.setPresence({
     status: 'online',
-    activities: [{ name: `${config.PRESENCE} | ${config.prefix}help`, type: config.PRESENCETYPE }]
+    activities: [{ name: `${config.PRESENCE} | ${config.prefix}help`, type: 'LISTENING' }]
   });
   // Set Slash Commands
   // Setup Interactions

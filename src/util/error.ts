@@ -1,14 +1,14 @@
-import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js';
+import { CommandInteraction, MessageEmbed, TextBasedChannel } from 'discord.js';
 import i18next from 'i18next';
 
 /**
  * Easier to send errors instead of doing it over and over
  * @param {String} text - Message to send
- * @param {TextBasedChannels} channel - The Channel to send error to
+ * @param {TextBasedChannel} channel - The Channel to send error to
  */
 export default async (
   text: string,
-  channel: TextBasedChannels | CommandInteraction
+  channel: TextBasedChannel | CommandInteraction
 ): Promise<void> => {
   const embed = new MessageEmbed()
     .setColor('RED')
@@ -22,6 +22,6 @@ export default async (
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isTextBasedChannels(a: any): a is TextBasedChannels {
+function isTextBasedChannels(a: any): a is TextBasedChannel {
   return 'send' in a;
 }

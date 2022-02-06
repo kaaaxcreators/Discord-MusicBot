@@ -10,16 +10,18 @@ import {
   VoiceConnectionDisconnectReason,
   VoiceConnectionStatus
 } from '@discordjs/voice';
-import { StageChannel, TextBasedChannels, User, Util, VoiceChannel } from 'discord.js';
+import { StageChannel, TextBasedChannel, User, Util, VoiceChannel } from 'discord.js';
 import ytdlDiscord from 'discord-ytdl-core';
 import i18next from 'i18next';
 import millify from 'millify';
 import moment from 'moment';
-import scdl from 'soundcloud-downloader/dist/index.js';
+import * as Scdl from 'soundcloud-downloader/dist/index.js';
 import spdl from 'spdl-core';
 import { promisify } from 'util';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
+
+const scdl = Scdl.default;
 
 const wait = promisify(setTimeout);
 
@@ -33,7 +35,7 @@ const noop = () => {};
 export class MusicSubscription {
   public readonly voiceConnection: VoiceConnection;
   public readonly voiceChannel: VoiceChannel | StageChannel;
-  public readonly textChannel: TextBasedChannels;
+  public readonly textChannel: TextBasedChannel;
   public readonly audioPlayer: AudioPlayer;
   public queue: Track[];
   public volume = 80;
@@ -50,7 +52,7 @@ export class MusicSubscription {
   public constructor(
     voiceConnection: VoiceConnection,
     voiceChannel: VoiceChannel | StageChannel,
-    textChannel: TextBasedChannels
+    textChannel: TextBasedChannel
   ) {
     this.voiceConnection = voiceConnection;
     this.voiceChannel = voiceChannel;

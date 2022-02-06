@@ -1,5 +1,4 @@
 import {
-  ActivityType,
   ApplicationCommandOptionData,
   Client,
   Collection,
@@ -12,13 +11,14 @@ import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
 import { mkdir, readdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import i18next from 'i18next';
-import { dirname as PathDirname, join as PathJoin } from 'path';
+import { dirname as PathDirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import docs from './docs.js';
 import { Helpers } from './events/interactionCreate.js';
 import console from './util/logger.js';
 import { MusicSubscription } from './util/Music.js';
+
 
 const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
@@ -54,14 +54,10 @@ export const queue = new Map<Snowflake, MusicSubscription>();
 const locales = ['en', 'de'];
 const locale = process.env.LOCALE || 'en';
 
-const PresenceTypes = ['STREAMING', 'WATCHING', 'PLAYING', 'LISTENING'];
-const PresenceType = <ActivityType>process.env.PRESENCETYPE || 'LISTENING';
-
 export const config: Config = {
   prefix: process.env.PREFIX!,
   TOKEN: process.env.TOKEN!,
   PRESENCE: process.env.PRESENCE!,
-  PRESENCETYPE: PresenceTypes.includes(PresenceType) ? PresenceType : 'LISTENING',
   LOCALE: locales.includes(locale) ? locale : 'en',
   PERMISSION: process.env.PERMS || '2205281600',
   WEBSITE: process.env.WEB!,
@@ -208,7 +204,6 @@ interface Config {
   TOKEN: string;
   prefix: string;
   PRESENCE: string;
-  PRESENCETYPE: ActivityType;
   LOCALE: typeof locales[number];
   PERMISSION: string;
   WEBSITE: string;
