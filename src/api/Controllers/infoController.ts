@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export default async function infoController(req: Request, res: Response): Promise<void> {
-  const { client, config } = await import('../../index');
+  const { client, config } = await import('../../index.js');
   res.send({
     ClientID: client.user?.id,
     Permissions: config.PERMISSION,

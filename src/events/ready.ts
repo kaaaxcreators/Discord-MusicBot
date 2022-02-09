@@ -4,18 +4,21 @@ import * as handlebars from 'express-handlebars';
 import http from 'http';
 import i18next from 'i18next';
 import { join } from 'path';
+import { dirname as PathDirname } from 'path';
 import { Server } from 'socket.io';
+import { fileURLToPath } from 'url';
 
 import { commands, config } from '../index.js';
 import helpers from '../util/helpers.js';
 import console from '../util/logger.js';
+const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
 export default async (client: Client) => {
   let server: http.Server;
   if (!config.DISABLEWEB) {
     // Create API
     server = Express()
-      .use('/', (await import('../api/index')).default)
+      .use('/', (await import('../api/index.js')).default)
       .set('view engine', 'hbs')
       .set('views', join(__dirname, '../../views/'))
       .engine(
@@ -29,7 +32,7 @@ export default async (client: Client) => {
         })
       )
       .listen(process.env.PORT || 8080, () => console.info(i18next.t('server.ready')));
-    (await import('../api/socket')).default(new Server(server));
+    (await import('../api/socket.js')).default(new Server(server));
   }
   // Handle SigInt (Strg + c)
   process.on('SIGINT', function () {

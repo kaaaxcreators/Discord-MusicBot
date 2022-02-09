@@ -21,7 +21,7 @@ export default async function channelsController(req: Request, res: Response): P
   ) {
     res.status(403).json({ status: 403 });
   } else {
-    const client = (await import('../../index')).client;
+    const client = (await import('../../index.js')).client;
     const guild = client.guilds.cache.get(id) || (await client.guilds.fetch(id));
     const user = guild.members.cache.get(req.user.id) || (await guild.members.fetch(req.user.id)!);
     const channels = guild.channels.cache!;

@@ -4,7 +4,7 @@ export default async function serverController(req: Request, res: Response): Pro
   if (!req.user!.guilds!.find((x) => x.id == req.params.id)) {
     return res.redirect('/servers');
   }
-  const { config } = await import('../../index');
+  const { config } = await import('../../index.js');
   res.render('server', {
     locale: config.LOCALE,
     filename: 'server',

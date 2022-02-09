@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 
 export default async function prefixController(req: Request, res: Response): Promise<void> {
   const { prefix, id } = req.params;
-  const { default: database, getGuild } = await import('../../util/database');
+  const { default: database, getGuild } = await import('../../util/database.js');
   const guildDB = await getGuild(id);
-  const { config } = await import('../../index');
+  const { config } = await import('../../index.js');
   // Check if valid request
   if (
     typeof prefix !== 'string' ||

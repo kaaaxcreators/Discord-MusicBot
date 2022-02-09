@@ -15,13 +15,11 @@ import ytdlDiscord from 'discord-ytdl-core';
 import i18next from 'i18next';
 import millify from 'millify';
 import moment from 'moment';
-import * as Scdl from 'soundcloud-downloader/dist/index.js';
+import scdl from 'soundcloud-downloader/dist/index.js';
 import spdl from 'spdl-core';
 import { promisify } from 'util';
 import yts from 'yt-search';
 import ytdl from 'ytdl-core';
-
-const scdl = Scdl.default;
 
 const wait = promisify(setTimeout);
 
@@ -407,6 +405,8 @@ export class Track implements TrackData {
         live: ytdlInfo.videoDetails.isLiveContent,
         req: message.author
       };
+      // TODO: implement soundcloud with soundcloud.ts
+      // eslint-disable-next-line no-constant-condition
     } else if (scdl.isValidUrl(url)) {
       // soundcloud song
       const scdlInfo = await scdl.getInfo(url);

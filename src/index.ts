@@ -8,8 +8,8 @@ import {
   Snowflake
 } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
-import { mkdir, readdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
+import { mkdir, readdir, readFile } from 'fs/promises';
 import i18next from 'i18next';
 import { dirname as PathDirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,7 +18,6 @@ import docs from './docs.js';
 import { Helpers } from './events/interactionCreate.js';
 import console from './util/logger.js';
 import { MusicSubscription } from './util/Music.js';
-
 
 const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
@@ -79,7 +78,9 @@ export const Stats = {
 };
 
 async function getLanguage(language: string) {
-  return JSON.parse((await readFile(`${__dirname}/../locales/${language}.json`, 'utf8')).toString());
+  return JSON.parse(
+    (await readFile(`${__dirname}/../locales/${language}.json`, 'utf8')).toString()
+  );
 }
 
 const de = await getLanguage('de');
@@ -217,11 +218,4 @@ interface Config {
   GUILDACTIONS: boolean;
   UPDATEDIFF: number;
   SLASHCOMMANDS: boolean;
-}
-
-/**
- * support typescript files when using ts-node
- * @author <https://stackoverflow.com/a/45069552/13707908> */
-function endsWithAny(suffixes: string[], string: string) {
-  return suffixes.some((suffix) => string.endsWith(suffix));
 }

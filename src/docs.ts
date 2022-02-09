@@ -1,6 +1,10 @@
 import fs from 'fs';
+import { dirname as PathDirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import { Command, config } from './index.js';
+
+const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
 const commands = new Map<string, Command>();
 /**

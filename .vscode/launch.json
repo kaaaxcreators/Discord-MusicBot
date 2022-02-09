@@ -11,8 +11,6 @@
               "<node_internals>/**"
           ],
           "runtimeArgs": [
-              "-r",
-              "ts-node/register",
               "--loader",
               "ts-node/esm"
           ],

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export default async function NotFoundController(req: Request, res: Response): Promise<void> {
-  const { config } = await import('../../index');
+  const { config } = await import('../../index.js');
   res.status(404);
 
   // respond with html page

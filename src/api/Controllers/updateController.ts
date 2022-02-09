@@ -4,7 +4,7 @@ export default async function updateController(req: Request, res: Response): Pro
   if (!req.user || req.isUnauthenticated() || !req.user.guilds || !req.user.refreshToken) {
     res.status(401).json({ status: 401 });
   } else {
-    (await import('../index')).passportOAuth2Refresh.requestNewAccessToken(
+    (await import('../index.js')).passportOAuth2Refresh.requestNewAccessToken(
       'discord',
       req.user.refreshToken,
       (err, accessToken, refreshToken) => {

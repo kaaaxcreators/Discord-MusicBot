@@ -21,13 +21,13 @@ export default async function skipController(req: Request, res: Response): Promi
   ) {
     res.status(403).json({ status: 403 });
   } else {
-    const serverQueue = (await import('../../index')).queue.get(id);
+    const serverQueue = (await import('../../index.js')).queue.get(id);
     if (serverQueue && serverQueue.voiceConnection && serverQueue.audioPlayer) {
       try {
         serverQueue.skip();
       } catch {
         serverQueue.voiceChannel.guild.me?.voice.disconnect();
-        (await import('../../index')).queue.delete(id);
+        (await import('../../index.js')).queue.delete(id);
       }
     } else {
       res.status(501).json({ status: 501 });

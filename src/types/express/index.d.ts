@@ -1,6 +1,6 @@
 import { User as ApiData } from '@oauth-everything/passport-discord/dist/ApiData';
 import { Profile } from '@oauth-everything/profile';
-import { PartialGuild } from 'discord-oauth2'
+import { PartialGuild } from 'discord-oauth2';
 
 declare global {
   namespace Express {

@@ -2,8 +2,8 @@ import { entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs
 import { Collection, MessageEmbed } from 'discord.js';
 import { resolveSrv as resolveSrvCb } from 'dns';
 import i18next from 'i18next';
-import { fetch, Response } from 'undici';
 import pMS from 'pretty-ms';
+import { fetch, Response } from 'undici';
 import { promisify } from 'util';
 const resolveSrv = promisify(resolveSrvCb);
 

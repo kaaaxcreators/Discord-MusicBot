@@ -30,9 +30,8 @@ export default async function songController(req: Request, res: Response): Promi
   ) {
     res.status(403).json({ status: 403 });
   } else {
-    let subscription = (await import('../../index')).queue.get(id);
-    const Stats = (await import('../../index')).Stats;
-    const client = (await import('../../index')).client;
+    let subscription = (await import('../../index.js')).queue.get(id);
+    const { Stats, client } = await import('../../index.js');
     const user = await client.users.fetch(req.user.id);
     const Song = await Track.from(
       [escapeRegExp(song)],
@@ -43,7 +42,7 @@ export default async function songController(req: Request, res: Response): Promi
             .setAuthor(
               i18next.t('music.started'),
               'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+            )
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -55,8 +54,7 @@ export default async function songController(req: Request, res: Response): Promi
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`
-            );
+            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
           subscription!.textChannel.send({ embeds: [embed] });
         },
         onFinish() {
@@ -122,7 +120,7 @@ export default async function songController(req: Request, res: Response): Promi
           subscription.voiceConnection.on('error', (error) => {
             console.warn(error);
           });
-          (await import('../../index')).queue.set(id, subscription);
+          (await import('../../index.js')).queue.set(id, subscription);
           subscription.enqueue(Song);
           try {
             await entersState(subscription.voiceConnection, VoiceConnectionStatus.Ready, 10e3);
