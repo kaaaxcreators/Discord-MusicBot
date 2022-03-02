@@ -107,7 +107,7 @@ module.exports = async (client: Client, message: Message) => {
       } else {
         return;
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err.message || err);
     }
   } else {

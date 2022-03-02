@@ -23,7 +23,9 @@ import { Song } from './util/playing';
 try {
   dotenv.config();
 } catch (err) {
+  if (isMissingEnvVarsError(err)) {
   EnvError(err);
+  }
 }
 
 export const client = new Client();
@@ -147,7 +149,9 @@ if (!existsSync('db')) {
 try {
   client.login(config.TOKEN).catch((err) => LoginError(err));
 } catch (err) {
-  LoginError(err);
+  if (err instanceof Error) {
+    LoginError(err);
+  }
 }
 
 // Custom Bad Token Error Handling
@@ -174,6 +178,10 @@ function EnvError(err: MissingEnvVarsError) {
       : err
   );
   process.exit();
+}
+
+function isMissingEnvVarsError(err: any): err is MissingEnvVarsError {
+  return 'missing' in err;
 }
 
 /** Represents a Command */

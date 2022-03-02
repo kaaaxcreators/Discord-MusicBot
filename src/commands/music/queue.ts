@@ -57,7 +57,7 @@ module.exports = {
       if (chunked.length > 1) {
         await Util.pagination(queueMsg, message.author, chunked);
       }
-    } catch (e) {
+    } catch (e: any) {
       message.channel.send(`An error occurred: ${e.message}.`);
     }
   }

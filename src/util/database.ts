@@ -10,11 +10,11 @@ export async function getGuild(guildID: string): Promise<Database | false> {
   try {
     const db = await database.get(guildID);
     if (!db) {
-      database.set(guildID, { prefix: config.prefix });
+      await database.set(guildID, { prefix: config.prefix });
       return { prefix: config.prefix };
     }
     return db;
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message || err);
     return false;
   }
@@ -54,6 +54,6 @@ export interface Database {
 }
 
 export interface Customjsoning extends jsoning {
-  set(key: string, value: Database): boolean;
+  set(key: string, value: Database): Promise<boolean>;
   get(key: string): Promise<Database | false>;
 }

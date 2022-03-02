@@ -1,6 +1,6 @@
 import { Client, Collection, Message, MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
-import fetch, { Response } from 'node-fetch';
+import {fetch, Response} from 'undici';
 import pMS from 'pretty-ms';
 
 import { Command, IQueue, queue } from '../../index';

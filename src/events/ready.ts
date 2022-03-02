@@ -20,7 +20,7 @@ module.exports = async (client: Client) => {
       .set('views', join(__dirname, '../../views/'))
       .engine(
         'hbs',
-        handlebars({
+        handlebars.engine({
           layoutsDir: join(__dirname + '../../../views/layout/'),
           defaultLayout: 'index',
           extname: 'hbs',

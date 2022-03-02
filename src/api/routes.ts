@@ -163,7 +163,7 @@ api.post('/api/prefix/:id/:prefix', GuildActions, CSRF.Verify, async (req, res) 
   } else if (prefix == guildDB.prefix) {
     res.status(304).json({ status: 304 });
   } else {
-    database.set(id, { prefix: prefix });
+    await database.set(id, { prefix: prefix });
     return res.json({ prefix: prefix });
   }
 });
@@ -213,7 +213,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           live: songInfo.videoDetails.isLiveContent,
           req: user
         };
-      } catch (error) {
+      } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
     } else if (scdl.isValidUrl(song)) {
@@ -232,7 +232,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           duration: Math.ceil(songInfo.duration!),
           req: user
         };
-      } catch (error) {
+      } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
     } else if (spdl.validateURL(song)) {
@@ -251,7 +251,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           duration: songInfo.duration!,
           req: user
         };
-      } catch (error) {
+      } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
     } else {
@@ -271,7 +271,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           img: songInfo.image,
           req: user
         };
-      } catch (error) {
+      } catch (error: any) {
         return res.json({ status: 500, error: error.message || error });
       }
     }
