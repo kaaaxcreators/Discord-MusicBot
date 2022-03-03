@@ -1,6 +1,6 @@
 import { Client } from 'discord.js';
 import Express from 'express';
-import handlebars from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import http from 'http';
 import i18next from 'i18next';
 import { join } from 'path';
@@ -20,7 +20,7 @@ module.exports = async (client: Client) => {
       .set('views', join(__dirname, '../../views/'))
       .engine(
         'hbs',
-        handlebars.engine({
+        engine({
           layoutsDir: join(__dirname + '../../../views/layout/'),
           defaultLayout: 'index',
           extname: 'hbs',
