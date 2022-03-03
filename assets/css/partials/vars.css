@@ -4,8 +4,8 @@
   --card-text: #000;
   --card-background: var(--bs-gray);
   --text-secondary: #6c757d !important;
-  --text-success: hsl(152, 69%, 50%) !important;
-  --text-danger: hsl(354, 70%, 60%) !important;
+  --text-success: hsl(152deg 69% 50%) !important;
+  --text-danger: hsl(354deg 70% 60%) !important;
   --list-item: var(--bs-gray);
 }
 

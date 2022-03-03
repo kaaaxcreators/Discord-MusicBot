@@ -57,6 +57,7 @@ module.exports = {
       if (chunked.length > 1) {
         await Util.pagination(queueMsg, message.author, chunked);
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       message.channel.send(`An error occurred: ${e.message}.`);
     }

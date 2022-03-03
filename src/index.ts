@@ -24,7 +24,7 @@ try {
   dotenv.config();
 } catch (err) {
   if (isMissingEnvVarsError(err)) {
-  EnvError(err);
+    EnvError(err);
   }
 }
 
@@ -180,6 +180,7 @@ function EnvError(err: MissingEnvVarsError) {
   process.exit();
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isMissingEnvVarsError(err: any): err is MissingEnvVarsError {
   return 'missing' in err;
 }

@@ -213,6 +213,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           live: songInfo.videoDetails.isLiveContent,
           req: user
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
@@ -232,6 +233,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           duration: Math.ceil(songInfo.duration!),
           req: user
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
@@ -251,6 +253,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           duration: songInfo.duration!,
           req: user
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         return res.status(500).json({ status: 500, error: error.message || error });
       }
@@ -271,6 +274,7 @@ api.post('/api/queue/:id/add/:song', GuildActions, CSRF.Verify, async (req, res)
           img: songInfo.image,
           req: user
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         return res.json({ status: 500, error: error.message || error });
       }

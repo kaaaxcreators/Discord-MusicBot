@@ -68,6 +68,7 @@ module.exports = {
           live: songInfo.videoDetails.isLiveContent,
           req: message.author
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -93,6 +94,7 @@ module.exports = {
           duration: Math.ceil(songInfo.duration!),
           req: message.author
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -118,6 +120,7 @@ module.exports = {
           duration: songInfo.duration!,
           req: message.author
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (searchtext.deletable) {
           searchtext.delete();
@@ -145,6 +148,7 @@ module.exports = {
           img: songInfo.image,
           req: message.author
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (searchtext.deletable) {
           searchtext.delete();

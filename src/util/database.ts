@@ -14,6 +14,7 @@ export async function getGuild(guildID: string): Promise<Database | false> {
       return { prefix: config.prefix };
     }
     return db;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error(err.message || err);
     return false;
