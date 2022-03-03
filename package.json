@@ -24,7 +24,7 @@
     "dev": "ts-node src/index.ts"
   },
   "engines": {
-    "node": ">=14.x"
+    "node": ">=16.x"
   },
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
