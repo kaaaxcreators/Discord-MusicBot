@@ -6,7 +6,7 @@ import { getPrefix } from '../../util/database.js';
 import sendError from '../../util/error.js';
 import Util from '../../util/pagination.js';
 
-export default {
+module.exports = {
   info: {
     name: 'queue',
     description: i18next.t('queue.description'),

@@ -7,7 +7,7 @@ import { commands, config, Stats } from '../index.js';
 import { getGuild } from '../util/database.js';
 import sendError from '../util/error.js';
 
-export default async (client: Client, message: Message) => {
+module.exports = async (client: Client, message: Message) => {
   if (message.author.bot) {
     return;
   }

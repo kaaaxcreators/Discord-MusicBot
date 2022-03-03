@@ -4,7 +4,7 @@ import i18next from 'i18next';
 
 import { commands, Stats } from '../index.js';
 
-export default async (client: Client, interaction: Interaction) => {
+module.exports = async (client: Client, interaction: Interaction) => {
   // Only Support Guild Slash Commands
   if (!interaction.isCommand() || !interaction.channel) {
     return;

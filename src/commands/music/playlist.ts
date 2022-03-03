@@ -19,7 +19,7 @@ import { getPrefix } from '../../util/database.js';
 import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 import { MusicSubscription, Track } from '../../util/Music.js';
-export default {
+module.exports = {
   info: {
     name: 'playlist',
     description: i18next.t('playlist.description'),

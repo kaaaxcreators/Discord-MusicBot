@@ -7,7 +7,7 @@ import sendError from '../../util/error.js';
 import console from '../../util/logger.js';
 import Util from '../../util/pagination.js';
 
-export default {
+module.exports = {
   info: {
     name: 'lyrics',
     description: i18next.t('lyrics.description'),

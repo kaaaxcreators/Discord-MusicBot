@@ -13,7 +13,7 @@ import helpers from '../util/helpers.js';
 import console from '../util/logger.js';
 const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
-export default async (client: Client) => {
+module.exports = async (client: Client) => {
   let server: http.Server;
   if (!config.DISABLEWEB) {
     // Create API

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 import {
   ApplicationCommandOptionData,
   Client,
@@ -8,8 +9,7 @@ import {
   Snowflake
 } from 'discord.js';
 import dotenv, { MissingEnvVarsError } from 'dotenv-safe'; //Loading .env
-import { existsSync } from 'fs';
-import { mkdir, readdir, readFile } from 'fs/promises';
+import { existsSync, mkdirSync, readdir } from 'fs';
 import i18next from 'i18next';
 import { dirname as PathDirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -19,7 +19,10 @@ import { Helpers } from './events/interactionCreate.js';
 import console from './util/logger.js';
 import { MusicSubscription } from './util/Music.js';
 
-const __dirname = PathDirname(fileURLToPath(import.meta.url));
+const dirname = PathDirname(fileURLToPath(import.meta.url));
+
+// TODO: Remove __dirname
+// TODO: Replace require
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isMissingEnvVarsError(a: any): a is MissingEnvVarsError {
@@ -77,15 +80,12 @@ export const Stats = {
   songsPlayed: 0
 };
 
-async function getLanguage(language: string) {
-  return JSON.parse(
-    (await readFile(`${__dirname}/../locales/${language}.json`, 'utf8')).toString()
-  );
-}
-
-const de = await getLanguage('de');
-
-const en = await getLanguage('en');
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import de from '../locales/de.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import en from '../locales/en.json';
 
 i18next.init({
   lng: config.LOCALE,
@@ -102,38 +102,56 @@ if (process.env.DOCS == 'true') {
 }
 
 //Loading Events
-const events = await readdir(__dirname + '/events/');
-events.forEach(async (file) => {
-  const path = './' + 'events' + '/' + file;
-  const event = await import(path);
-  const eventName = file.split('.')[0];
-  client.on(eventName, event.default.bind(null, client));
-  console.info(i18next.t('index.event') + ' ' + eventName);
+readdir(__dirname + '/events/', (err, files) => {
+  if (err) {
+    return console.error(err);
+  }
+  files.forEach((file) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const event = require(__dirname + `/events/${file}`);
+    const eventName = file.split('.')[0];
+    client.on(eventName, event.bind(null, client));
+    console.info(i18next.t('index.event') + ' ' + eventName);
+  });
 });
 
 //Loading Music
-const music = await readdir(__dirname + '/commands/music');
-music.forEach(async (file) => {
-  const path = './' + 'commands/music' + '/' + file;
-  const props = await import(path);
-  const commandName = file.split('.')[0];
-  commands.set(commandName, props.default);
-  console.info(i18next.t('index.command.music') + ' ' + commandName);
+readdir(__dirname + '/commands/music', (err, files) => {
+  if (err) {
+    return console.error(err);
+  }
+  files.forEach((file) => {
+    if (!endsWithAny(['.ts', '.js'], file)) {
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const props = require(__dirname + `/commands/music/${file}`);
+    const commandName = file.split('.')[0];
+    commands.set(commandName, props);
+    console.info(i18next.t('index.command.music') + ' ' + commandName);
+  });
 });
 
 //Loading General
-const general = await readdir(__dirname + '/commands/general');
-general.forEach(async (file) => {
-  const path = './' + 'commands/general' + '/' + file;
-  const props = await import(path);
-  const commandName = file.split('.')[0];
-  commands.set(commandName, props.default);
-  console.info(i18next.t('index.command.general') + ' ' + commandName);
+readdir(__dirname + '/commands/general', (err, files) => {
+  if (err) {
+    return console.error(err);
+  }
+  files.forEach((file) => {
+    if (!endsWithAny(['.ts', '.js'], file)) {
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const props = require(__dirname + `/commands/general/${file}`);
+    const commandName = file.split('.')[0];
+    commands.set(commandName, props);
+    console.info(i18next.t('index.command.general') + ' ' + commandName);
+  });
 });
 
 // Setup DB
 if (!existsSync('db')) {
-  await mkdir('db');
+  mkdirSync('db');
 }
 
 // Logging in to discord and start server

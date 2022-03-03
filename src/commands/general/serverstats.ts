@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Command } from '../../index.js';
 import sendError from '../../util/error.js';
 
-export default {
+module.exports = {
   info: {
     name: 'serverstats',
     description: i18next.t('serverstats.description'),

@@ -5,7 +5,7 @@ import { Command, queue } from '../../index.js';
 import sendError from '../../util/error.js';
 import ProgressBar, { Progress } from '../../util/ProgressBar.js';
 
-export default {
+module.exports = {
   info: {
     name: 'nowplaying',
     description: i18next.t('nowplaying.description'),

@@ -6,7 +6,7 @@ import pMS from 'pretty-ms';
 import { Command } from '../../index.js';
 import sendError from '../../util/error.js';
 
-export default {
+module.exports = {
   info: {
     name: 'stats',
     description: i18next.t('stats.description'),

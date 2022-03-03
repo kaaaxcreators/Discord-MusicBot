@@ -5,7 +5,7 @@ import { Command, config } from '../../index.js';
 import database, { getGuild } from '../../util/database.js';
 import sendError from '../../util/error.js';
 
-export default {
+module.exports = {
   info: {
     name: 'prefix',
     description: i18next.t('prefix.description'),

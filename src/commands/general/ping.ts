@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import { Command } from '../../index.js';
 import { getPrefix } from '../../util/database.js';
 
-export default {
+module.exports = {
   info: {
     name: 'ping',
     description: i18next.t('ping.description'),
