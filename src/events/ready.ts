@@ -4,9 +4,7 @@ import * as handlebars from 'express-handlebars';
 import http from 'http';
 import i18next from 'i18next';
 import { join } from 'path';
-import { dirname as PathDirname } from 'path';
 import { Server } from 'socket.io';
-import { fileURLToPath } from 'url';
 
 import { commands, config } from '../index';
 import helpers from '../util/helpers';

@@ -4,10 +4,6 @@ import session from 'express-session';
 import passport from 'passport';
 import passportOAuth2Refresh from 'passport-oauth2-refresh';
 import { join } from 'path';
-import { dirname as PathDirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
 import { client, config } from '../index';
 import routes from './routes';

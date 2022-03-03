@@ -228,3 +228,10 @@ interface Config {
   UPDATEDIFF: number;
   SLASHCOMMANDS: boolean;
 }
+
+/**
+ * support typescript files when using ts-node
+ * @author <https://stackoverflow.com/a/45069552/13707908> */
+function endsWithAny(suffixes: string[], string: string) {
+  return suffixes.some((suffix) => string.endsWith(suffix));
+}

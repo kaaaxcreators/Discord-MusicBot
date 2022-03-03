@@ -3,8 +3,6 @@ import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import livereload from 'livereload';
 import { join } from 'path';
-import { dirname as PathDirname } from 'path';
-import { fileURLToPath } from 'url';
 
 import channelsController from './Controllers/channelsController';
 import dashboardController from './Controllers/dashboardController';
@@ -34,8 +32,6 @@ const limiter = rateLimit({
 api.use(limiter);
 
 api.use(CSRF.Generate);
-
-const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
 if (process.env.LIVERELOAD == 'true') {
   const server = livereload.createServer();
