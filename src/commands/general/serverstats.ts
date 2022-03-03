@@ -2,8 +2,8 @@ import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 import moment from 'moment';
 
-import { Command } from '../../index.js';
-import sendError from '../../util/error.js';
+import { Command } from '../../index';
+import sendError from '../../util/error';
 
 module.exports = {
   info: {

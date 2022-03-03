@@ -9,8 +9,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = PathDirname(fileURLToPath(import.meta.url));
 
-import { client, config } from '../index.js';
-import routes from './routes.js';
+import { client, config } from '../index';
+import routes from './routes';
 
 const api = Router();
 

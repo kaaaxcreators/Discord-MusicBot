@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { config } from '../../index.js';
+import { config } from '../../index';
 
 /**
  * Check if User is logged in

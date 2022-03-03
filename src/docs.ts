@@ -2,7 +2,7 @@ import fs from 'fs';
 import { dirname as PathDirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import { Command, config } from './index.js';
+import { Command, config } from './index';
 
 const __dirname = PathDirname(fileURLToPath(import.meta.url));
 

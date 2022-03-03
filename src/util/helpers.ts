@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import i18next from 'i18next';
 
-export default {
+export = {
   ifEquals: function (arg1: any, arg2: any, options: any): any {
     return arg1 == arg2 ? options.fn(this) : options.inverse(this);
   },

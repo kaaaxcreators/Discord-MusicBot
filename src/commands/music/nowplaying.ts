@@ -1,9 +1,9 @@
 import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command, queue } from '../../index.js';
-import sendError from '../../util/error.js';
-import ProgressBar, { Progress } from '../../util/ProgressBar.js';
+import { Command, queue } from '../../index';
+import sendError from '../../util/error';
+import ProgressBar, { Progress } from '../../util/ProgressBar';
 
 module.exports = {
   info: {

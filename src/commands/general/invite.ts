@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command, config } from '../../index.js';
+import { Command, config } from '../../index';
 
 module.exports = {
   info: {

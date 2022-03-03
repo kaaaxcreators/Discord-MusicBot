@@ -3,10 +3,10 @@ import { MessageEmbed, MessageEmbedOptions } from 'discord.js';
 import i18next from 'i18next';
 import pMS from 'pretty-ms';
 
-import { Command, queue, Stats } from '../../index.js';
-import sendError from '../../util/error.js';
-import console from '../../util/logger.js';
-import { MusicSubscription, Track } from '../../util/Music.js';
+import { Command, queue, Stats } from '../../index';
+import sendError from '../../util/error';
+import console from '../../util/logger';
+import { MusicSubscription, Track } from '../../util/Music';
 
 module.exports = {
   info: {

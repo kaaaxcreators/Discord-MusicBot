@@ -1,10 +1,10 @@
 import { MessageEmbed } from 'discord.js';
 import i18next from 'i18next';
 
-import { Command, queue as Queue } from '../../index.js';
-import { getPrefix } from '../../util/database.js';
-import sendError from '../../util/error.js';
-import Util from '../../util/pagination.js';
+import { Command, queue as Queue } from '../../index';
+import { getPrefix } from '../../util/database';
+import sendError from '../../util/error';
+import Util from '../../util/pagination';
 
 module.exports = {
   info: {

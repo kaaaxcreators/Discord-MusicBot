@@ -14,11 +14,11 @@ import { getTracks, Tracks } from 'spotify-url-info';
 import yts from 'yt-search';
 import ytpl from 'ytpl';
 
-import { Command, queue, Stats } from '../../index.js';
-import { getPrefix } from '../../util/database.js';
-import sendError from '../../util/error.js';
-import console from '../../util/logger.js';
-import { MusicSubscription, Track } from '../../util/Music.js';
+import { Command, queue, Stats } from '../../index';
+import { getPrefix } from '../../util/database';
+import sendError from '../../util/error';
+import console from '../../util/logger';
+import { MusicSubscription, Track } from '../../util/Music';
 module.exports = {
   info: {
     name: 'playlist',

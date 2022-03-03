@@ -11,8 +11,8 @@
               "<node_internals>/**"
           ],
           "runtimeArgs": [
-              "--loader",
-              "ts-node/esm"
+              "-r",
+              "ts-node/register"
           ],
           "args": [
               "${workspaceFolder}/src/index.ts"
