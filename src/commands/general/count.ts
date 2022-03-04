@@ -20,7 +20,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('YELLOW')
       .setDescription(i18next.t('count.embed.description', { servers: client.guilds.cache.size }))
-      .setFooter(i18next.t('count.embed.footer', { prefix: await getPrefix(message) }));
+      .setFooter({ text: i18next.t('count.embed.footer', { prefix: await getPrefix(message) }) });
     return message.channel.send({ embeds: [embed] });
   },
   interaction: {
@@ -29,7 +29,9 @@ module.exports = {
       const embed = new MessageEmbed()
         .setColor('YELLOW')
         .setDescription(i18next.t('count.embed.description', { servers: client.guilds.cache.size }))
-        .setFooter(i18next.t('count.embed.footer', { prefix: await getPrefix(interaction) }));
+        .setFooter({
+          text: i18next.t('count.embed.footer', { prefix: await getPrefix(interaction) })
+        });
       return interaction.reply({ embeds: [embed] });
     }
   }

@@ -30,10 +30,11 @@ module.exports = {
       const embed = new MessageEmbed()
         .setDescription(i18next.t('resume.embed.description'))
         .setColor('YELLOW')
-        .setAuthor(
-          i18next.t('resume.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        );
+        .setAuthor({
+          name: i18next.t('resume.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        });
       return message.channel.send({ embeds: [embed] });
     }
     return sendError(i18next.t('error.nopause'), message.channel);
@@ -56,10 +57,11 @@ module.exports = {
         const embed = new MessageEmbed()
           .setDescription(i18next.t('resume.embed.description'))
           .setColor('YELLOW')
-          .setAuthor(
-            i18next.t('resume.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          );
+          .setAuthor({
+            name: i18next.t('resume.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          });
         return interaction.reply({ embeds: [embed] });
       }
       return sendError(i18next.t('error.nopause'), interaction);

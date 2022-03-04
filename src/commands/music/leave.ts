@@ -34,10 +34,10 @@ module.exports = {
     }
 
     const embed = new MessageEmbed()
-      .setAuthor(
-        i18next.t('leave.embed.author'),
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('leave.embed.author'),
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setColor('GREEN')
       .setTitle(i18next.t('leave.embed.title'))
       .setDescription(i18next.t('leave.embed.description'))
@@ -69,10 +69,11 @@ module.exports = {
       }
 
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('leave.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('leave.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setColor('GREEN')
         .setTitle(i18next.t('leave.embed.title'))
         .setDescription(i18next.t('leave.embed.description'))

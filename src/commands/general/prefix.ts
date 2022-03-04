@@ -36,7 +36,7 @@ module.exports = {
           new MessageEmbed()
             .setTitle(i18next.t('prefix.embed.title'))
             .setDescription(i18next.t('prefix.noargsembed.description', { oldprefix: oldprefix }))
-            .setFooter(i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }))
+            .setFooter({ text: i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }) })
         ]
       });
     }
@@ -47,7 +47,7 @@ module.exports = {
       .setDescription(
         i18next.t('prefix.embed.description', { oldprefix: oldprefix, newprefix: newprefix })
       )
-      .setFooter(i18next.t('prefix.embed.footer', { prefix: newprefix }));
+      .setFooter({ text: i18next.t('prefix.embed.footer', { prefix: newprefix }) });
     return message.channel.send({ embeds: [embed] });
   },
   interaction: {
@@ -75,7 +75,7 @@ module.exports = {
             new MessageEmbed()
               .setTitle(i18next.t('prefix.embed.title'))
               .setDescription(i18next.t('prefix.noargsembed.description', { oldprefix: oldprefix }))
-              .setFooter(i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }))
+              .setFooter({ text: i18next.t('prefix.noargsembed.footer', { oldprefix: oldprefix }) })
           ]
         });
       } else {
@@ -86,7 +86,7 @@ module.exports = {
           .setDescription(
             i18next.t('prefix.embed.description', { oldprefix: oldprefix, newprefix: newprefix })
           )
-          .setFooter(i18next.t('prefix.embed.footer', { prefix: newprefix }));
+          .setFooter({ text: i18next.t('prefix.embed.footer', { prefix: newprefix }) });
         interaction.reply({ embeds: [embed] });
       }
     }

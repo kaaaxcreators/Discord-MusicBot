@@ -44,7 +44,7 @@ module.exports = {
         .addField(i18next.t('stats.embed.running'), uptime.toLocaleString(), true)
         .addField(i18next.t('stats.embed.started'), moment(uptime).fromNow(), true)
         .addField(i18next.t('stats.embed.totalvcs'), totalvcs.toString(), true)
-        .setFooter(message.author.username, message.author.avatarURL()!)
+        .setFooter({ text: message.author.username, iconURL: message.author.avatarURL()! })
         .setTimestamp();
       return message.channel.send({ embeds: [embed] });
     } catch {
@@ -79,7 +79,7 @@ module.exports = {
           .addField(i18next.t('stats.embed.running'), uptime.toLocaleString(), true)
           .addField(i18next.t('stats.embed.started'), moment(uptime).fromNow(), true)
           .addField(i18next.t('stats.embed.totalvcs'), totalvcs.toString(), true)
-          .setFooter(interaction.user.username, interaction.user.avatarURL()!)
+          .setFooter({ text: interaction.user.username, iconURL: interaction.user.avatarURL()! })
           .setTimestamp();
         return interaction.reply({ embeds: [embed] });
       } catch {

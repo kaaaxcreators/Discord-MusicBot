@@ -103,7 +103,7 @@ module.exports = async (client: Client, message: Message) => {
             commands.get(result)?.info.description || i18next.t('error.something')
           )
           .setColor('DARK_VIVID_PINK')
-          .setFooter(message.author.username, message.author.avatarURL()!);
+          .setFooter({ text: message.author.username, iconURL: message.author.avatarURL()! });
         return message.channel.send({ embeds: [embed] });
       } else {
         return;

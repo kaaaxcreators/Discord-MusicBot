@@ -39,10 +39,11 @@ export default async function songController(req: Request, res: Response): Promi
       {
         onStart(info) {
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('music.started'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('music.started'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -54,7 +55,7 @@ export default async function songController(req: Request, res: Response): Promi
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
           subscription!.textChannel.send({ embeds: [embed] });
         },
         onFinish() {
@@ -69,10 +70,11 @@ export default async function songController(req: Request, res: Response): Promi
     if (subscription) {
       subscription.enqueue(Song);
       const embed = new MessageEmbed()
-        .setAuthor(
-          'Song has been added to queue from Dashboard',
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: 'Song has been added to queue from Dashboard',
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(Song.img!)
         .setColor('YELLOW')
         .addField(i18next.t('play.embed.name'), `[${Song.title}](${Song.url})`, true)
@@ -84,7 +86,7 @@ export default async function songController(req: Request, res: Response): Promi
           true
         )
         .addField(i18next.t('play.embed.request'), Song.req.tag, true)
-        .setFooter(`${i18next.t('play.embed.views')} ${Song.views} | ${Song.ago}`);
+        .setFooter({ text: `${i18next.t('play.embed.views')} ${Song.views} | ${Song.ago}` });
       subscription.textChannel.send({ embeds: [embed] });
       res.json(Song);
     } else {

@@ -47,10 +47,10 @@ module.exports = {
       let index = 0;
       const embed = new MessageEmbed()
         .setColor('BLUE')
-        .setAuthor(
-          i18next.t('search.result.author', { args: args.join(' ') }),
-          message.author.displayAvatarURL()
-        )
+        .setAuthor({
+          name: i18next.t('search.result.author', { args: args.join(' ') }),
+          iconURL: message.author.displayAvatarURL()
+        })
         .setDescription(
           `${searched
             .map(
@@ -61,7 +61,7 @@ module.exports = {
             )
             .join('\n')}`
         )
-        .setFooter(i18next.t('search.result.footer'));
+        .setFooter({ text: i18next.t('search.result.footer') });
       (searchtext.editable
         ? searchtext.edit({ embeds: [embed] })
         : message.channel.send({ embeds: [embed] })
@@ -113,10 +113,11 @@ module.exports = {
       req: message.author,
       onStart(info) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('music.started'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('music.started'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(info.img)
           .setColor('BLUE')
           .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -128,7 +129,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('music.request'), info.req.tag, true)
-          .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+          .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
         message.channel.send({ embeds: [embed] });
       },
       onFinish() {
@@ -167,10 +168,11 @@ module.exports = {
 
     if (oldQueue) {
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('play.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('play.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(song.img)
         .setColor('YELLOW')
         .addField(i18next.t('play.embed.name'), `[${song.title}](${song.url})`, true)
@@ -180,7 +182,7 @@ module.exports = {
           true
         )
         .addField(i18next.t('play.embed.request'), song.req.tag, true)
-        .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
+        .setFooter({ text: `${i18next.t('play.embed.views')} ${song.views} | ${song.ago}` });
       return message.channel.send({ embeds: [embed] });
     }
   },
@@ -222,10 +224,10 @@ module.exports = {
         let index = 0;
         const embed = new MessageEmbed()
           .setColor('BLUE')
-          .setAuthor(
-            i18next.t('search.result.author', { args: search }),
-            interaction.user.displayAvatarURL()
-          )
+          .setAuthor({
+            name: i18next.t('search.result.author', { args: search }),
+            iconURL: interaction.user.displayAvatarURL()
+          })
           .setDescription(
             `${searched
               .map(
@@ -236,7 +238,7 @@ module.exports = {
               )
               .join('\n')}`
           )
-          .setFooter(i18next.t('search.result.footer'));
+          .setFooter({ text: i18next.t('search.result.footer') });
         (searchtext.editable
           ? searchtext.edit({ embeds: [embed] })
           : interaction.followUp({ embeds: [embed], fetchReply: true })
@@ -297,10 +299,11 @@ module.exports = {
         req: interaction.user,
         onStart(info) {
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('music.started'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('music.started'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -312,7 +315,7 @@ module.exports = {
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
           interaction.reply({ embeds: [embed] });
         },
         onFinish() {
@@ -351,10 +354,11 @@ module.exports = {
 
       if (oldQueue) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('play.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('play.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(song.img)
           .setColor('YELLOW')
           .addField(i18next.t('play.embed.name'), `[${song.title}](${song.url})`, true)
@@ -364,7 +368,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('play.embed.request'), song.req.tag, true)
-          .setFooter(`${i18next.t('play.embed.views')} ${song.views} | ${song.ago}`);
+          .setFooter({ text: `${i18next.t('play.embed.views')} ${song.views} | ${song.ago}` });
         return interaction.followUp({ embeds: [embed] });
       }
     }

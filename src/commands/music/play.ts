@@ -64,10 +64,11 @@ module.exports = {
       const track = await Track.from(args, message, {
         onStart(info) {
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('music.started'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('music.started'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -79,7 +80,7 @@ module.exports = {
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
           // if oldQueue then don't edit message
           searchtext.editable && !oldQueue
             ? searchtext.edit({ embeds: [embed] })
@@ -96,10 +97,11 @@ module.exports = {
       subscription.enqueue(track);
       if (oldQueue) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('play.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('play.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(track.img!)
           .setColor('YELLOW')
           .addField(i18next.t('play.embed.name'), `[${track.title}](${track.url})`, true)
@@ -111,7 +113,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('play.embed.request'), track.req.tag, true)
-          .setFooter(`${i18next.t('play.embed.views')} ${track.views} | ${track.ago}`);
+          .setFooter({ text: `${i18next.t('play.embed.views')} ${track.views} | ${track.ago}` });
         searchtext.editable
           ? searchtext.edit({ embeds: [embed] })
           : message.channel.send({ embeds: [embed] });
@@ -187,10 +189,11 @@ module.exports = {
         {
           onStart(info) {
             const embed = new MessageEmbed()
-              .setAuthor(
-                i18next.t('music.started'),
-                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-              )
+              .setAuthor({
+                name: i18next.t('music.started'),
+                iconURL:
+                  'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+              })
               .setThumbnail(info.img)
               .setColor('BLUE')
               .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -202,7 +205,7 @@ module.exports = {
                 true
               )
               .addField(i18next.t('music.request'), info.req.tag, true)
-              .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+              .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
             // if oldQueue then don't edit message
             searchtext.editable && !oldQueue
               ? searchtext.edit({ embeds: [embed] })
@@ -220,10 +223,11 @@ module.exports = {
       subscription.enqueue(track);
       if (oldQueue) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('play.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('play.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(track.img!)
           .setColor('YELLOW')
           .addField(i18next.t('play.embed.name'), `[${track.title}](${track.url})`, true)
@@ -235,7 +239,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('play.embed.request'), track.req.tag, true)
-          .setFooter(`${i18next.t('play.embed.views')} ${track.views} | ${track.ago}`);
+          .setFooter({ text: `${i18next.t('play.embed.views')} ${track.views} | ${track.ago}` });
         searchtext.editable
           ? searchtext.edit({ embeds: [embed] })
           : interaction.followUp({ embeds: [embed] });

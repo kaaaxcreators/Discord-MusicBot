@@ -13,7 +13,7 @@ export default async (
   const embed = new MessageEmbed()
     .setColor('RED')
     .setDescription(text)
-    .setFooter(i18next.t('error.something'));
+    .setFooter({ text: i18next.t('error.something') });
   if (isTextBasedChannels(channel)) {
     await channel.send({ embeds: [embed] });
   } else if (channel instanceof CommandInteraction) {

@@ -29,13 +29,13 @@ module.exports = {
     }
     const splittedHelp = Util.chunk(helptext, 1024);
     const embed = new MessageEmbed()
-      .setAuthor(
-        i18next.t('help.embed.author') + ' ' + client.user!.username,
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('help.embed.author') + ' ' + client.user!.username,
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setColor('BLUE')
       .setDescription(splittedHelp[0].join(''))
-      .setFooter(i18next.t('help.embed.footer', { prefix: prefix }));
+      .setFooter({ text: i18next.t('help.embed.footer', { prefix: prefix }) });
 
     if (!args[0]) {
       const helpmsg = await message.channel.send({ embeds: [embed] });
@@ -86,10 +86,11 @@ ${i18next.t('help.spec.aliases')} ${command.info.aliases.join(', ')}
         )}**\n${generalcmds}`;
         const musicText = `\n**:notes: ${i18next.t('help.embed.fields.music')}**\n${musiccmds}`;
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('help.embed.author') + ' ' + client.user!.username,
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('help.embed.author') + ' ' + client.user!.username,
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setColor('BLUE')
           .setDescription(generalText + musicText);
         interaction.reply({ embeds: [embed] });

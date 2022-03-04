@@ -65,7 +65,7 @@ module.exports = {
             'serverstats.embed.other.created'
           )} ${guild.createdAt.toLocaleDateString()}, ${moment(guild.createdAt).fromNow()}`
         )
-        .setFooter(message.author.username, message.author.avatarURL()!)
+        .setFooter({ text: message.author.username, iconURL: message.author.avatarURL()! })
         .setTimestamp();
       return message.channel.send({ embeds: [embed] });
     } catch {
@@ -126,7 +126,7 @@ module.exports = {
               'serverstats.embed.other.created'
             )} ${guild.createdAt.toLocaleDateString()}, ${moment(guild.createdAt).fromNow()}`
           )
-          .setFooter(interaction.user.username, interaction.user.avatarURL()!)
+          .setFooter({ text: interaction.user.username, iconURL: interaction.user.avatarURL()! })
           .setTimestamp();
         return interaction.reply({ embeds: [embed] });
       } catch {

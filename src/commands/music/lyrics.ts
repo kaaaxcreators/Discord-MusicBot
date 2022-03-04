@@ -39,14 +39,14 @@ module.exports = {
     const splittedLyrics = Util.chunk(lyrics, 1024);
 
     const embed = new MessageEmbed()
-      .setAuthor(
-        i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setThumbnail(queue.queue[0].img)
       .setColor('YELLOW')
       .setDescription(splittedLyrics[0].join(''))
-      .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))
+      .setFooter({ text: i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }) })
       .setTimestamp();
 
     const lyricsMsg = await message.channel.send({ embeds: [embed] });
@@ -75,14 +75,15 @@ module.exports = {
       const splittedLyrics = Util.chunk(lyrics, 1024);
 
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('lyrics.embed.author', { song: queue.queue[0].title }),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(queue.queue[0].img)
         .setColor('YELLOW')
         .setDescription(splittedLyrics[0].join(''))
-        .setFooter(i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }))
+        .setFooter({ text: i18next.t('lyrics.embed.footer', { pages: splittedLyrics.length }) })
         .setTimestamp();
 
       const lyricsMsg = await interaction.reply({ embeds: [embed], fetchReply: true });

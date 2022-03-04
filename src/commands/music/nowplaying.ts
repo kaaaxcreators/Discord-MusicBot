@@ -34,17 +34,17 @@ module.exports = {
       Progress = ProgressBar(serverQueue.currentResource.playbackDuration, song.duration, 10);
     }
     const embed = new MessageEmbed()
-      .setAuthor(
-        i18next.t('nowplaying.embed.author'),
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('nowplaying.embed.author'),
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setThumbnail(song.img)
       .setColor('BLUE')
       .addField(i18next.t('nowplaying.embed.name'), song.title, true)
       .addField(i18next.t('nowplaying.embed.progress'), Progress.Bar, true)
       .addField(i18next.t('nowplaying.embed.percentage'), Progress.percentageText, true)
       .addField(i18next.t('nowplaying.embed.request'), song.req.tag, true)
-      .setFooter(`${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}`);
+      .setFooter({ text: `${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}` });
     return message.channel.send({ embeds: [embed] });
   },
   interaction: {
@@ -65,17 +65,18 @@ module.exports = {
         Progress = ProgressBar(serverQueue.currentResource.playbackDuration, song.duration, 10);
       }
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('nowplaying.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('nowplaying.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(song.img)
         .setColor('BLUE')
         .addField(i18next.t('nowplaying.embed.name'), song.title, true)
         .addField(i18next.t('nowplaying.embed.progress'), Progress.Bar, true)
         .addField(i18next.t('nowplaying.embed.percentage'), Progress.percentageText, true)
         .addField(i18next.t('nowplaying.embed.request'), song.req.tag, true)
-        .setFooter(`${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}`);
+        .setFooter({ text: `${i18next.t('nowplaying.embed.views')} ${song.views} | ${song.ago}` });
       return interaction.reply({ embeds: [embed] });
     }
   }

@@ -57,7 +57,9 @@ export default class Util {
             // @ts-ignore
             Array.isArray(contents[currPage]) ? contents[currPage].join('') : contents[currPage]
           )
-          .setFooter(i18next.t('pagination', { page: currPage + 1, pages: contents.length }));
+          .setFooter({
+            text: i18next.t('pagination', { page: currPage + 1, pages: contents.length })
+          });
 
         msg.edit({ embeds: [embed] });
 

@@ -43,10 +43,10 @@ module.exports = {
     serverQueue.setVolume(parseInt(args[0]));
     const embed = new MessageEmbed()
       .setDescription(i18next.t('volume.embed.description', { volume: Number(args[0]) / 1 }))
-      .setAuthor(
-        'Server Volume Manager',
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: 'Server Volume Manager',
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setColor('BLUE');
     return message.channel.send({ embeds: [embed] });
   },
@@ -86,10 +86,11 @@ module.exports = {
       serverQueue.setVolume(volume);
       const embed = new MessageEmbed()
         .setDescription(i18next.t('volume.embed.description', { volume: volume / 1 }))
-        .setAuthor(
-          'Server Volume Manager',
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: 'Server Volume Manager',
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setColor('BLUE');
       return interaction.reply({ embeds: [embed] });
     }

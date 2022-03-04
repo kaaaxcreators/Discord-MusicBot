@@ -89,10 +89,11 @@ module.exports = {
       req: message.author,
       onStart(info) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('music.started'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('music.started'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(info.img)
           .setColor('BLUE')
           .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -104,7 +105,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('music.request'), info.req.tag, true)
-          .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+          .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
         message.channel.send({ embeds: [embed] });
       },
       onFinish() {
@@ -142,10 +143,11 @@ module.exports = {
 
     if (oldQueue) {
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('radio.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('radio.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(song.img!)
         .setColor('YELLOW')
         .addField(i18next.t('radio.embed.name'), `[${song.title}](${song.url})`, true)
@@ -157,7 +159,7 @@ module.exports = {
           true
         )
         .addField(i18next.t('radio.embed.request'), song.req.tag, true)
-        .setFooter(`${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}`);
+        .setFooter({ text: `${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}` });
       return message.channel.send({ embeds: [embed] });
     }
   },
@@ -205,10 +207,11 @@ module.exports = {
         req: interaction.user,
         onStart(info) {
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('music.started'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('music.started'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -220,7 +223,7 @@ module.exports = {
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
           interaction.reply({ embeds: [embed] });
         },
         onFinish() {
@@ -258,10 +261,11 @@ module.exports = {
 
       if (oldQueue) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('radio.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('radio.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(song.img!)
           .setColor('YELLOW')
           .addField(i18next.t('radio.embed.name'), `[${song.title}](${song.url})`, true)
@@ -273,7 +277,7 @@ module.exports = {
             true
           )
           .addField(i18next.t('radio.embed.request'), song.req.tag, true)
-          .setFooter(`${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}`);
+          .setFooter({ text: `${i18next.t('radio.embed.views')} ${song.views} | ${song.ago}` });
         return interaction.reply({ embeds: [embed] });
       }
     }

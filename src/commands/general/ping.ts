@@ -28,7 +28,7 @@ module.exports = {
           true
         )
         .addField('WebSocket', Math.round(client.ws.ping) + 'ms', true)
-        .setFooter(i18next.t('ping.embed.footer', { prefix: await getPrefix(message) }));
+        .setFooter({ text: i18next.t('ping.embed.footer', { prefix: await getPrefix(message) }) });
       message.channel.send({ embeds: [embed] });
     });
   },
@@ -51,7 +51,9 @@ module.exports = {
           true
         )
         .addField('WebSocket', Math.round(client.ws.ping) + 'ms', true)
-        .setFooter(i18next.t('ping.embed.footer', { prefix: await getPrefix(interaction) }));
+        .setFooter({
+          text: i18next.t('ping.embed.footer', { prefix: await getPrefix(interaction) })
+        });
       interaction.editReply({ content: null, embeds: [embed] });
     }
   }

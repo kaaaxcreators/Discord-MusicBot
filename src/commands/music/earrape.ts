@@ -37,10 +37,10 @@ module.exports = {
     serverQueue.setVolume(volume);
     const embed = new MessageEmbed()
       .setDescription(i18next.t('earrape.embed.description', { volume: volume / 1 }))
-      .setAuthor(
-        i18next.t('earrape.embed.author'),
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('earrape.embed.author'),
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setColor('BLUE');
     return message.channel.send({ embeds: [embed] });
   },
@@ -69,10 +69,11 @@ module.exports = {
       serverQueue.setVolume(volume);
       const embed = new MessageEmbed()
         .setDescription(i18next.t('earrape.embed.description', { volume: volume / 1 }))
-        .setAuthor(
-          i18next.t('earrape.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('earrape.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setColor('BLUE');
       return interaction.reply({ embeds: [embed] });
     }

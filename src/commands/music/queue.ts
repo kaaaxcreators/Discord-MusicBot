@@ -31,10 +31,10 @@ module.exports = {
     const chunked = Util.chunk(que, 10).map((x) => x.join('\n'));
 
     const embed = new MessageEmbed()
-      .setAuthor(
-        i18next.t('queue.embed.author'),
-        'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-      )
+      .setAuthor({
+        name: i18next.t('queue.embed.author'),
+        iconURL: 'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+      })
       .setThumbnail(message.guild!.iconURL()!)
       .setColor('BLUE')
       .setDescription(chunked[0])
@@ -45,7 +45,9 @@ module.exports = {
       )
       .addField(i18next.t('queue.embed.text'), queue.textChannel.toString(), true)
       .addField(i18next.t('queue.embed.voice'), queue.voiceChannel.toString(), true)
-      .setFooter(i18next.t('queue.embed.footer', { volume: queue.volume, pages: chunked.length }));
+      .setFooter({
+        text: i18next.t('queue.embed.footer', { volume: queue.volume, pages: chunked.length })
+      });
     if (queue.queue.length === 1) {
       embed.setDescription(
         i18next.t('queue.embed.description', { prefix: await getPrefix(message) })
@@ -78,10 +80,11 @@ module.exports = {
       const chunked = Util.chunk(que, 10).map((x) => x.join('\n'));
 
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('queue.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('queue.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(interaction.guild!.iconURL()!)
         .setColor('BLUE')
         .setDescription(chunked[0])
@@ -92,9 +95,9 @@ module.exports = {
         )
         .addField(i18next.t('queue.embed.text'), queue.textChannel.toString(), true)
         .addField(i18next.t('queue.embed.voice'), queue.voiceChannel.toString(), true)
-        .setFooter(
-          i18next.t('queue.embed.footer', { volume: queue.volume, pages: chunked.length })
-        );
+        .setFooter({
+          text: i18next.t('queue.embed.footer', { volume: queue.volume, pages: chunked.length })
+        });
       if (queue.queue.length === 1) {
         embed.setDescription(
           i18next.t('queue.embed.description', { prefix: await getPrefix(interaction) })

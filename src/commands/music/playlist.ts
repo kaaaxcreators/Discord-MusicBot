@@ -57,10 +57,11 @@ module.exports = {
         }
         await handleVideo(playlist.items, message, channel, searchtext);
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('playlist.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('playlist.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(playlist.bestThumbnail.url!)
           .setColor('GREEN')
           .setDescription(
@@ -83,10 +84,11 @@ module.exports = {
         const songInfo = await spdl.getInfo(playlist[0].external_urls.spotify);
         handleVideo(playlist, message, channel, searchtext);
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('playlist.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('playlist.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(
@@ -113,10 +115,11 @@ module.exports = {
         const playlist = await ytpl(listurl);
         await handleVideo(playlist.items, message, channel, searchtext);
         const embed = new MessageEmbed()
-          .setAuthor(
-            i18next.t('playlist.embed.author'),
-            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-          )
+          .setAuthor({
+            name: i18next.t('playlist.embed.author'),
+            iconURL:
+              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+          })
           .setThumbnail(songInfo.thumbnail)
           .setColor('GREEN')
           .setDescription(i18next.t('paylist.added', { playlist: songInfo.title, videos: length }));
@@ -165,10 +168,11 @@ module.exports = {
           }
           await handleVideo(playlist.items, interaction, channel, searchtext);
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('playlist.embed.author'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('playlist.embed.author'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(playlist.bestThumbnail.url!)
             .setColor('GREEN')
             .setDescription(
@@ -192,10 +196,11 @@ module.exports = {
           const songInfo = await spdl.getInfo(playlist[0].external_urls.spotify);
           handleVideo(playlist, interaction, channel, searchtext);
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('playlist.embed.author'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('playlist.embed.author'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(songInfo.thumbnail)
             .setColor('GREEN')
             .setDescription(
@@ -222,10 +227,11 @@ module.exports = {
           const playlist = await ytpl(listurl);
           await handleVideo(playlist.items, interaction, channel, searchtext);
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('playlist.embed.author'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('playlist.embed.author'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(songInfo.thumbnail)
             .setColor('GREEN')
             .setDescription(
@@ -310,10 +316,11 @@ async function handleVideo(
         req: isCommandInteraction(message) ? message.user : message.author,
         onStart(info) {
           const embed = new MessageEmbed()
-            .setAuthor(
-              i18next.t('music.started'),
-              'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-            )
+            .setAuthor({
+              name: i18next.t('music.started'),
+              iconURL:
+                'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+            })
             .setThumbnail(info.img)
             .setColor('BLUE')
             .addField(i18next.t('music.name'), `[${info.title}](${info.url})`, true)
@@ -325,7 +332,7 @@ async function handleVideo(
               true
             )
             .addField(i18next.t('music.request'), info.req.tag, true)
-            .setFooter(`${i18next.t('music.views')} ${info.views} | ${info.ago}`);
+            .setFooter({ text: `${i18next.t('music.views')} ${info.views} | ${info.ago}` });
           // if oldQueue then don't edit message
           searchtext.editable && !oldQueue
             ? searchtext.edit({ embeds: [embed] })
@@ -346,10 +353,11 @@ async function handleVideo(
       });
       subscription.enqueue(track);
       const embed = new MessageEmbed()
-        .setAuthor(
-          i18next.t('play.embed.author'),
-          'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
-        )
+        .setAuthor({
+          name: i18next.t('play.embed.author'),
+          iconURL:
+            'https://raw.githubusercontent.com/kaaaxcreators/discordjs/master/assets/Music.gif'
+        })
         .setThumbnail(track.img!)
         .setColor('YELLOW')
         .addField(i18next.t('play.embed.name'), `[${track.title}](${track.url})`, true)
@@ -361,7 +369,7 @@ async function handleVideo(
           true
         )
         .addField(i18next.t('play.embed.request'), track.req.tag, true)
-        .setFooter(`${i18next.t('play.embed.views')} ${track.views} | ${track.ago}`);
+        .setFooter({ text: `${i18next.t('play.embed.views')} ${track.views} | ${track.ago}` });
       searchtext.editable
         ? searchtext.edit({ embeds: [embed] })
         : isCommandInteraction(message)
