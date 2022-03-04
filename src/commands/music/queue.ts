@@ -14,7 +14,7 @@ module.exports = {
     aliases: ['q', 'list', 'songlist', 'song-list'],
     categorie: 'music',
     permissions: {
-      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES', 'ADD_REACTIONS'],
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
       member: []
     }
   },

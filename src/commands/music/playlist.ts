@@ -27,14 +27,7 @@ module.exports = {
     aliases: ['pl'],
     categorie: 'music',
     permissions: {
-      channel: [
-        'VIEW_CHANNEL',
-        'SEND_MESSAGES',
-        'EMBED_LINKS',
-        'CONNECT',
-        'SPEAK',
-        'MANAGE_MESSAGES'
-      ],
+      channel: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
       member: []
     }
   },
