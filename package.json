@@ -51,7 +51,7 @@
     "socket.io": "^4.4.1",
     "soundcloud-downloader": "^1.0.0",
     "spdl-core": "^2.0.2",
-    "spotify-url-info": "^2.2.7",
+    "spotify-url-info": "^3.0.5",
     "tslog": "^3.3.3",
     "undici": "^4.16.0",
     "youtube-sr": "^4.1.15",
