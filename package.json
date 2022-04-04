@@ -44,7 +44,7 @@
     "jsoning": "^0.13.23",
     "lyrics-finder": "^21.7.0",
     "millify": "^4.0.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "passport": "^0.5.2",
     "passport-oauth2-refresh": "^2.1.0",
     "pretty-ms": "^7.0.1",
