@@ -84,7 +84,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "livereload": "^0.9.3",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "stylelint": "^14.6.1",
     "stylelint-config-standard": "^25.0.0",
     "ts-node": "^10.7.0",
