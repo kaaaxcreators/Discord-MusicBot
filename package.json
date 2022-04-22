@@ -54,7 +54,7 @@
     "spotify-url-info": "^2.2.7",
     "tslog": "^3.3.3",
     "undici": "^5.0.0",
-    "youtube-sr": "^4.1.15",
+    "youtube-sr": "^4.1.17",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.0",
     "ytpl": "^2.3.0"
