@@ -48,7 +48,7 @@
     "passport": "^0.5.2",
     "passport-oauth2-refresh": "^2.1.0",
     "pretty-ms": "^7.0.1",
-    "socket.io": "^4.4.1",
+    "socket.io": "^4.5.0",
     "soundcloud-downloader": "^1.0.0",
     "spdl-core": "^2.0.2",
     "spotify-url-info": "^2.2.7",
