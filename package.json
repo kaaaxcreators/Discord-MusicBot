@@ -71,7 +71,7 @@
     "@types/jquery": "^3.5.14",
     "@types/livereload": "^0.9.2",
     "@types/node-fetch": "^2.6.1",
-    "@types/passport": "^1.0.7",
+    "@types/passport": "^1.0.8",
     "@types/passport-oauth2-refresh": "^1.1.1",
     "@types/yt-search": "^2.3.2",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
