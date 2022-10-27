@@ -1,3 +1,4 @@
+Not maintained anymore. Likely to not work anymore
 # 🤖 Typescript Discord Music Bot
 
 [![wakatime](https://wakatime.com/badge/github/kaaaxcreators/Discord-MusicBot.svg)](https://wakatime.com/badge/github/kaaaxcreators/Discord-MusicBot)
