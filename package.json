@@ -47,7 +47,7 @@
     "moment": "^2.29.3",
     "passport": "^0.6.0",
     "passport-oauth2-refresh": "^2.1.0",
-    "pretty-ms": "^7.0.1",
+    "pretty-ms": "^8.0.0",
     "socket.io": "^4.5.1",
     "soundcloud-downloader": "^1.0.0",
     "spdl-core": "^2.0.2",
